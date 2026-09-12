@@ -1,0 +1,77 @@
+"""
+SAT Master AI - User Statistics & Admin Backup Triggers
+"""
+
+from aiogram import Router, F
+from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from database import db
+from services.backup_service import perform_backup
+
+router = Router()
+
+@router.message(F.text == "/stats")
+async def cmd_stats(message: Message):
+    user_id = message.from_user.id
+    user_name = message.from_user.first_name or "Abituriyent"
+    
+    user_data = db.local_cache.get("users", {}).get(str(user_id), {})
+    quizzes_taken = user_data.get("quizzes_taken", 0)
+    last_score = user_data.get("last_score", "Topshirilmagan")
+    streak = user_data.get("streak", 0)
+    ref_count = user_data.get("referrals_count", 0)
+
+    text = (
+        f"📊 <b>SHAXSIY STATISTIKA VA NATIJALAR</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"👤 <b>Abituriyent:</b> {user_name}\n"
+        f"🔥 <b>Intizom ketma-ketligi:</b> {streak} kun\n"
+        f"📝 <b>Yechilgan testlar:</b> {quizzes_taken} ta\n"
+        f"🎯 <b>So'nggi Math balli:</b> {last_score} / 800\n"
+        f"👥 <b>Taklif qilingan do'stlar:</b> {ref_count} ta\n\n"
+        f"💡 <i>Natijangizni oshirish uchun har kuni kamida 1 ta test topshiring!</i>"
+    )
+
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🔬 Yangi Rentgen Test ➡️", callback_data="start_diagnostic")],
+        [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
+    ])
+    await message.answer(text, reply_markup=kb, parse_mode="HTML")
+
+@router.callback_query(F.data == "my_stats")
+async def cb_stats(callback: CallbackQuery):
+    user_id = callback.from_user.id
+    user_name = callback.from_user.first_name or "Abituriyent"
+    
+    user_data = db.local_cache.get("users", {}).get(str(user_id), {})
+    quizzes_taken = user_data.get("quizzes_taken", 0)
+    last_score = user_data.get("last_score", "Topshirilmagan")
+    streak = user_data.get("streak", 0)
+    ref_count = user_data.get("referrals_count", 0)
+
+    text = (
+        f"📊 <b>SHAXSIY STATISTIKA VA NATIJALAR</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"👤 <b>Abituriyent:</b> {user_name}\n"
+        f"🔥 <b>Intizom ketma-ketligi:</b> {streak} kun\n"
+        f"📝 <b>Yechilgan testlar:</b> {quizzes_taken} ta\n"
+        f"🎯 <b>So'nggi Math balli:</b> {last_score} / 800\n"
+        f"👥 <b>Taklif qilingan do'stlar:</b> {ref_count} ta\n\n"
+        f"💡 <i>Natijangizni oshirish uchun har kuni kamida 1 ta test topshiring!</i>"
+    )
+
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🔬 Yangi Rentgen Test ➡️", callback_data="start_diagnostic")],
+        [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
+    ])
+    await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    await callback.answer()
+
+@router.message(F.text == "/backup")
+async def cmd_manual_backup(message: Message):
+    """Allows manual trigger of cloud backup to backup channel."""
+    status_msg = await message.answer("⏳ <i>Zaxira nusxasi olinmoqda va kanalga yuklanmoqda...</i>", parse_mode="HTML")
+    success = await perform_backup(message.bot, manual=True)
+    if success:
+        await status_msg.edit_text("✅ <b>Zaxira nusxasi (@acacafagag) kanaliga muvaffaqiyatli jo'natildi!</b>", parse_mode="HTML")
+    else:
+        await status_msg.edit_text("❌ <b>Zaxiralashda xatolik yuz berdi. Loglarni tekshiring.</b>", parse_mode="HTML")

@@ -139,6 +139,24 @@ async def finish_quiz(callback: CallbackQuery):
     session = USER_SESSIONS.get(user_id, {"correct": 0, "incorrect_items": []})
     user_name = callback.from_user.full_name or "Abituriyent"
 
+    # Calculate score & points lost
+    points_lost = sum(item.get("points_lost", 20) for item in session["incorrect_items"])
+    estimated_score = max(800 - points_lost, 400)
+    weaknesses = [item.get("topic", "General") for item in session["incorrect_items"]]
+
+    # Save to Database (MongoDB Atlas + Local)
+    try:
+        from database import db
+        await db.save_quiz_result(
+            user_id=user_id,
+            score=estimated_score,
+            correct=session["correct"],
+            total=len(QUESTIONS),
+            weaknesses=weaknesses
+        )
+    except Exception as e:
+        pass
+
     report = generate_surgery_report(
         user_name=user_name,
         total_q=len(QUESTIONS),
@@ -148,7 +166,11 @@ async def finish_quiz(callback: CallbackQuery):
 
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🔄 Testni Qayta Topshirish", callback_data="start_diagnostic")],
-        [InlineKeyboardButton(text="📱 60 Kunlik SAT Tracker (Web App)", callback_data="open_webapp_info")]
+        [
+            InlineKeyboardButton(text="👥 Do'stlarni Taklif Qilish (VIP)", callback_data="referral_menu"),
+            InlineKeyboardButton(text="📊 Mening Natijam", callback_data="my_stats")
+        ],
+        [InlineKeyboardButton(text="📱 60 Kunlik SAT Tracker (Web App)", url="https://sat-master-bot.onrender.com/webapp")]
     ])
 
     await callback.message.edit_text(report, reply_markup=kb, parse_mode="HTML")

@@ -18,10 +18,13 @@ from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.types import BotCommand
 
-from config import BOT_TOKEN, WEBAPP_URL
+from config import BOT_TOKEN, WEBAPP_URL, BACKUP_CHANNEL
 from database import db
 from handlers.start import router as start_router
 from handlers.diagnostic import router as diag_router
+from handlers.referral import router as referral_router
+from handlers.stats import router as stats_router
+from services.backup_service import backup_scheduler_loop
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("SATAIBot")
@@ -75,14 +78,22 @@ async def main():
     # Register routers
     dp.include_router(start_router)
     dp.include_router(diag_router)
+    dp.include_router(referral_router)
+    dp.include_router(stats_router)
 
     # Set commands menu
     commands = [
         BotCommand(command="start", description="Bosh menyu va AI Rentgen"),
-        BotCommand(command="diagnostic", description="5 daqiqalik Rentgen Test"),
-        BotCommand(command="desmos", description="Desmos Cheatcodes")
+        BotCommand(command="diagnostic", description="Rentgen Test (Math)"),
+        BotCommand(command="desmos", description="Desmos Cheatcodes"),
+        BotCommand(command="referral", description="Do'stlarni taklif qilish"),
+        BotCommand(command="stats", description="Mening natijalarim"),
+        BotCommand(command="backup", description="Bulutli zaxira (Admin)")
     ]
     await bot.set_my_commands(commands)
+
+    # Launch 30-Minute Automatic Backup Scheduler Loop to @acacafagag
+    asyncio.create_task(backup_scheduler_loop(bot, interval_seconds=1800))
 
     # Automatically set Bot Name, Bio (Short Description), and Welcome Description
     try:

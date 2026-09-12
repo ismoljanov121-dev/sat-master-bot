@@ -4,7 +4,7 @@
     "topic": "Advanced Math - Quadratic & Linear Systems",
     "question": "Quyidagi tenglamalar sistemasining nechta haqiqiy yechimi (x, y) mavjud?\n\ny = 2x² - 4x + 7\ny = 2x + 1",
     "options": [
-      {"key": "A", "text": "0 ta"},
+      {"key": "A", "text": "0 ta (Yechim yo'q)"},
       {"key": "B", "text": "1 ta"},
       {"key": "C", "text": "2 ta"},
       {"key": "D", "text": "Cheksiz ko'p"}
@@ -78,5 +78,37 @@
     "trap": "Vertex koordinatasi (4, 15) bo'lgani uchun x = 4 bilan y = 15 ni adashtirib A ni tanlashadi.",
     "desmos_hack": "⚡ DESMOSDA 3 SONIYADA:\nDesmosga f(x) = -3(x - 4)^2 + 15 deb yozing. Parabolaning eng yuqori cho'qqisini bosing: (4, 15). Maksimal qiymat har doim y qiymatidir, ya'ni 15 (Variant B)!",
     "explanation": "Vertex shaklida y = a(x - h)² + k. Bu yerda h = 4, k = 15. a = -3 < 0 bo'lgani uchun parabola pastga qaragan, eng yuqori qiymat y = 15 da erishiladi."
+  },
+  {
+    "id": 6,
+    "topic": "Algebra - Systems with No Solution (Parallel Lines)",
+    "question": "Quyidagi tenglamalar sistemasi x va y uchun yechimga ega bo'lmasa, a ning qiymati nechaga teng?\n\n3x - 5y = 12\nax + 10y = 7",
+    "options": [
+      {"key": "A", "text": "-6"},
+      {"key": "B", "text": "6"},
+      {"key": "C", "text": "-3"},
+      {"key": "D", "text": "15"}
+    ],
+    "correct": "A",
+    "points_lost": 25,
+    "trap": "Ishoralarda adashish: -5y dan 10y ga o'tish uchun koeffitsient -2 ga ko'payganini e'tibordan chetda qoldirishadi.",
+    "desmos_hack": "⚡ DESMOSDA 8 SONIYADA:\n1. 1-qator: 3x - 5y = 12\n2. 2-qator: ax + 10y = 7 (va 'add slider a' ni bosing)\na slaydridan -6 ni tanlang: ikkala to'g'ri chiziq 100% parallel bo'lib qoladi va hech qachon kesishmaydi! Javob: -6 (Variant A).",
+    "explanation": "Yechim bo'lmasligi uchun burchak koeffitsientlari teng bo'lishi kerak: a/3 = 10/(-5) => a/3 = -2 => a = -6."
+  },
+  {
+    "id": 7,
+    "topic": "Geometry & Trigonometry - Complementary Angle Theorem",
+    "question": "To'g'ri burchakli uchburchakda sin(x°) = cos(3x - 10°) bo'lsa, x ning qiymatini toping (x > 0).",
+    "options": [
+      {"key": "A", "text": "25°"},
+      {"key": "B", "text": "20°"},
+      {"key": "C", "text": "30°"},
+      {"key": "D", "text": "45°"}
+    ],
+    "correct": "A",
+    "points_lost": 25,
+    "trap": "sin(A) = cos(B) formulasi A + B = 90° ekanini bilmay, tenglikni x = 3x - 10 deb x = 5 chiqarishadi.",
+    "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\nDesmosga to'g'ridan-to'g'ri yozing: x + (3x - 10) = 90. Desmos x = 25 deb bitta chiziqda javobni ko'rsatadi! Javob: 25 (Variant A).",
+    "explanation": "College Boardning eng mashhur teoremasi: sin(A) = cos(B) bo'lsa, A + B = 90°. Demak x + 3x - 10 = 90 => 4x = 100 => x = 25."
   }
 ]
