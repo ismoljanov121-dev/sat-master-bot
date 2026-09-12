@@ -34,7 +34,7 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
-                text="📱 60 Kunlik Kundalik (Web App)",
+                text="📱 Shaxsiy Rejim & 60 Kunlik Tracker (Web App)",
                 web_app=WebAppInfo(url=WEBAPP_URL)
             )
         ],
@@ -150,3 +150,22 @@ async def back_to_menu(callback: CallbackQuery):
     )
     await callback.message.edit_text(welcome_text, reply_markup=get_main_menu_keyboard(), parse_mode="HTML")
     await callback.answer()
+
+@router.message(Command("webapp"))
+@router.message(Command("rejim"))
+async def cmd_webapp(message: Message):
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📱 Shaxsiy Rejim & Trackerni Ochish", web_app=WebAppInfo(url=WEBAPP_URL))],
+        [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
+    ])
+    text = (
+        "📱 <b>SHAXSIY REJIM & 60 KUNLIK INTIZOM TRACKERI</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "Ushbu interaktiv Mini App orqali siz:\n"
+        "• 🤖 <b>AI Generator:</b> O'zingizga mos ideal kun tartibini avtomatik tuzasiz.\n"
+        "• ✨ <b>Tayyor Andozalar:</b> SAT 1500+ Standart, Gap Year yoki Maktab rejimlaridan foydalanasiz.\n"
+        "• 📊 <b>Mentorga Hisobot:</b> Kunlik o'qish foizini 1-tugmada o'qituvchingizga yuborasiz.\n"
+        "• ❌ <b>Error Log:</b> Xatolarni daftarga qayd qilib, Desmos bilan yechishni o'rganasiz.\n\n"
+        "👇 <i>Pastdagi tugmani bosing va ilovani ishga tushiring:</i>"
+    )
+    await message.answer(text, reply_markup=kb, parse_mode="HTML")

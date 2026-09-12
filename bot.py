@@ -84,6 +84,7 @@ async def main():
     # Set commands menu
     commands = [
         BotCommand(command="start", description="Bosh menyu va AI Rentgen"),
+        BotCommand(command="webapp", description="Shaxsiy rejim & 60 kunlik tracker"),
         BotCommand(command="diagnostic", description="Rentgen Test (Math)"),
         BotCommand(command="desmos", description="Desmos Cheatcodes"),
         BotCommand(command="referral", description="Do'stlarni taklif qilish"),

@@ -1,484 +1,1493 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAT 1500 & IELTS 8.0 — 60 Kunlik Rejim va Kundalik</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <style>
-    @media print {
-      .no-print { display: none !important; }
-      body { background: white !important; color: black !important; padding: 0 !important; }
-      .card-print { border: 1px solid #ccc !important; box-shadow: none !important; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAT 1500+ Pro | O'quv Markazi Litsenziyasi</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+    <script>if (typeof tailwind === 'undefined') { document.write('<script src="https://cdn.tailwindcss.com"><\/script>'); }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        telegram: {
+                            bg: 'var(--tg-theme-bg-color)',
+                            text: 'var(--tg-theme-text-color)',
+                            hint: 'var(--tg-theme-hint-color)',
+                            link: 'var(--tg-theme-link-color)',
+                            button: 'var(--tg-theme-button-color)',
+                            buttonText: 'var(--tg-theme-button-text-color)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--tg-theme-bg-color, #f8f9fa);
+            color: var(--tg-theme-text-color, #000);
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glassmorphism {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .schedule-block {
+            transition: all 0.2s ease;
+        }
+
+        .schedule-block:active {
+            transform: scale(0.98);
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .gradient-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .gradient-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            ring: 2px;
+            ring-color: var(--tg-theme-button-color, #3390ec);
+        }
+
+        .btn-primary {
+            background: var(--tg-theme-button-color, #3390ec);
+            color: var(--tg-theme-button-text-color, #fff);
+        }
+
+        .btn-primary:active {
+            opacity: 0.8;
+        }
+
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+        }
+
+        .emoji-option {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .emoji-option:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: scale(1.1);
+        }
+
+        .dark .emoji-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
-<body class="bg-[var(--background,#0f172a)] text-[var(--foreground,#f8fafc)] antialiased min-h-screen p-3 md:p-6 transition-colors duration-200">
+<body class="scroll-smooth">
+    <div id="app" class="min-h-screen pb-20">
+        <!-- Header with Learning Center Branding -->
+        <header class="glassmorphism sticky top-0 z-50 shadow-lg">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center text-2xl shadow-lg">
+                            🎓
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold" id="centerName">SAT 1500+ Pro</h1>
+                            <p class="text-xs opacity-70" id="studentGroup">Premium Edition</p>
+                        </div>
+                    </div>
+                    <button onclick="openSettings()" class="w-10 h-10 rounded-lg glassmorphism flex items-center justify-center">
+                        ⚙️
+                    </button>
+                </div>
+            </div>
+        </header>
 
-  <div class="max-w-4xl mx-auto space-y-6">
-
-    <!-- TOP HEADER -->
-    <header class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 md:p-6 shadow-xl relative overflow-hidden">
-      <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Maqsad: SAT 1500+ & IELTS 8.0
-          </div>
-          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground,#f8fafc)]">
-            60 Kunlik Intizom va Kundalik Tracker
-          </h1>
-          <p class="text-sm text-[var(--muted-foreground,#94a3b8)] mt-1">
-            5 soat toza SAT darsi • 7.5 soat biologik uyqu • Sport • Vijdon azobisiz hordiq
-          </p>
+        <!-- Main Navigation Tabs -->
+        <div class="max-w-4xl mx-auto px-4 mt-4">
+            <div class="glassmorphism rounded-2xl p-1 flex gap-1">
+                <button onclick="switchTab('schedule')" id="tab-schedule" class="flex-1 py-3 px-4 rounded-xl font-semibold transition-all btn-primary">
+                    📅 Kun Tartibim
+                </button>
+                <button onclick="switchTab('report')" id="tab-report" class="flex-1 py-3 px-4 rounded-xl font-semibold transition-all opacity-70">
+                    📊 Hisobot
+                </button>
+                <button onclick="switchTab('errors')" id="tab-errors" class="flex-1 py-3 px-4 rounded-xl font-semibold transition-all opacity-70">
+                    ❌ Xatolar
+                </button>
+            </div>
         </div>
 
-        <!-- STATS BADGES -->
-        <div class="flex items-center gap-3">
-          <div class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] px-4 py-2.5 rounded-xl text-center">
-            <span class="text-xs text-[var(--muted-foreground,#94a3b8)] block">Ketma-ketlik</span>
-            <span id="streakDisplay" class="text-lg font-bold text-amber-400">0 kun 🔥</span>
-          </div>
-          <div class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] px-4 py-2.5 rounded-xl text-center">
-            <span class="text-xs text-[var(--muted-foreground,#94a3b8)] block">Yopilgan kunlar</span>
-            <span id="completedDaysDisplay" class="text-lg font-bold text-emerald-400">0 / 60</span>
-          </div>
-        </div>
-      </div>
+        <!-- Schedule Tab -->
+        <div id="content-schedule" class="max-w-4xl mx-auto px-4 mt-6 animate-fade-in">
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <button onclick="openPresets()" class="glassmorphism rounded-2xl p-4 text-left hover:shadow-lg transition-all">
+                    <div class="text-2xl mb-2">✨</div>
+                    <div class="font-bold">Tayyor Andozalar</div>
+                    <div class="text-xs opacity-70 mt-1">Professional rejimlar</div>
+                </button>
+                <button onclick="openAIGenerator()" class="glassmorphism rounded-2xl p-4 text-left hover:shadow-lg transition-all">
+                    <div class="text-2xl mb-2">🤖</div>
+                    <div class="font-bold">AI Generator</div>
+                    <div class="text-xs opacity-70 mt-1">Shaxsiy jadval yaratish</div>
+                </button>
+            </div>
 
-      <!-- PROGRESS BAR -->
-      <div class="mt-6 pt-5 border-t border-[var(--border,#334155)]">
-        <div class="flex justify-between text-xs font-medium mb-1.5 text-[var(--muted-foreground,#94a3b8)]">
-          <span>Umumiy 60 kunlik natija</span>
-          <span id="overallPercentage">0%</span>
-        </div>
-        <div class="w-full h-2.5 bg-[var(--background,#0f172a)] rounded-full overflow-hidden border border-[var(--border,#334155)]">
-          <div id="overallProgressBar" class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-500" style="width: 0%"></div>
-        </div>
-      </div>
-    </header>
+            <!-- Daily Progress Overview -->
+            <div class="glassmorphism rounded-2xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold">📆 Bugungi Kun</h2>
+                    <div class="text-sm opacity-70" id="currentDate"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold gradient-primary bg-clip-text text-transparent" id="completedBlocks">0</div>
+                        <div class="text-xs opacity-70 mt-1">Bajarildi</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold gradient-success bg-clip-text text-transparent" id="totalHours">0.0</div>
+                        <div class="text-xs opacity-70 mt-1">Soat</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold gradient-warning bg-clip-text text-transparent" id="focusScore">0%</div>
+                        <div class="text-xs opacity-70 mt-1">Fokus</div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- DAY SELECTOR & NAVIGATION -->
-    <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-4 md:p-5 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
-        <button id="prevDayBtn" class="px-3.5 py-2 rounded-xl bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] hover:border-blue-500 hover:text-blue-400 transition-colors text-sm font-semibold flex items-center gap-1">
-          ← Oldingi kun
-        </button>
-        <div class="text-center px-4">
-          <span class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider block">Tanlangan kun</span>
-          <span id="currentDayTitle" class="text-xl font-bold text-blue-400">1-Kun</span>
-        </div>
-        <button id="nextDayBtn" class="px-3.5 py-2 rounded-xl bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] hover:border-blue-500 hover:text-blue-400 transition-colors text-sm font-semibold flex items-center gap-1">
-          Keyingi kun →
-        </button>
-      </div>
+            <!-- Schedule Blocks -->
+            <div class="space-y-3 mb-6" id="scheduleBlocks">
+                <!-- Blocks will be dynamically inserted here -->
+            </div>
 
-      <!-- Quick Day Jump Dropdown & Action Buttons -->
-      <div class="flex items-center gap-2 w-full md:w-auto justify-end no-print">
-        <select id="dayJumpSelect" class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] text-sm rounded-xl px-3 py-2 text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-500">
-          <!-- Populated by JS (1 to 60) -->
-        </select>
-        <button id="todayJumpBtn" class="px-3 py-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl text-xs font-semibold hover:bg-blue-600/30 transition-all">
-          Bugun
-        </button>
-        <button id="exportBtn" title="Ma'lumotlarni nusxalab olish (Zaxira)" class="p-2 bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl text-[var(--muted-foreground,#94a3b8)] hover:text-white transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-        </button>
-      </div>
+            <!-- Add Block Button -->
+            <button onclick="openBlockEditor()" class="w-full glassmorphism rounded-2xl p-4 font-bold text-center hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                <span class="text-2xl">➕</span>
+                <span>Yangi Blok Qo'shish</span>
+            </button>
+        </div>
+
+        <!-- Report Tab -->
+        <div id="content-report" class="max-w-4xl mx-auto px-4 mt-6 hidden">
+            <div class="glassmorphism rounded-2xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4">📊 Haftalik Xulosa</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="opacity-70">Jami o'qish soatlari:</span>
+                        <span class="font-bold text-lg" id="report-total-hours">0.0 soat</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="opacity-70">SAT Practice ballari:</span>
+                        <span class="font-bold text-lg" id="report-sat-scores">—</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="opacity-70">Bajarilgan bloklar:</span>
+                        <span class="font-bold text-lg" id="report-completed">0 / 0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="opacity-70">O'rtacha kayfiyat:</span>
+                        <span class="font-bold text-lg" id="report-mood">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glassmorphism rounded-2xl p-6 mb-6">
+                <h3 class="font-bold mb-3">💬 Kundalik Xulosa</h3>
+                <textarea id="daily-summary" placeholder="Bugungi kunning qisqacha xulosasi, nima yaxshi kechdi, qaysi qismda qiyinchilik bo'ldi..." class="w-full h-32 p-4 rounded-xl glassmorphism resize-none" style="border: 1px solid rgba(0,0,0,0.1);"></textarea>
+            </div>
+
+            <button onclick="generateReport()" class="w-full btn-primary rounded-2xl p-4 font-bold text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                <span class="text-xl">📤</span>
+                <span>Mentorga Hisobot Yuborish</span>
+            </button>
+
+            <div class="mt-4 glassmorphism rounded-2xl p-4" id="generated-report" style="display: none;">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-3">
+                    <h3 class="font-bold">Generatsiya qilingan hisobot:</h3>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button onclick="copyReport()" class="flex-1 sm:flex-none text-xs btn-primary px-3 py-2 rounded-lg font-semibold">📋 Nusxalash</button>
+                        <button onclick="shareViaTelegram()" class="flex-1 sm:flex-none text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-lg font-semibold">🚀 Telegramda Yuborish</button>
+                    </div>
+                </div>
+                <pre id="report-text" class="text-sm whitespace-pre-wrap opacity-80 p-3 bg-black/20 rounded-xl border border-white/10 font-mono"></pre>
+            </div>
+        </div>
+
+        <!-- Errors Tab -->
+        <div id="content-errors" class="max-w-4xl mx-auto px-4 mt-6 hidden">
+            <div class="glassmorphism rounded-2xl p-6 mb-6">
+                <h2 class="text-xl font-bold mb-4">❌ SAT Xatolar Daftari</h2>
+                <p class="text-sm opacity-70 mb-4">Har bir xatoni tahlil qiling va keyingi safar takrorlamang!</p>
+                <button onclick="openErrorEditor()" class="w-full btn-primary rounded-xl p-3 font-bold">
+                    ➕ Yangi Xato Qo'shish
+                </button>
+            </div>
+
+            <div class="space-y-3" id="errorsList">
+                <!-- Errors will be dynamically inserted here -->
+            </div>
+        </div>
     </div>
 
-    <!-- 60-DAY INTERACTIVE MATRIX (EXPANDABLE) -->
-    <details class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-4 shadow-sm group">
-      <summary class="cursor-pointer text-sm font-semibold flex items-center justify-between text-[var(--muted-foreground,#94a3b8)] hover:text-[var(--foreground,#f8fafc)] select-none">
-        <span class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-          60 Kunlik Umumiy Xarita (Barcha kunlar matritsasi)
-        </span>
-        <span class="text-xs text-blue-400 group-open:rotate-180 transition-transform">▼</span>
-      </summary>
-      <div id="dayGridContainer" class="grid grid-cols-6 sm:grid-cols-10 md:grid-cols-12 gap-1.5 mt-4 pt-3 border-t border-[var(--border,#334155)]">
-        <!-- 60 buttons will be rendered here -->
-      </div>
-    </details>
+    <!-- Block Editor Modal -->
+    <div id="blockEditorModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeBlockEditor()"></div>
+        <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto glassmorphism rounded-3xl p-6 max-h-[90vh] overflow-y-auto animate-slide-up">
+            <h2 class="text-2xl font-bold mb-6">✏️ Blok Tahrirlash</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Faoliyat nomi</label>
+                    <input type="text" id="block-name" placeholder="Masalan: SAT Math Deep Work" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 opacity-70">Boshlanish</label>
+                        <input type="time" id="block-start" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 opacity-70">Tugash</label>
+                        <input type="time" id="block-end" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                    </div>
+                </div>
 
-      <!-- LEFT COLUMN: CHECKLIST (JADVAL) -->
-      <section class="lg:col-span-7 space-y-5">
-        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg">
-          <div class="flex items-center justify-between mb-4 pb-3 border-b border-[var(--border,#334155)]">
-            <div>
-              <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground,#f8fafc)]">
-                <span>📋</span> Kunlik Rejim Nazorati
-              </h2>
-              <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Bajarilgan har bir blokni belgilab boring</p>
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Kategoriya</label>
+                    <select id="block-category" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                        <option value="sat">SAT Dars</option>
+                        <option value="course">Kurs</option>
+                        <option value="review">Xatolar Tahlili</option>
+                        <option value="practice">Practice Test</option>
+                        <option value="sport">Sport / Mashq</option>
+                        <option value="break">Dam olish</option>
+                        <option value="meal">Ovqat</option>
+                        <option value="sleep">Uyqu</option>
+                        <option value="other">Boshqa</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Tavsif</label>
+                    <textarea id="block-description" placeholder="Qisqacha tavsif..." class="w-full p-3 rounded-xl glassmorphism h-24 resize-none" style="border: 1px solid rgba(0,0,0,0.1);"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Ikonka</label>
+                    <div class="emoji-grid" id="emojiGrid">
+                        <div class="emoji-option" onclick="selectEmoji('📚')">📚</div>
+                        <div class="emoji-option" onclick="selectEmoji('✍️')">✍️</div>
+                        <div class="emoji-option" onclick="selectEmoji('🎯')">🎯</div>
+                        <div class="emoji-option" onclick="selectEmoji('💡')">💡</div>
+                        <div class="emoji-option" onclick="selectEmoji('🧠')">🧠</div>
+                        <div class="emoji-option" onclick="selectEmoji('📊')">📊</div>
+                        <div class="emoji-option" onclick="selectEmoji('🏃')">🏃</div>
+                        <div class="emoji-option" onclick="selectEmoji('🍎')">🍎</div>
+                        <div class="emoji-option" onclick="selectEmoji('😴')">😴</div>
+                        <div class="emoji-option" onclick="selectEmoji('☕')">☕</div>
+                        <div class="emoji-option" onclick="selectEmoji('🎵')">🎵</div>
+                        <div class="emoji-option" onclick="selectEmoji('🎮')">🎮</div>
+                        <div class="emoji-option" onclick="selectEmoji('📖')">📖</div>
+                        <div class="emoji-option" onclick="selectEmoji('🔬')">🔬</div>
+                        <div class="emoji-option" onclick="selectEmoji('🎨')">🎨</div>
+                        <div class="emoji-option" onclick="selectEmoji('⚡')">⚡</div>
+                    </div>
+                    <input type="hidden" id="block-emoji" value="📚">
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" id="block-highlight" class="w-5 h-5">
+                    <label for="block-highlight" class="text-sm font-semibold">🌟 Asosiy Deep Work bloki</label>
+                </div>
             </div>
-            <div class="text-right">
-              <span id="dayCompletedRatio" class="text-xs font-bold text-blue-400">0/16</span>
-              <div class="w-20 h-1.5 bg-[var(--background,#0f172a)] rounded-full mt-1 overflow-hidden border border-[var(--border,#334155)]">
-                <div id="dayProgressBar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
 
-          <!-- HABIT LIST -->
-          <div id="habitsList" class="space-y-2.5">
-            <!-- Rendered by JavaScript -->
-          </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeBlockEditor()" class="flex-1 py-3 rounded-xl glassmorphism font-semibold">
+                    Bekor qilish
+                </button>
+                <button onclick="saveBlock()" class="flex-1 py-3 rounded-xl btn-primary font-semibold">
+                    Saqlash
+                </button>
+            </div>
         </div>
-      </section>
-
-      <!-- RIGHT COLUMN: 3 MAQSAD & KUNDALIK -->
-      <section class="lg:col-span-5 space-y-5">
-
-        <!-- 3 TA ASOSIY MAQSAD -->
-        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg">
-          <div class="mb-3">
-            <h2 class="text-base font-bold flex items-center gap-2 text-amber-400">
-              <span>🎯</span> Ertangi Kun Uchun 3 Asosiy Maqsad
-            </h2>
-            <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Kechqurun soat 22:15 da ertangi eng muhim 3 ta vazifangizni belgilang</p>
-          </div>
-
-          <div class="space-y-2.5">
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">1</span>
-              <input type="text" id="targetGoal1" placeholder="1-muhim maqsad (masalan, SAT Math 20 ta qiyin savol)" 
-                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
-            </div>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">2</span>
-              <input type="text" id="targetGoal2" placeholder="2-muhim maqsad (masalan, Error Log ga 5 ta xatoni yozish)" 
-                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
-            </div>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">3</span>
-              <input type="text" id="targetGoal3" placeholder="3-muhim maqsad (masalan, 22:00 da barcha ekranlarni o'chirish)" 
-                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
-            </div>
-          </div>
-        </div>
-
-        <!-- KUNDALIK (DAILY JOURNAL) -->
-        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-base font-bold flex items-center gap-2 text-emerald-400">
-                <span>📖</span> Kunlik Xulosalar va Kundalik
-              </h2>
-              <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Kun oxirida fikr va his-tuyg'ularingizni yozing</p>
-            </div>
-            <span id="savedIndicator" class="text-xs text-emerald-400 opacity-0 transition-opacity flex items-center gap-1">
-              ✓ Saqlandi
-            </span>
-          </div>
-
-          <div class="space-y-3">
-            <div>
-              <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
-                Bugun nimalar bo'ldi? Nima yaxshi o'tdi va nima qiyin bo'ldi?
-              </label>
-              <textarea id="dailyReflections" rows="6" placeholder="Bugun rejim qanday o'tdi? SAT darsida qaysi savollardan qiynaldim? Chalg'ishlar bo'ldimi? Ertaga qaysi xatoni takrorlamayman..." 
-                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl p-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-emerald-400 transition-colors resize-y"></textarea>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
-                  SAT Test Balli / Xatolar soni:
-                </label>
-                <input type="text" id="dailyScore" placeholder="Masalan, Math: -4, RW: -6" 
-                  class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-1.5 px-3 text-xs text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-400">
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
-                  Bugungi Kayfiyat & Energiya:
-                </label>
-                <select id="dailyEnergy" class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-1.5 px-2 text-xs text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-400">
-                  <option value="5">🔥🔥🔥 A'lo (To'la energiya)</option>
-                  <option value="4">💪 Yaxshi (Vazifalar bajarildi)</option>
-                  <option value="3">😐 O'rtacha (Biroz charchoq bor)</option>
-                  <option value="2">🥱 Past (Rejimga zo'rg'a ulgurdim)</option>
-                  <option value="1">⚠️ Inqiroz (Qayta tiklanish kerak)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- MOTIVATSIYA & QOIDALAR ESLATMASI -->
-        <div class="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl p-4 text-xs text-[var(--muted-foreground,#94a3b8)] space-y-2">
-          <span class="font-bold text-blue-400 uppercase tracking-wider block">Oltin Qoidalar:</span>
-          <p>• <strong>Never Miss Twice:</strong> Bir kun tartib buzilsa ham, 2-kuni 100% qaytish shart.</p>
-          <p>• <strong>Dopamin intizomi:</strong> YouTube va o'yin faqat barcha darslar yopilgach, kechki 19:30 dan so'ng ruxsat etiladi.</p>
-          <p>• <strong>22:00 Ekransiz zona:</strong> Uyqu sifati = ertangi kunning 5 soatlik SAT fokusining 90% garovi.</p>
-        </div>
-
-      </section>
     </div>
 
-  </div>
+    <!-- Presets Modal -->
+    <div id="presetsModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closePresets()"></div>
+        <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-2xl mx-auto glassmorphism rounded-3xl p-6 max-h-[90vh] overflow-y-auto animate-slide-up">
+            <h2 class="text-2xl font-bold mb-6">✨ Tayyor Professional Andozalar</h2>
+            
+            <div class="space-y-4">
+                <div class="glassmorphism rounded-2xl p-5 cursor-pointer hover:shadow-lg transition-all" onclick="applyPreset('standard')">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🎯</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-1">Standart SAT 1500+</h3>
+                            <p class="text-sm opacity-70 mb-3">Ertalabki 2.5 soat Deep Work + Kurs + Kechki tahlil. Muvozanatli va samarali.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="category-badge" style="background: rgba(102, 126, 234, 0.2);">📚 4 soat SAT</span>
+                                <span class="category-badge" style="background: rgba(17, 153, 142, 0.2);">🏫 3 soat Kurs</span>
+                                <span class="category-badge" style="background: rgba(245, 87, 108, 0.2);">😴 8 soat Uyqu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-  <script>
-    // Habit definition based on user's exact schedule
-    const HABIT_TEMPLATES = [
-      { id: "h1", time: "06:30", label: "Uyg'onish (Snooze yo'q, 1 stakan suv, yuvinish)", icon: "🌅", tag: "Uyqu" },
-      { id: "h2", time: "07:15", label: "Sog'lom Nonushta (Oqsil + sekin uglevodlar)", icon: "🍳", tag: "Energiya" },
-      { id: "h3", time: "08:00 - 10:30", label: "1-Blok: SAT Deep Work (Reading/Writing yoki qiyin Math - 2.5 soat)", icon: "🧠", tag: "SAT Dars", highlight: true },
-      { id: "h4", time: "10:30 - 11:00", label: "Tanaffus / Yengil yegulik (Ekransiz, toza havo)", icon: "🍏", tag: "Dam" },
-      { id: "h5", time: "11:00 - 12:30", label: "2-Blok: SAT Timed Practice & Error Log (1.5 soat)", icon: "📝", tag: "SAT Dars", highlight: true },
-      { id: "h6", time: "12:30 - 13:00", label: "Tushlik va Kursga otlanish", icon: "🍲", tag: "Ovqat" },
-      { id: "h7", time: "13:00 - 16:00", label: "SAT KURSI (Darsda to'liq faollik + yo'l)", icon: "🏫", tag: "Kurs", highlight: true },
-      { id: "h8", time: "16:00 - 16:30", label: "Uyga qaytish & Kiyim almashtirish (Kichik nafas rostlash)", icon: "🏠", tag: "Dam" },
-      { id: "h9", time: "16:30 - 17:30", label: "Jismoniy Mashq (Sport zali / Yugurish / Turnik) + Dush", icon: "🏋️‍♂️", tag: "Sport", highlight: true },
-      { id: "h10", time: "17:45 - 18:45", label: "3-Blok: Kurs vazifalari & 20 ta yangi SAT so'zlari (1 soat)", icon: "📚", tag: "SAT Dars", highlight: true },
-      { id: "h11", time: "18:45 - 19:30", label: "Kechki ovqat va oila davrasi", icon: "🍽️", tag: "Ovqat" },
-      { id: "h12", time: "19:30 - 20:30", label: "YouTube ko'rish (1 soat rejalashtirilgan vijdon azobisiz hordiq)", icon: "🎬", tag: "Hordiq" },
-      { id: "h13", time: "20:30 - 22:00", label: "O'yin o'ynash YOKI YouTube'ga video tayyorlash/montaj (1.5 soat)", icon: "🎮", tag: "Hordiq/Ijod" },
-      { id: "h14", time: "22:00", label: "Barcha ekranlarni o'chirish (Wind-down boshlandi)", icon: "📵", tag: "Tinchlanish", highlight: true },
-      { id: "h15", time: "22:15 - 22:45", label: "Ertangi kun 3 ta maqsadini yozish & Kitob o'qish / Iliq dush", icon: "📖", tag: "Tayyorgarlik" },
-      { id: "h16", time: "23:00 - 06:30", label: "Uxlash (7.5 soatlik to'liq biologik tiklanish)", icon: "😴", tag: "Uyqu", highlight: true }
-    ];
+                <div class="glassmorphism rounded-2xl p-5 cursor-pointer hover:shadow-lg transition-all" onclick="applyPreset('gapyear')">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🔥</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-1">Gap Year / Intensiv</h3>
+                            <p class="text-sm opacity-70 mb-3">Kuniga 7-8 soat toza SAT & IELTS. Maksimal tezlik bilan natijaga.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="category-badge" style="background: rgba(102, 126, 234, 0.2);">📚 8 soat SAT</span>
+                                <span class="category-badge" style="background: rgba(245, 87, 108, 0.2);">😴 7.5 soat Uyqu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    const STORAGE_KEY = "sat_60days_tracker_v1";
-    let currentDay = 1;
-    let trackerData = {};
+                <div class="glassmorphism rounded-2xl p-5 cursor-pointer hover:shadow-lg transition-all" onclick="applyPreset('school')">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🏫</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-1">Maktab + SAT</h3>
+                            <p class="text-sm opacity-70 mb-3">Kechki smena va intensiv 4 soatlik SAT bloki. Maktab + tayyorgarlik.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="category-badge" style="background: rgba(102, 126, 234, 0.2);">📚 4 soat SAT</span>
+                                <span class="category-badge" style="background: rgba(17, 153, 142, 0.2);">🏫 6 soat Maktab</span>
+                                <span class="category-badge" style="background: rgba(245, 87, 108, 0.2);">😴 8 soat Uyqu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    function initData() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          trackerData = JSON.parse(stored);
-        } catch (e) {
-          trackerData = {};
+                <div class="glassmorphism rounded-2xl p-5 cursor-pointer hover:shadow-lg transition-all" onclick="applyPreset('flexible')">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🎨</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-lg mb-1">Moslashuvchan Shaxsiy</h3>
+                            <p class="text-sm opacity-70 mb-3">Asosiy bloklar bilan boshlang, keyin o'zingizga moslashtiring.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="category-badge" style="background: rgba(102, 126, 234, 0.2);">📚 3 soat SAT</span>
+                                <span class="category-badge" style="background: rgba(74, 172, 254, 0.2);">☕ Moslashuvchan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="closePresets()" class="w-full mt-6 py-3 rounded-xl glassmorphism font-semibold">
+                Yopish
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Generator Modal -->
+    <div id="aiGeneratorModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeAIGenerator()"></div>
+        <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto glassmorphism rounded-3xl p-6 max-h-[90vh] overflow-y-auto animate-slide-up">
+            <h2 class="text-2xl font-bold mb-6">🤖 AI Shaxsiy Jadval Generator</h2>
+            
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Uyqudan turish vaqti</label>
+                    <input type="time" id="ai-wakeup" value="06:00" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Uyquga yotish vaqti</label>
+                    <input type="time" id="ai-sleep" value="23:00" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Maktab/Kurs vaqti (ixtiyoriy)</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="time" id="ai-school-start" placeholder="Boshlanish" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                        <input type="time" id="ai-school-end" placeholder="Tugash" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Kunlik SAT maqsadi (soat)</label>
+                    <select id="ai-sat-hours" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                        <option value="3">3 soat (Standart)</option>
+                        <option value="4" selected>4 soat (Tavsiya etiladi)</option>
+                        <option value="5">5 soat (Intensiv)</option>
+                        <option value="6">6 soat (Gap Year)</option>
+                        <option value="8">8 soat (Maksimal)</option>
+                    </select>
+                </div>
+
+                <div class="glassmorphism rounded-xl p-4">
+                    <p class="text-sm opacity-70">
+                        💡 AI sizning biologik ritmingiz, Pomodoro texnikasi va ilmiy tadqiqotlar asosida optimal jadval yaratadi.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeAIGenerator()" class="flex-1 py-3 rounded-xl glassmorphism font-semibold">
+                    Bekor qilish
+                </button>
+                <button onclick="generateAISchedule()" class="flex-1 py-3 rounded-xl btn-primary font-semibold">
+                    🚀 Yaratish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Editor Modal -->
+    <div id="errorEditorModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeErrorEditor()"></div>
+        <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto glassmorphism rounded-3xl p-6 max-h-[90vh] overflow-y-auto animate-slide-up">
+            <h2 class="text-2xl font-bold mb-6">❌ Xato Qo'shish</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Test / Mashq nomi</label>
+                    <input type="text" id="error-test" placeholder="Masalan: Practice Test #4" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 opacity-70">Bo'lim</label>
+                        <select id="error-section" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                            <option value="math">Math</option>
+                            <option value="reading">Reading</option>
+                            <option value="writing">Writing</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 opacity-70">Savol #</label>
+                        <input type="number" id="error-question" placeholder="15" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Mavzu</label>
+                    <input type="text" id="error-topic" placeholder="Masalan: Quadratic Functions" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Xato sababi va to'g'ri yechim</label>
+                    <textarea id="error-solution" placeholder="Nima uchun xato qildim va qanday to'g'ri yechish kerak..." class="w-full p-3 rounded-xl glassmorphism h-32 resize-none" style="border: 1px solid rgba(0,0,0,0.1);"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Desmos / Calculator yechim (ixtiyoriy)</label>
+                    <textarea id="error-desmos" placeholder="Desmos yoki kalkulyator yordamida qanday tezroq yechish mumkin..." class="w-full p-3 rounded-xl glassmorphism h-24 resize-none" style="border: 1px solid rgba(0,0,0,0.1);"></textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeErrorEditor()" class="flex-1 py-3 rounded-xl glassmorphism font-semibold">
+                    Bekor qilish
+                </button>
+                <button onclick="saveError()" class="flex-1 py-3 rounded-xl btn-primary font-semibold">
+                    Saqlash
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeSettings()"></div>
+        <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto glassmorphism rounded-3xl p-6 max-h-[90vh] overflow-y-auto animate-slide-up">
+            <h2 class="text-2xl font-bold mb-6">⚙️ Sozlamalar</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">O'quv Markaz Nomi</label>
+                    <input type="text" id="settings-center" placeholder="Masalan: Registon SAT Academy" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Guruh / O'quvchi</label>
+                    <input type="text" id="settings-student" placeholder="Masalan: 1500+ Guruh / Alisher" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2 opacity-70">Mentor Telegram Username (ixtiyoriy)</label>
+                    <input type="text" id="settings-mentor" placeholder="@mentor_username" class="w-full p-3 rounded-xl glassmorphism" style="border: 1px solid rgba(0,0,0,0.1);">
+                </div>
+
+                <div class="glassmorphism rounded-xl p-4">
+                    <h3 class="font-bold mb-3">💾 Ma'lumotlarni boshqarish</h3>
+                    <div class="space-y-2">
+                        <button onclick="exportData()" class="w-full py-3 rounded-xl glassmorphism font-semibold text-sm">
+                            📤 Ma'lumotlarni Eksport qilish
+                        </button>
+                        <button onclick="importData()" class="w-full py-3 rounded-xl glassmorphism font-semibold text-sm">
+                            📥 Ma'lumotlarni Import qilish
+                        </button>
+                        <button onclick="clearAllData()" class="w-full py-3 rounded-xl font-semibold text-sm" style="background: rgba(245, 87, 108, 0.2); color: #f5576c;">
+                            🗑️ Barcha Ma'lumotlarni Tozalash
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeSettings()" class="flex-1 py-3 rounded-xl glassmorphism font-semibold">
+                    Yopish
+                </button>
+                <button onclick="saveSettings()" class="flex-1 py-3 rounded-xl btn-primary font-semibold">
+                    Saqlash
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Telegram WebApp initialization
+        let tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.ready();
+            tg.expand();
+            
+            // Apply Telegram theme
+            if (tg.colorScheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
         }
-      }
-      for (let i = 1; i <= 60; i++) {
-        if (!trackerData[i]) {
-          trackerData[i] = {
-            habits: {},
-            goal1: "",
-            goal2: "",
-            goal3: "",
-            journal: "",
-            score: "",
-            energy: "5",
-            completed: false
-          };
-        }
-      }
-      saveData();
-    }
 
-    function saveData() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(trackerData));
-      showSaveIndicator();
-      updateStats();
-      renderDayGrid();
-    }
-
-    function showSaveIndicator() {
-      const el = document.getElementById("savedIndicator");
-      el.style.opacity = "1";
-      setTimeout(() => {
-        el.style.opacity = "0";
-      }, 1200);
-    }
-
-    function populateDayDropdown() {
-      const select = document.getElementById("dayJumpSelect");
-      select.innerHTML = "";
-      for (let i = 1; i <= 60; i++) {
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = `${i}-Kun`;
-        select.appendChild(opt);
-      }
-      select.value = currentDay;
-    }
-
-    function renderDayGrid() {
-      const container = document.getElementById("dayGridContainer");
-      container.innerHTML = "";
-      for (let i = 1; i <= 60; i++) {
-        const dayInfo = trackerData[i];
-        const doneCount = Object.values(dayInfo.habits || {}).filter(Boolean).length;
-        const isComplete = doneCount >= 12;
-        const hasSome = doneCount > 0;
-        const isCurrent = (i === currentDay);
-
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.className = `h-9 text-xs font-bold rounded-lg border transition-all flex items-center justify-center relative ${
-          isCurrent 
-            ? "border-blue-400 bg-blue-500/30 text-white ring-2 ring-blue-400/50" 
-            : isComplete 
-              ? "border-emerald-500 bg-emerald-500/20 text-emerald-300"
-              : hasSome 
-                ? "border-amber-500/50 bg-amber-500/10 text-amber-300"
-                : "border-[var(--border,#334155)] bg-[var(--background,#0f172a)] text-[var(--muted-foreground,#94a3b8)] hover:border-slate-500"
-        }`;
-
-        btn.onclick = () => {
-          switchDay(i);
+        // Global state
+        let currentTab = 'schedule';
+        let scheduleBlocks = [];
+        let errors = [];
+        let settings = {
+            centerName: 'SAT 1500+ Pro',
+            studentGroup: 'Premium Edition',
+            mentorUsername: ''
         };
-        container.appendChild(btn);
-      }
-    }
+        let currentEditingBlock = null;
+        let currentEditingError = null;
+        let selectedEmoji = '📚';
 
-    function renderHabits() {
-      const list = document.getElementById("habitsList");
-      list.innerHTML = "";
-      const dayData = trackerData[currentDay] || { habits: {} };
-
-      let checkedCount = 0;
-
-      HABIT_TEMPLATES.forEach((template) => {
-        const isChecked = !!dayData.habits[template.id];
-        if (isChecked) checkedCount++;
-
-        const row = document.createElement("label");
-        row.className = `flex items-start gap-3 p-3 rounded-xl border transition-all cursor-pointer select-none ${
-          isChecked 
-            ? "bg-emerald-500/10 border-emerald-500/30 text-[var(--foreground,#f8fafc)]" 
-            : template.highlight 
-              ? "bg-[var(--background,#0f172a)] border-blue-500/30 hover:border-blue-500/60"
-              : "bg-[var(--background,#0f172a)] border-[var(--border,#334155)] hover:border-slate-500"
-        }`;
-
-        row.innerHTML = `
-          <input type="checkbox" data-habit-id="${template.id}" ${isChecked ? "checked" : ""}
-            class="mt-1 w-4 h-4 rounded border-[var(--border,#334155)] text-blue-500 focus:ring-0 cursor-pointer">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center justify-between gap-2">
-              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-[var(--card,#1e293b)] text-[var(--muted-foreground,#94a3b8)] border border-[var(--border,#334155)]">
-                ${template.time}
-              </span>
-              <span class="text-[10px] uppercase font-bold tracking-wider text-[var(--muted-foreground,#94a3b8)]">
-                ${template.tag}
-              </span>
-            </div>
-            <p class="text-xs md:text-sm font-medium mt-1 leading-snug flex items-center gap-1.5 ${isChecked ? "line-through opacity-70" : ""}">
-              <span>${template.icon}</span>
-              <span>${template.label}</span>
-            </p>
-          </div>
-        `;
-
-        const checkbox = row.querySelector("input");
-        checkbox.addEventListener("change", (e) => {
-          if (!trackerData[currentDay].habits) trackerData[currentDay].habits = {};
-          trackerData[currentDay].habits[template.id] = e.target.checked;
-          saveData();
-          renderHabits();
-        });
-
-        list.appendChild(row);
-      });
-
-      // Update Day ratio
-      document.getElementById("dayCompletedRatio").textContent = `${checkedCount}/${HABIT_TEMPLATES.length}`;
-      const pct = Math.round((checkedCount / HABIT_TEMPLATES.length) * 100);
-      document.getElementById("dayProgressBar").style.width = `${pct}%`;
-    }
-
-    function loadDayForm() {
-      const dayData = trackerData[currentDay] || {};
-      document.getElementById("currentDayTitle").textContent = `${currentDay}-Kun`;
-      document.getElementById("dayJumpSelect").value = currentDay;
-
-      document.getElementById("targetGoal1").value = dayData.goal1 || "";
-      document.getElementById("targetGoal2").value = dayData.goal2 || "";
-      document.getElementById("targetGoal3").value = dayData.goal3 || "";
-
-      document.getElementById("dailyReflections").value = dayData.journal || "";
-      document.getElementById("dailyScore").value = dayData.score || "";
-      document.getElementById("dailyEnergy").value = dayData.energy || "5";
-
-      renderHabits();
-    }
-
-    function switchDay(dayNum) {
-      currentDay = Math.max(1, Math.min(60, dayNum));
-      loadDayForm();
-      renderDayGrid();
-    }
-
-    function updateStats() {
-      let completedDays = 0;
-      let streak = 0;
-      let currentStreak = 0;
-
-      for (let i = 1; i <= 60; i++) {
-        const d = trackerData[i];
-        const doneCount = Object.values(d.habits || {}).filter(Boolean).length;
-        if (doneCount >= 12) {
-          completedDays++;
-          currentStreak++;
-          if (currentStreak > streak) streak = currentStreak;
-        } else {
-          // If past day has 0 or few habits, streak breaks
-          if (i < currentDay) {
-            currentStreak = 0;
-          }
+        // Initialize app
+        function init() {
+            loadData();
+            updateDate();
+            renderSchedule();
+            renderErrors();
+            loadSettings();
+            updateStats();
         }
-      }
 
-      document.getElementById("completedDaysDisplay").textContent = `${completedDays} / 60`;
-      document.getElementById("streakDisplay").textContent = `${streak} kun 🔥`;
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Hide all content
+            document.getElementById('content-schedule').classList.add('hidden');
+            document.getElementById('content-report').classList.add('hidden');
+            document.getElementById('content-errors').classList.add('hidden');
+            
+            // Show selected content
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            document.getElementById(`content-${tab}`).classList.add('animate-fade-in');
+            
+            // Update tab buttons
+            ['schedule', 'report', 'errors'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.classList.add('btn-primary');
+                    btn.classList.remove('opacity-70');
+                } else {
+                    btn.classList.remove('btn-primary');
+                    btn.classList.add('opacity-70');
+                }
+            });
 
-      const overallPct = Math.round((completedDays / 60) * 100);
-      document.getElementById("overallPercentage").textContent = `${overallPct}%`;
-      document.getElementById("overallProgressBar").style.width = `${overallPct}%`;
-    }
+            triggerHaptic();
+        }
 
-    // Event Listeners for inputs
-    function setupFormListeners() {
-      const saveInputs = () => {
-        if (!trackerData[currentDay]) trackerData[currentDay] = { habits: {} };
-        trackerData[currentDay].goal1 = document.getElementById("targetGoal1").value;
-        trackerData[currentDay].goal2 = document.getElementById("targetGoal2").value;
-        trackerData[currentDay].goal3 = document.getElementById("targetGoal3").value;
-        trackerData[currentDay].journal = document.getElementById("dailyReflections").value;
-        trackerData[currentDay].score = document.getElementById("dailyScore").value;
-        trackerData[currentDay].energy = document.getElementById("dailyEnergy").value;
-        saveData();
-      };
+        // Date management
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('uz-UZ', options);
+        }
 
-      document.getElementById("targetGoal1").addEventListener("input", saveInputs);
-      document.getElementById("targetGoal2").addEventListener("input", saveInputs);
-      document.getElementById("targetGoal3").addEventListener("input", saveInputs);
-      document.getElementById("dailyReflections").addEventListener("input", saveInputs);
-      document.getElementById("dailyScore").addEventListener("input", saveInputs);
-      document.getElementById("dailyEnergy").addEventListener("change", saveInputs);
+        // Block Editor
+        function openBlockEditor(block = null) {
+            currentEditingBlock = block;
+            const modal = document.getElementById('blockEditorModal');
+            
+            if (block) {
+                document.getElementById('block-name').value = block.name;
+                document.getElementById('block-start').value = block.start;
+                document.getElementById('block-end').value = block.end;
+                document.getElementById('block-category').value = block.category;
+                document.getElementById('block-description').value = block.description || '';
+                document.getElementById('block-emoji').value = block.emoji;
+                document.getElementById('block-highlight').checked = block.highlight || false;
+                selectedEmoji = block.emoji;
+            } else {
+                document.getElementById('block-name').value = '';
+                document.getElementById('block-start').value = '';
+                document.getElementById('block-end').value = '';
+                document.getElementById('block-category').value = 'sat';
+                document.getElementById('block-description').value = '';
+                document.getElementById('block-emoji').value = '📚';
+                document.getElementById('block-highlight').checked = false;
+                selectedEmoji = '📚';
+            }
+            
+            updateEmojiSelection();
+            modal.classList.remove('hidden');
+            triggerHaptic();
+        }
 
-      document.getElementById("prevDayBtn").addEventListener("click", () => switchDay(currentDay - 1));
-      document.getElementById("nextDayBtn").addEventListener("click", () => switchDay(currentDay + 1));
-      document.getElementById("dayJumpSelect").addEventListener("change", (e) => switchDay(parseInt(e.target.value)));
-      document.getElementById("todayJumpBtn").addEventListener("click", () => switchDay(1));
+        function closeBlockEditor() {
+            document.getElementById('blockEditorModal').classList.add('hidden');
+            currentEditingBlock = null;
+        }
 
-      // Export / Backup
-      document.getElementById("exportBtn").addEventListener("click", () => {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(trackerData, null, 2));
-        const downloadAnchor = document.createElement("a");
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", `sat_tracker_backup_day_${currentDay}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
-      });
-    }
+        function selectEmoji(emoji) {
+            selectedEmoji = emoji;
+            document.getElementById('block-emoji').value = emoji;
+            updateEmojiSelection();
+            triggerHaptic('light');
+        }
 
-    // Initialize
-    initData();
-    populateDayDropdown();
-    loadDayForm();
-    setupFormListeners();
-    updateStats();
-    renderDayGrid();
-  </script>
+        function updateEmojiSelection() {
+            const emojis = document.querySelectorAll('.emoji-option');
+            emojis.forEach(em => {
+                if (em.textContent === selectedEmoji) {
+                    em.style.background = 'rgba(102, 126, 234, 0.3)';
+                    em.style.transform = 'scale(1.1)';
+                } else {
+                    em.style.background = '';
+                    em.style.transform = '';
+                }
+            });
+        }
+
+        function saveBlock() {
+            const name = document.getElementById('block-name').value.trim();
+            const start = document.getElementById('block-start').value;
+            const end = document.getElementById('block-end').value;
+            const category = document.getElementById('block-category').value;
+            const description = document.getElementById('block-description').value.trim();
+            const emoji = document.getElementById('block-emoji').value;
+            const highlight = document.getElementById('block-highlight').checked;
+
+            if (!name || !start || !end) {
+                alert('Iltimos, barcha majburiy maydonlarni to\'ldiring!');
+                return;
+            }
+
+            const block = {
+                id: currentEditingBlock ? currentEditingBlock.id : Date.now(),
+                name,
+                start,
+                end,
+                category,
+                description,
+                emoji,
+                highlight,
+                completed: currentEditingBlock ? currentEditingBlock.completed : false,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            if (currentEditingBlock) {
+                const index = scheduleBlocks.findIndex(b => b.id === currentEditingBlock.id);
+                scheduleBlocks[index] = block;
+            } else {
+                scheduleBlocks.push(block);
+            }
+
+            scheduleBlocks.sort((a, b) => a.start.localeCompare(b.start));
+            saveData();
+            renderSchedule();
+            closeBlockEditor();
+            updateStats();
+            triggerHaptic('medium');
+        }
+
+        function deleteBlock(id) {
+            if (confirm('Ushbu blokni o\'chirmoqchimisiz?')) {
+                scheduleBlocks = scheduleBlocks.filter(b => b.id !== id);
+                saveData();
+                renderSchedule();
+                updateStats();
+                triggerHaptic('medium');
+            }
+        }
+
+        function toggleBlockComplete(id) {
+            const block = scheduleBlocks.find(b => b.id === id);
+            if (block) {
+                block.completed = !block.completed;
+                saveData();
+                renderSchedule();
+                updateStats();
+                triggerHaptic('light');
+            }
+        }
+
+        function renderSchedule() {
+            const container = document.getElementById('scheduleBlocks');
+            const today = new Date().toISOString().split('T')[0];
+            const todayBlocks = scheduleBlocks.filter(b => b.date === today);
+
+            if (todayBlocks.length === 0) {
+                container.innerHTML = `
+                    <div class="glassmorphism rounded-2xl p-8 text-center">
+                        <div class="text-5xl mb-4">📅</div>
+                        <p class="opacity-70">Hali kun tartibi yo'q. Yuqoridagi tugmalardan foydalanib boshlang!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = todayBlocks.map(block => {
+                const categoryColors = {
+                    sat: 'rgba(102, 126, 234, 0.2)',
+                    course: 'rgba(17, 153, 142, 0.2)',
+                    review: 'rgba(240, 147, 251, 0.2)',
+                    practice: 'rgba(74, 172, 254, 0.2)',
+                    sport: 'rgba(56, 239, 125, 0.2)',
+                    break: 'rgba(255, 193, 7, 0.2)',
+                    meal: 'rgba(255, 152, 0, 0.2)',
+                    sleep: 'rgba(156, 39, 176, 0.2)',
+                    other: 'rgba(158, 158, 158, 0.2)'
+                };
+
+                const duration = calculateDuration(block.start, block.end);
+                const highlightClass = block.highlight ? 'ring-2 ring-offset-2 ring-purple-500' : '';
+
+                return `
+                    <div class="schedule-block glassmorphism rounded-2xl p-4 ${highlightClass}" style="background: ${categoryColors[block.category] || categoryColors.other};">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center gap-3 flex-1">
+                                <div class="text-3xl">${block.emoji}</div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg">${block.name}</h3>
+                                    <p class="text-sm opacity-70">${block.start} - ${block.end} (${duration})</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="openBlockEditor(${JSON.stringify(block).replace(/"/g, '&quot;')})" class="w-10 h-10 rounded-lg glassmorphism flex items-center justify-center">
+                                    ✏️
+                                </button>
+                                <button onclick="deleteBlock(${block.id})" class="w-10 h-10 rounded-lg glassmorphism flex items-center justify-center">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                        ${block.description ? `<p class="text-sm opacity-80 mb-3">${block.description}</p>` : ''}
+                        <button onclick="toggleBlockComplete(${block.id})" class="w-full py-3 rounded-xl font-semibold transition-all ${block.completed ? 'btn-primary' : 'glassmorphism'}">
+                            ${block.completed ? '✅ Bajarildi' : '⏳ Bajarish'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function calculateDuration(start, end) {
+            const [sh, sm] = start.split(':').map(Number);
+            const [eh, em] = end.split(':').map(Number);
+            const startMin = sh * 60 + sm;
+            const endMin = eh * 60 + em;
+            const duration = endMin - startMin;
+            const hours = Math.floor(duration / 60);
+            const mins = duration % 60;
+            return `${hours}s ${mins}m`;
+        }
+
+        // Presets
+        function openPresets() {
+            document.getElementById('presetsModal').classList.remove('hidden');
+            triggerHaptic();
+        }
+
+        function closePresets() {
+            document.getElementById('presetsModal').classList.add('hidden');
+        }
+
+        function applyPreset(preset) {
+            if (!confirm('Joriy jadval tozalanib, yangi andoza qo\'llanadi. Davom etasizmi?')) return;
+
+            const today = new Date().toISOString().split('T')[0];
+            scheduleBlocks = scheduleBlocks.filter(b => b.date !== today);
+
+            const presets = {
+                standard: [
+                    { name: 'Ertalabki Tayyorgarlik', start: '06:00', end: '06:30', category: 'other', emoji: '🌅', description: 'Turish, yuvish, nonushta' },
+                    { name: 'SAT Math Deep Work', start: '06:30', end: '08:30', category: 'sat', emoji: '🧮', highlight: true, description: 'Khan Academy + Practice problems' },
+                    { name: 'Dam olish', start: '08:30', end: '09:00', category: 'break', emoji: '☕', description: 'Yengil mashq, choy' },
+                    { name: 'SAT Reading & Writing', start: '09:00', end: '11:00', category: 'sat', emoji: '📖', highlight: true, description: 'Matnlar va grammatika' },
+                    { name: 'Tushlik', start: '11:00', end: '12:00', category: 'meal', emoji: '🍽️', description: '' },
+                    { name: 'Kurs', start: '12:00', end: '15:00', category: 'course', emoji: '🏫', description: 'O\'quv markazida dars' },
+                    { name: 'Dam olish / Sport', start: '15:00', end: '16:00', category: 'sport', emoji: '🏃', description: '' },
+                    { name: 'Xatolar Tahlili', start: '16:00', end: '17:30', category: 'review', emoji: '🔍', description: 'Bugungi xatolarni ko\'rib chiqish' },
+                    { name: 'Kechki ovqat', start: '17:30', end: '18:30', category: 'meal', emoji: '🍲', description: '' },
+                    { name: 'Shaxsiy vaqt', start: '18:30', end: '22:00', category: 'other', emoji: '🎮', description: 'Dam olish, oila' },
+                    { name: 'Uyqu tayyorgarligi', start: '22:00', end: '22:30', category: 'other', emoji: '🌙', description: '' },
+                    { name: 'Uyqu', start: '22:30', end: '06:00', category: 'sleep', emoji: '😴', description: '7.5 soat' }
+                ],
+                gapyear: [
+                    { name: 'Turish va tayyorgarlik', start: '05:30', end: '06:00', category: 'other', emoji: '🌅', description: '' },
+                    { name: 'SAT Math Session 1', start: '06:00', end: '08:00', category: 'sat', emoji: '🧮', highlight: true, description: 'Deep focus' },
+                    { name: 'Nonushta', start: '08:00', end: '08:30', category: 'meal', emoji: '🥐', description: '' },
+                    { name: 'SAT Reading Session 1', start: '08:30', end: '10:30', category: 'sat', emoji: '📖', highlight: true, description: '' },
+                    { name: 'Dam olish', start: '10:30', end: '11:00', category: 'break', emoji: '☕', description: '' },
+                    { name: 'SAT Writing & Language', start: '11:00', end: '13:00', category: 'sat', emoji: '✍️', highlight: true, description: '' },
+                    { name: 'Tushlik', start: '13:00', end: '14:00', category: 'meal', emoji: '🍽️', description: '' },
+                    { name: 'SAT Practice Test', start: '14:00', end: '17:00', category: 'practice', emoji: '📝', highlight: true, description: 'To\'liq test' },
+                    { name: 'Sport / Mashq', start: '17:00', end: '18:00', category: 'sport', emoji: '🏃', description: '' },
+                    { name: 'Kechki ovqat', start: '18:00', end: '19:00', category: 'meal', emoji: '🍲', description: '' },
+                    { name: 'Test Tahlili', start: '19:00', end: '20:30', category: 'review', emoji: '🔍', description: 'Xatolar ustida ishlash' },
+                    { name: 'Dam olish', start: '20:30', end: '22:30', category: 'other', emoji: '🎵', description: '' },
+                    { name: 'Uyqu', start: '22:30', end: '05:30', category: 'sleep', emoji: '😴', description: '7 soat' }
+                ],
+                school: [
+                    { name: 'Ertalab tayyorgarlik', start: '06:30', end: '07:00', category: 'other', emoji: '🌅', description: '' },
+                    { name: 'Maktab', start: '07:30', end: '13:30', category: 'course', emoji: '🏫', description: 'Oddiy darslar' },
+                    { name: 'Tushlik', start: '13:30', end: '14:30', category: 'meal', emoji: '🍽️', description: '' },
+                    { name: 'Dam olish', start: '14:30', end: '15:00', category: 'break', emoji: '😴', description: 'Qisqa uyqu' },
+                    { name: 'SAT Math Intensive', start: '15:00', end: '17:00', category: 'sat', emoji: '🧮', highlight: true, description: '' },
+                    { name: 'Dam olish', start: '17:00', end: '17:30', category: 'break', emoji: '☕', description: '' },
+                    { name: 'SAT Reading/Writing', start: '17:30', end: '19:30', category: 'sat', emoji: '📖', highlight: true, description: '' },
+                    { name: 'Kechki ovqat', start: '19:30', end: '20:30', category: 'meal', emoji: '🍲', description: '' },
+                    { name: 'Maktab uyi', start: '20:30', end: '21:30', category: 'course', emoji: '📚', description: '' },
+                    { name: 'Shaxsiy vaqt', start: '21:30', end: '22:30', category: 'other', emoji: '🎮', description: '' },
+                    { name: 'Uyqu', start: '22:30', end: '06:30', category: 'sleep', emoji: '😴', description: '8 soat' }
+                ],
+                flexible: [
+                    { name: 'Ertalabki tartib', start: '07:00', end: '08:00', category: 'other', emoji: '🌅', description: '' },
+                    { name: 'SAT Session 1', start: '08:00', end: '10:00', category: 'sat', emoji: '📚', highlight: true, description: '' },
+                    { name: 'Dam olish', start: '10:00', end: '10:30', category: 'break', emoji: '☕', description: '' },
+                    { name: 'SAT Session 2', start: '10:30', end: '12:30', category: 'sat', emoji: '✍️', highlight: true, description: '' },
+                    { name: 'Tushlik', start: '12:30', end: '13:30', category: 'meal', emoji: '🍽️', description: '' },
+                    { name: 'Shaxsiy vaqt / Mashg\'ulot', start: '13:30', end: '18:00', category: 'other', emoji: '🎨', description: 'Moslashuvchan' },
+                    { name: 'Kechki ovqat', start: '18:00', end: '19:00', category: 'meal', emoji: '🍲', description: '' },
+                    { name: 'Xatolar tahlili', start: '19:00', end: '20:00', category: 'review', emoji: '🔍', description: '' },
+                    { name: 'Dam olish', start: '20:00', end: '23:00', category: 'other', emoji: '🎵', description: '' },
+                    { name: 'Uyqu', start: '23:00', end: '07:00', category: 'sleep', emoji: '😴', description: '8 soat' }
+                ]
+            };
+
+            const selectedPreset = presets[preset];
+            selectedPreset.forEach(block => {
+                scheduleBlocks.push({
+                    id: Date.now() + Math.random(),
+                    date: today,
+                    completed: false,
+                    ...block
+                });
+            });
+
+            saveData();
+            renderSchedule();
+            updateStats();
+            closePresets();
+            triggerHaptic('medium');
+            alert('Andoza muvaffaqiyatli qo\'llandi! ✅');
+        }
+
+        // AI Generator
+        function openAIGenerator() {
+            document.getElementById('aiGeneratorModal').classList.remove('hidden');
+            triggerHaptic();
+        }
+
+        function closeAIGenerator() {
+            document.getElementById('aiGeneratorModal').classList.add('hidden');
+        }
+
+        function generateAISchedule() {
+            const wakeup = document.getElementById('ai-wakeup').value;
+            const sleep = document.getElementById('ai-sleep').value;
+            const schoolStart = document.getElementById('ai-school-start').value;
+            const schoolEnd = document.getElementById('ai-school-end').value;
+            const satHours = parseInt(document.getElementById('ai-sat-hours').value);
+
+            if (!wakeup || !sleep) {
+                alert('Iltimos, turish va uxlash vaqtlarini kiriting!');
+                return;
+            }
+
+            if (!confirm('Joriy jadval tozalanib, AI tomonidan yangi jadval yaratiladi. Davom etasizmi?')) return;
+
+            const today = new Date().toISOString().split('T')[0];
+            scheduleBlocks = scheduleBlocks.filter(b => b.date !== today);
+
+            // AI-powered schedule generation based on circadian rhythm and Pomodoro
+            const [wakeH, wakeM] = wakeup.split(':').map(Number);
+            const [sleepH, sleepM] = sleep.split(':').map(Number);
+
+            let blocks = [];
+            let currentTime = wakeH * 60 + wakeM;
+            const sleepTime = sleepH * 60 + sleepM + (sleepH < wakeH ? 1440 : 0);
+
+            // Morning routine
+            blocks.push(createBlock('Ertalabki tayyorgarlik', currentTime, currentTime + 30, 'other', '🌅'));
+            currentTime += 30;
+
+            // Prime morning hours (06:00-12:00) - Best for SAT
+            const morningEnd = schoolStart ? parseTime(schoolStart) : Math.min(currentTime + 240, 12 * 60);
+            let satMinutesAllocated = 0;
+            const targetSatMinutes = satHours * 60;
+
+            while (currentTime < morningEnd && satMinutesAllocated < targetSatMinutes / 2) {
+                const sessionLength = 90; // Pomodoro extended session
+                blocks.push(createBlock('SAT Deep Work', currentTime, currentTime + sessionLength, 'sat', '🧠', true));
+                currentTime += sessionLength;
+                satMinutesAllocated += sessionLength;
+                
+                if (currentTime < morningEnd) {
+                    blocks.push(createBlock('Dam olish', currentTime, currentTime + 15, 'break', '☕'));
+                    currentTime += 15;
+                }
+            }
+
+            // School/Course block if specified
+            if (schoolStart && schoolEnd) {
+                const schStart = parseTime(schoolStart);
+                const schEnd = parseTime(schoolEnd);
+                if (currentTime < schStart) {
+                    blocks.push(createBlock('Tushlik', currentTime, schStart, 'meal', '🍽️'));
+                }
+                blocks.push(createBlock('Maktab / Kurs', schStart, schEnd, 'course', '🏫'));
+                currentTime = schEnd;
+            }
+
+            // Afternoon session
+            if (currentTime < 14 * 60) {
+                blocks.push(createBlock('Tushlik', currentTime, currentTime + 60, 'meal', '🍽️'));
+                currentTime += 60;
+            }
+
+            // Remaining SAT allocation
+            while (satMinutesAllocated < targetSatMinutes && currentTime < sleepTime - 180) {
+                const sessionLength = Math.min(90, targetSatMinutes - satMinutesAllocated);
+                blocks.push(createBlock('SAT Practice', currentTime, currentTime + sessionLength, 'sat', '📝', true));
+                currentTime += sessionLength;
+                satMinutesAllocated += sessionLength;
+                
+                blocks.push(createBlock('Dam olish', currentTime, currentTime + 15, 'break', '☕'));
+                currentTime += 15;
+            }
+
+            // Evening activities
+            if (currentTime < 18 * 60) {
+                blocks.push(createBlock('Sport / Faoliyat', currentTime, Math.min(currentTime + 60, 18 * 60), 'sport', '🏃'));
+                currentTime = 18 * 60;
+            }
+
+            blocks.push(createBlock('Kechki ovqat', currentTime, currentTime + 60, 'meal', '🍲'));
+            currentTime += 60;
+
+            blocks.push(createBlock('Xatolar tahlili', currentTime, currentTime + 60, 'review', '🔍'));
+            currentTime += 60;
+
+            // Free time before sleep
+            if (currentTime < sleepTime - 30) {
+                blocks.push(createBlock('Shaxsiy vaqt', currentTime, sleepTime - 30, 'other', '🎵'));
+                currentTime = sleepTime - 30;
+            }
+
+            blocks.push(createBlock('Uyqu tayyorgarligi', currentTime, sleepTime, 'other', '🌙'));
+            blocks.push(createBlock('Uyqu', sleepTime, wakeH * 60 + wakeM + 1440, 'sleep', '😴'));
+
+            // Add all blocks
+            blocks.forEach(block => {
+                scheduleBlocks.push({
+                    id: Date.now() + Math.random(),
+                    date: today,
+                    completed: false,
+                    ...block
+                });
+            });
+
+            saveData();
+            renderSchedule();
+            updateStats();
+            closeAIGenerator();
+            triggerHaptic('medium');
+            alert('AI jadval muvaffaqiyatli yaratildi! 🤖✅');
+        }
+
+        function parseTime(timeStr) {
+            const [h, m] = timeStr.split(':').map(Number);
+            return h * 60 + m;
+        }
+
+        function formatTime(minutes) {
+            const h = Math.floor(minutes / 60) % 24;
+            const m = minutes % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+
+        function createBlock(name, startMin, endMin, category, emoji, highlight = false) {
+            return {
+                name,
+                start: formatTime(startMin),
+                end: formatTime(endMin),
+                category,
+                emoji,
+                highlight,
+                description: ''
+            };
+        }
+
+        // Error Management
+        function openErrorEditor(error = null) {
+            currentEditingError = error;
+            const modal = document.getElementById('errorEditorModal');
+            
+            if (error) {
+                document.getElementById('error-test').value = error.test;
+                document.getElementById('error-section').value = error.section;
+                document.getElementById('error-question').value = error.question;
+                document.getElementById('error-topic').value = error.topic;
+                document.getElementById('error-solution').value = error.solution;
+                document.getElementById('error-desmos').value = error.desmos || '';
+            } else {
+                document.getElementById('error-test').value = '';
+                document.getElementById('error-section').value = 'math';
+                document.getElementById('error-question').value = '';
+                document.getElementById('error-topic').value = '';
+                document.getElementById('error-solution').value = '';
+                document.getElementById('error-desmos').value = '';
+            }
+            
+            modal.classList.remove('hidden');
+            triggerHaptic();
+        }
+
+        function closeErrorEditor() {
+            document.getElementById('errorEditorModal').classList.add('hidden');
+            currentEditingError = null;
+        }
+
+        function saveError() {
+            const test = document.getElementById('error-test').value.trim();
+            const section = document.getElementById('error-section').value;
+            const question = document.getElementById('error-question').value.trim();
+            const topic = document.getElementById('error-topic').value.trim();
+            const solution = document.getElementById('error-solution').value.trim();
+            const desmos = document.getElementById('error-desmos').value.trim();
+
+            if (!test || !question || !topic || !solution) {
+                alert('Iltimos, barcha majburiy maydonlarni to\'ldiring!');
+                return;
+            }
+
+            const error = {
+                id: currentEditingError ? currentEditingError.id : Date.now(),
+                test,
+                section,
+                question,
+                topic,
+                solution,
+                desmos,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            if (currentEditingError) {
+                const index = errors.findIndex(e => e.id === currentEditingError.id);
+                errors[index] = error;
+            } else {
+                errors.push(error);
+            }
+
+            saveData();
+            renderErrors();
+            closeErrorEditor();
+            triggerHaptic('medium');
+        }
+
+        function deleteError(id) {
+            if (confirm('Ushbu xatoni o\'chirmoqchimisiz?')) {
+                errors = errors.filter(e => e.id !== id);
+                saveData();
+                renderErrors();
+                triggerHaptic('medium');
+            }
+        }
+
+        function renderErrors() {
+            const container = document.getElementById('errorsList');
+            
+            if (errors.length === 0) {
+                container.innerHTML = `
+                    <div class="glassmorphism rounded-2xl p-8 text-center">
+                        <div class="text-5xl mb-4">✅</div>
+                        <p class="opacity-70">Hali xatolar qayd qilinmagan. Ajoyib!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sectionEmojis = {
+                math: '🧮',
+                reading: '📖',
+                writing: '✍️'
+            };
+
+            container.innerHTML = errors.map(error => `
+                <div class="glassmorphism rounded-2xl p-5">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="text-3xl">${sectionEmojis[error.section]}</div>
+                            <div>
+                                <h3 class="font-bold">${error.test} - Savol #${error.question}</h3>
+                                <p class="text-sm opacity-70">${error.topic}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick='openErrorEditor(${JSON.stringify(error).replace(/"/g, '&quot;').replace(/'/g, "\\'")})'  class="w-10 h-10 rounded-lg glassmorphism flex items-center justify-center">
+                                ✏️
+                            </button>
+                            <button onclick="deleteError(${error.id})" class="w-10 h-10 rounded-lg glassmorphism flex items-center justify-center">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    <div class="glassmorphism rounded-xl p-4 mb-3">
+                        <p class="text-sm font-semibold mb-2">🔍 Tahlil:</p>
+                        <p class="text-sm opacity-90">${error.solution}</p>
+                    </div>
+                    ${error.desmos ? `
+                        <div class="glassmorphism rounded-xl p-4">
+                            <p class="text-sm font-semibold mb-2">🧮 Desmos usuli:</p>
+                            <p class="text-sm opacity-90">${error.desmos}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Report Generation
+        function generateReport() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayBlocks = scheduleBlocks.filter(b => b.date === today);
+            const completedBlocks = todayBlocks.filter(b => b.completed);
+            const totalHours = completedBlocks.reduce((sum, b) => {
+                const duration = calculateDurationMinutes(b.start, b.end);
+                return sum + duration / 60;
+            }, 0);
+
+            const satBlocks = completedBlocks.filter(b => b.category === 'sat' || b.category === 'practice');
+            const satHours = satBlocks.reduce((sum, b) => {
+                const duration = calculateDurationMinutes(b.start, b.end);
+                return sum + duration / 60;
+            }, 0);
+
+            const summary = document.getElementById('daily-summary').value.trim() || 'Kunlik xulosa kiritilmagan.';
+
+            const report = `
+📊 KUNLIK HISOBOT - ${new Date().toLocaleDateString('uz-UZ')}
+
+🎓 O'quv Markazi: ${settings.centerName}
+👤 O'quvchi: ${settings.studentGroup}
+
+📈 STATISTIKA:
+✅ Bajarildi: ${completedBlocks.length} / ${todayBlocks.length} blok (${Math.round(completedBlocks.length / todayBlocks.length * 100)}%)
+⏱ Jami o'qish: ${totalHours.toFixed(1)} soat
+📚 SAT mashg'uloti: ${satHours.toFixed(1)} soat
+${errors.length > 0 ? `❌ Bugungi xatolar: ${errors.filter(e => e.date === today).length} ta` : ''}
+
+💬 XULOSA:
+${summary}
+
+🎯 BAJARILGAN BLOKLAR:
+${completedBlocks.map(b => `${b.emoji} ${b.name} (${b.start}-${b.end})`).join('\n')}
+
+${settings.mentorUsername ? `\n📩 Mentor: ${settings.mentorUsername}` : ''}
+
+---
+SAT 1500+ Pro | Digital Learning Platform
+            `.trim();
+
+            document.getElementById('report-text').textContent = report;
+            document.getElementById('generated-report').style.display = 'block';
+            triggerHaptic('medium');
+
+            // Try to share via Telegram if available
+            if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                // Telegram share functionality would go here
+            }
+        }
+
+        function copyReport() {
+            const reportText = document.getElementById('report-text').textContent;
+            if (!reportText) return;
+            navigator.clipboard.writeText(reportText).then(() => {
+                alert('Hisobot nusxalandi! ✅');
+                triggerHaptic('light');
+            }).catch(() => {
+                // Fallback for some mobile webviews
+                const area = document.createElement('textarea');
+                area.value = reportText;
+                document.body.appendChild(area);
+                area.select();
+                document.execCommand('copy');
+                document.body.removeChild(area);
+                alert('Hisobot nusxalandi! ✅');
+            });
+        }
+
+        function shareViaTelegram() {
+            const reportText = document.getElementById('report-text').textContent;
+            if (!reportText) return;
+            const shareUrl = "https://t.me/share/url?url=" + encodeURIComponent("https://t.me/SAT_helper123_bot") + "&text=" + encodeURIComponent(reportText);
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
+                window.Telegram.WebApp.openTelegramLink(shareUrl);
+            } else {
+                window.open(shareUrl, "_blank");
+            }
+            triggerHaptic('medium');
+        }
+
+        function calculateDurationMinutes(start, end) {
+            const [sh, sm] = start.split(':').map(Number);
+            const [eh, em] = end.split(':').map(Number);
+            return (eh * 60 + em) - (sh * 60 + sm);
+        }
+
+        // Settings
+        function openSettings() {
+            document.getElementById('settings-center').value = settings.centerName;
+            document.getElementById('settings-student').value = settings.studentGroup;
+            document.getElementById('settings-mentor').value = settings.mentorUsername;
+            document.getElementById('settingsModal').classList.remove('hidden');
+            triggerHaptic();
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function saveSettings() {
+            settings.centerName = document.getElementById('settings-center').value.trim() || 'SAT 1500+ Pro';
+            settings.studentGroup = document.getElementById('settings-student').value.trim() || 'Premium Edition';
+            settings.mentorUsername = document.getElementById('settings-mentor').value.trim();
+            
+            localStorage.setItem('settings', JSON.stringify(settings));
+            loadSettings();
+            closeSettings();
+            triggerHaptic('medium');
+            alert('Sozlamalar saqlandi! ✅');
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem('settings');
+            if (saved) {
+                settings = JSON.parse(saved);
+            }
+            document.getElementById('centerName').textContent = settings.centerName;
+            document.getElementById('studentGroup').textContent = settings.studentGroup;
+        }
+
+        function exportData() {
+            const data = {
+                scheduleBlocks,
+                errors,
+                settings,
+                exportDate: new Date().toISOString()
+            };
+            
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sat1500-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            triggerHaptic('medium');
+            alert('Ma\'lumotlar eksport qilindi! 📤');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        scheduleBlocks = data.scheduleBlocks || [];
+                        errors = data.errors || [];
+                        settings = data.settings || settings;
+                        saveData();
+                        localStorage.setItem('settings', JSON.stringify(settings));
+                        renderSchedule();
+                        renderErrors();
+                        loadSettings();
+                        updateStats();
+                        triggerHaptic('medium');
+                        alert('Ma\'lumotlar import qilindi! 📥');
+                    } catch (err) {
+                        alert('Xatolik: Fayl noto\'g\'ri formatda!');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearAllData() {
+            if (confirm('DIQQAT! Barcha ma\'lumotlar o\'chiriladi. Bu amalni qaytarib bo\'lmaydi. Davom etasizmi?')) {
+                if (confirm('Haqiqatan ham barcha ma\'lumotlarni o\'chirmoqchimisiz?')) {
+                    scheduleBlocks = [];
+                    errors = [];
+                    localStorage.clear();
+                    renderSchedule();
+                    renderErrors();
+                    updateStats();
+                    triggerHaptic('medium');
+                    alert('Barcha ma\'lumotlar tozalandi! 🗑️');
+                }
+            }
+        }
+
+        // Stats Update
+        function updateStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayBlocks = scheduleBlocks.filter(b => b.date === today);
+            const completed = todayBlocks.filter(b => b.completed).length;
+            const total = todayBlocks.length;
+
+            const totalHours = todayBlocks.filter(b => b.completed).reduce((sum, b) => {
+                const duration = calculateDurationMinutes(b.start, b.end);
+                return sum + duration / 60;
+            }, 0);
+
+            const focusScore = total > 0 ? Math.round(completed / total * 100) : 0;
+
+            document.getElementById('completedBlocks').textContent = `${completed}/${total}`;
+            document.getElementById('totalHours').textContent = totalHours.toFixed(1);
+            document.getElementById('focusScore').textContent = `${focusScore}%`;
+
+            // Update report stats
+            document.getElementById('report-total-hours').textContent = `${totalHours.toFixed(1)} soat`;
+            document.getElementById('report-completed').textContent = `${completed} / ${total}`;
+        }
+
+        // Data Persistence
+        function saveData() {
+            localStorage.setItem('scheduleBlocks', JSON.stringify(scheduleBlocks));
+            localStorage.setItem('errors', JSON.stringify(errors));
+        }
+
+        function loadData() {
+            const savedBlocks = localStorage.getItem('scheduleBlocks');
+            const savedErrors = localStorage.getItem('errors');
+            
+            if (savedBlocks) scheduleBlocks = JSON.parse(savedBlocks);
+            if (savedErrors) errors = JSON.parse(savedErrors);
+        }
+
+        // Haptic Feedback
+        function triggerHaptic(type = 'medium') {
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred(type);
+            }
+        }
+
+        // Initialize app on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
