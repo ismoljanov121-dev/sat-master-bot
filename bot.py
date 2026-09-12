@@ -84,6 +84,27 @@ async def main():
     ]
     await bot.set_my_commands(commands)
 
+    # Automatically set Bot Name, Bio (Short Description), and Welcome Description
+    try:
+        await bot.set_my_name(name="SAT Master AI")
+        await bot.set_my_short_description(
+            short_description="⚡ Digital SAT 1500+ AI Rentgen Diagnostika & Desmos Hiylalari. 5 daqiqada ballingizni oshiring!"
+        )
+        await bot.set_my_description(
+            description=(
+                "Digital SAT'dan 1500+ ololmayapsizmi? 🎯\n\n"
+                "Muammo bilimsizlikda emas — qaysi mavzuda ball yo'qotayotganingizni va Desmos hiylalarini bilmasligingizda!\n\n"
+                "BIZNING BOT NIMA BERADI?\n"
+                "🔬 AI Rentgen: 5 daqiqada qaysi mavzu sening 80-100 ballingni o'g'irlayotganini ko'rsatib beradi.\n"
+                "⚡ Desmos Hacks: Math savollarini formulalarsiz, 10 soniyada yechish yo'llari.\n"
+                "📱 60 Kunlik SAT Tracker: SAT 1500 va IELTS 8.0 uchun dars jadvali WebApp'i.\n\n"
+                "👇 'Start' tugmasini bosing va o'z bilimingizni bepul rentgen qiling!"
+            )
+        )
+        logger.info("✅ Bot name, bio and description automatically synchronized!")
+    except Exception as e:
+        logger.warning(f"Could not auto-sync profile details: {e}")
+
     me = await bot.get_me()
     print("\n" + "=" * 50)
     print(f"🚀 SAT MASTER AI BOT ISHGA TUSHDI!")
