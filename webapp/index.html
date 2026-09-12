@@ -308,25 +308,92 @@
     </div>
 
     <!-- AI Generator Modal -->
-    <div id="aiModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4">
-        <div class="glass-card rounded-2xl p-6 max-w-md w-full slide-up">
-            <h3 class="text-xl font-bold mb-4 gradient-text" data-i18n="ai_modal_title">🤖 AI Rejalashtirish</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-2" data-i18n="ai_target_label">Maqsad Ball (1200-1600)</label>
-                    <input type="number" id="aiTargetScore" min="1200" max="1600" value="1500" class="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-violet-500 focus:outline-none transition-all">
+    <div id="aiModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card rounded-2xl p-6 max-w-md w-full slide-up max-h-[92vh] overflow-y-auto my-auto border border-violet-500/30">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🤖</span>
+                    <h3 class="text-xl font-bold gradient-text" data-i18n="ai_modal_title">AI Smart Rejim Generator</h3>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium mb-2" data-i18n="ai_current_label">Hozirgi Daraja (400-1400)</label>
-                    <input type="number" id="aiCurrentScore" min="400" max="1400" value="1200" class="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-violet-500 focus:outline-none transition-all">
+                <button onclick="document.getElementById('aiCancelBtn').click()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">✕</button>
+            </div>
+            <p class="text-xs text-gray-400 mb-4 leading-relaxed" data-i18n="ai_modal_subtitle">
+                Sirkad biologik ritmi va Pomodoro ilmi asosida shaxsiy mukammal kun tartibi
+            </p>
+            
+            <div class="space-y-3.5">
+                <!-- Wakeup & Bedtime (2 columns) -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
+                            <span>🌅</span> <span data-i18n="ai_wakeup_label">Uyg'onish vaqti</span>
+                        </label>
+                        <input type="time" id="aiWakeup" value="06:30" class="w-full px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm focus:border-violet-500 focus:outline-none transition-all text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
+                            <span>😴</span> <span data-i18n="ai_sleep_label">Uxlash vaqti</span>
+                        </label>
+                        <input type="time" id="aiSleep" value="23:00" class="w-full px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-sm focus:border-violet-500 focus:outline-none transition-all text-white">
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium mb-2" data-i18n="ai_days_label">Kunlar Soni</label>
-                    <input type="number" id="aiDays" min="7" max="365" value="30" class="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-700 focus:border-violet-500 focus:outline-none transition-all">
+
+                <!-- School / Course Hours -->
+                <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-semibold text-gray-300 flex items-center gap-1">
+                            <span>🏫</span> <span data-i18n="ai_school_label">Maktab / Kurs soatlari</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-violet-400">
+                            <input type="checkbox" id="aiNoSchool" class="w-3.5 h-3.5 rounded border-slate-700 text-violet-600 focus:ring-0 cursor-pointer">
+                            <span data-i18n="ai_no_school_label">Maktab yo'q (Gap year)</span>
+                        </label>
+                    </div>
+                    <div id="aiSchoolTimeContainer" class="grid grid-cols-2 gap-3">
+                        <div>
+                            <span class="text-[10px] text-gray-400 block mb-0.5" data-i18n="ai_school_start">Boshlanish</span>
+                            <input type="time" id="aiSchoolStart" value="13:00" class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-700 text-xs focus:border-violet-500 focus:outline-none text-white">
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 block mb-0.5" data-i18n="ai_school_end">Tugash</span>
+                            <input type="time" id="aiSchoolEnd" value="17:00" class="w-full px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-700 text-xs focus:border-violet-500 focus:outline-none text-white">
+                        </div>
+                    </div>
                 </div>
-                <div class="flex gap-3">
-                    <button id="aiCancelBtn" class="spring-scale flex-1 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 font-medium transition-all" data-i18n="cancel_btn">Bekor qilish</button>
-                    <button id="aiConfirmBtn" class="spring-scale flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 font-semibold transition-all" data-i18n="generate_btn">Yaratish</button>
+
+                <!-- Daily SAT Target Hours -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
+                        <span>🎯</span> <span data-i18n="ai_sat_hours_label">Kunlik SAT dars maqsadi</span>
+                    </label>
+                    <select id="aiSatHours" class="w-full px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-xs sm:text-sm focus:border-violet-500 focus:outline-none transition-all text-white">
+                        <option value="3">3 soat / kun (Yengil tayyorgarlik)</option>
+                        <option value="4">4 soat / kun (Muvozanatli rejim)</option>
+                        <option value="5" selected>5 soat / kun (🔥 SAT 1500+ Oltin Standart)</option>
+                        <option value="6">6 soat / kun (🚀 Yuqori intensivlik)</option>
+                        <option value="8">8 soat / kun (⚡ Ultra Hardcore Gap Year)</option>
+                    </select>
+                </div>
+
+                <!-- Target Score (Ivy League / Top University) -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
+                        <span>🏆</span> <span data-i18n="ai_target_label">Maqsad Ball</span>
+                    </label>
+                    <select id="aiTargetScore" class="w-full px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-xs sm:text-sm focus:border-violet-500 focus:outline-none transition-all text-white">
+                        <option value="1550" selected>SAT 1550+ (Ivy League / MIT / Harvard)</option>
+                        <option value="1500">SAT 1500+ (Top 30 US Universities)</option>
+                        <option value="1450">SAT 1450+ (Full Scholarship Grant)</option>
+                        <option value="1400">SAT 1400+ (Honors College)</option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3 pt-2">
+                    <button id="aiCancelBtn" class="spring-scale flex-1 py-3 rounded-xl bg-slate-700 hover:bg-slate-600 font-medium transition-all text-xs sm:text-sm" data-i18n="cancel_btn">Bekor qilish</button>
+                    <button id="aiConfirmBtn" class="spring-scale flex-1 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 font-semibold transition-all text-xs sm:text-sm shadow-lg shadow-violet-500/25 flex items-center justify-center gap-1.5">
+                        <span>✨</span> <span data-i18n="generate_btn_text">Jadval Yaratish</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -453,10 +520,17 @@
                 copy_btn: '📋 Nusxalash',
                 share_telegram_btn: '🚀 Telegramda Yuborish',
                 errors_title: 'Xatolar Jurnali',
-                ai_modal_title: '🤖 AI Rejalashtirish',
-                ai_target_label: 'Maqsad Ball (1200-1600)',
-                ai_current_label: 'Hozirgi Daraja (400-1400)',
-                ai_days_label: 'Kunlar Soni',
+                ai_modal_title: '🤖 AI Smart Rejim Generator',
+                ai_modal_subtitle: 'Sirkad biologik ritmi va Pomodoro ilmi asosida shaxsiy mukammal kun tartibi',
+                ai_wakeup_label: "Uyg'onish vaqti",
+                ai_sleep_label: "Uxlash vaqti",
+                ai_school_label: "Maktab / Kurs soatlari",
+                ai_no_school_label: "Maktab yo'q (Gap year)",
+                ai_school_start: "Boshlanish",
+                ai_school_end: "Tugash",
+                ai_sat_hours_label: "Kunlik SAT dars maqsadi",
+                ai_target_label: "Maqsad Ball",
+                generate_btn_text: "Jadval Yaratish",
                 cancel_btn: 'Bekor qilish',
                 generate_btn: 'Yaratish',
                 add_task_title: '➕ Yangi Vazifa',
@@ -489,7 +563,7 @@
                 toast_report_copied: 'Hisobot nusxalandi!',
                 toast_data_exported: 'Ma\'lumotlar eksport qilindi!',
                 toast_data_imported: 'Ma\'lumotlar import qilindi!',
-                toast_ai_generated: 'AI reja yaratildi!',
+                toast_ai_generated: 'Sirkad va Pomodoro AI jadvali muvaffaqiyatli tuzildi!',
                 report_header: '📊 HAFTALIK HISOBOT',
                 report_center: 'O\'quv Markaz',
                 report_group: 'Guruh',
@@ -528,10 +602,17 @@
                 copy_btn: '📋 Копировать',
                 share_telegram_btn: '🚀 Отправить в Telegram',
                 errors_title: 'Журнал Ошибок',
-                ai_modal_title: '🤖 AI Планирование',
-                ai_target_label: 'Целевой Балл (1200-1600)',
-                ai_current_label: 'Текущий Уровень (400-1400)',
-                ai_days_label: 'Количество Дней',
+                ai_modal_title: '🤖 AI Генератор Режима',
+                ai_modal_subtitle: 'Идеальное расписание на основе циркадных биоритмов и Pomodoro',
+                ai_wakeup_label: 'Время пробуждения',
+                ai_sleep_label: 'Время сна',
+                ai_school_label: 'Школа / Курсы',
+                ai_no_school_label: 'Без школы (Gap year)',
+                ai_school_start: 'Начало',
+                ai_school_end: 'Конец',
+                ai_sat_hours_label: 'Часов SAT в день',
+                ai_target_label: 'Целевой балл',
+                generate_btn_text: 'Создать расписание',
                 cancel_btn: 'Отмена',
                 generate_btn: 'Создать',
                 add_task_title: '➕ Новая Задача',
@@ -564,7 +645,7 @@
                 toast_report_copied: 'Отчёт скопирован!',
                 toast_data_exported: 'Данные экспортированы!',
                 toast_data_imported: 'Данные импортированы!',
-                toast_ai_generated: 'AI план создан!',
+                toast_ai_generated: 'Циркадный и Pomodoro AI режим успешно создан!',
                 report_header: '📊 НЕДЕЛЬНЫЙ ОТЧЁТ',
                 report_center: 'Учебный Центр',
                 report_group: 'Группа',
@@ -603,10 +684,17 @@
                 copy_btn: '📋 Copy',
                 share_telegram_btn: '🚀 Share in Telegram',
                 errors_title: 'Error Log',
-                ai_modal_title: '🤖 AI Planning',
-                ai_target_label: 'Target Score (1200-1600)',
-                ai_current_label: 'Current Level (400-1400)',
-                ai_days_label: 'Number of Days',
+                ai_modal_title: '🤖 AI Smart Routine Generator',
+                ai_modal_subtitle: 'Daily schedule based on Circadian biological rhythms & Pomodoro science',
+                ai_wakeup_label: 'Wake-up Time',
+                ai_sleep_label: 'Bedtime',
+                ai_school_label: 'School / Course Hours',
+                ai_no_school_label: 'No School (Gap Year)',
+                ai_school_start: 'Start',
+                ai_school_end: 'End',
+                ai_sat_hours_label: 'Daily SAT Study Target',
+                ai_target_label: 'Target Score',
+                generate_btn_text: 'Generate Routine',
                 cancel_btn: 'Cancel',
                 generate_btn: 'Generate',
                 add_task_title: '➕ New Task',
@@ -639,7 +727,7 @@
                 toast_report_copied: 'Report copied!',
                 toast_data_exported: 'Data exported!',
                 toast_data_imported: 'Data imported!',
-                toast_ai_generated: 'AI plan generated!',
+                toast_ai_generated: 'Circadian & Pomodoro AI routine generated successfully!',
                 report_header: '📊 WEEKLY REPORT',
                 report_center: 'Learning Center',
                 report_group: 'Group',
@@ -655,6 +743,54 @@
         };
 
         let currentLang = localStorage.getItem('lang') || 'uz';
+
+        const aiOptionsDict = {
+            uz: {
+                hours: {
+                    '3': "3 soat / kun (Yengil tayyorgarlik)",
+                    '4': "4 soat / kun (Muvozanatli rejim)",
+                    '5': "5 soat / kun (🔥 SAT 1500+ Oltin Standart)",
+                    '6': "6 soat / kun (🚀 Yuqori intensivlik)",
+                    '8': "8 soat / kun (⚡ Ultra Hardcore Gap Year)"
+                },
+                targets: {
+                    '1550': "SAT 1550+ (Ivy League / MIT / Harvard)",
+                    '1500': "SAT 1500+ (Top 30 US Universities)",
+                    '1450': "SAT 1450+ (Full Scholarship Grant)",
+                    '1400': "SAT 1400+ (Honors College)"
+                }
+            },
+            ru: {
+                hours: {
+                    '3': "3 часа / день (Лёгкая подготовка)",
+                    '4': "4 часа / день (Сбалансированный режим)",
+                    '5': "5 часов / день (🔥 SAT 1500+ Золотой Стандарт)",
+                    '6': "6 часов / день (🚀 Высокая интенсивность)",
+                    '8': "8 часов / день (⚡ Ультра Хардкор Gap Year)"
+                },
+                targets: {
+                    '1550': "SAT 1550+ (Лига Плюща / MIT / Гарвард)",
+                    '1500': "SAT 1500+ (Топ-30 ВУЗов США)",
+                    '1450': "SAT 1450+ (Полный грант / стипендия)",
+                    '1400': "SAT 1400+ (Honors College)"
+                }
+            },
+            en: {
+                hours: {
+                    '3': "3 hrs / day (Light Prep)",
+                    '4': "4 hrs / day (Balanced Routine)",
+                    '5': "5 hrs / day (🔥 SAT 1500+ Golden Standard)",
+                    '6': "6 hrs / day (🚀 High Intensity)",
+                    '8': "8 hrs / day (⚡ Ultra Hardcore Gap Year)"
+                },
+                targets: {
+                    '1550': "SAT 1550+ (Ivy League / MIT / Harvard)",
+                    '1500': "SAT 1500+ (Top 30 US Universities)",
+                    '1450': "SAT 1450+ (Full Scholarship Grant)",
+                    '1400': "SAT 1400+ (Honors College)"
+                }
+            }
+        };
 
         function t(key) {
             return translations[currentLang][key] || key;
@@ -674,6 +810,19 @@
                     btn.classList.remove('tab-active');
                 }
             });
+            const optDict = aiOptionsDict[currentLang] || aiOptionsDict.uz;
+            const satHoursEl = document.getElementById('aiSatHours');
+            if (satHoursEl) {
+                Array.from(satHoursEl.options).forEach(opt => {
+                    if (optDict.hours[opt.value]) opt.textContent = optDict.hours[opt.value];
+                });
+            }
+            const targetScoreEl = document.getElementById('aiTargetScore');
+            if (targetScoreEl) {
+                Array.from(targetScoreEl.options).forEach(opt => {
+                    if (optDict.targets[opt.value]) opt.textContent = optDict.targets[opt.value];
+                });
+            }
         }
 
         document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -941,6 +1090,21 @@
 
         // ==================== AI GENERATOR ====================
         const aiModal = document.getElementById('aiModal');
+        const aiNoSchoolCheckbox = document.getElementById('aiNoSchool');
+        const aiSchoolTimeContainer = document.getElementById('aiSchoolTimeContainer');
+
+        if (aiNoSchoolCheckbox && aiSchoolTimeContainer) {
+            aiNoSchoolCheckbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    aiSchoolTimeContainer.style.opacity = '0.35';
+                    aiSchoolTimeContainer.style.pointerEvents = 'none';
+                } else {
+                    aiSchoolTimeContainer.style.opacity = '1';
+                    aiSchoolTimeContainer.style.pointerEvents = 'auto';
+                }
+            });
+        }
+
         document.getElementById('aiGenerateBtn').addEventListener('click', () => {
             playTap();
             haptic();
@@ -955,32 +1119,224 @@
             aiModal.classList.remove('flex');
         });
 
+        function buildCircadianRoutine(wakeStr, sleepStr, noSchool, schoolStartStr, schoolEndStr, satHours, targetScore, lang) {
+            function toMin(t) {
+                if (!t || typeof t !== 'string' || !t.includes(':')) return 0;
+                const [h, m] = t.split(':').map(Number);
+                return (h || 0) * 60 + (m || 0);
+            }
+            function toTime(m) {
+                m = ((m % 1440) + 1440) % 1440;
+                const h = Math.floor(m / 60).toString().padStart(2, '0');
+                const min = (m % 60).toString().padStart(2, '0');
+                return h + ':' + min;
+            }
+
+            const langDict = {
+                uz: {
+                    wake: { title: '🌅 Ertalabki Sirkad Ritmi', desc: "Quyosh nuri, 500ml iliq suv va yengil chigal yozish (Kortizol uyg'onishi)" },
+                    reading: { title: '📖 SAT Reading & Comprehension', desc: 'Ilmiy va tarixiy matnlar tahlili, Paired Passages (Pomodoro 50/10)' },
+                    math: { title: '🔢 SAT Math & Desmos Hacks', desc: 'Hard Module 2 masalalari, Desmos grafik usullari va tezlik testi' },
+                    writing: { title: '✍️ SAT Writing & Grammar Mastery', desc: 'Standard English Conventions, Transitions va punktuatsiya qoidalari' },
+                    errorLog: { title: '❌ Error Log & SAT Vocabulary', desc: "Kunlik xatolar tahlili + 20 ta yangi SAT Advanced so'zlar (Xotiraga muhrlash)" },
+                    school: { title: '🏫 Maktab / Kurs Mashg\'ulotlari', desc: 'Faol ishtirok, darslar va konsultatsiyalar' },
+                    lunch: { title: '🥗 Tushlik & Energetik Tiklanish', desc: "Sog'lom ovqatlanish, ko'zlarni dam oldirish va qisqa sayr" },
+                    workout: { title: '🏃 Jismoniy Harakat & Stress Kamaytirish', desc: 'Kardio, yugurish yoki toza havoda sayr (Miyada BDNF oqimi)' },
+                    dinner: { title: '🍽️ Kechki Taom & Hordiq', desc: 'Oila davrasida ovqatlanish va aqliy hordiq' },
+                    windDown: { title: '📵 Raqamli Detoks & Tinchlanish', desc: "Ekranlarni o'chirish, xotirjamlik, melatonin gormoni ishlab chiqarilishi" }
+                },
+                ru: {
+                    wake: { title: '🌅 Утренний Циркадный Ритуал', desc: 'Солнечный свет, 500мл воды и лёгкая разминка (Кортизоловый пик)' },
+                    reading: { title: '📖 SAT Reading & Comprehension', desc: 'Научные и исторические тексты, Paired Passages (Pomodoro 50/10)' },
+                    math: { title: '🔢 SAT Math & Desmos Hacks', desc: 'Сложнейший Module 2, фишки Desmos и тест на скорость' },
+                    writing: { title: '✍️ SAT Writing & Grammar Mastery', desc: 'Standard English Conventions, Transitions и грамматика' },
+                    errorLog: { title: '❌ Анализ Ошибок & SAT Vocabulary', desc: 'Разбор дневных ошибок + 20 продвинутых слов SAT' },
+                    school: { title: '🏫 Школа / Занятия в Центре', desc: 'Активное участие на уроках и консультациях' },
+                    lunch: { title: '🥗 Обед и Восстановление Энергии', desc: 'Здоровое питание, отдых для глаз и лёгкая прогулка' },
+                    workout: { title: '🏃 Спорт и Снижение Кортизола', desc: 'Кардио, тренировка или прогулка (Активация нейропластичности BDNF)' },
+                    dinner: { title: '🍽️ Ужин и Семейный Отдых', desc: 'Питательный ужин и разгрузка ума' },
+                    windDown: { title: '📵 Цифровой Детокс и Релакс', desc: 'Выключение экранов, чтение книги, выработка мелатонина' }
+                },
+                en: {
+                    wake: { title: '🌅 Morning Circadian Ritual', desc: 'Sunlight exposure, 500ml warm water & light stretch (Cortisol awakening)' },
+                    reading: { title: '📖 SAT Reading & Comprehension', desc: 'Scientific & History passages, Paired texts (Pomodoro 50/10)' },
+                    math: { title: '🔢 SAT Math & Desmos Hacks', desc: 'Hard Module 2 drills, Desmos calculator speed tricks & timed sets' },
+                    writing: { title: '✍️ SAT Writing & Grammar Mastery', desc: 'Standard English Conventions, Transitions & punctuation rules' },
+                    errorLog: { title: '❌ Error Log & SAT Advanced Vocab', desc: 'In-depth error analysis + 20 high-frequency SAT vocabulary terms' },
+                    school: { title: '🏫 School / Academy Classes', desc: 'School classes & active academic engagement' },
+                    lunch: { title: '🥗 Lunch & Energy Refuel', desc: 'Nutrient-rich meal, screen-free rest & eye relaxation' },
+                    workout: { title: '🏃 Workout & Cortisol Reduction', desc: 'Cardio, exercise or brisk outdoor walk (Boost BDNF & focus)' },
+                    dinner: { title: '🍽️ Dinner & Evening Recharge', desc: 'Balanced dinner and mental decompression' },
+                    windDown: { title: '📵 Digital Detox & Melatonin Prep', desc: 'Screens off, reading or journaling, natural melatonin release' }
+                }
+            };
+
+            const d = langDict[lang] || langDict.uz;
+
+            let wakeM = toMin(wakeStr || '06:30');
+            let sleepM = toMin(sleepStr || '23:00');
+            if (sleepM <= wakeM) sleepM += 1440;
+
+            let schStart = noSchool ? -1 : toMin(schoolStartStr || '13:00');
+            let schEnd = noSchool ? -1 : toMin(schoolEndStr || '17:00');
+            if (!noSchool && schEnd <= schStart) schEnd += 1440;
+
+            const satTotalMin = satHours * 60;
+            let readingMin = Math.round((satTotalMin * 0.35) / 15) * 15;
+            let mathMin = Math.round((satTotalMin * 0.40) / 15) * 15;
+            let writingMin = Math.round((satTotalMin * 0.15) / 15) * 15;
+            let errorMin = satTotalMin - (readingMin + mathMin + writingMin);
+            if (errorMin < 30) {
+                errorMin = 30;
+                if (mathMin > 60) mathMin -= 15;
+                else if (readingMin > 60) readingMin -= 15;
+            }
+
+            const items = [];
+            function addItem(startM, endM, itemDef) {
+                items.push({
+                    startM,
+                    endM,
+                    duration: endM - startM,
+                    subject: itemDef.title,
+                    description: '⏰ ' + toTime(startM) + ' - ' + toTime(endM) + ' • ' + itemDef.desc
+                });
+            }
+
+            // 1. Wakeup Ritual (30m)
+            addItem(wakeM, wakeM + 30, d.wake);
+            let cur = wakeM + 30;
+
+            const isAfternoonSchool = !noSchool && schStart >= 660; // 11:00 or later
+
+            if (noSchool) {
+                // Gap Year / Full Study day
+                addItem(cur + 15, cur + 15 + readingMin, d.reading);
+                cur = cur + 15 + readingMin;
+
+                addItem(cur + 15, cur + 15 + writingMin, d.writing);
+                cur = cur + 15 + writingMin;
+
+                let lunchStart = Math.max(cur + 15, 750); // 12:30
+                addItem(lunchStart, lunchStart + 45, d.lunch);
+                cur = lunchStart + 45;
+
+                addItem(cur + 30, cur + 30 + mathMin, d.math);
+                cur = cur + 30 + mathMin;
+
+                let workoutStart = Math.max(cur + 30, 1050); // 17:30
+                addItem(workoutStart, workoutStart + 45, d.workout);
+                cur = workoutStart + 45;
+
+                let dinnerStart = Math.max(cur + 30, 1170); // 19:30
+                addItem(dinnerStart, dinnerStart + 45, d.dinner);
+                cur = dinnerStart + 45;
+
+                addItem(cur + 30, cur + 30 + errorMin, d.errorLog);
+                cur = cur + 30 + errorMin;
+
+            } else if (isAfternoonSchool) {
+                // Afternoon school: e.g. 13:00 - 17:00
+                addItem(cur + 15, cur + 15 + readingMin, d.reading);
+                cur = cur + 15 + readingMin;
+
+                if (cur + 15 + writingMin <= schStart - 45) {
+                    addItem(cur + 15, cur + 15 + writingMin, d.writing);
+                    cur = cur + 15 + writingMin;
+                }
+
+                let lunchStart = Math.max(cur + 15, schStart - 50);
+                addItem(lunchStart, schStart, d.lunch);
+
+                addItem(schStart, schEnd, d.school);
+                cur = schEnd;
+
+                addItem(cur + 15, cur + 55, d.workout);
+                cur = cur + 55;
+
+                addItem(cur + 20, cur + 20 + mathMin, d.math);
+                cur = cur + 20 + mathMin;
+
+                addItem(cur + 15, cur + 55, d.dinner);
+                cur = cur + 55;
+
+                if (!items.some(i => i.subject === d.writing.title)) {
+                    addItem(cur + 15, cur + 15 + writingMin, d.writing);
+                    cur = cur + 15 + writingMin;
+                }
+
+                let errStart = Math.min(cur + 15, sleepM - 40 - errorMin);
+                addItem(errStart, errStart + errorMin, d.errorLog);
+
+            } else {
+                // Morning school: e.g. 08:30 - 13:30
+                if (schStart - cur >= 60) {
+                    let morningSprint = Math.min(45, writingMin);
+                    addItem(cur + 15, cur + 15 + morningSprint, d.writing);
+                    writingMin -= morningSprint;
+                }
+
+                addItem(schStart, schEnd, d.school);
+                cur = schEnd;
+
+                addItem(cur, cur + 45, d.lunch);
+                cur = cur + 45;
+
+                addItem(cur + 30, cur + 30 + readingMin, d.reading);
+                cur = cur + 30 + readingMin;
+
+                addItem(cur + 20, cur + 60, d.workout);
+                cur = cur + 60;
+
+                addItem(cur + 20, cur + 20 + mathMin, d.math);
+                cur = cur + 20 + mathMin;
+
+                addItem(cur + 15, cur + 55, d.dinner);
+                cur = cur + 55;
+
+                if (writingMin > 0) {
+                    addItem(cur + 15, cur + 15 + writingMin, d.writing);
+                    cur = cur + 15 + writingMin;
+                }
+
+                let errStart = Math.min(cur + 15, sleepM - 40 - errorMin);
+                addItem(errStart, errStart + errorMin, d.errorLog);
+            }
+
+            // Pre-bed Digital Detox (30 min before sleep)
+            addItem(sleepM - 35, sleepM - 5, d.windDown);
+
+            items.sort((a, b) => a.startM - b.startM);
+            return items;
+        }
+
         document.getElementById('aiConfirmBtn').addEventListener('click', () => {
             playTap();
             haptic();
-            const target = parseInt(document.getElementById('aiTargetScore').value);
-            const current = parseInt(document.getElementById('aiCurrentScore').value);
-            const days = parseInt(document.getElementById('aiDays').value);
-            
-            const gap = target - current;
-            const dailyHours = Math.ceil(gap / days * 0.05);
-            const subjects = ['📖 Reading', '✍️ Writing', '🔢 Math', '📝 Practice Test'];
-            
+            const wake = document.getElementById('aiWakeup').value || '06:30';
+            const sleep = document.getElementById('aiSleep').value || '23:00';
+            const noSchool = document.getElementById('aiNoSchool').checked;
+            const schoolStart = document.getElementById('aiSchoolStart').value || '13:00';
+            const schoolEnd = document.getElementById('aiSchoolEnd').value || '17:00';
+            const satHours = parseInt(document.getElementById('aiSatHours').value) || 5;
+            const targetScore = parseInt(document.getElementById('aiTargetScore').value) || 1550;
+
+            const routineItems = buildCircadianRoutine(wake, sleep, noSchool, schoolStart, schoolEnd, satHours, targetScore, currentLang);
+
             const today = new Date().toISOString().split('T')[0];
             tasks = tasks.filter(t => t.date !== today);
-            
-            subjects.forEach(subject => {
-                const duration = dailyHours * 15;
+
+            routineItems.forEach(item => {
                 tasks.push({
                     id: Date.now() + Math.random(),
                     date: today,
-                    subject,
-                    description: `AI recommended ${duration}min`,
-                    duration,
+                    subject: item.subject,
+                    description: item.description,
+                    duration: item.duration,
                     completed: false
                 });
             });
-            
+
             saveTasks();
             renderTasks();
             updateStats();
