@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT 1500 & IELTS 8.0 — 60 Kunlik Rejim va Kundalik</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .card-print { border: 1px solid #ccc !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-[var(--background,#0f172a)] text-[var(--foreground,#f8fafc)] antialiased min-h-screen p-3 md:p-6 transition-colors duration-200">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- TOP HEADER -->
+    <header class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 md:p-6 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Maqsad: SAT 1500+ & IELTS 8.0
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground,#f8fafc)]">
+            60 Kunlik Intizom va Kundalik Tracker
+          </h1>
+          <p class="text-sm text-[var(--muted-foreground,#94a3b8)] mt-1">
+            5 soat toza SAT darsi • 7.5 soat biologik uyqu • Sport • Vijdon azobisiz hordiq
+          </p>
+        </div>
+
+        <!-- STATS BADGES -->
+        <div class="flex items-center gap-3">
+          <div class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] px-4 py-2.5 rounded-xl text-center">
+            <span class="text-xs text-[var(--muted-foreground,#94a3b8)] block">Ketma-ketlik</span>
+            <span id="streakDisplay" class="text-lg font-bold text-amber-400">0 kun 🔥</span>
+          </div>
+          <div class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] px-4 py-2.5 rounded-xl text-center">
+            <span class="text-xs text-[var(--muted-foreground,#94a3b8)] block">Yopilgan kunlar</span>
+            <span id="completedDaysDisplay" class="text-lg font-bold text-emerald-400">0 / 60</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS BAR -->
+      <div class="mt-6 pt-5 border-t border-[var(--border,#334155)]">
+        <div class="flex justify-between text-xs font-medium mb-1.5 text-[var(--muted-foreground,#94a3b8)]">
+          <span>Umumiy 60 kunlik natija</span>
+          <span id="overallPercentage">0%</span>
+        </div>
+        <div class="w-full h-2.5 bg-[var(--background,#0f172a)] rounded-full overflow-hidden border border-[var(--border,#334155)]">
+          <div id="overallProgressBar" class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- DAY SELECTOR & NAVIGATION -->
+    <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-4 md:p-5 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 w-full md:w-auto justify-between md:justify-start">
+        <button id="prevDayBtn" class="px-3.5 py-2 rounded-xl bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] hover:border-blue-500 hover:text-blue-400 transition-colors text-sm font-semibold flex items-center gap-1">
+          ← Oldingi kun
+        </button>
+        <div class="text-center px-4">
+          <span class="text-xs text-[var(--muted-foreground,#94a3b8)] uppercase tracking-wider block">Tanlangan kun</span>
+          <span id="currentDayTitle" class="text-xl font-bold text-blue-400">1-Kun</span>
+        </div>
+        <button id="nextDayBtn" class="px-3.5 py-2 rounded-xl bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] hover:border-blue-500 hover:text-blue-400 transition-colors text-sm font-semibold flex items-center gap-1">
+          Keyingi kun →
+        </button>
+      </div>
+
+      <!-- Quick Day Jump Dropdown & Action Buttons -->
+      <div class="flex items-center gap-2 w-full md:w-auto justify-end no-print">
+        <select id="dayJumpSelect" class="bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] text-sm rounded-xl px-3 py-2 text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-500">
+          <!-- Populated by JS (1 to 60) -->
+        </select>
+        <button id="todayJumpBtn" class="px-3 py-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl text-xs font-semibold hover:bg-blue-600/30 transition-all">
+          Bugun
+        </button>
+        <button id="exportBtn" title="Ma'lumotlarni nusxalab olish (Zaxira)" class="p-2 bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl text-[var(--muted-foreground,#94a3b8)] hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 60-DAY INTERACTIVE MATRIX (EXPANDABLE) -->
+    <details class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-4 shadow-sm group">
+      <summary class="cursor-pointer text-sm font-semibold flex items-center justify-between text-[var(--muted-foreground,#94a3b8)] hover:text-[var(--foreground,#f8fafc)] select-none">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+          60 Kunlik Umumiy Xarita (Barcha kunlar matritsasi)
+        </span>
+        <span class="text-xs text-blue-400 group-open:rotate-180 transition-transform">▼</span>
+      </summary>
+      <div id="dayGridContainer" class="grid grid-cols-6 sm:grid-cols-10 md:grid-cols-12 gap-1.5 mt-4 pt-3 border-t border-[var(--border,#334155)]">
+        <!-- 60 buttons will be rendered here -->
+      </div>
+    </details>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- LEFT COLUMN: CHECKLIST (JADVAL) -->
+      <section class="lg:col-span-7 space-y-5">
+        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-[var(--border,#334155)]">
+            <div>
+              <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground,#f8fafc)]">
+                <span>📋</span> Kunlik Rejim Nazorati
+              </h2>
+              <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Bajarilgan har bir blokni belgilab boring</p>
+            </div>
+            <div class="text-right">
+              <span id="dayCompletedRatio" class="text-xs font-bold text-blue-400">0/16</span>
+              <div class="w-20 h-1.5 bg-[var(--background,#0f172a)] rounded-full mt-1 overflow-hidden border border-[var(--border,#334155)]">
+                <div id="dayProgressBar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HABIT LIST -->
+          <div id="habitsList" class="space-y-2.5">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: 3 MAQSAD & KUNDALIK -->
+      <section class="lg:col-span-5 space-y-5">
+
+        <!-- 3 TA ASOSIY MAQSAD -->
+        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg">
+          <div class="mb-3">
+            <h2 class="text-base font-bold flex items-center gap-2 text-amber-400">
+              <span>🎯</span> Ertangi Kun Uchun 3 Asosiy Maqsad
+            </h2>
+            <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Kechqurun soat 22:15 da ertangi eng muhim 3 ta vazifangizni belgilang</p>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">1</span>
+              <input type="text" id="targetGoal1" placeholder="1-muhim maqsad (masalan, SAT Math 20 ta qiyin savol)" 
+                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
+            </div>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">2</span>
+              <input type="text" id="targetGoal2" placeholder="2-muhim maqsad (masalan, Error Log ga 5 ta xatoni yozish)" 
+                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
+            </div>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-xs font-bold text-amber-400">3</span>
+              <input type="text" id="targetGoal3" placeholder="3-muhim maqsad (masalan, 22:00 da barcha ekranlarni o'chirish)" 
+                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-2 pl-8 pr-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-amber-400 transition-colors">
+            </div>
+          </div>
+        </div>
+
+        <!-- KUNDALIK (DAILY JOURNAL) -->
+        <div class="bg-[var(--card,#1e293b)] border border-[var(--border,#334155)] rounded-2xl p-5 shadow-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-base font-bold flex items-center gap-2 text-emerald-400">
+                <span>📖</span> Kunlik Xulosalar va Kundalik
+              </h2>
+              <p class="text-xs text-[var(--muted-foreground,#94a3b8)]">Kun oxirida fikr va his-tuyg'ularingizni yozing</p>
+            </div>
+            <span id="savedIndicator" class="text-xs text-emerald-400 opacity-0 transition-opacity flex items-center gap-1">
+              ✓ Saqlandi
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
+                Bugun nimalar bo'ldi? Nima yaxshi o'tdi va nima qiyin bo'ldi?
+              </label>
+              <textarea id="dailyReflections" rows="6" placeholder="Bugun rejim qanday o'tdi? SAT darsida qaysi savollardan qiynaldim? Chalg'ishlar bo'ldimi? Ertaga qaysi xatoni takrorlamayman..." 
+                class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl p-3 text-xs md:text-sm text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-emerald-400 transition-colors resize-y"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
+                  SAT Test Balli / Xatolar soni:
+                </label>
+                <input type="text" id="dailyScore" placeholder="Masalan, Math: -4, RW: -6" 
+                  class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-1.5 px-3 text-xs text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-400">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-[var(--muted-foreground,#94a3b8)] mb-1">
+                  Bugungi Kayfiyat & Energiya:
+                </label>
+                <select id="dailyEnergy" class="w-full bg-[var(--background,#0f172a)] border border-[var(--border,#334155)] rounded-xl py-1.5 px-2 text-xs text-[var(--foreground,#f8fafc)] focus:outline-none focus:border-blue-400">
+                  <option value="5">🔥🔥🔥 A'lo (To'la energiya)</option>
+                  <option value="4">💪 Yaxshi (Vazifalar bajarildi)</option>
+                  <option value="3">😐 O'rtacha (Biroz charchoq bor)</option>
+                  <option value="2">🥱 Past (Rejimga zo'rg'a ulgurdim)</option>
+                  <option value="1">⚠️ Inqiroz (Qayta tiklanish kerak)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOTIVATSIYA & QOIDALAR ESLATMASI -->
+        <div class="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-2xl p-4 text-xs text-[var(--muted-foreground,#94a3b8)] space-y-2">
+          <span class="font-bold text-blue-400 uppercase tracking-wider block">Oltin Qoidalar:</span>
+          <p>• <strong>Never Miss Twice:</strong> Bir kun tartib buzilsa ham, 2-kuni 100% qaytish shart.</p>
+          <p>• <strong>Dopamin intizomi:</strong> YouTube va o'yin faqat barcha darslar yopilgach, kechki 19:30 dan so'ng ruxsat etiladi.</p>
+          <p>• <strong>22:00 Ekransiz zona:</strong> Uyqu sifati = ertangi kunning 5 soatlik SAT fokusining 90% garovi.</p>
+        </div>
+
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    // Habit definition based on user's exact schedule
+    const HABIT_TEMPLATES = [
+      { id: "h1", time: "06:30", label: "Uyg'onish (Snooze yo'q, 1 stakan suv, yuvinish)", icon: "🌅", tag: "Uyqu" },
+      { id: "h2", time: "07:15", label: "Sog'lom Nonushta (Oqsil + sekin uglevodlar)", icon: "🍳", tag: "Energiya" },
+      { id: "h3", time: "08:00 - 10:30", label: "1-Blok: SAT Deep Work (Reading/Writing yoki qiyin Math - 2.5 soat)", icon: "🧠", tag: "SAT Dars", highlight: true },
+      { id: "h4", time: "10:30 - 11:00", label: "Tanaffus / Yengil yegulik (Ekransiz, toza havo)", icon: "🍏", tag: "Dam" },
+      { id: "h5", time: "11:00 - 12:30", label: "2-Blok: SAT Timed Practice & Error Log (1.5 soat)", icon: "📝", tag: "SAT Dars", highlight: true },
+      { id: "h6", time: "12:30 - 13:00", label: "Tushlik va Kursga otlanish", icon: "🍲", tag: "Ovqat" },
+      { id: "h7", time: "13:00 - 16:00", label: "SAT KURSI (Darsda to'liq faollik + yo'l)", icon: "🏫", tag: "Kurs", highlight: true },
+      { id: "h8", time: "16:00 - 16:30", label: "Uyga qaytish & Kiyim almashtirish (Kichik nafas rostlash)", icon: "🏠", tag: "Dam" },
+      { id: "h9", time: "16:30 - 17:30", label: "Jismoniy Mashq (Sport zali / Yugurish / Turnik) + Dush", icon: "🏋️‍♂️", tag: "Sport", highlight: true },
+      { id: "h10", time: "17:45 - 18:45", label: "3-Blok: Kurs vazifalari & 20 ta yangi SAT so'zlari (1 soat)", icon: "📚", tag: "SAT Dars", highlight: true },
+      { id: "h11", time: "18:45 - 19:30", label: "Kechki ovqat va oila davrasi", icon: "🍽️", tag: "Ovqat" },
+      { id: "h12", time: "19:30 - 20:30", label: "YouTube ko'rish (1 soat rejalashtirilgan vijdon azobisiz hordiq)", icon: "🎬", tag: "Hordiq" },
+      { id: "h13", time: "20:30 - 22:00", label: "O'yin o'ynash YOKI YouTube'ga video tayyorlash/montaj (1.5 soat)", icon: "🎮", tag: "Hordiq/Ijod" },
+      { id: "h14", time: "22:00", label: "Barcha ekranlarni o'chirish (Wind-down boshlandi)", icon: "📵", tag: "Tinchlanish", highlight: true },
+      { id: "h15", time: "22:15 - 22:45", label: "Ertangi kun 3 ta maqsadini yozish & Kitob o'qish / Iliq dush", icon: "📖", tag: "Tayyorgarlik" },
+      { id: "h16", time: "23:00 - 06:30", label: "Uxlash (7.5 soatlik to'liq biologik tiklanish)", icon: "😴", tag: "Uyqu", highlight: true }
+    ];
+
+    const STORAGE_KEY = "sat_60days_tracker_v1";
+    let currentDay = 1;
+    let trackerData = {};
+
+    function initData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          trackerData = JSON.parse(stored);
+        } catch (e) {
+          trackerData = {};
+        }
+      }
+      for (let i = 1; i <= 60; i++) {
+        if (!trackerData[i]) {
+          trackerData[i] = {
+            habits: {},
+            goal1: "",
+            goal2: "",
+            goal3: "",
+            journal: "",
+            score: "",
+            energy: "5",
+            completed: false
+          };
+        }
+      }
+      saveData();
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(trackerData));
+      showSaveIndicator();
+      updateStats();
+      renderDayGrid();
+    }
+
+    function showSaveIndicator() {
+      const el = document.getElementById("savedIndicator");
+      el.style.opacity = "1";
+      setTimeout(() => {
+        el.style.opacity = "0";
+      }, 1200);
+    }
+
+    function populateDayDropdown() {
+      const select = document.getElementById("dayJumpSelect");
+      select.innerHTML = "";
+      for (let i = 1; i <= 60; i++) {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = `${i}-Kun`;
+        select.appendChild(opt);
+      }
+      select.value = currentDay;
+    }
+
+    function renderDayGrid() {
+      const container = document.getElementById("dayGridContainer");
+      container.innerHTML = "";
+      for (let i = 1; i <= 60; i++) {
+        const dayInfo = trackerData[i];
+        const doneCount = Object.values(dayInfo.habits || {}).filter(Boolean).length;
+        const isComplete = doneCount >= 12;
+        const hasSome = doneCount > 0;
+        const isCurrent = (i === currentDay);
+
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.className = `h-9 text-xs font-bold rounded-lg border transition-all flex items-center justify-center relative ${
+          isCurrent 
+            ? "border-blue-400 bg-blue-500/30 text-white ring-2 ring-blue-400/50" 
+            : isComplete 
+              ? "border-emerald-500 bg-emerald-500/20 text-emerald-300"
+              : hasSome 
+                ? "border-amber-500/50 bg-amber-500/10 text-amber-300"
+                : "border-[var(--border,#334155)] bg-[var(--background,#0f172a)] text-[var(--muted-foreground,#94a3b8)] hover:border-slate-500"
+        }`;
+
+        btn.onclick = () => {
+          switchDay(i);
+        };
+        container.appendChild(btn);
+      }
+    }
+
+    function renderHabits() {
+      const list = document.getElementById("habitsList");
+      list.innerHTML = "";
+      const dayData = trackerData[currentDay] || { habits: {} };
+
+      let checkedCount = 0;
+
+      HABIT_TEMPLATES.forEach((template) => {
+        const isChecked = !!dayData.habits[template.id];
+        if (isChecked) checkedCount++;
+
+        const row = document.createElement("label");
+        row.className = `flex items-start gap-3 p-3 rounded-xl border transition-all cursor-pointer select-none ${
+          isChecked 
+            ? "bg-emerald-500/10 border-emerald-500/30 text-[var(--foreground,#f8fafc)]" 
+            : template.highlight 
+              ? "bg-[var(--background,#0f172a)] border-blue-500/30 hover:border-blue-500/60"
+              : "bg-[var(--background,#0f172a)] border-[var(--border,#334155)] hover:border-slate-500"
+        }`;
+
+        row.innerHTML = `
+          <input type="checkbox" data-habit-id="${template.id}" ${isChecked ? "checked" : ""}
+            class="mt-1 w-4 h-4 rounded border-[var(--border,#334155)] text-blue-500 focus:ring-0 cursor-pointer">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-[var(--card,#1e293b)] text-[var(--muted-foreground,#94a3b8)] border border-[var(--border,#334155)]">
+                ${template.time}
+              </span>
+              <span class="text-[10px] uppercase font-bold tracking-wider text-[var(--muted-foreground,#94a3b8)]">
+                ${template.tag}
+              </span>
+            </div>
+            <p class="text-xs md:text-sm font-medium mt-1 leading-snug flex items-center gap-1.5 ${isChecked ? "line-through opacity-70" : ""}">
+              <span>${template.icon}</span>
+              <span>${template.label}</span>
+            </p>
+          </div>
+        `;
+
+        const checkbox = row.querySelector("input");
+        checkbox.addEventListener("change", (e) => {
+          if (!trackerData[currentDay].habits) trackerData[currentDay].habits = {};
+          trackerData[currentDay].habits[template.id] = e.target.checked;
+          saveData();
+          renderHabits();
+        });
+
+        list.appendChild(row);
+      });
+
+      // Update Day ratio
+      document.getElementById("dayCompletedRatio").textContent = `${checkedCount}/${HABIT_TEMPLATES.length}`;
+      const pct = Math.round((checkedCount / HABIT_TEMPLATES.length) * 100);
+      document.getElementById("dayProgressBar").style.width = `${pct}%`;
+    }
+
+    function loadDayForm() {
+      const dayData = trackerData[currentDay] || {};
+      document.getElementById("currentDayTitle").textContent = `${currentDay}-Kun`;
+      document.getElementById("dayJumpSelect").value = currentDay;
+
+      document.getElementById("targetGoal1").value = dayData.goal1 || "";
+      document.getElementById("targetGoal2").value = dayData.goal2 || "";
+      document.getElementById("targetGoal3").value = dayData.goal3 || "";
+
+      document.getElementById("dailyReflections").value = dayData.journal || "";
+      document.getElementById("dailyScore").value = dayData.score || "";
+      document.getElementById("dailyEnergy").value = dayData.energy || "5";
+
+      renderHabits();
+    }
+
+    function switchDay(dayNum) {
+      currentDay = Math.max(1, Math.min(60, dayNum));
+      loadDayForm();
+      renderDayGrid();
+    }
+
+    function updateStats() {
+      let completedDays = 0;
+      let streak = 0;
+      let currentStreak = 0;
+
+      for (let i = 1; i <= 60; i++) {
+        const d = trackerData[i];
+        const doneCount = Object.values(d.habits || {}).filter(Boolean).length;
+        if (doneCount >= 12) {
+          completedDays++;
+          currentStreak++;
+          if (currentStreak > streak) streak = currentStreak;
+        } else {
+          // If past day has 0 or few habits, streak breaks
+          if (i < currentDay) {
+            currentStreak = 0;
+          }
+        }
+      }
+
+      document.getElementById("completedDaysDisplay").textContent = `${completedDays} / 60`;
+      document.getElementById("streakDisplay").textContent = `${streak} kun 🔥`;
+
+      const overallPct = Math.round((completedDays / 60) * 100);
+      document.getElementById("overallPercentage").textContent = `${overallPct}%`;
+      document.getElementById("overallProgressBar").style.width = `${overallPct}%`;
+    }
+
+    // Event Listeners for inputs
+    function setupFormListeners() {
+      const saveInputs = () => {
+        if (!trackerData[currentDay]) trackerData[currentDay] = { habits: {} };
+        trackerData[currentDay].goal1 = document.getElementById("targetGoal1").value;
+        trackerData[currentDay].goal2 = document.getElementById("targetGoal2").value;
+        trackerData[currentDay].goal3 = document.getElementById("targetGoal3").value;
+        trackerData[currentDay].journal = document.getElementById("dailyReflections").value;
+        trackerData[currentDay].score = document.getElementById("dailyScore").value;
+        trackerData[currentDay].energy = document.getElementById("dailyEnergy").value;
+        saveData();
+      };
+
+      document.getElementById("targetGoal1").addEventListener("input", saveInputs);
+      document.getElementById("targetGoal2").addEventListener("input", saveInputs);
+      document.getElementById("targetGoal3").addEventListener("input", saveInputs);
+      document.getElementById("dailyReflections").addEventListener("input", saveInputs);
+      document.getElementById("dailyScore").addEventListener("input", saveInputs);
+      document.getElementById("dailyEnergy").addEventListener("change", saveInputs);
+
+      document.getElementById("prevDayBtn").addEventListener("click", () => switchDay(currentDay - 1));
+      document.getElementById("nextDayBtn").addEventListener("click", () => switchDay(currentDay + 1));
+      document.getElementById("dayJumpSelect").addEventListener("change", (e) => switchDay(parseInt(e.target.value)));
+      document.getElementById("todayJumpBtn").addEventListener("click", () => switchDay(1));
+
+      // Export / Backup
+      document.getElementById("exportBtn").addEventListener("click", () => {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(trackerData, null, 2));
+        const downloadAnchor = document.createElement("a");
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `sat_tracker_backup_day_${currentDay}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+      });
+    }
+
+    // Initialize
+    initData();
+    populateDayDropdown();
+    loadDayForm();
+    setupFormListeners();
+    updateStats();
+    renderDayGrid();
+  </script>
+</body>
+</html>
