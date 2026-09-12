@@ -7,7 +7,8 @@ import json
 import os
 from typing import Dict, List
 from aiogram import Router, F
-from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.filters import Command
+from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from handlers.score_surgery import generate_surgery_report
 
 router = Router()
@@ -49,6 +50,26 @@ def get_after_answer_keyboard(q_idx: int, is_last: bool) -> InlineKeyboardMarkup
     else:
         buttons.append([InlineKeyboardButton(text="🔬 Rentgen Xulosasini Olish ➡️", callback_data="finish_quiz")])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+@router.message(Command("diagnostic"))
+async def cmd_diagnostic(message: Message):
+    user_id = message.from_user.id
+    USER_SESSIONS[user_id] = {
+        "current_idx": 0,
+        "correct": 0,
+        "incorrect_items": []
+    }
+    q = QUESTIONS[0]
+    total = len(QUESTIONS)
+    text = (
+        f"📝 <b>SAVOL 1 / {total}</b>\n"
+        f"🏷️ <i>Mavzu: {q['topic']}</i>\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        f"<b>{q['question']}</b>\n\n"
+        f"<i>To'g'ri javob variantini tanlang:</i>"
+    )
+    kb = get_question_keyboard(0)
+    await message.answer(text, reply_markup=kb, parse_mode="HTML")
 
 @router.callback_query(F.data == "start_diagnostic")
 async def start_quiz(callback: CallbackQuery):

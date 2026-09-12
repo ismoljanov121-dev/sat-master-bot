@@ -63,18 +63,23 @@ class Database:
             "referred_by": referred_by
         }
         # Local save
-        str_id = str(user_id)
-        if str_id not in self.local_cache["users"]:
-            user_data["created_at"] = datetime.utcnow().isoformat()
-            user_data["quizzes_taken"] = 0
-            user_data["streak"] = 0
-            self.local_cache["users"][str_id] = user_data
-        else:
-            self.local_cache["users"][str_id].update(user_data)
-        self._save_local_db()
+        try:
+            self.local_cache.setdefault("users", {})
+            self.local_cache.setdefault("quizzes", [])
+            str_id = str(user_id)
+            if str_id not in self.local_cache["users"]:
+                user_data["created_at"] = datetime.utcnow().isoformat()
+                user_data["quizzes_taken"] = 0
+                user_data["streak"] = 0
+                self.local_cache["users"][str_id] = user_data
+            else:
+                self.local_cache["users"][str_id].update(user_data)
+            self._save_local_db()
+        except Exception as e:
+            logger.error(f"Local save_user error: {e}")
 
         # MongoDB save
-        if self.is_mongo_active and self.db:
+        if self.is_mongo_active and (self.db is not None):
             try:
                 await self.db.users.update_one(
                     {"user_id": user_id},
@@ -94,15 +99,20 @@ class Database:
             "timestamp": datetime.utcnow().isoformat()
         }
         # Local save
-        self.local_cache["quizzes"].append(result_entry)
-        str_id = str(user_id)
-        if str_id in self.local_cache["users"]:
-            self.local_cache["users"][str_id]["last_score"] = score
-            self.local_cache["users"][str_id]["quizzes_taken"] = self.local_cache["users"][str_id].get("quizzes_taken", 0) + 1
-        self._save_local_db()
+        try:
+            self.local_cache.setdefault("users", {})
+            self.local_cache.setdefault("quizzes", [])
+            self.local_cache["quizzes"].append(result_entry)
+            str_id = str(user_id)
+            if str_id in self.local_cache["users"]:
+                self.local_cache["users"][str_id]["last_score"] = score
+                self.local_cache["users"][str_id]["quizzes_taken"] = self.local_cache["users"][str_id].get("quizzes_taken", 0) + 1
+            self._save_local_db()
+        except Exception as e:
+            logger.error(f"Local save_quiz_result error: {e}")
 
         # MongoDB save
-        if self.is_mongo_active and self.db:
+        if self.is_mongo_active and (self.db is not None):
             try:
                 await self.db.quiz_results.insert_one(result_entry)
                 await self.db.users.update_one(

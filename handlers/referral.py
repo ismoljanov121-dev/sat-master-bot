@@ -4,6 +4,7 @@ Enables students to invite classmates and earn rewards (VIP Desmos Cheatsheets, 
 """
 
 from aiogram import Router, F
+from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from database import db
 
@@ -19,7 +20,7 @@ def get_referral_keyboard(user_id: int) -> InlineKeyboardMarkup:
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-@router.message(F.text == "/referral")
+@router.message(Command("referral"))
 async def cmd_referral(message: Message):
     user_id = message.from_user.id
     user_name = message.from_user.first_name or "Abituriyent"

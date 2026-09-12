@@ -30,7 +30,7 @@ async def export_full_database_state() -> dict:
     }
 
     # Fetch from MongoDB if active
-    if db.is_mongo_active and db.db:
+    if db.is_mongo_active and (db.db is not None):
         try:
             users_cursor = db.db.users.find({}, {"_id": 0})
             users_list = await users_cursor.to_list(length=10000)

@@ -3,13 +3,14 @@ SAT Master AI - User Statistics & Admin Backup Triggers
 """
 
 from aiogram import Router, F
+from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from database import db
 from services.backup_service import perform_backup
 
 router = Router()
 
-@router.message(F.text == "/stats")
+@router.message(Command("stats"))
 async def cmd_stats(message: Message):
     user_id = message.from_user.id
     user_name = message.from_user.first_name or "Abituriyent"
@@ -66,7 +67,7 @@ async def cb_stats(callback: CallbackQuery):
     await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
     await callback.answer()
 
-@router.message(F.text == "/backup")
+@router.message(Command("backup"))
 async def cmd_manual_backup(message: Message):
     """Allows manual trigger of cloud backup to backup channel."""
     status_msg = await message.answer("⏳ <i>Zaxira nusxasi olinmoqda va kanalga yuklanmoqda...</i>", parse_mode="HTML")
