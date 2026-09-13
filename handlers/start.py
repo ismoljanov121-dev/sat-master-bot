@@ -19,6 +19,12 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
     buttons = [
         [
             InlineKeyboardButton(
+                text="📚 Cheksiz SAT Mashq Bazasi (Math / RW)",
+                callback_data="practice_hub"
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text="🔬 AI Rentgen Diagnostika (5 daqiqa)",
                 callback_data="start_diagnostic"
             )

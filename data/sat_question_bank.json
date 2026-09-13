@@ -1,0 +1,1394 @@
+[
+  {
+    "id": "rw_vic_01",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Medium",
+    "passage": "In many ecosystems, apex predators play a critical role in maintaining biodiversity. When wolves were reintroduced to Yellowstone National Park, their presence regulated elk populations, which in turn allowed overgrazed willow and aspen groves to recover. This ecological chain reaction demonstrated that the influence of keystone species is rarely isolated; rather, it ______ throughout the entire trophic cascade.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "reverberates"
+      },
+      {
+        "key": "B",
+        "text": "dissipates"
+      },
+      {
+        "key": "C",
+        "text": "stagnates"
+      },
+      {
+        "key": "D",
+        "text": "terminates"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Matnda bo'rilarning qaytarilishi butun ekotizim bo'ylab zanjirsimon ta'sir (chain reaction) ko'rsatgani aytilgan. 'Rarely isolated; rather, it reverberates' (yakka holda qolmaydi, aksincha butun tizim bo'ylab aks-sado beradi / tarqaladi) mantiqan eng to'g'ri so'z. B (dissipates = tarqalib yo'qoladi), C (stagnates = to'xtab qoladi), D (terminates = tugaydi) zid ma'no beradi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'Rather' (aksincha) so'ziga e'tibor bering. U 'rarely isolated' (kamdan-kam yakkalanadi) iborasiga qarama-qarshi, ya'ni ta'siri butun hududga kuchli tarqalishini bildiruvchi so'zni talab qiladi. Shuning uchun 'reverberates' yagona to'g'ri javob."
+  },
+  {
+    "id": "rw_vic_02",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Hard",
+    "passage": "Scholars long believed that the ancient manuscript was a forgery produced during the eighteenth century. However, recent spectroscopic ink analysis and carbon dating have provided ______ evidence confirming that the parchment and text date back to the early medieval era.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "compelling"
+      },
+      {
+        "key": "B",
+        "text": "equivocal"
+      },
+      {
+        "key": "C",
+        "text": "tentative"
+      },
+      {
+        "key": "D",
+        "text": "superficial"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Kontekstga qarang: 'However' burilishi olimlarning avvalgi shubhasini rad etib, qo'lyozmaning qadimiyligini tasdiqlagan (confirming). Demak, dalil kuchli va shubhasiz bo'lishi kerak. 'Compelling' (ishonarli, inkor etib bo'lmas) to'g'ri keladi. Equivocal (noaniq), tentative (dastlabki/ishonchsiz), superficial (yuzaki) esa zaif dalilni anglatadi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: Bo'shliqdan keyingi 'confirming' (tasdiqlovchi) fe'li ijobiy va kuchli sifat talab qiladi. Salbiy yoki noaniqlik bildiruvchi variantlarni (B, C, D) darhol chiqarib tashlang."
+  },
+  {
+    "id": "rw_vic_03",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Medium",
+    "passage": "Although the architect's initial designs were celebrated for their avant-garde aesthetic, city planners noted that the proposed materials were unlikely to ______ the harsh freeze-thaw cycles of northern winters.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "withstand"
+      },
+      {
+        "key": "B",
+        "text": "exacerbate"
+      },
+      {
+        "key": "C",
+        "text": "instigate"
+      },
+      {
+        "key": "D",
+        "text": "circumvent"
+      }
+    ],
+    "correct": "A",
+    "explanation": "'Unlikely to withstand the harsh freeze-thaw cycles' (qattiq sovuq va erish sikllariga bardosh bera olmasligi ehtimoli yuqori). 'Withstand' bardosh bermoq, chidamoq deganidir. Exacerbate (kuchaytirmoq/yomonlashtirmoq), instigate (qo'zg'atmoq), circumvent (aylanib o'tmoq) ma'noga to'g'ri kelmaydi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'Materiallar qishki qattiq sovuqqa...' iborasida materiallarning chidamliligi (durability) haqida gap ketmoqda. 'Withstand' College Board ning eng sevimli so'zlaridan biri."
+  },
+  {
+    "id": "rw_cid_01",
+    "section": "reading",
+    "domain": "Information and Ideas - Central Ideas and Details",
+    "difficulty": "Medium",
+    "passage": "In cognitive psychology, the 'spacing effect' refers to the finding that information is more easily remembered if study sessions are spaced across time rather than massed into a single intensive session ('cramming'). Neuroimaging studies suggest this occurs because neural synaptic connections are repeatedly reactivated and consolidated during the intervals between study sessions, transforming fragile short-term memories into robust long-term neural pathways.",
+    "question": "According to the text, what physiological mechanism explains the effectiveness of spaced study sessions?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The suppression of unrelated memories during sleep intervals."
+      },
+      {
+        "key": "B",
+        "text": "The repeated reactivation and consolidation of synaptic pathways between sessions."
+      },
+      {
+        "key": "C",
+        "text": "The continuous production of neurotransmitters during intensive cramming."
+      },
+      {
+        "key": "D",
+        "text": "The prevention of neural decay caused by cognitive fatigue."
+      }
+    ],
+    "correct": "B",
+    "explanation": "Matnning oxirgi jumlasi aniq aytadi: 'neural synaptic connections are repeatedly reactivated and consolidated during the intervals between study sessions' (sinaptik bog'lanishlarning oraliq vaqtda qayta-qayta faollashishi va mustahkamlanishi). B varianti matndagi so'zlarni aynan ifodalaydi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'According to the text' savollarida matnda yo'q narsani hech qachon taxmin qilmang. To'g'ri javob doimo matnning so'zma-so'z yoki sinonimik ifodasi (paraphrase) bo'ladi."
+  },
+  {
+    "id": "rw_inf_01",
+    "section": "reading",
+    "domain": "Information and Ideas - Inferences",
+    "difficulty": "Hard",
+    "passage": "For decades, palaeontologists debated whether sauropod dinosaurs possessed high metabolic rates comparable to modern birds and mammals, or lower metabolic rates typical of modern reptiles. A recent study analyzed the isotopic composition of eggshells from across multiple sauropod genera found in diverse paleoclimates, from equatorial regions to polar latitudes. The analysis revealed that despite stark differences in ambient environmental temperatures, eggshell mineralization consistently occurred within a narrow, elevated internal body temperature range (35°C–38°C). This finding strongly suggests that ______",
+    "question": "Which choice most logically completes the text?",
+    "options": [
+      {
+        "key": "A",
+        "text": "sauropods relied primarily on external ambient heat to incubate their clutches of eggs."
+      },
+      {
+        "key": "B",
+        "text": "sauropods possessed internal physiological mechanisms capable of maintaining stable, elevated body temperatures regardless of external climate."
+      },
+      {
+        "key": "C",
+        "text": "sauropods in polar climates migrated seasonally to equatorial zones during reproductive periods."
+      },
+      {
+        "key": "D",
+        "text": "sauropod body temperatures fluctuated significantly in response to shifting seasonal weather patterns."
+      }
+    ],
+    "correct": "B",
+    "explanation": "Turli xil iqlimlarda (ekvatordan qutbgacha) yashashiga qaramay, tuxum po'stlog'i doimo tor va baland haroratda (35°C–38°C) hosil bo'lgan. Bu shuni anglatadiki, sauropodlar tashqi iqlimga bog'liq bo'lmagan holda o'z tana haroratini ichki boshqara olgan (endothermic / warm-blooded). B varianti eng mantiqiy xulosa.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'Despite stark differences in external temperature, internal temperature remained stable' mantiqiy zanjiri ichki termoregulyatsiyani (B) isbotlaydi. C va D matnda aytilmagan qo'shimcha farazlardir."
+  },
+  {
+    "id": "rw_trans_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Medium",
+    "passage": "During the mid-twentieth century, many urban planners believed that constructing expansive highway networks through city centers would eliminate traffic congestion. ______ as highway capacity expanded, it attracted more drivers, a phenomenon now recognized as induced demand, which ultimately exacerbated gridlock.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "However,"
+      },
+      {
+        "key": "B",
+        "text": "Furthermore,"
+      },
+      {
+        "key": "C",
+        "text": "For instance,"
+      },
+      {
+        "key": "D",
+        "text": "Consequently,"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Birinchi gapda shaharsozlar yo'llarni kengaytirish tirbandlikni yo'qotadi deb o'ylashgani aytiladi. Ikkinchi gapda esa aksincha ko'proq mashina kelib, tirbandlik yanada kuchaygani (exacerbated) keltirilgan. Bu keskin qarama-qarshilik (contrast) bo'lgani sababli 'However,' (Biroq/Ammo) to'g'ri keladi.",
+    "strategy_or_hack": "🎯 TRANSITION FORMULASI:\n1. Oldingi gap: Xulosaga ijobiy umid (yo'l ochish tirbandlikni yechadi).\n2. Keyingi gap: Haqiqiy natija salbiy (tirbandlik ortdi).\n3. Reja: Qarama-qarshilik = However, Nevertheless, On the contrary."
+  },
+  {
+    "id": "rw_trans_02",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Medium",
+    "passage": "Photosynthesis converts radiant solar energy into chemical energy stored in glucose molecules. ______ cellular respiration breaks down these organic molecules in the presence of oxygen to synthesize adenosine triphosphate (ATP), powering cellular metabolism.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "In contrast,"
+      },
+      {
+        "key": "B",
+        "text": "Specifically,"
+      },
+      {
+        "key": "C",
+        "text": "Similarly,"
+      },
+      {
+        "key": "D",
+        "text": "Therefore,"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Fotosintez energiyani to'playdi (converts into chemical energy). Nafas olish (cellular respiration) esa aksincha to'plangan energiyani parchalab chiqaradi (breaks down). Bu biologiyadagi ikki qarama-qarshi jarayon. Shuning uchun 'In contrast,' (Aksincha) to'g'ri keladi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'Stores energy' vs 'Breaks down energy'. Qarama-qarshi yo'nalishdagi jarayonlar doimo 'In contrast' yoki 'Conversely' bilan bog'lanadi."
+  },
+  {
+    "id": "rw_trans_03",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Hard",
+    "passage": "Commercial aircraft wings are engineered to flex significantly during severe turbulence without suffering structural damage. During extreme stress tests, Boeing 787 wings are deflected upwards by more than 26 feet before failure occurs. ______ this deliberate flexibility absorbs aerodynamic shock loads, protecting the fuselage.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ultimately,"
+      },
+      {
+        "key": "B",
+        "text": "Regardless,"
+      },
+      {
+        "key": "C",
+        "text": "Conversely,"
+      },
+      {
+        "key": "D",
+        "text": "Nonetheless,"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Birinchi gapda qanotlarning egiluvchanligi aytiladi, ikkinchi gapda uning sinov dalili keltiriladi, uchinchi gapda esa bularning barchasining asosiy yakuniy maqsadi va natijasi (qanot fyuzelyajni himoya qilishi) xulosa qilinadi. 'Ultimately,' (Yakuniy hisobda / Xulosa qilib aytganda) to'g'ri keladi.",
+    "strategy_or_hack": "🎯 SAT TRANSITIONS: 'Regardless', 'Conversely', 'Nonetheless' ziddiyat bildiradi. Matnda esa hech qanday ziddiyat yo'q, aksincha jarayonning yakuniy natijasi xulosa qilinmoqda."
+  },
+  {
+    "id": "rw_bound_01",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries",
+    "difficulty": "Hard",
+    "passage": "Astronomer Vera Rubin uncovered compelling rotational evidence for dark ______ her meticulous measurements of galaxy spin rates demonstrated that galaxies must contain immense invisible mass to avoid flying apart.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "matter;"
+      },
+      {
+        "key": "B",
+        "text": "matter"
+      },
+      {
+        "key": "C",
+        "text": "matter,"
+      },
+      {
+        "key": "D",
+        "text": "matter:"
+      }
+    ],
+    "correct": "A",
+    "explanation": "'Astronomer Vera Rubin uncovered compelling evidence for dark matter' — to'liq mustaqil gap (Independent Clause 1). 'Her meticulous measurements... demonstrated that...' — ikkinchi to'liq mustaqil gap (Independent Clause 2). Ikkita mustaqil gapni hech qanday bog'lovchisiz (FANBOYS) faqat nuqtali vergul (;) yoki nuqta (.) bilan ajratish mumkin. Oddiy vergul (C) 'comma splice' xatosini keltirib chiqaradi. Shuning uchun A to'g'ri.",
+    "strategy_or_hack": "🎯 SAT GRAMMAR QOIDASI:\nIndependent Clause + ; + Independent Clause.\nIkkita to'liq gapni hech qachon shunchaki vergul bilan ajratmang (Comma Splice qat'iyan taqiqlanadi)!"
+  },
+  {
+    "id": "rw_bound_02",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries",
+    "difficulty": "Medium",
+    "passage": "In 1977, NASA launched Voyager 1 with a singular scientific ______ to conduct close-range flybys of Jupiter and Saturn before charting the outer boundaries of the heliosphere.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "objective:"
+      },
+      {
+        "key": "B",
+        "text": "objective;"
+      },
+      {
+        "key": "C",
+        "text": "objective,"
+      },
+      {
+        "key": "D",
+        "text": "objective"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Ikki nuqta (colon ':') to'liq mustaqil gapdan so'ng kelib, undan keyin keluvchi tushuntirish, maqsad yoki ro'yxatni ochib beradi. 'NASA launched Voyager 1 with a singular scientific objective' to'liq gap, undan keyin aynan qanday maqsad ekanligi tushuntirilgan ('to conduct close-range flybys...'). Shuning uchun ikki nuqta (A) to'g'ri.",
+    "strategy_or_hack": "🎯 COLON (:) QOIDASI:\nIkki nuqtadan oldin MUSTAQIL GAP (Independent Clause) bo'lishi shart. Ikki nuqtadan keyin esa tushuntirish yoki ro'yxat keladi."
+  },
+  {
+    "id": "rw_bound_03",
+    "section": "writing",
+    "domain": "Standard English Conventions - Form and Structure",
+    "difficulty": "Hard",
+    "passage": "Discovered deep within the Atacama Desert in northern Chile, ______ preserved for thousands of years by the hyperarid climate, which virtually halts bacterial decay.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "the Chinchorro mummies were remarkably"
+      },
+      {
+        "key": "B",
+        "text": "archaeologists remarkably found the Chinchorro mummies"
+      },
+      {
+        "key": "C",
+        "text": "remarkable preservation protected the Chinchorro mummies"
+      },
+      {
+        "key": "D",
+        "text": "the hyperarid climate remarkably kept the Chinchorro mummies"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Gap kirish qismi: 'Discovered deep within the Atacama Desert...'. Savol bering: Atakama cho'lida kim yoki nima kashf etilgan? Arxeologlar emas (B), iqlim emas (D), balki 'the Chinchorro mummies' (mumiyolar). Kirish sifatdosh birikmasidan so'ng darhol uning egasi kelishi shart (Dangling Modifier qoidasi). Shuning uchun A to'g'ri.",
+    "strategy_or_hack": "🎯 DANGLING MODIFIER QOIDASI:\nAgar gap harakat bilan boshlansa ('Discovered in...'), verguldan keyingi 1-so'z aynan o'sha harakat qaratilgan narsa bo'lishi shart. Cho'ldan topilgan narsa = mumiyolar (A)!"
+  },
+  {
+    "id": "rw_rhet_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Rhetorical Synthesis",
+    "difficulty": "Medium",
+    "passage": "While researching a topic, a student has taken the following notes:\n• The Mariana Trench is the deepest oceanic trench on Earth.\n• Its lowest point, the Challenger Deep, descends approximately 10,994 meters (36,070 feet) below sea level.\n• In 1960, Jacques Piccard and Don Walsh became the first humans to reach Challenger Deep in the bathyscaphe Trieste.\n• In 2012, filmmaker James Cameron conducted the first solo dive to Challenger Deep in the Deepsea Challenger.",
+    "question": "The student wants to contrast the first expedition to Challenger Deep with James Cameron's expedition. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Descending to 10,994 meters below sea level, Challenger Deep was reached by Jacques Piccard and Don Walsh in the bathyscaphe Trieste."
+      },
+      {
+        "key": "B",
+        "text": "While Jacques Piccard and Don Walsh reached Challenger Deep in a two-person bathyscaphe in 1960, James Cameron completed the first solo dive there in 2012."
+      },
+      {
+        "key": "C",
+        "text": "Located in the Mariana Trench, Challenger Deep was explored by humans in both 1960 and 2012."
+      },
+      {
+        "key": "D",
+        "text": "In 2012, James Cameron piloted the Deepsea Challenger to Challenger Deep, the deepest point in the Mariana Trench."
+      }
+    ],
+    "correct": "B",
+    "explanation": "Talabaning maqsadi: birinchi ekspeditsiyani (1960 yil, 2 kishi) James Cameron ekspeditsiyasi (2012 yil, 1 kishi / solo) bilan taqqoslash (contrast qilish). B varianti 'While Piccard and Walsh reached... in 1960, James Cameron completed the first solo dive in 2012' deb ikkala ekspeditsiyani aniq kontrast bilan bog'lagan.",
+    "strategy_or_hack": "🎯 RHETORICAL SYNTHESIS SIRI:\nSavoldagi maqsadga e'tibor bering: 'contrast the first expedition with James Cameron's expedition'. Faqat B variantida ikkala tomon ham bor va ular o'zaro taqqoslangan ('While...')."
+  },
+  {
+    "id": "m_alg_01",
+    "section": "math",
+    "domain": "Algebra - Linear Systems and Constants",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Quyidagi tenglamalar sistemasi cheksiz ko'p (infinitely many) yechimga ega bo'lishi uchun c ning qiymati nechaga teng bo'lishi kerak?\n\n4x - 6y = 18\n6x - 9y = c",
+    "options": [
+      {
+        "key": "A",
+        "text": "18"
+      },
+      {
+        "key": "B",
+        "text": "27"
+      },
+      {
+        "key": "C",
+        "text": "12"
+      },
+      {
+        "key": "D",
+        "text": "36"
+      }
+    ],
+    "correct": "B",
+    "explanation": "Chiziqli tenglamalar sistemasi cheksiz ko'p yechimga ega bo'lishi uchun ikkala tenglama bir xil to'g'ri chiziqni ifodalashi shart: A₁/A₂ = B₁/B₂ = C₁/C₂.\n4/6 = -6/-9 = 18/c => 2/3 = 18/c => 2c = 54 => c = 27.",
+    "strategy_or_hack": "⚡ DESMOS HACK (5 SONIYADA):\n1. 1-qatorga 4x - 6y = 18 ni yozing.\n2. 2-qatorga 6x - 9y = c deb yozib, slayder qo'shing.\n3. Variantlardagi sonlarni (18, 27, 12) c o'rniga qo'ying. Qachonki ikkala to'g'ri chiziq bitta bo'lib ustma-ust tushsa, o'sha to'g'ri javob! c = 27 da chiziqlar to'liq ustma-ust tushadi!"
+  },
+  {
+    "id": "m_alg_02",
+    "section": "math",
+    "domain": "Algebra - Linear Inequalities",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "xy-tekisligida (x, y) nuqta quyidagi tengsizliklar sistemasining yechimi hisoblanadi:\n\ny ≤ -2x + 8\ny ≥ 3x - 7\n\nx ning mumkin bo'lgan maksimal butun qiymati nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2"
+      },
+      {
+        "key": "B",
+        "text": "3"
+      },
+      {
+        "key": "C",
+        "text": "4"
+      },
+      {
+        "key": "D",
+        "text": "5"
+      }
+    ],
+    "correct": "B",
+    "explanation": "Ikkala tengsizlikni birlashtiramiz: 3x - 7 ≤ y ≤ -2x + 8. Demak, 3x - 7 ≤ -2x + 8 => 5x ≤ 15 => x ≤ 3. x ning mumkin bo'lgan maksimal butun qiymati 3 ga teng.",
+    "strategy_or_hack": "⚡ DESMOS HACK (10 SONIYADA):\n1. 1-qatorga: y <= -2x + 8\n2. 2-qatorga: y >= 3x - 7\n3. Desmos ikkala soha kesishgan umumiy rangli maydonni ko'rsatadi.\n4. Shu sohaning eng o'ng tomonidagi uchi (kesishish nuqtasi)ni bosing: (3, 2). Demak x ning eng katta qiymati = 3!"
+  },
+  {
+    "id": "m_adv_01",
+    "section": "math",
+    "domain": "Advanced Math - Quadratic Equations & Discriminant",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "3x² - kx + 12 = 0 kvadrat tenglama aynan bitta haqiqiy yechimga ega. Agar k > 0 bo'lsa, k ning qiymati nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "6"
+      },
+      {
+        "key": "B",
+        "text": "12"
+      },
+      {
+        "key": "C",
+        "text": "144"
+      },
+      {
+        "key": "D",
+        "text": "24"
+      }
+    ],
+    "correct": "B",
+    "explanation": "Kvadrat tenglama aynan bitta yechimga ega bo'lishi uchun diskriminant nolga teng bo'lishi kerak (D = 0):\nD = b² - 4ac = (-k)² - 4(3)(12) = k² - 144 = 0.\nk² = 144. k > 0 bo'lgani uchun k = 12.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\nDesmosda y = 3x² - kx + 12 deb yozing va k ga slayder bering. k = 12 qo'yilganda parabola x-o'qiga aynan 1 ta nuqtada tegib o'tishini (tangent) ko'rasiz!"
+  },
+  {
+    "id": "m_adv_02",
+    "section": "math",
+    "domain": "Advanced Math - Nonlinear Systems",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Quyidagi tenglamalar sistemasining nechta haqiqiy yechimi (x, y) mavjud?\n\nx² + y² = 25\ny = x² - 5",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 ta"
+      },
+      {
+        "key": "B",
+        "text": "2 ta"
+      },
+      {
+        "key": "C",
+        "text": "3 ta"
+      },
+      {
+        "key": "D",
+        "text": "4 ta"
+      }
+    ],
+    "correct": "C",
+    "explanation": "y = x² - 5 => x² = y + 5. Birinchi tenglamaga qo'yamiz: (y + 5) + y² = 25 => y² + y - 20 = 0.\n(y + 5)(y - 4) = 0 => y = -5 yoki y = 4.\n1) Agar y = -5 bo'lsa: x² = -5 + 5 = 0 => x = 0. Bitta nuqta: (0, -5).\n2) Agar y = 4 bo'lsa: x² = 4 + 5 = 9 => x = 3 yoki x = -3. Ikkita nuqta: (3, 4) va (-3, 4).\nJami yechimlar soni: 1 + 2 = 3 ta!",
+    "strategy_or_hack": "⚡ DESMOS HACK (3 SONIYADA):\n1. 1-qatorga: x^2 + y^2 = 25 (Aylana)\n2. 2-qatorga: y = x^2 - 5 (Parabola)\nGrafikka qarang: Parabola aylanani 3 ta nuqtada kesib o'tadi: (0, -5), (3, 4) va (-3, 4). Javob: 3 ta (Variant C). Hech qanday hisob-kitob shart emas!"
+  },
+  {
+    "id": "m_adv_03",
+    "section": "math",
+    "domain": "Advanced Math - Equivalent Expressions",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Barcha x > 2 qiymatlari uchun quyidagi ifoda qaysi variantga teng?\n\n(4x² - 9) / (2x - 3)",
+    "options": [
+      {
+        "key": "A",
+        "text": "2x + 3"
+      },
+      {
+        "key": "B",
+        "text": "2x - 3"
+      },
+      {
+        "key": "C",
+        "text": "4x + 3"
+      },
+      {
+        "key": "D",
+        "text": "2x² + 3"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Kvadratlar ayirmasi formulasi: a² - b² = (a - b)(a + b).\nSurat: 4x² - 9 = (2x - 3)(2x + 3).\nKasr: (2x - 3)(2x + 3) / (2x - 3) = 2x + 3.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\n1. 1-qatorga asl ifodani yozing: y = (4x^2 - 9)/(2x - 3)\n2. 2-qatorga variantlarni yozing: y = 2x + 3\nGrafiklar aynan bitta bo'lib ustma-ust tushadi! Javob: A."
+  },
+  {
+    "id": "m_ps_01",
+    "section": "math",
+    "domain": "Problem Solving - Percentages and Markups",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Do'kondagi noutbukning narxi dastlab $800 edi. Do'kon egasi narxni 25% ga oshirdi. Bir oydan so'ng ushbu yangi narxga 20% chegirma e'lon qilindi. Noutbukning yakuniy narxi necha dollar bo'ldi?",
+    "options": [
+      {
+        "key": "A",
+        "text": "$800"
+      },
+      {
+        "key": "B",
+        "text": "$840"
+      },
+      {
+        "key": "C",
+        "text": "$780"
+      },
+      {
+        "key": "D",
+        "text": "$820"
+      }
+    ],
+    "correct": "A",
+    "explanation": "1) 25% ga oshirish: 800 * 1.25 = $1000.\n2) 20% chegirma: 1000 * (1 - 0.20) = 1000 * 0.80 = $800.\nYakuniy narx dastlabki narx bilan teng chiqdi ($800).",
+    "strategy_or_hack": "⚡ MATEMATIK FORMULA:\n800 * 1.25 * 0.80 = 800 * 1.00 = 800.\nDesmos kalkulyatoriga bitta qatorda '800 * 1.25 * 0.80' deb yozsangiz 1 soniyada 800 chiqadi!"
+  },
+  {
+    "id": "m_ps_02",
+    "section": "math",
+    "domain": "Problem Solving - Ratios and Unit Conversion",
+    "difficulty": "Easy",
+    "passage": null,
+    "question": "Avtomobil o'zgarmas 90 km/soat tezlikda harakatlanmoqda. Ushbu avtomobil 1 soniyada necha metr masofani bosib o'tadi?",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 metr"
+      },
+      {
+        "key": "B",
+        "text": "20 metr"
+      },
+      {
+        "key": "C",
+        "text": "25 metr"
+      },
+      {
+        "key": "D",
+        "text": "30 metr"
+      }
+    ],
+    "correct": "C",
+    "explanation": "Km/soat dan m/s ga o'tish uchun tezlikni 3.6 ga bo'lish kerak:\n90 / 3.6 = 25 m/s.\nYoki: 90 km = 90,000 metr. 1 soat = 3600 soniya. 90,000 / 3600 = 25 metr.",
+    "strategy_or_hack": "⚡ SAT METRIC QOIDASI:\nHar doim km/h dan m/s ga o'tishda qiymatni 3.6 ga bo'ling. 90 / 3.6 = 25!"
+  },
+  {
+    "id": "m_geo_01",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Right Triangles",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "To'g'ri burchakli uchburchakda o'tkir burchak x° uchun sin(x°) = 0.6 ga teng. Ushbu uchburchakning ikkinchi o'tkir burchagi y° bo'lsa, cos(y°) ning qiymati nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "0.6"
+      },
+      {
+        "key": "B",
+        "text": "0.8"
+      },
+      {
+        "key": "C",
+        "text": "0.36"
+      },
+      {
+        "key": "D",
+        "text": "1.0"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Digital SAT da eng ko'p tushadigan trigonometrik qoida:\nAgar x va y to'g'ri burchakli uchburchakning o'tkir burchaklari bo'lsa, x + y = 90° bo'ladi (complementary angles).\nHar doim: sin(x°) = cos(90° - x°) = cos(y°).\nDemak, sin(x°) = 0.6 bo'lsa, cos(y°) ham aynan 0.6 ga teng!",
+    "strategy_or_hack": "⚡ DIGITAL SAT OLTIN QOIDASI:\n'sin(x) = cos(y)' bo'lishi uchun burchaklar yig'indisi x + y = 90° bo'lishi shart! Agar sin(x) = 0.6 bo'lsa, uning to'ldiruvchi burchagining kosinusi ham darhol 0.6 bo'ladi. Hech qanday chizma chizish shart emas!"
+  },
+  {
+    "id": "m_geo_02",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Circle Arc Length",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Aylananing radiusi 12 ga teng. Aylanadagi markaziy burchak 60° ga teng bo'lgan yoyning uzunligi nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2π"
+      },
+      {
+        "key": "B",
+        "text": "4π"
+      },
+      {
+        "key": "C",
+        "text": "8π"
+      },
+      {
+        "key": "D",
+        "text": "12π"
+      }
+    ],
+    "correct": "B",
+    "explanation": "Aylananing to'liq uzunligi C = 2πR = 2π(12) = 24π.\n60° li burchak to'liq aylananing 60/360 = 1/6 qismini tashkil qiladi.\nDemak yoy uzunligi: 24π * (1/6) = 4π.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\nDesmosga to'g'ridan-to'g'ri yozing: 2 * pi * 12 * (60 / 360). Desmos darhol 12.566 chiqazadi. 4 * pi ham 12.566 ga teng! Javob: B."
+  },
+  {
+    "id": "R_WIC_001",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Medium",
+    "passage": "The scientist's methodology was characterized by its empirical rigor, yet her conclusions often demonstrated a remarkable prescience that seemed to transcend the immediate data. Critics argued that this apparent paradox undermined her credibility, while supporters maintained it reflected genuine intellectual acuity.",
+    "question": "As used in the text, what does the word \"prescience\" most nearly mean?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Foresight"
+      },
+      {
+        "key": "B",
+        "text": "Accuracy"
+      },
+      {
+        "key": "C",
+        "text": "Confusion"
+      },
+      {
+        "key": "D",
+        "text": "Methodology"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. \"Prescience\" so'zi \"oldindan ko'ra bilish, bashorat qilish qobiliyati\" degan ma'noni anglatadi va kontekstda \"foresight\" (oldindan ko'ra bilish) bilan sinonim hisoblanadi. Matnda aytilishicha, olim ayolning xulosalari bevosita ma'lumotlardan \"tashqariga chiqib ketgandek\" ko'ringan, ya'ni u kelajakni oldindan ko'ra bilgandek. B variant (Accuracy - aniqlik) noto'g'ri, chunki gap aniqlik haqida emas, balki kelajakni oldindan bilish haqida. C variant (Confusion - chalkashlik) kontekstga zid. D variant (Methodology - metodologiya) matnda allaqachon boshqa ma'noda ishlatilgan.",
+    "strategy_or_hack": "SAT strategiyasi: So'zning ma'nosini topish uchun avval uni kontekstdan o'chirib tashlang va bo'sh joyga har bir variantni qo'yib ko'ring. Qaysi variant mantiqiy jihatdan to'g'ri kelsa, o'sha javob. \"Transcend the data\" (ma'lumotlardan oshib ketish) iborasi bilan \"foresight\" (oldindan ko'rish) mantiqiy bog'lanadi. Shuningdek, \"paradox\" (qarama-qarshilik) so'zi ham shuni ko'rsatadiki, olim ayol \"empirical\" (tajribaga asoslangan) usul bilan ishlagan, lekin kelajakni \"prescience\" bilan ko'ra bilgan - bu qarama-qarshilik."
+  },
+  {
+    "id": "R_TSP_001",
+    "section": "reading",
+    "domain": "Craft and Structure - Text Structure and Purpose",
+    "difficulty": "Medium",
+    "passage": "The platypus is an egg-laying mammal native to eastern Australia. When European naturalists first encountered preserved platypus specimens in 1798, many believed the creature was an elaborate hoax. The animal appeared to be a composite: it had a duck's bill, a beaver's tail, and otter's feet. Naturalist George Shaw even took scissors to a dried specimen, convinced he would find stitches where different animals had been sewn together. Today, genetic research has revealed that the platypus represents an ancient evolutionary lineage that diverged from other mammals approximately 166 million years ago.",
+    "question": "Which choice best describes the overall structure of the text?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It presents a scientific mystery and then provides its resolution."
+      },
+      {
+        "key": "B",
+        "text": "It describes an animal's habitat and explains how it adapted to that environment."
+      },
+      {
+        "key": "C",
+        "text": "It introduces a historical misconception and then explains the current scientific understanding."
+      },
+      {
+        "key": "D",
+        "text": "It compares two competing theories and evaluates which one is more accurate."
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C. Matn strukturasi quyidagicha: avval tarixiy noto'g'ri tushuncha (platipusning soxta hayvon deb o'ylangani) keltiriladi, keyin hozirgi ilmiy tushuncha (genetik tadqiqotlar orqali platipusning qadimiy evolyutsion chizig'i ekanligi) tushuntiriladi. A variant noto'g'ri, chunki gap \"mystery\" (sir) haqida emas, balki \"misconception\" (noto'g'ri tushuncha) haqida. B variant noto'g'ri, chunki matnda yashash joyi va moslashuv haqida gapirgilmaydi. D variant noto'g'ri, chunki ikki nazariya taqqoslanmaydi - faqat tarixiy qarash va zamonaviy ilmiy tushuncha kontrastida beriladi.",
+    "strategy_or_hack": "SAT strategiyasi: Matn strukturasini aniqlash uchun har bir xatboshining asosiy g'oyasini belgilang. 1-xatboshi: tarixdagi hodisa (noto'g'ri qarash). 2-xatboshi: \"Today\" (bugun) so'zi bilan boshlanadi - bu o'zgarishni ko'rsatadi. Vaqt ko'rsatkichlari (\"1798\", \"Today\") strukturani tushunishda muhim. \"First... then...\" (avval... keyin...) strukturasini qidirib toping."
+  },
+  {
+    "id": "R_CID_001",
+    "section": "reading",
+    "domain": "Information and Ideas - Central Ideas and Details",
+    "difficulty": "Hard",
+    "passage": "In her groundbreaking 1962 work Silent Spring, marine biologist Rachel Carson documented the devastating effects of pesticides on bird populations and ecosystems. Carson argued that the widespread use of DDT and similar chemicals was causing a cascade of environmental harm, from the thinning of bird eggshells to the contamination of water supplies. Her work faced fierce opposition from chemical companies and some members of the scientific establishment, who questioned both her credentials and her conclusions. Nevertheless, Silent Spring catalyzed the modern environmental movement and led to significant policy changes, including the eventual ban of DDT in the United States in 1972. Carson's approach—combining rigorous scientific research with accessible prose—demonstrated that environmental science could reach and mobilize a broad public audience.",
+    "question": "Which choice best states the main idea of the text?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rachel Carson's scientific credentials were unfairly questioned by the chemical industry despite her expertise in marine biology."
+      },
+      {
+        "key": "B",
+        "text": "Silent Spring revealed the harmful effects of pesticides and, despite facing opposition, influenced environmental policy and public awareness."
+      },
+      {
+        "key": "C",
+        "text": "The ban of DDT in 1972 was the most significant achievement of the environmental movement in the twentieth century."
+      },
+      {
+        "key": "D",
+        "text": "Rachel Carson proved that scientists should write in an accessible style to ensure their research reaches the general public."
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B. Matnning asosiy g'oyasi Silent Spring kitobining ta'siri: u pestitsidlarning zararini ochib berdi, qarshiliklarga qaramay ekologik siyosat va jamiyat ongiga ta'sir qildi. Bu variant matnning barcha asosiy elementlarini qamrab oladi. A variant noto'g'ri, chunki u faqat bitta tafsilotga (kredensiallariga qarshi chiqilishi) e'tibor beradi, asosiy g'oyani emas. C variant noto'g'ri, chunki DDT taqiqi natijadir, lekin matnda \"most significant achievement\" deb aytilmagan. D variant noto'g'ri, chunki yozish uslubi muhim tafsilot, lekin asosiy g'oya emas - bu Carson yondashuvining bir jihati xolos.",
+    "strategy_or_hack": "SAT strategiyasi: Asosiy g'oyani topish uchun \"zoom out\" qiling - kichik detallardan uzoqlashing. O'zingizga savol bering: \"Agar men bu matnni bitta gapda tushuntirsam, nima deyman?\" Har bir gapni o'qib, takrorlanayotgan mavzuni toping. Burada takrorlanayotgan mavzu: Carson kitobining ta'siri va oqibatlari. Juda keng (C) yoki juda tor (A, D) javoblardan saqlaning."
+  },
+  {
+    "id": "R_COE_001",
+    "section": "reading",
+    "domain": "Information and Ideas - Command of Evidence",
+    "difficulty": "Medium",
+    "passage": "Researchers studying sleep patterns in adolescents have found that school start times significantly affect academic performance. A study conducted across multiple high schools showed that students at schools with 8:30 AM or later start times had higher grade point averages and standardized test scores compared to students at schools beginning at 7:30 AM. Additionally, students with later start times reported feeling more alert during morning classes and had fewer absences related to illness.",
+    "question": "Which finding from the study, if true, would most directly support the claim that later school start times improve academic performance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Students at schools with later start times went to bed at approximately the same time as students at schools with earlier start times."
+      },
+      {
+        "key": "B",
+        "text": "Schools with later start times had more resources and experienced teachers than schools with earlier start times."
+      },
+      {
+        "key": "C",
+        "text": "Students at schools with later start times participated in fewer after-school activities than students at schools with earlier start times."
+      },
+      {
+        "key": "D",
+        "text": "The improvement in grades occurred specifically in morning classes, while afternoon class performance remained similar across all schools."
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. Agar o'quvchilar bir xil vaqtda uxlashga yotishgan bo'lsa, lekin kechroq turganlar akademik jihatdan yaxshiroq natija ko'rsatgan bo'lsa, bu to'g'ridan-to'g'ri maktab boshlanish vaqti (va natijada ko'proq uxlash) akademik natijalarga ijobiy ta'sir qilishini tasdiqlaydi. Bu boshqa tashqi omillarni istisno qiladi. B variant noto'g'ri, chunki bu \"confounding variable\" (aralashtirib yuboruvchi o'zgaruvchi) - natija maktab boshlanish vaqtidan emas, balki resurslardan kelib chiqishi mumkin. C variant noto'g'ri, chunki bu ham akademik natijalarning boshqa sababini taklif qiladi. D variant yaxshi tuyuladi, lekin u faqat qachon yaxshilanish sodir bo'lganini ko'rsatadi, nima sababdan ekanligini isbotlamaydi.",
+    "strategy_or_hack": "SAT strategiyasi: \"Command of Evidence\" savollari uchun causation vs correlation (sababiyat va bog'liqlik) ni farqlang. To'g'ri dalil boshqa omillarni istisno qilishi va to'g'ridan-to'g'ri sababiy bog'lanishni ko'rsatishi kerak. B va C variantlardagi kabi \"alternative explanations\" (muqobil tushuntirishlar) dan ehtiyot bo'ling - bular noto'g'ri javoblar bo'lishi mumkin."
+  },
+  {
+    "id": "R_INF_001",
+    "section": "reading",
+    "domain": "Information and Ideas - Inferences",
+    "difficulty": "Hard",
+    "passage": "Artist Frida Kahlo produced approximately 200 paintings during her lifetime, of which 55 are self-portraits. In letters to friends, Kahlo explained that she painted herself because she was often alone and because she was the subject she knew best. While many critics have interpreted her self-portraits as purely autobiographical expressions of physical and emotional pain, recent scholarship suggests a more complex reading. Kahlo deliberately incorporated symbols from Mexican indigenous culture and challenged European artistic conventions, positioning herself within a broader cultural and political context rather than simply recording personal experience.",
+    "question": "Based on the text, what can most reasonably be inferred about recent scholarly interpretations of Kahlo's self-portraits?",
+    "options": [
+      {
+        "key": "A",
+        "text": "They reject the idea that Kahlo's personal experiences influenced her artwork."
+      },
+      {
+        "key": "B",
+        "text": "They recognize dimensions of Kahlo's work beyond personal autobiography, including cultural and political commentary."
+      },
+      {
+        "key": "C",
+        "text": "They argue that Kahlo was primarily interested in European artistic traditions rather than Mexican culture."
+      },
+      {
+        "key": "D",
+        "text": "They suggest that Kahlo's letters to friends provide an incomplete account of her artistic motivations."
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B. Matnda \"recent scholarship suggests a more complex reading\" (so'nggi tadqiqotlar murakkabroq talqinni taklif qiladi) deyiladi va Kahloning o'z-o'zidan portretlarini nafaqat shaxsiy avtobiografik iboralar sifatida, balki Meksika madaniyati ramzlarini va Yevropa an'analariga qarshi chiqishni o'z ichiga olgan keng madaniy va siyosiy kontekstda ko'rish kerakligi ta'kidlanadi. A variant noto'g'ri, chunki yangi talqinlar shaxsiy tajribani inkor etmaydi, balki \"qo'shimcha\" jihatlarni qo'shadi. C variant matn ma'nosiga zid - Kahlo Yevropa an'analariga \"qarshi chiqdi\", ularni qabul qilmadi. D variant matnda aytilmagan - xatlarda nima yozilgani to'g'risida baholash berilmagan.",
+    "strategy_or_hack": "SAT strategiyasi: \"Inference\" (xulosa chiqarish) savollari uchun matnda bevosita aytilmagan, lekin mantiqan kelib chiqadigan narsani toping. Haddan tashqari katta xulosa chiqarmang. \"More complex\" (murakkabroq) so'zi kalit - bu eskiroq qarash (faqat avtobiografik) hali ham to'g'ri, lekin to'liq emas degan ma'noni anglatadi. \"Rather than simply\" (oddiy ravishda emas) iborasi qo'shimcha qatlamlarni ko'rsatadi."
+  },
+  {
+    "id": "W_SEC_001",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "The conference will address three critical topics____climate change mitigation strategies, renewable energy infrastructure, and international policy coordination.",
+    "options": [
+      {
+        "key": "A",
+        "text": ": climate change"
+      },
+      {
+        "key": "B",
+        "text": ", climate change"
+      },
+      {
+        "key": "C",
+        "text": "; climate change"
+      },
+      {
+        "key": "D",
+        "text": "— climate change"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. Colon (:) ishlatiladi, chunki undan keyin ro'yxat keladi va ro'yxat oldingi gapni tushuntiradi yoki kengaytiradi. \"Three critical topics\" so'zidan keyin o'sha mavzular sanab o'tiladi. B variant (vergul) noto'g'ri, chunki oddiy vergul ro'yxatni kiritish uchun yetarli emas - ro'yxatni kiritadigan so'zlar (\"such as\", \"including\") bo'lishi kerak yoki colon ishlatilishi kerak. C variant (nuqtali vergul) noto'g'ri, chunki semicolon ikkita mustaqil gapni ajratish uchun ishlatiladi, ro'yxatni kiritish uchun emas. D variant (tire) mumkin, lekin colon ro'yxatlarni kiritish uchun standart va rasmiyroq tanlov.",
+    "strategy_or_hack": "Grammatika qoidasi (O'zbek tilida): Colon (:) ishlatish qoidalari: 1) Ro'yxatni kiritishdan oldin (\"three topics:\" singari so'zlar bo'lsa). 2) Tushuntirishni kiritishda. 3) Colondan oldin to'liq gap (independent clause) bo'lishi shart. SAT da colondan oldin \"following\", \"these\", \"this\" singari so'zlar bo'lsa, colon ishlatish to'g'ri ekanligini bilib oling. Agar siz ro'yxatni ko'rsangiz va undan oldin ro'yxatni tanishtiruvchi so'zlar bo'lsa (\"three topics\"), colon tanlang."
+  },
+  {
+    "id": "W_SEC_002",
+    "section": "writing",
+    "domain": "Standard English Conventions - Form, Structure, and Sense",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "The research team, which includes scientists from twelve countries, ______ planning to publish their findings next month.",
+    "options": [
+      {
+        "key": "A",
+        "text": "are"
+      },
+      {
+        "key": "B",
+        "text": "is"
+      },
+      {
+        "key": "C",
+        "text": "were"
+      },
+      {
+        "key": "D",
+        "text": "have been"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B. Subject \"the research team\" birlik (singular) otdir, shuning uchun \"is\" fe'li kerak. \"Which includes scientists from twelve countries\" qismi faqat qo'shimcha ma'lumot beruvchi relative clause (bog'lovchi ergash gap) bo'lib, u asosiy fe'lga ta'sir qilmaydi. Ko'p talabalar \"scientists\" so'ziga aldanib, ko'plik fe'l (are) tanlaydilar, lekin asosiy subject \"team\" (birlik). A variant (are) noto'g'ri, chunki \"team\" birlik. C variant (were) noto'g'ri, chunki zamon noto'g'ri - \"next month\" kelajakni ko'rsatadi, shuning uchun hozirgi zamon kerak. D variant (have been) noto'g'ri, chunki birlik subject bilan mos kelmaydi.",
+    "strategy_or_hack": "Grammatika qoidasi (O'zbek tilida): Subject-Verb Agreement (Kesim va ega mosligi). 1) Vergullar orasidagi so'zlarni o'chirib tashlang - bu sizga asosiy subjectni topishga yordam beradi. 2) Collective nouns (team, committee, group, class) odatda birlik hisoblanadi. 3) \"Which\", \"who\", \"that\" bilan boshlanadigan qismlar asosiy fe'lga ta'sir qilmaydi. SAT hack: Gapni soddalashtiring - \"The team __ planning\" - endi javob ravshan."
+  },
+  {
+    "id": "W_EOI_001",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Solar panels have become increasingly affordable over the past decade, with costs dropping by more than 80%. ______ many homeowners still hesitate to install them due to concerns about long-term maintenance and efficiency in cloudy climates.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Furthermore,"
+      },
+      {
+        "key": "B",
+        "text": "Consequently,"
+      },
+      {
+        "key": "C",
+        "text": "Nevertheless,"
+      },
+      {
+        "key": "D",
+        "text": "For instance,"
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C. \"Nevertheless\" (shunga qaramay) kontrastni ko'rsatadi. Birinchi gapda ijobiy narsa (narxlar tushdi) aytiladi, ikkinchi gapda salbiy haqiqat (odamlar hali ham o'rnatishdan tortinishadi) keladi - bu qarama-qarshilikdir. A variant (Furthermore - bundan tashqari) noto'g'ri, chunki u qo'shimcha ijobiy ma'lumot qo'shish uchun ishlatiladi, kontrast uchun emas. B variant (Consequently - natijada) noto'g'ri, chunki ikkinchi gap birinchi gapning natijasi emas - aksincha, kutilmagan vaziyat. D variant (For instance - masalan) noto'g'ri, chunki ikkinchi gap misol emas, balki ziddiyatli haqiqatdir.",
+    "strategy_or_hack": "Transition strategiyasi (O'zbek tilida): Ikki gapning munosabatini aniqlang. 1) Bir xil yo'nalish = Furthermore, Additionally, Moreover. 2) Kontrast/Qarama-qarshilik = Nevertheless, However, In contrast. 3) Sabab-natija = Consequently, Therefore, Thus. 4) Misol = For instance, For example. SAT hack: Agar birinchi gap ijobiy, ikkinchi gap salbiy (yoki aksincha) bo'lsa, kontrast transition kerak (Nevertheless, However)."
+  },
+  {
+    "id": "W_EOI_002",
+    "section": "writing",
+    "domain": "Expression of Ideas - Rhetorical Synthesis",
+    "difficulty": "Hard",
+    "passage": "While researching the history of jazz music, a student took the following notes:\n\n• Jazz originated in New Orleans in the early 1900s, blending African rhythms with European harmonic structures.\n• Louis Armstrong pioneered the solo improvisation style in the 1920s.\n• Duke Ellington composed over 1,000 pieces and led his orchestra for 50 years.\n• Both Armstrong and Ellington transformed jazz from entertainment music into a respected art form.\n• Armstrong was known primarily as a performer, while Ellington was known as both a composer and bandleader.\n\nThe student wants to emphasize a difference between Armstrong's and Ellington's contributions to jazz. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    "question": "Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Both Louis Armstrong and Duke Ellington transformed jazz from entertainment music into a respected art form in the early twentieth century."
+      },
+      {
+        "key": "B",
+        "text": "While Armstrong pioneered solo improvisation and was known primarily as a performer, Ellington composed over 1,000 pieces and was known as both a composer and bandleader."
+      },
+      {
+        "key": "C",
+        "text": "Jazz music originated in New Orleans, where Louis Armstrong and Duke Ellington both contributed to the genre's development."
+      },
+      {
+        "key": "D",
+        "text": "Duke Ellington led his orchestra for 50 years and composed over 1,000 pieces of music."
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B. Talaba maqsadi Armstrongning va Ellingtonning jazz musiqasiga qo'shgan hissalari orasidagi farqni ta'kidlash edi. B variant bu maqsadni to'liq amalga oshiradi: Armstrong solo improvizatsiya uslubini yaratgan va asosan ijrochi sifatida tanilgan, Ellington esa 1000 dan ortiq asar yaratgan va bastakor hamda orkestr rahbari sifatida tanilgan. \"While\" so'zi kontrastni aniq ko'rsatadi. A variant noto'g'ri, chunki u o'xshashlikni ta'kidlaydi, farqni emas. C variant noto'g'ri, chunki u umumiy ma'lumot beradi va farqni ko'rsatmaydi. D variant noto'g'ri, chunki u faqat Ellington haqida gap qiladi, taqqoslash yo'q.",
+    "strategy_or_hack": "Rhetorical Synthesis strategiyasi (O'zbek tilida): 1) Savoldagi maqsadni aniq o'qing (\"emphasize a difference\" - farqni ta'kidlash). 2) Notes (eslatmalar) dan faqat shu maqsadga mos keladigan ma'lumotlarni toping. 3) Kontrast so'zlarini (\"while\", \"whereas\", \"unlike\") qidirib toping - ular odatda farqni ko'rsatishda ishlatiladi. 4) Har ikkala kishini ham eslatib o'tadigan va ularning farqini aniq ko'rsatadigan variantni tanlang."
+  },
+  {
+    "id": "M_ALG_001",
+    "section": "math",
+    "domain": "Algebra - Linear Systems and Constants",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "For what value of k does the system of equations below have no solution?\n\n3x + 5y = 15\nkx + 10y = 20",
+    "options": [
+      {
+        "key": "A",
+        "text": "k = 3"
+      },
+      {
+        "key": "B",
+        "text": "k = 5"
+      },
+      {
+        "key": "C",
+        "text": "k = 6"
+      },
+      {
+        "key": "D",
+        "text": "k = 10"
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C (k = 6). Sistema yechimga ega bo'lmasligi uchun ikki tenglama parallel bo'lishi kerak - ya'ni koeffitsientlarning nisbati bir xil, lekin ozod hadlarning nisbati boshqacha bo'lishi kerak. Birinchi tenglamani 2 ga ko'paytirsak: 6x + 10y = 30. Endi ikkinchi tenglama bilan taqqoslasak: kx + 10y = 20. Y koeffitsientlari allaqachon bir xil (10 = 10). X koeffitsientlari ham bir xil bo'lishi uchun k = 6 bo'lishi kerak. Lekin ozod hadlar har xil (30 ≠ 20). Bu parallel chiziqlarni beradi, demak yechim yo'q. Tekshirish: agar k = 6 bo'lsa, 6x + 10y = 20 va 6x + 10y = 30 (birinchisini 2 ga ko'paytirgandan keyin) - bu parallel chiziqlar.",
+    "strategy_or_hack": "DESMOS 5-sekund hack: 1) Desmos grafigiga ikkala tenglamani kiriting: y = (-3/5)x + 3 va y = (-k/10)x + 2. 2) k qiymatini slider qilib qo'ying. 3) k ning qiymatini o'zgartirib, chiziqlar parallel bo'lgan (kesishmagan) joyni toping. Yoki algebrik usul: parallel bo'lish uchun slope (qiyalik) bir xil bo'lishi kerak: -3/5 = -k/10, bundan k = 6. Ozod hadlar har xil ekanligini tekshiring (3 ≠ 2) - bu sistemaning yechimsiz ekanligini tasdiqlaydi."
+  },
+  {
+    "id": "M_ALG_002",
+    "section": "math",
+    "domain": "Algebra - Linear Inequalities and Modeling",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "A local bakery sells croissants for $3 each and muffins for $2 each. The bakery needs to make at least $120 in sales today. If x represents the number of croissants sold and y represents the number of muffins sold, which inequality represents this situation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "3x + 2y ≥ 120"
+      },
+      {
+        "key": "B",
+        "text": "3x + 2y ≤ 120"
+      },
+      {
+        "key": "C",
+        "text": "3x + 2y > 120"
+      },
+      {
+        "key": "D",
+        "text": "2x + 3y ≥ 120"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. Har bir kruvasan $3, shuning uchun x ta kruvasan 3x dollar. Har bir muffin $2, shuning uchun y ta muffin 2y dollar. Umumiy daromad 3x + 2y. Savoldagi \"at least $120\" (kamida $120) iborasi \"≥ 120\" (katta yoki teng) degan ma'noni anglatadi. B variant noto'g'ri, chunki ≤ \"ko'pi bilan\" degan ma'noni anglatadi, \"kamida\" emas. C variant noto'g'ri, chunki > \"qat'iy katta\" degan ma'noni anglatadi, lekin \"at least\" teng bo'lishi ham mumkinligini nazarda tutadi. D variant noto'g'ri, chunki koeffitsientlar almashtirilgan (kruvasan narxi 3, muffin narxi 2).",
+    "strategy_or_hack": "DESMOS hack: 1) Desmos grafigiga tengsizlikni kiriting: 3x + 2y ≥ 120. 2) Shaded region (bo'yalgan hudud) ko'rinadi - bu yechimlar to'plami. 3) Bir nechta nuqtalarni sinab ko'ring (masalan, (40, 0) kruvasan va 0 muffin = $120, bu ishlaydimi?) 4) Nuqta shaded regionda bo'lsa, tengsizlik to'g'ri. Yoki \"at least\", \"minimum\", \"no less than\" = ≥ (katta yoki teng). \"At most\", \"maximum\", \"no more than\" = ≤ (kichik yoki teng)."
+  },
+  {
+    "id": "M_ADV_001",
+    "section": "math",
+    "domain": "Advanced Math - Quadratic Vertex and Discriminant",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "The function f(x) = -2x² + 8x + c has a maximum value of 15. What is the value of c?",
+    "options": [
+      {
+        "key": "A",
+        "text": "c = 5"
+      },
+      {
+        "key": "B",
+        "text": "c = 7"
+      },
+      {
+        "key": "C",
+        "text": "c = 11"
+      },
+      {
+        "key": "D",
+        "text": "c = 15"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (c = 7). Parabola maksimum qiymatiga vertex (cho'qqi nuqta) da erishadi. Vertex x koordinatasi: x = -b/(2a) = -8/(2(-2)) = -8/(-4) = 2. Vertex y koordinatasi (maksimum qiymat): f(2) = -2(2)² + 8(2) + c = -2(4) + 16 + c = -8 + 16 + c = 8 + c. Savol shartiga ko'ra maksimum qiymat 15 ga teng: 8 + c = 15, demak c = 7. Tekshirish: f(x) = -2x² + 8x + 7, f(2) = -8 + 16 + 7 = 15 ✓",
+    "strategy_or_hack": "DESMOS 3-sekund hack: 1) Desmos grafigiga funktsiyani kiriting: f(x) = -2x² + 8x + c. 2) c ni slider qilib qo'ying. 3) c ni o'zgartirib, vertex ning y koordinatasi 15 bo'lgan joyni toping. Vertex koordinatalari avtomatik ko'rinadi. Yoki formula: Quadratic f(x) = ax² + bx + c uchun vertex x = -b/(2a), keyin shu x ni tenglamaga qo'yib, maksimum qiymatni toping va c ni yeching."
+  },
+  {
+    "id": "M_ADV_002",
+    "section": "math",
+    "domain": "Advanced Math - Nonlinear Systems",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "If x² + y² = 25 and y = x + 1, what is the sum of all possible values of x?",
+    "options": [
+      {
+        "key": "A",
+        "text": "-1"
+      },
+      {
+        "key": "B",
+        "text": "0"
+      },
+      {
+        "key": "C",
+        "text": "1"
+      },
+      {
+        "key": "D",
+        "text": "2"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A (-1). Ikkinchi tenglamadan y ni topamiz: y = x + 1. Buni birinchi tenglamaga qo'yamiz: x² + (x + 1)² = 25. Ochib yozamiz: x² + x² + 2x + 1 = 25. Soddalashtiramiz: 2x² + 2x + 1 = 25. Barcha hadlarni chap tomonga o'tkazamiz: 2x² + 2x - 24 = 0. 2 ga bo'lamiz: x² + x - 12 = 0. Faktorizatsiya qilamiz: (x + 4)(x - 3) = 0. Yechimlar: x = -4 yoki x = 3. Barcha mumkin bo'lgan x qiymatlari yig'indisi: -4 + 3 = -1.",
+    "strategy_or_hack": "DESMOS 5-sekund hack: 1) Desmos grafigiga ikkala tenglamani kiriting: x² + y² = 25 (doira) va y = x + 1 (to'g'ri chiziq). 2) Kesishish nuqtalarini ko'ring. 3) Har bir kesishish nuqtasining x koordinatasini yozing va ularni qo'shing. Desmos kesishish nuqtalari koordinatalarini avtomatik ko'rsatadi. Algebraik usul: almashtirish (substitution) usuli - bir tenglamadan y ni topib, ikkinchisiga qo'ying."
+  },
+  {
+    "id": "M_ADV_003",
+    "section": "math",
+    "domain": "Advanced Math - Exponential Growth and Decay",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "A bacteria culture doubles in size every 3 hours. If the culture initially contains 500 bacteria, which function models the number of bacteria, B(t), after t hours?",
+    "options": [
+      {
+        "key": "A",
+        "text": "B(t) = 500(2)^(t/3)"
+      },
+      {
+        "key": "B",
+        "text": "B(t) = 500(2)^(3t)"
+      },
+      {
+        "key": "C",
+        "text": "B(t) = 500(3)^(2t)"
+      },
+      {
+        "key": "D",
+        "text": "B(t) = 500(3)^(t/2)"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. Eksponensial o'sish formulasi: B(t) = B₀ · r^(t/d), bu yerda B₀ = boshlang'ich qiymat (500), r = o'sish koeffitsienti (2, chunki ikki barobar ko'payadi), d = davr (3 soat). Demak, B(t) = 500 · 2^(t/3). Tekshirish: t = 0 da B(0) = 500 · 2^0 = 500 ✓ (boshlang'ich holat). t = 3 da B(3) = 500 · 2^(3/3) = 500 · 2^1 = 1000 ✓ (3 soatdan keyin ikki barobar). t = 6 da B(6) = 500 · 2^(6/3) = 500 · 2^2 = 2000 ✓ (6 soatdan keyin to'rt barobar). B variant noto'g'ri, chunki daraja t/3 emas, 3t - bu juda tez o'sishni beradi. C va D variantlar noto'g'ri asos (base) ishlatadi.",
+    "strategy_or_hack": "DESMOS hack: 1) Har bir variantni Desmos grafigiga kiriting. 2) Bir nechta nuqtalarni tekshiring: (0, 500), (3, 1000), (6, 2000). 3) Qaysi grafik bu nuqtalardan o'tsa, o'sha javob to'g'ri. Yoki formula eslab qoling: Eksponensial o'sish/kamayish = Boshlang'ich qiymat · (o'sish/kamayish koeffitsienti)^(vaqt/davr). \"Doubles every 3 hours\" = koeffitsient 2, davr 3."
+  },
+  {
+    "id": "M_PS_001",
+    "section": "math",
+    "domain": "Problem Solving - Percentages and Ratios",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "A laptop originally priced at $800 is on sale for 25% off. An additional 10% discount is applied to the sale price. What is the final price of the laptop?",
+    "options": [
+      {
+        "key": "A",
+        "text": "$520"
+      },
+      {
+        "key": "B",
+        "text": "$540"
+      },
+      {
+        "key": "C",
+        "text": "$560"
+      },
+      {
+        "key": "D",
+        "text": "$600"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B ($540). Birinchi chegirma: 25% off = 75% qoladi. $800 × 0.75 = $600 (sotuvdagi narx). Ikkinchi chegirma sotuvdagi narxdan: 10% off = 90% qoladi. $600 × 0.90 = $540 (yakuniy narx). Ko'p talabalar xato qilib, ikkala chegirmani qo'shib yuboradilar (25% + 10% = 35% off, $800 × 0.65 = $520), lekin ikkinchi chegirma yangi narxdan olinadi, asl narxdan emas. To'g'ri usul: har bir chegirmani ketma-ket qo'llash.",
+    "strategy_or_hack": "DESMOS hack: Desmos kalkulyatorida: 800 × 0.75 × 0.90 ni hisoblang = 540. Yoki percent qisqartma: \"25% off\" = \"× 0.75\" (100% - 25% = 75% qoladi). \"10% off\" = \"× 0.90\" (100% - 10% = 90% qoladi). Ketma-ket chegirmalar: har bir chegirmani alohida qo'llang, qo'shmang."
+  },
+  {
+    "id": "M_PS_002",
+    "section": "math",
+    "domain": "Problem Solving - Margin of Error",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "A survey estimates that 60% of voters support a new policy, with a margin of error of ±4 percentage points. Which of the following is a plausible range for the true percentage of voters who support the policy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "54% to 64%"
+      },
+      {
+        "key": "B",
+        "text": "56% to 64%"
+      },
+      {
+        "key": "C",
+        "text": "58% to 62%"
+      },
+      {
+        "key": "D",
+        "text": "60% to 68%"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (56% dan 64% gacha). Margin of error (xatolik chegarasi) ±4% degani baholangan qiymatdan 4% yuqoriga yoki 4% pastga bo'lishi mumkin. 60% - 4% = 56% (pastki chegara). 60% + 4% = 64% (yuqori chegara). Demak, haqiqiy qiymat 56% dan 64% oralig'ida bo'lishi mumkin. A variant noto'g'ri, chunki pastki chegara 54% (60% - 6%), lekin margin of error ±4%, ±6% emas. C variant noto'g'ri, chunki bu ±2% margin of error. D variant noto'g'ri, chunki pastki chegara yo'q, faqat yuqori chegara ko'rsatilgan.",
+    "strategy_or_hack": "DESMOS hack: Oddiy arifmetik. Formulani eslab qoling: [Estimate - Margin, Estimate + Margin]. Bu yerda [60 - 4, 60 + 4] = [56, 64]. SAT da margin of error savollari uchun har doim ikkala tomonni ham hisoblang (yuqori va pastki chegara). ± belgisi ikkalasi ham (qo'shish va ayirish) kerak degan ma'noni anglatadi."
+  },
+  {
+    "id": "M_GEO_001",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Circle Equations",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "A circle in the xy-plane has center (3, -2) and radius 5. Which equation represents this circle?",
+    "options": [
+      {
+        "key": "A",
+        "text": "(x - 3)² + (y + 2)² = 5"
+      },
+      {
+        "key": "B",
+        "text": "(x + 3)² + (y - 2)² = 25"
+      },
+      {
+        "key": "C",
+        "text": "(x - 3)² + (y + 2)² = 25"
+      },
+      {
+        "key": "D",
+        "text": "(x + 3)² + (y + 2)² = 5"
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C. Aylana tenglamasi: (x - h)² + (y - k)² = r², bu yerda (h, k) markaz koordinatalari va r radius. Markaz (3, -2), demak h = 3, k = -2. Radius 5, demak r² = 25. Tenglama: (x - 3)² + (y - (-2))² = 25, ya'ni (x - 3)² + (y + 2)² = 25. Eslatma: (y + 2) ni ko'ring - bu (y - (-2)) dan keladi. A variant noto'g'ri, chunki o'ng tomon 5, lekin r² = 25 bo'lishi kerak. B variant noto'g'ri, chunki belgilar noto'g'ri: (x + 3) o'rniga (x - 3) va (y - 2) o'rniga (y + 2) bo'lishi kerak. D variant noto'g'ri, chunki belgilar ham, r² ham noto'g'ri.",
+    "strategy_or_hack": "DESMOS 3-sekund hack: 1) Har bir variantni Desmos grafigiga kiriting. 2) Markaz (3, -2) ga diqqat qiling va radius 5 ni tekshiring. Yoki formula: (x - h)² + (y - k)² = r². Belgilar muhim: agar markaz x = 3 bo'lsa, (x - 3) bo'ladi. Agar markaz y = -2 bo'lsa, (y - (-2)) = (y + 2) bo'ladi. O'ng tomon har doim radius kvadrati (r²), radius o'zi emas."
+  },
+  {
+    "id": "M_GEO_002",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Trigonometric Ratios",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "In a right triangle, the length of the side opposite to angle θ is 7, and the length of the hypotenuse is 25. What is the value of sin(θ)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "7/24"
+      },
+      {
+        "key": "B",
+        "text": "7/25"
+      },
+      {
+        "key": "C",
+        "text": "24/25"
+      },
+      {
+        "key": "D",
+        "text": "25/7"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (7/25). Sinus formulasi: sin(θ) = qarama-qarshi tomon / gipotenuza. Bu yerda qarama-qarshi tomon = 7, gipotenuza = 25. Demak, sin(θ) = 7/25. A variant noto'g'ri, chunki 24 qo'shni tomon (adjacent side) bo'lishi mumkin (Pifagor teoremasi: 7² + 24² = 49 + 576 = 625 = 25²), lekin sinus uchun gipotenuza kerak, qo'shni tomon emas. C variant cos(θ) ni beradi (qo'shni tomon / gipotenuza = 24/25), sin(θ) ni emas. D variant nisbat teskari yo'nalishda.",
+    "strategy_or_hack": "DESMOS hack: Agar burchak qiymati berilgan bo'lsa, sin(θ) ni Desmos kalkulyatorida hisoblash mumkin. Lekin bu yerda burchak o'rniga tomonlar berilgan, shuning uchun formula kerak. SOH-CAH-TOA ni eslab qoling: SOH = Sin = Opposite/Hypotenuse (qarama-qarshi/gipotenuza), CAH = Cos = Adjacent/Hypotenuse (qo'shni/gipotenuza), TOA = Tan = Opposite/Adjacent (qarama-qarshi/qo'shni). Sin uchun har doim gipotenuza maxrajda."
+  },
+  {
+    "id": "R_WIC_002",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Hard",
+    "passage": "The diplomat's speech, though ostensibly conciliatory in tone, contained several veiled references that astute observers recognized as thinly disguised criticisms of the opposing delegation's recent actions.",
+    "question": "As used in the text, what does the word \"ostensibly\" most nearly mean?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Apparently"
+      },
+      {
+        "key": "B",
+        "text": "Secretly"
+      },
+      {
+        "key": "C",
+        "text": "Aggressively"
+      },
+      {
+        "key": "D",
+        "text": "Deliberately"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A. \"Ostensibly\" so'zi \"ko'rinishida, zohirda, go'yoki\" degan ma'noni anglatadi va \"apparently\" (ko'rinib turibdiki) bilan sinonimdir. Kontekstda diplomat nutqi zohirda tinchlik taklif qilayotgandek tuyuldi (conciliatory), lekin aslida tanqid edi - bu \"ostensibly\" so'zining ma'nosini tasdiqlaydi: tashqi ko'rinish va ichki haqiqat o'rtasidagi farq. B variant (Secretly - yashirin) noto'g'ri, chunki \"ostensibly\" yashirinlikni emas, balki tashqi ko'rinishni bildiradi. C variant (Aggressively - tajovuzkor) kontekstga zid - \"conciliatory\" tinchlik taklif qiluvchi demak. D variant (Deliberately - qasddan) mumkin tuyuladi, lekin \"ostensibly\" niyat haqida emas, balki tashqi ko'rinish haqida.",
+    "strategy_or_hack": "SAT strategiyasi: \"Ostensibly\" so'zi ko'pincha \"aslida boshqacha, lekin ko'rinishida shunday\" ma'nosini anglatadi. Kontekstda \"though\" va \"thinly disguised\" (yupqa niqob ostidagi) iboralari paradoksni ko'rsatadi - bu \"ostensibly\" so'zining ma'nosini tushunishga yordam beradi. So'zning ildiziga e'tibor bering: \"ostensible\" = \"apparent\" (ko'rinadigan)."
+  },
+  {
+    "id": "R_INF_002",
+    "section": "reading",
+    "domain": "Information and Ideas - Inferences",
+    "difficulty": "Medium",
+    "passage": "Honeybees perform a \"waggle dance\" to communicate the location of food sources to other members of the hive. The angle of the dance relative to the vertical indicates the direction of the food source relative to the sun, while the duration of the waggle portion correlates with the distance. Researchers have found that bees are more likely to perform the dance for high-quality food sources, such as those with high sugar concentrations, than for lower-quality sources.",
+    "question": "Based on the text, what can most reasonably be inferred about the waggle dance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "It is performed only when food sources are located far from the hive."
+      },
+      {
+        "key": "B",
+        "text": "It conveys information about both the location and quality of food sources."
+      },
+      {
+        "key": "C",
+        "text": "It is more effective at communicating direction than distance."
+      },
+      {
+        "key": "D",
+        "text": "It requires bees to have memorized the position of the sun throughout the day."
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B. Matnda ikkita ma'lumot berilgan: 1) Raqsning burchagi va davomiyligi oziq-ovqat manbaining joylashuvi (yo'nalish va masofa) haqida ma'lumot beradi. 2) Asalarilar yuqori sifatli oziq-ovqat (yuqori shakar konsentratsiyasi) uchun raqsni ko'proq ijro etadilar. Bu ikki ma'lumotni birlashtirish orqali xulosa chiqarish mumkin: raqsning ikkita funktsiyasi bor - joylashuv va sifat haqida ma'lumot berish. A variant noto'g'ri, chunki matnda faqat uzoq masofalar haqida emas, balki har qanday masofa haqida gap boradi. C variant noto'g'ri, chunki matnda qaysi ma'lumot samaraliroq ekanligi aytilmagan. D variant noto'g'ri, chunki quyosh pozitsiyasini eslab qolish haqida hech narsa aytilmagan.",
+    "strategy_or_hack": "SAT strategiyasi: Inference (xulosa) savollari uchun matnda aytilgan ma'lumotlarni birlashtiring, lekin yangi ma'lumot qo'shmang. Bu yerda ikkita fakt: 1) raqsning yo'nalish/masofa komponenti, 2) yuqori sifatli oziq-ovqat uchun ko'proq raqslash. Bu ikki faktni birlashtiring: raqsning joylashuv VA sifat funktsiyasi bor. \"Only\" (faqat), \"always\" (har doim) kabi haddan tashqari so'zlar mavjud javoblardan ehtiyot bo'ling."
+  },
+  {
+    "id": "W_SEC_003",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "The renovation project was completed on time____the contractors worked evenings and weekends to meet the deadline.",
+    "options": [
+      {
+        "key": "A",
+        "text": ", the contractors"
+      },
+      {
+        "key": "B",
+        "text": "; the contractors"
+      },
+      {
+        "key": "C",
+        "text": ": the contractors"
+      },
+      {
+        "key": "D",
+        "text": "— the contractors"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (nuqtali vergul ;). Bu yerda ikkita mustaqil gap (independent clauses) bir-biri bilan bog'lanmoqda. Birinchi gap: \"The renovation project was completed on time\" (to'liq gap). Ikkinchi gap: \"the contractors worked evenings and weekends to meet the deadline\" (to'liq gap). Ikkita mustaqil gapni bog'lash uchun nuqtali vergul (semicolon) yoki koordinatsion bog'lovchi (and, but, so) + vergul ishlatiladi. Bu yerda bog'lovchi yo'q, shuning uchun nuqtali vergul kerak. A variant (vergul) noto'g'ri, chunki bu \"comma splice\" xatosiga olib keladi - ikkita mustaqil gapni oddiy vergul bilan bog'lab bo'lmaydi. C variant (colon) noto'g'ri, chunki colon tushuntirish yoki ro'yxat uchun ishlatiladi, ikkinchi mustaqil gapni kiritish uchun emas. D variant (tire) mumkin, lekin semicolon standart va to'g'riroq tanlov.",
+    "strategy_or_hack": "Grammatika qoidasi (O'zbek tilida): Ikkita mustaqil gap (har biri o'z-o'zidan to'liq ma'noga ega) ni bog'lash usullari: 1) Nuqta (.). 2) Nuqtali vergul (;). 3) Vergul + bog'lovchi (, and / , but / , so). 4) Tire (—) ba'zi hollarda. SAT hack: Agar ikkita gap ham to'liq bo'lsa va bog'lovchi yo'q bo'lsa, semicolon tanlang. Har bir gapni alohida o'qib, to'liq-to'liqligini tekshiring."
+  },
+  {
+    "id": "W_EOI_003",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Renewable energy sources like solar and wind power have become more cost-effective in recent years. ______ fossil fuel prices have remained relatively stable, making the transition to renewables economically competitive.",
+    "options": [
+      {
+        "key": "A",
+        "text": "In contrast,"
+      },
+      {
+        "key": "B",
+        "text": "Meanwhile,"
+      },
+      {
+        "key": "C",
+        "text": "As a result,"
+      },
+      {
+        "key": "D",
+        "text": "For example,"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (Meanwhile - shu bilan birga, o'sha paytda). Birinchi gapda qayta tiklanuvchi energiya narxlari tushayotgani aytiladi. Ikkinchi gapda bir vaqtning o'zida fossil fuel (qazilma yoqilg'i) narxlari barqaror qolayotgani aytiladi - bu ikki hodisa parallel vaqtda sodir bo'layotganini ko'rsatadi. \"Meanwhile\" parallel voqealarni bog'laydi. A variant (In contrast) noto'g'ri, chunki ikki gap qarama-qarshi emas - ular bir-birini to'ldiradi. C variant (As a result) noto'g'ri, chunki fossil fuel narxlarining barqaror qolishi qayta tiklanuvchi energiya narxlarining tushishining natijasi emas - bu ikkita alohida trend. D variant (For example) noto'g'ri, chunki ikkinchi gap misol emas.",
+    "strategy_or_hack": "Transition strategiyasi (O'zbek tilida): \"Meanwhile\" bir vaqtning o'zida sodir bo'layotgan ikki hodisani bog'laydi. Bu yerda ikkala narx tendentsiyasi ham bir vaqtda sodir bo'lmoqda. SAT hack: Gaplarning vaqt munosabatini aniqlang. Agar ikki hodisa parallel vaqtda sodir bo'lsa, \"Meanwhile\", \"At the same time\" kabilar to'g'ri. Agar biri ikkinchisining natijasi bo'lsa, \"Therefore\", \"Consequently\" kabilar kerak."
+  },
+  {
+    "id": "M_ADV_004",
+    "section": "math",
+    "domain": "Advanced Math - Equivalent Expressions",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Which of the following is equivalent to (2x + 3)² - (2x - 3)²?",
+    "options": [
+      {
+        "key": "A",
+        "text": "12x"
+      },
+      {
+        "key": "B",
+        "text": "24x"
+      },
+      {
+        "key": "C",
+        "text": "4x² + 18"
+      },
+      {
+        "key": "D",
+        "text": "8x² + 18"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (24x). Bu yerda \"difference of squares\" (kvadratlar ayirmasi) formulasidan foydalanish mumkin: a² - b² = (a + b)(a - b). a = 2x + 3, b = 2x - 3 bo'lsa: (2x + 3)² - (2x - 3)² = [(2x + 3) + (2x - 3)][(2x + 3) - (2x - 3)] = [2x + 3 + 2x - 3][2x + 3 - 2x + 3] = [4x][6] = 24x. Yoki to'liq ochib yozish mumkin: (2x + 3)² = 4x² + 12x + 9, (2x - 3)² = 4x² - 12x + 9. Ayirma: (4x² + 12x + 9) - (4x² - 12x + 9) = 4x² + 12x + 9 - 4x² + 12x - 9 = 24x.",
+    "strategy_or_hack": "DESMOS 3-sekund hack: 1) Desmos grafigiga kiriting: y₁ = (2x + 3)² - (2x - 3)². 2) Har bir javob variantini alohida kiriting: y₂ = 12x, y₃ = 24x, va h.k. 3) Qaysi grafik y₁ bilan bir xil bo'lsa, o'sha javob to'g'ri. Yoki formula: a² - b² = (a + b)(a - b). Bu formula SAT da juda tez-tez uchraydi va ko'p vaqt tejaydi."
+  },
+  {
+    "id": "M_GEO_003",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Arc Length",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "A circle has a radius of 12 centimeters. What is the length, in centimeters, of an arc that subtends a central angle of 60°?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2π"
+      },
+      {
+        "key": "B",
+        "text": "4π"
+      },
+      {
+        "key": "C",
+        "text": "6π"
+      },
+      {
+        "key": "D",
+        "text": "12π"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (4π). Yoy uzunligi formulasi: Arc length = (θ/360°) × 2πr, bu yerda θ markaziy burchak daraja hisobida, r radius. θ = 60°, r = 12. Arc length = (60°/360°) × 2π(12) = (1/6) × 24π = 4π santimetr. Yoki boshqacha usul: 60° aylana markazidan 360° ning 1/6 qismini tashkil qiladi. Aylana uzunligi 2πr = 2π(12) = 24π. Yoy uzunligi 24π ning 1/6 qismi = 4π.",
+    "strategy_or_hack": "DESMOS hack: Desmos kalkulyatorida hisoblang: (60/360) × 2 × π × 12 = 4π ≈ 12.57. Keyin javoblarni tekshiring: 2π ≈ 6.28, 4π ≈ 12.57 ✓, 6π ≈ 18.85, 12π ≈ 37.70. Yoki formula eslab qoling: Yoy uzunligi = (burchak/360°) × aylana uzunligi. Agar burchak radianlarda berilgan bo'lsa: Arc length = rθ (bu yerda θ radian)."
+  },
+  {
+    "id": "R_COE_002",
+    "section": "reading",
+    "domain": "Information and Ideas - Command of Evidence (Quantitative)",
+    "difficulty": "Hard",
+    "passage": "A study examined the relationship between study hours per week and final exam scores for 200 students. The data showed that students who studied 10-15 hours per week had an average exam score of 78, while students who studied 20-25 hours per week had an average score of 85. However, students who studied more than 30 hours per week had an average score of 82, suggesting a possible decrease in effectiveness beyond a certain threshold.",
+    "question": "Which statement is best supported by the data presented?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Studying more hours always results in higher exam scores."
+      },
+      {
+        "key": "B",
+        "text": "The relationship between study hours and exam scores is linear throughout all ranges."
+      },
+      {
+        "key": "C",
+        "text": "There appears to be an optimal range of study hours for maximizing exam performance."
+      },
+      {
+        "key": "D",
+        "text": "Students who study less than 10 hours per week perform better than those who study more than 30 hours."
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C. Ma'lumotlarga ko'ra: 10-15 soat = 78 ball, 20-25 soat = 85 ball (oshish), 30+ soat = 82 ball (kamayish). Bu ma'lumotlar optimal o'qish soati diapazoni (20-25 soat) borligini ko'rsatadi - bu nuqtadan keyin natijalar yaxshilanmaydi, balki hatto pasayadi. A variant noto'g'ri, chunka \"always\" (har doim) so'zi juda kuchli - 30+ soat o'qigan talabalar kamroq o'qiganlardan past ball olganlar. B variant noto'g'ri, chunki munosabat chiziqli (linear) emas - 20-25 soatdan keyin ball pasayadi. D variant noto'g'ri, chunki 10 soatdan kam o'qiganlar haqida ma'lumot berilmagan.",
+    "strategy_or_hack": "SAT strategiyasi: Quantitative Evidence (miqdoriy dalil) savollari uchun barcha raqamlarni diqqat bilan o'qing va ularning trendini aniqlang. Bu yerda trend: oshadi (78 → 85), keyin kamayadi (85 → 82) - bu \"inverted U\" yoki \"optimal point\" (optimal nuqta) ni ko'rsatadi. \"Always\" yoki \"never\" kabi haddan tashqari so'zlar mavjud javoblardan ehtiyot bo'ling - ular odatda noto'g'ri."
+  },
+  {
+    "id": "M_PS_003",
+    "section": "math",
+    "domain": "Problem Solving - Ratios and Proportions",
+    "difficulty": "Easy",
+    "passage": null,
+    "question": "A recipe for 4 servings requires 3 cups of flour. How many cups of flour are needed to make 10 servings of the same recipe?",
+    "options": [
+      {
+        "key": "A",
+        "text": "6.5 cups"
+      },
+      {
+        "key": "B",
+        "text": "7 cups"
+      },
+      {
+        "key": "C",
+        "text": "7.5 cups"
+      },
+      {
+        "key": "D",
+        "text": "8 cups"
+      }
+    ],
+    "correct": "C",
+    "explanation": "To'g'ri javob C (7.5 cups). Proporsiya o'rnatamiz: 4 porsiya uchun 3 cups, 10 porsiya uchun x cups. 4/3 = 10/x yoki 3/4 = x/10. Ikkinchi usulni ishlatamiz: x = (3 × 10) / 4 = 30/4 = 7.5 cups. Yoki boshqacha: bitta porsiya uchun 3/4 = 0.75 cup kerak. 10 porsiya uchun 0.75 × 10 = 7.5 cups.",
+    "strategy_or_hack": "DESMOS hack: Desmos kalkulyatorida hisoblang: (3/4) × 10 = 7.5. Yoki proporsiya o'rnating va cross-multiply (perpendikulyar ko'paytirish) qiling. SAT da proporsiya savollari uchun: 1) Nisbatni aniqlang (3 cups / 4 servings). 2) Kerakli miqdorga ko'paytiring (× 10 servings). 3) Soddalashtiring."
+  },
+  {
+    "id": "W_SEC_004",
+    "section": "writing",
+    "domain": "Standard English Conventions - Form, Structure, and Sense",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Neither the director nor the actors ______ satisfied with the final cut of the film.",
+    "options": [
+      {
+        "key": "A",
+        "text": "was"
+      },
+      {
+        "key": "B",
+        "text": "were"
+      },
+      {
+        "key": "C",
+        "text": "is"
+      },
+      {
+        "key": "D",
+        "text": "are"
+      }
+    ],
+    "correct": "B",
+    "explanation": "To'g'ri javob B (were). \"Neither... nor...\" konstruksiyasida fe'l ikkinchi subjectga mos kelishi kerak (proximity rule). Bu yerda ikkinchi subject \"the actors\" (ko'plik), shuning uchun ko'plik fe'l \"were\" kerak. Zamon o'tmish (past tense), chunki kontekst \"final cut\" (tayyor film) haqida - bu allaqachon tugallangan ish. A variant (was) noto'g'ri, chunki \"actors\" ko'plik. C va D variantlar (is, are) noto'g'ri, chunki ular hozirgi zamon, lekin kontekst o'tmish zamon talab qiladi.",
+    "strategy_or_hack": "Grammatika qoidasi (O'zbek tilida): \"Neither... nor...\" yoki \"Either... or...\" da Proximity Rule (yaqinlik qoidasi): fe'l ikkinchi subjectga mos keladi. Agar ikkinchi subject ko'plik bo'lsa, fe'l ko'plik; birlik bo'lsa, fe'l birlik. Zamonni kontekstdan aniqlang. SAT hack: \"Neither... nor...\" ni ko'rganingizda, ikkinchi subjectni toping va fe'lni shu subjectga moslang."
+  }
+]

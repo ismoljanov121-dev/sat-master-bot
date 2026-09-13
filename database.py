@@ -122,4 +122,63 @@ class Database:
             except Exception as e:
                 logger.error(f"MongoDB save_quiz_result error: {e}")
 
+    def record_practice_answer(self, user_id: int, question_id: str, is_correct: bool, section: str):
+        """Records a user's answer in practice mode and updates streak and accuracy."""
+        try:
+            self.local_cache.setdefault("practice_stats", {})
+            str_id = str(user_id)
+            user_stats = self.local_cache["practice_stats"].setdefault(str_id, {
+                "total_answered": 0,
+                "correct_count": 0,
+                "current_streak": 0,
+                "best_streak": 0,
+                "by_section": {"math": {"total": 0, "correct": 0}, "reading": {"total": 0, "correct": 0}, "writing": {"total": 0, "correct": 0}},
+                "answered_ids": []
+            })
+
+            user_stats["total_answered"] += 1
+            if question_id not in user_stats["answered_ids"]:
+                user_stats["answered_ids"].append(question_id)
+
+            sec_key = section.lower() if section else "math"
+            if sec_key not in user_stats["by_section"]:
+                user_stats["by_section"][sec_key] = {"total": 0, "correct": 0}
+            user_stats["by_section"][sec_key]["total"] += 1
+
+            if is_correct:
+                user_stats["correct_count"] += 1
+                user_stats["current_streak"] += 1
+                if user_stats["current_streak"] > user_stats.get("best_streak", 0):
+                    user_stats["best_streak"] = user_stats["current_streak"]
+                user_stats["by_section"][sec_key]["correct"] += 1
+            else:
+                user_stats["current_streak"] = 0
+
+            self._save_local_db()
+        except Exception as e:
+            logger.error(f"Error in record_practice_answer: {e}")
+
+    def get_user_practice_stats(self, user_id: int) -> dict:
+        """Retrieves user practice statistics."""
+        str_id = str(user_id)
+        stats = self.local_cache.get("practice_stats", {}).get(str_id, {
+            "total_answered": 0,
+            "correct_count": 0,
+            "current_streak": 0,
+            "best_streak": 0,
+            "by_section": {"math": {"total": 0, "correct": 0}, "reading": {"total": 0, "correct": 0}, "writing": {"total": 0, "correct": 0}},
+            "answered_ids": []
+        })
+        total = stats.get("total_answered", 0)
+        correct = stats.get("correct_count", 0)
+        accuracy = round((correct / total) * 100) if total > 0 else 0
+        stats["accuracy"] = accuracy
+        return stats
+
+    def get_answered_question_ids(self, user_id: int) -> list:
+        """Returns list of question IDs answered by user."""
+        str_id = str(user_id)
+        return self.local_cache.get("practice_stats", {}).get(str_id, {}).get("answered_ids", [])
+
 db = Database()
+

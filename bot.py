@@ -22,6 +22,7 @@ from config import BOT_TOKEN, WEBAPP_URL, BACKUP_CHANNEL
 from database import db
 from handlers.start import router as start_router
 from handlers.diagnostic import router as diag_router
+from handlers.practice import router as practice_router
 from handlers.referral import router as referral_router
 from handlers.stats import router as stats_router
 from services.backup_service import backup_scheduler_loop
@@ -78,12 +79,14 @@ async def main():
     # Register routers
     dp.include_router(start_router)
     dp.include_router(diag_router)
+    dp.include_router(practice_router)
     dp.include_router(referral_router)
     dp.include_router(stats_router)
 
     # Set commands menu
     commands = [
         BotCommand(command="start", description="Bosh menyu va AI Rentgen"),
+        BotCommand(command="practice", description="Cheksiz SAT Mashq Bazasi"),
         BotCommand(command="webapp", description="Shaxsiy rejim & 60 kunlik tracker"),
         BotCommand(command="diagnostic", description="Rentgen Test (Math)"),
         BotCommand(command="desmos", description="Desmos Cheatcodes"),
