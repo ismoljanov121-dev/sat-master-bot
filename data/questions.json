@@ -23,9 +23,9 @@
     ],
     "correct": "A",
     "points_lost": 20,
-    "trap": "Ko'pchilik diskriminantni qo'lda hisoblashda ishorani adashtiradi (2x² - 6x + 6 = 0 da D = 36 - 48 = -12, ya'ni noldan kichik) va C variantni belgilab qo'yadi.",
-    "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\n1. 1-qatorga yozing: y = 2x^2 - 4x + 7\n2. 2-qatorga yozing: y = 2x + 1\nGrafiklarga qarang: Parabola va to'g'ri chiziq umuman kesishmaydi! Javob: 0 ta (Variant A). Hech qanday diskriminant shart emas!",
-    "explanation": "2x² - 4x + 7 = 2x + 1 => 2x² - 6x + 6 = 0. Diskriminant D = b² - 4ac = (-6)² - 4(2)(6) = 36 - 48 = -12 (manfiy, noldan kichik). Shuning uchun haqiqiy yechim yo'q."
+    "trap": "Ko'pchilik diskriminant ishorasini adashtiradi (D = -12 &lt; 0) va shoshib C ni belgilaydi.",
+    "desmos_hack": "⚡ DESMOS (5 soniya):\n1️⃣ 1-qator: y = 2x² - 4x + 7\n2️⃣ 2-qator: y = 2x + 1\n🎯 Natija: Parabola va chiziq kesishmadi ➔ 0 ta yechim (A)!\n💡 Hech qanday diskriminant shart emas!",
+    "explanation": "Qo'lda hisoblash:\n• 2x² - 4x + 7 = 2x + 1\n• 2x² - 6x + 6 = 0\n• D = (-6)² - 4(2)(6) = 36 - 48 = -12 &lt; 0\n• D &lt; 0 bo'lgani uchun haqiqiy yechim yo'q."
   },
   {
     "id": 2,
@@ -51,9 +51,9 @@
     ],
     "correct": "A",
     "points_lost": 20,
-    "trap": "O'quvchilar ko'paytmani ochishda o'rta hadlarni chalkashtirib vaqt yo'qotadi.",
-    "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\nOzod hadlarga qarang: k * (-5) = -20 bo'lishi kerak. Desmosda k = -20 / -5 deb yozing => 4 chiqadi! Yoki variantlarni k o'rniga qo'yib tekshiring. Javob: A.",
-    "explanation": "Qavslarni ko'paytirsak: 6x² - 15x + 2kx - 5k = 6x² + (2k - 15)x - 5k. Demak -5k = -20 => k = 4. Tekshiramiz: 2(4) - 15 = -7. To'g'ri!"
+    "trap": "Ko'paytmani to'liq ochishga 1 daqiqa vaqt ketkazib, o'rta hadlarda adashish.",
+    "desmos_hack": "⚡ DESMOS (3 soniya):\n• Faqat ozod hadlarga qarang: k * (-5) = -20\n• Desmosga yozing: -20 / -5\n🎯 Natija: 4 (Variant A)!",
+    "explanation": "Tezkor usul:\n• Qavsdagi oxirgi sonlar ko'paytmasi: k * (-5) = -5k\n• O'ng tomondagi ozod had: -20\n• -5k = -20 ➔ k = 4."
   },
   {
     "id": 3,
@@ -79,9 +79,9 @@
     ],
     "correct": "A",
     "points_lost": 30,
-    "trap": "R² = 36 chiqqanda ko'pchilik shoshib B (36) ni belgilaydi, holbuki radius R = 6 so'ralgan!",
-    "desmos_hack": "⚡ DESMOSDA 10 SONIYADA:\n1. Tenglamani xuddi o'zidek Desmosga yozing: x^2 + y^2 - 8x + 10y + 5 = 0\n2. Desmos darhol aylanani chizadi!\n3. Aylana markazini va chetki nuqtasini bosing: markaz (4, -5), eng tepa nuqtasi (4, 1). Oradagi masofa: 1 - (-5) = 6! Javob: 6 (Variant A).",
-    "explanation": "(x - 4)² + (y + 5)² = -5 + 16 + 25 = 36. R² = 36 => R = 6."
+    "trap": "R² = 36 chiqqanda shoshib B (36) ni belgilab qo'yish. Radius R = 6 so'ralgan!",
+    "desmos_hack": "⚡ DESMOS (8 soniya):\n1️⃣ Tenglamani to'g'ridan-to'g'ri yozing: x² + y² - 8x + 10y + 5 = 0\n2️⃣ Aylana chiziladi. Markazni bosing: (4, -5)\n3️⃣ Eng yuqori nuqtani bosing: (4, 1)\n🎯 Masofa: 1 - (-5) = 6 ➔ R = 6 (A)!",
+    "explanation": "To'la kvadratga ajratish:\n• (x - 4)² + (y + 5)² = -5 + 16 + 25 = 36\n• R² = 36 ➔ R = 6."
   },
   {
     "id": 4,
@@ -107,9 +107,9 @@
     ],
     "correct": "B",
     "points_lost": 20,
-    "trap": "Klassik tuzoq! O'quvchilarning 60%i '+20% va -20% bir-birini yo'qotadi, narx o'zgarmaydi' deb A ni tanlaydi.",
-    "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\nDastlabki narxni 100 deb oling. Desmosga yozing:\n100 * 1.20 * 0.80 => Ekranda 96 chiqadi!\n100 dan 96 gacha 4 ga kamaygan, ya'ni 4% ga kamaydi (Variant B)!",
-    "explanation": "100 * 1.2 * 0.8 = 96. Demak (100 - 96)% = 4% kamayish."
+    "trap": "Abituriyentlarning 60%i '+20% va -20% bir-birini yo'qotadi' deb A ni belgilaydi.",
+    "desmos_hack": "⚡ DESMOS (3 soniya):\n• Dastlabki narxni 100 deb oling.\n• Desmosga yozing: 100 * 1.20 * 0.80\n🎯 Chiqadi: 96 ➔ 100 dan 96 gacha 4% kamaygan (B)!",
+    "explanation": "Multiplikator usuli:\n• +20% ➔ 1.20 ga ko'paytirish\n• -20% ➔ 0.80 ga ko'paytirish\n• 1.20 * 0.80 = 0.96 (ya'ni 96%, 4% kamayish)."
   },
   {
     "id": 5,
@@ -135,9 +135,9 @@
     ],
     "correct": "B",
     "points_lost": 20,
-    "trap": "Vertex koordinatasi (4, 15) bo'lgani uchun x = 4 bilan y = 15 ni adashtirib A ni tanlashadi.",
-    "desmos_hack": "⚡ DESMOSDA 3 SONIYADA:\nDesmosga f(x) = -3(x - 4)^2 + 15 deb yozing. Parabolaning eng yuqori cho'qqisini bosing: (4, 15). Maksimal qiymat har doim y qiymatidir, ya'ni 15 (Variant B)!",
-    "explanation": "Vertex shaklida y = a(x - h)² + k. Bu yerda h = 4, k = 15. a = -3 (noldan kichik) bo'lgani uchun parabola pastga qaragan, eng yuqori qiymat y = 15 da erishiladi."
+    "trap": "Vertex (4, 15) bo'lgani uchun x = 4 bilan y = 15 ni adashtirib A ni tanlash.",
+    "desmos_hack": "⚡ DESMOS (3 soniya):\n1️⃣ Yozing: y = -3(x - 4)² + 15\n2️⃣ Parabolaning eng tepa cho'qqisini bosing: (4, 15)\n🎯 y qiymati = 15 ➔ Maksimal qiymat: 15 (B)!",
+    "explanation": "Vertex formulasi: y = a(x - h)² + k\n• Parabola uchi: (h, k) = (4, 15)\n• a = -3 &lt; 0 (pastga qaragan) ➔ Eng katta qiymat y = 15."
   },
   {
     "id": 6,
@@ -163,9 +163,9 @@
     ],
     "correct": "A",
     "points_lost": 25,
-    "trap": "Ishoralarda adashish: -5y dan 10y ga o'tish uchun koeffitsient -2 ga ko'payganini e'tibordan chetda qoldirishadi.",
-    "desmos_hack": "⚡ DESMOSDA 8 SONIYADA:\n1. 1-qator: 3x - 5y = 12\n2. 2-qator: ax + 10y = 7 (va 'add slider a' ni bosing)\na slaydridan -6 ni tanlang: ikkala to'g'ri chiziq 100% parallel bo'lib qoladi va hech qachon kesishmaydi! Javob: -6 (Variant A).",
-    "explanation": "Yechim bo'lmasligi uchun burchak koeffitsientlari teng bo'lishi kerak: a/3 = 10/(-5) => a/3 = -2 => a = -6."
+    "trap": "-5y dan +10y ga o'tishda koeffitsient -2 ga ko'payganini (ishorani) unutish.",
+    "desmos_hack": "⚡ DESMOS (5 soniya):\n1️⃣ 1-qator: 3x - 5y = 12\n2️⃣ 2-qator: ax + 10y = 7 (slayder a)\n🎯 a = -6 qo'yilganda chiziqlar 100% parallel (kesishmaydi) ➔ Javob: -6 (A)!",
+    "explanation": "Parallel chiziqlar qoidasi: A₁/A₂ = B₁/B₂ ≠ C₁/C₂\n• 3/a = -5/10 ➔ 3/a = -1/2\n• a = 3 * (-2) = -6."
   },
   {
     "id": 7,
@@ -191,8 +191,8 @@
     ],
     "correct": "A",
     "points_lost": 25,
-    "trap": "sin(A) = cos(B) formulasi A + B = 90° ekanini bilmay, tenglikni x = 3x - 10 deb x = 5 chiqarishadi.",
-    "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\nDesmosga to'g'ridan-to'g'ri yozing: x + (3x - 10) = 90. Desmos x = 25 deb bitta chiziqda javobni ko'rsatadi! Javob: 25 (Variant A).",
-    "explanation": "College Boardning eng mashhur teoremasi: sin(A) = cos(B) bo'lsa, A + B = 90°. Demak x + 3x - 10 = 90 => 4x = 100 => x = 25."
+    "trap": "sin(A) = cos(B) da A + B = 90° ekanini bilmay, x = 3x - 10 deb x = 5 chiqarish.",
+    "desmos_hack": "⚡ DESMOS (3 soniya):\n• To'g'ridan-to'g'ri yozing: x + (3x - 10) = 90\n🎯 Desmos vertikal chiziq chizadi: x = 25 ➔ Javob: 25 (A)!",
+    "explanation": "SAT Oltin Qoidasi:\n• sin(A) = cos(B) bo'lsa ➔ A + B = 90°\n• x + (3x - 10) = 90\n• 4x = 100 ➔ x = 25°."
   }
 ]

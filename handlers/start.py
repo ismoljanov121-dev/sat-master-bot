@@ -119,36 +119,145 @@ async def cmd_start(message: Message, command: CommandObject = None):
         except Exception:
             pass
 
-DESMOS_CATALOG_TEXT = (
-    "⚡ <b>DIGITAL SAT DESMOS TOP-8 CHEATCODES</b>\n"
+DESMOS_HUB_TEXT = (
+    "⚡ <b>DIGITAL SAT DESMOS MASTER CHEATSHEET</b>\n"
     "━━━━━━━━━━━━━━━━━━━━━━\n"
-    "1. <b>Tenglamalar Sistemasi:</b> Ikkita tenglamani ketma-ket yozing. Kesishgan nuqtalarni bosing — yechimlar darhol ko'rinadi!\n\n"
-    "2. <b>No-solution / Infinitely Many:</b> Ikkala chiziq ustma-ust tushsa (cheksiz yechim), parallel bo'lsa (yechim yo'q).\n\n"
-    "3. <b>Regression (Statistika):</b> y₁ ~ mx₁ + b yoki y₁ ~ ax₁² + bx₁ + c formulasi bilan istalgan jadval qonuniyatini 3 soniyada toping!\n\n"
-    "4. <b>Aylana Tenglamasi:</b> x² + y² + Ax + By + C = 0 ni to'g'ridan-to'g'ri tashlang, markaz va radiusni Desmos o'zi hisoblab beradi.\n\n"
-    "5. <b>Tengsizliklar (Inequalities):</b> y > 2x + 1 ni yozing — Desmos sohani bo'yab beradi, so'ralgan nuqta sohada bormi-yo'qligi darhol ma'lum bo'ladi!\n\n"
-    "6. <b>Constants & Sliders:</b> ax² + bx + c = 0 da a, b, c ga slayder qo'shing va savol shartiga mos keltiring!\n\n"
-    "7. <b>Equivalent Expressions:</b> Asl ifodani 1-qatorga, variantlarni 2-qatorga yozing. Qaysi grafik ustma-ust tushsa, o'sha to'g'ri!\n\n"
-    "8. <b>Vertex & Min/Max:</b> Parabolaning eng baland/past cho'qqisini sichqoncha bilan bosing — y qiymati maksimal/minimal qiymatdir!"
+    "<i>Formula yodlamang — Desmos'da 5-10 soniyada hal qiling!</i>\n\n"
+    "1️⃣ <b>Tenglamalar Sistemasi</b> ➔ Kesishgan nuqta = Yechim\n"
+    "2️⃣ <b>Parabola & Vertex</b> ➔ Cho'qqi (h, k) da k = Max/Min\n"
+    "3️⃣ <b>Aylana Radiusi & Markazi</b> ➔ Tenglamani to'g'ridan-to'g'ri chizish\n"
+    "4️⃣ <b>Jadval & Regression</b> ➔ <code>y₁ ~ mx₁ + b</code> bilan formulani topish\n"
+    "5️⃣ <b>Tengsizliklar Sohasi</b> ➔ Rangli soha = To'g'ri javob\n"
+    "6️⃣ <b>Slayder & Constants</b> ➔ k ga slayder berib moslash\n\n"
+    "👇 <i>Aniq misol va formulani ko'rish uchun tanlang:</i>"
 )
+
+def get_desmos_hub_keyboard() -> InlineKeyboardMarkup:
+    buttons = [
+        [
+            InlineKeyboardButton(text="1️⃣ Tenglamalar Sistemasi", callback_data="desmos_c_sys"),
+            InlineKeyboardButton(text="2️⃣ Parabola & Vertex", callback_data="desmos_c_quad")
+        ],
+        [
+            InlineKeyboardButton(text="3️⃣ Aylana Radiusi", callback_data="desmos_c_circle"),
+            InlineKeyboardButton(text="4️⃣ Jadval & Regression", callback_data="desmos_c_reg")
+        ],
+        [
+            InlineKeyboardButton(text="5️⃣ Tengsizliklar Sohasi", callback_data="desmos_c_ineq"),
+            InlineKeyboardButton(text="6️⃣ Slayder & Constants", callback_data="desmos_c_sliders")
+        ],
+        [
+            InlineKeyboardButton(text="🔬 O'z bilimimda sinab ko'rish ➡️", callback_data="start_diagnostic")
+        ],
+        [
+            InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")
+        ]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+DESMOS_CARDS = {
+    "sys": (
+        "⚡ <b>DESMOS CHEATCODE #1: TENGLAMALAR SISTEMASI</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Kesishish nuqtasi = Yechim (x, y)\n"
+        "• 2 ta chiziq parallel ➔ 0 ta yechim (No solution)\n"
+        "• Chiziqlar ustma-ust ➔ Cheksiz yechim (Infinite)\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1-qator: <code>2x - 3y = 8</code>\n"
+        "2-qator: <code>4x + y = 2</code>\n"
+        "🎯 Bosing: Kesishgan nuqtada (1, -2) chiqadi ➔ x=1, y=-2!\n\n"
+        "⏱️ <i>Qo'lda: 1.5 daqiqa | Desmosda: 4 soniya!</i>"
+    ),
+    "quad": (
+        "⚡ <b>DESMOS CHEATCODE #2: PARABOLA & VERTEX (MAX/MIN)</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Parabolaning eng baland/past cho'qqisi = Vertex (h, k)\n"
+        "• Maksimal/Minimal qiymat = har doim <b>y</b> koordinatasi!\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1-qator: <code>y = -2(x - 5)² + 18</code>\n"
+        "🎯 Cho'qqi nuqtani bosing: <b>(5, 18)</b> chiqadi.\n"
+        "Maksimal qiymat: <b>18</b>!\n\n"
+        "⏱️ <i>Qo'lda: 2 daqiqa | Desmosda: 3 soniya!</i>"
+    ),
+    "circle": (
+        "⚡ <b>DESMOS CHEATCODE #3: AYLANA RADIUSI & MARKAZI</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Qavslarga ajratish va to'la kvadrat qilish shart emas!\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1-qator: <code>x² + y² - 6x + 8y - 11 = 0</code>\n"
+        "🎯 Aylana chiziladi. Markazni bosing: <b>(3, -4)</b>.\n"
+        "Eng chetki nuqtani bosing: <b>(3, 2)</b>.\n"
+        "Radius: 2 - (-4) = <b>6</b>!\n\n"
+        "⏱️ <i>Qo'lda: 3 daqiqa | Desmosda: 8 soniya!</i>"
+    ),
+    "reg": (
+        "⚡ <b>DESMOS CHEATCODE #4: JADVAL & REGRESSION</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Jadval berilib formula so'ralsa, qo'lda tenglama tuzmang!\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1️⃣ <b>+</b> tugmasini bosib <b>Table</b> (jadval) qo'shing va x₁, y₁ larni kiriting.\n"
+        "2️⃣ Chiziqli bo'lsa: <code>y₁ ~ mx₁ + b</code>\n"
+        "3️⃣ Kvadrat bo'lsa: <code>y₁ ~ ax₁² + bx₁ + c</code>\n"
+        "🎯 Desmos <b>m</b>, <b>b</b> yoki <b>a</b> larni 1 soniyada chiqarib beradi!\n\n"
+        "⏱️ <i>Qo'lda: 3 daqiqa | Desmosda: 10 soniya!</i>"
+    ),
+    "ineq": (
+        "⚡ <b>DESMOS CHEATCODE #5: TENGSIZLIKLAR SOHASI</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Qaysi nuqta yechim ekanini tekshirish uchun ko'z bilan ko'ring!\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1-qator: <code>y > 2x + 1</code>\n"
+        "2-qator: <code>y <= -x + 5</code>\n"
+        "🎯 Ikkala rangli soha ustma-ust tushgan joy = Yechimlar sohasi! Variantdagi nuqtani kiritib tekshiring.\n\n"
+        "⏱️ <i>Qo'lda: 1.5 daqiqa | Desmosda: 5 soniya!</i>"
+    ),
+    "sliders": (
+        "⚡ <b>DESMOS CHEATCODE #6: SLAYDER & CONSTANTS</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "📌 <b>QOIDASI:</b>\n"
+        "• Tenglamada k, c, a kabi noaniq parametrlar berilsa:\n\n"
+        "⌨️ <b>DESMOSGA YOZILISHI:</b>\n"
+        "1-qator: <code>y = 3x² + kx + 12</code>\n"
+        "2-qator: <b>'add slider: k'</b> ni bosing.\n"
+        "🎯 Slayderni suring yoki variantdagi sonlarni yozing. Grafik savol shartiga qachon mos tushsa, o'sha son to'g'ri!\n\n"
+        "⏱️ <i>Qo'lda: 2 daqiqa | Desmosda: 5 soniya!</i>"
+    )
+}
 
 @router.message(Command("desmos"))
 async def cmd_desmos(message: Message):
-    kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔬 O'z bilimimda sinab ko'rish ➡️", callback_data="start_diagnostic")],
-        [InlineKeyboardButton(text="⬅️ Asosiy menyu", callback_data="back_to_menu")]
-    ])
-    await message.answer(DESMOS_CATALOG_TEXT, reply_markup=kb, parse_mode="HTML")
+    await message.answer(DESMOS_HUB_TEXT, reply_markup=get_desmos_hub_keyboard(), parse_mode="HTML")
 
 @router.callback_query(F.data == "desmos_catalog")
 async def desmos_catalog(callback: CallbackQuery):
     try:
+        try:
+            await callback.message.edit_text(DESMOS_HUB_TEXT, reply_markup=get_desmos_hub_keyboard(), parse_mode="HTML")
+        except Exception:
+            pass
+    finally:
+        try:
+            await callback.answer()
+        except Exception:
+            pass
+
+@router.callback_query(F.data.startswith("desmos_c_"))
+async def cb_desmos_detail(callback: CallbackQuery):
+    try:
+        key = callback.data.replace("desmos_c_", "").strip()
+        text = DESMOS_CARDS.get(key, DESMOS_HUB_TEXT)
         kb = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="🔬 O'z bilimimda sinab ko'rish ➡️", callback_data="start_diagnostic")],
-            [InlineKeyboardButton(text="⬅️ Asosiy menyu", callback_data="back_to_menu")]
+            [InlineKeyboardButton(text="🧮 Shu mavzuda mashq qilish ➡️", callback_data="prac_start_math")],
+            [InlineKeyboardButton(text="⬅️ Barcha Hiylalar", callback_data="desmos_catalog")],
+            [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
         ])
         try:
-            await callback.message.edit_text(DESMOS_CATALOG_TEXT, reply_markup=kb, parse_mode="HTML")
+            await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
         except Exception:
             pass
     finally:
