@@ -3,6 +3,7 @@ SAT Master AI - Referral and Virality Engine
 Enables students to invite classmates and earn rewards (VIP Desmos Cheatsheets, Hard Module 2).
 """
 
+import html
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
@@ -23,7 +24,7 @@ def get_referral_keyboard(user_id: int) -> InlineKeyboardMarkup:
 @router.message(Command("referral"))
 async def cmd_referral(message: Message):
     user_id = message.from_user.id
-    user_name = message.from_user.first_name or "Abituriyent"
+    user_name = html.escape(message.from_user.first_name or "Abituriyent")
     
     user_data = db.local_cache.get("users", {}).get(str(user_id), {})
     ref_count = user_data.get("referrals_count", 0)
@@ -46,23 +47,31 @@ async def cmd_referral(message: Message):
 
 @router.callback_query(F.data == "referral_menu")
 async def cb_referral(callback: CallbackQuery):
-    user_id = callback.from_user.id
-    user_data = db.local_cache.get("users", {}).get(str(user_id), {})
-    ref_count = user_data.get("referrals_count", 0)
-    ref_link = f"https://t.me/SAT_helper123_bot?start=ref_{user_id}"
+    try:
+        user_id = callback.from_user.id
+        user_data = db.local_cache.get("users", {}).get(str(user_id), {})
+        ref_count = user_data.get("referrals_count", 0)
+        ref_link = f"https://t.me/SAT_helper123_bot?start=ref_{user_id}"
 
-    text = (
-        f"👥 <b>DO'STLARNI TAKLIF QILING VA VIP IMKONIYATLARNI OCHING!</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"Sizning referal havolangiz:\n"
-        f"👉 <code>{ref_link}</code> <i>(nusxalash uchun ustiga bosing)</i>\n\n"
-        f"📊 <b>Siz taklif qilgan do'stlar:</b> <b>{ref_count} ta</b>\n\n"
-        f"🎁 <b>BEPUL VIP BONUslar:</b>\n"
-        f"• <b>1 ta do'st:</b> Digital SAT Desmos Top-10 Shpargalka (PDF)\n"
-        f"• <b>3 ta do'st:</b> Hard Module 2 (750-800 ball) maxfiy savollari\n"
-        f"• <b>5 ta do'st:</b> To'liq 60 kunlik VIP Tracker & Video Tahlillar!\n\n"
-        f"💡 <i>Do'stlaringiz bilan ulashing va birgalikda 1500+ oling!</i>"
-    )
+        text = (
+            f"👥 <b>DO'STLARNI TAKLIF QILING VA VIP IMKONIYATLARNI OCHING!</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"Sizning referal havolangiz:\n"
+            f"👉 <code>{ref_link}</code> <i>(nusxalash uchun ustiga bosing)</i>\n\n"
+            f"📊 <b>Siz taklif qilgan do'stlar:</b> <b>{ref_count} ta</b>\n\n"
+            f"🎁 <b>BEPUL VIP BONUslar:</b>\n"
+            f"• <b>1 ta do'st:</b> Digital SAT Desmos Top-10 Shpargalka (PDF)\n"
+            f"• <b>3 ta do'st:</b> Hard Module 2 (750-800 ball) maxfiy savollari\n"
+            f"• <b>5 ta do'st:</b> To'liq 60 kunlik VIP Tracker & Video Tahlillar!\n\n"
+            f"💡 <i>Do'stlaringiz bilan ulashing va birgalikda 1500+ oling!</i>"
+        )
 
-    await callback.message.edit_text(text, reply_markup=get_referral_keyboard(user_id), parse_mode="HTML")
-    await callback.answer()
+        try:
+            await callback.message.edit_text(text, reply_markup=get_referral_keyboard(user_id), parse_mode="HTML")
+        except Exception:
+            pass
+    finally:
+        try:
+            await callback.answer()
+        except Exception:
+            pass

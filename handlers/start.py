@@ -8,6 +8,7 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from config import WEBAPP_URL
 from database import db
 import logging
+import html
 
 logger = logging.getLogger("StartHandler")
 
@@ -51,7 +52,7 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
 async def cmd_start(message: Message, command: CommandObject = None):
     try:
         user_id = message.from_user.id
-        user_name = message.from_user.first_name or "Do'stim"
+        user_name = html.escape(message.from_user.first_name or "Do'stim")
         username = message.from_user.username or ""
 
         # Check for referral parameter: /start ref_123456
@@ -135,21 +136,37 @@ async def cmd_desmos(message: Message):
 
 @router.callback_query(F.data == "desmos_catalog")
 async def desmos_catalog(callback: CallbackQuery):
-    kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔬 O'z bilimimda sinab ko'rish ➡️", callback_data="start_diagnostic")],
-        [InlineKeyboardButton(text="⬅️ Asosiy menyu", callback_data="back_to_menu")]
-    ])
-    await callback.message.edit_text(DESMOS_CATALOG_TEXT, reply_markup=kb, parse_mode="HTML")
-    await callback.answer()
+    try:
+        kb = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="🔬 O'z bilimimda sinab ko'rish ➡️", callback_data="start_diagnostic")],
+            [InlineKeyboardButton(text="⬅️ Asosiy menyu", callback_data="back_to_menu")]
+        ])
+        try:
+            await callback.message.edit_text(DESMOS_CATALOG_TEXT, reply_markup=kb, parse_mode="HTML")
+        except Exception:
+            pass
+    finally:
+        try:
+            await callback.answer()
+        except Exception:
+            pass
 
 @router.callback_query(F.data == "back_to_menu")
 async def back_to_menu(callback: CallbackQuery):
-    welcome_text = (
-        "⚡ <b>ASOSIY BOSHQARUV MENYUSI</b>\n\n"
-        "Kerakli bo'limni tanlang:"
-    )
-    await callback.message.edit_text(welcome_text, reply_markup=get_main_menu_keyboard(), parse_mode="HTML")
-    await callback.answer()
+    try:
+        welcome_text = (
+            "⚡ <b>ASOSIY BOSHQARUV MENYUSI</b>\n\n"
+            "Kerakli bo'limni tanlang:"
+        )
+        try:
+            await callback.message.edit_text(welcome_text, reply_markup=get_main_menu_keyboard(), parse_mode="HTML")
+        except Exception:
+            pass
+    finally:
+        try:
+            await callback.answer()
+        except Exception:
+            pass
 
 @router.message(Command("webapp"))
 @router.message(Command("rejim"))

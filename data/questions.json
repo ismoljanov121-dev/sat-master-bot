@@ -1,29 +1,53 @@
 [
   {
     "id": 1,
-    "topic": "Advanced Math - Quadratic & Linear Systems",
+    "topic": "Advanced Math - Quadratic and Linear Systems",
     "question": "Quyidagi tenglamalar sistemasining nechta haqiqiy yechimi (x, y) mavjud?\n\ny = 2x² - 4x + 7\ny = 2x + 1",
     "options": [
-      {"key": "A", "text": "0 ta (Yechim yo'q)"},
-      {"key": "B", "text": "1 ta"},
-      {"key": "C", "text": "2 ta"},
-      {"key": "D", "text": "Cheksiz ko'p"}
+      {
+        "key": "A",
+        "text": "0 ta (Yechim yo'q)"
+      },
+      {
+        "key": "B",
+        "text": "1 ta"
+      },
+      {
+        "key": "C",
+        "text": "2 ta"
+      },
+      {
+        "key": "D",
+        "text": "Cheksiz ko'p"
+      }
     ],
     "correct": "A",
     "points_lost": 20,
-    "trap": "Ko'pchilik diskriminantni qo'lda hisoblashda ishorani adashtiradi (2x² - 6x + 6 = 0 da D = 36 - 48 < 0) va C variantni belgilab qo'yadi.",
+    "trap": "Ko'pchilik diskriminantni qo'lda hisoblashda ishorani adashtiradi (2x² - 6x + 6 = 0 da D = 36 - 48 = -12, ya'ni noldan kichik) va C variantni belgilab qo'yadi.",
     "desmos_hack": "⚡ DESMOSDA 5 SONIYADA:\n1. 1-qatorga yozing: y = 2x^2 - 4x + 7\n2. 2-qatorga yozing: y = 2x + 1\nGrafiklarga qarang: Parabola va to'g'ri chiziq umuman kesishmaydi! Javob: 0 ta (Variant A). Hech qanday diskriminant shart emas!",
-    "explanation": "2x² - 4x + 7 = 2x + 1 => 2x² - 6x + 6 = 0. Diskriminant D = b² - 4ac = (-6)² - 4(2)(6) = 36 - 48 = -12 < 0. Yechim yo'q."
+    "explanation": "2x² - 4x + 7 = 2x + 1 => 2x² - 6x + 6 = 0. Diskriminant D = b² - 4ac = (-6)² - 4(2)(6) = 36 - 48 = -12 (manfiy, noldan kichik). Shuning uchun haqiqiy yechim yo'q."
   },
   {
     "id": 2,
-    "topic": "Algebra - Equivalent Expressions & Constants",
+    "topic": "Algebra - Equivalent Expressions and Constants",
     "question": "Agar barcha x qiymatlari uchun quyidagi tenglik o'rinli bo'lsa, k ning qiymati nechaga teng?\n\n(3x + k)(2x - 5) = 6x² - 7x - 20",
     "options": [
-      {"key": "A", "text": "4"},
-      {"key": "B", "text": "-4"},
-      {"key": "C", "text": "5"},
-      {"key": "D", "text": "-5"}
+      {
+        "key": "A",
+        "text": "4"
+      },
+      {
+        "key": "B",
+        "text": "-4"
+      },
+      {
+        "key": "C",
+        "text": "5"
+      },
+      {
+        "key": "D",
+        "text": "-5"
+      }
     ],
     "correct": "A",
     "points_lost": 20,
@@ -33,13 +57,25 @@
   },
   {
     "id": 3,
-    "topic": "Advanced Math - Circle Equation & Radius",
+    "topic": "Advanced Math - Circle Equation and Radius",
     "question": "xy-tekisligida x² + y² - 8x + 10y + 5 = 0 tenglama aylanani ifodalaydi. Ushbu aylananing radiusi nechaga teng?",
     "options": [
-      {"key": "A", "text": "6"},
-      {"key": "B", "text": "36"},
-      {"key": "C", "text": "√36"},
-      {"key": "D", "text": "8"}
+      {
+        "key": "A",
+        "text": "6"
+      },
+      {
+        "key": "B",
+        "text": "36"
+      },
+      {
+        "key": "C",
+        "text": "√36"
+      },
+      {
+        "key": "D",
+        "text": "8"
+      }
     ],
     "correct": "A",
     "points_lost": 30,
@@ -49,13 +85,25 @@
   },
   {
     "id": 4,
-    "topic": "Problem Solving - Percent Increase & Decrease",
+    "topic": "Problem Solving - Percent Increase and Decrease",
     "question": "Mahsulot narxi dastlab 20% ga oshirildi, so'ngra yangi narx 20% ga pasaytirildi. Dastlabki narxga nisbatan yakuniy narx qanday o'zgardi?",
     "options": [
-      {"key": "A", "text": "O'zgarmadi (0%)"},
-      {"key": "B", "text": "4% ga kamaydi"},
-      {"key": "C", "text": "4% ga oshdi"},
-      {"key": "D", "text": "2% ga kamaydi"}
+      {
+        "key": "A",
+        "text": "O'zgarmadi (0%)"
+      },
+      {
+        "key": "B",
+        "text": "4% ga kamaydi"
+      },
+      {
+        "key": "C",
+        "text": "4% ga oshdi"
+      },
+      {
+        "key": "D",
+        "text": "2% ga kamaydi"
+      }
     ],
     "correct": "B",
     "points_lost": 20,
@@ -65,29 +113,53 @@
   },
   {
     "id": 5,
-    "topic": "Advanced Math - Vertex of Parabola & Max Value",
+    "topic": "Advanced Math - Vertex of Parabola and Max Value",
     "question": "f(x) = -3(x - 4)² + 15 funksiyaning eng katta (maksimal) qiymati nechaga teng?",
     "options": [
-      {"key": "A", "text": "4"},
-      {"key": "B", "text": "15"},
-      {"key": "C", "text": "-4"},
-      {"key": "D", "text": "-3"}
+      {
+        "key": "A",
+        "text": "4"
+      },
+      {
+        "key": "B",
+        "text": "15"
+      },
+      {
+        "key": "C",
+        "text": "-4"
+      },
+      {
+        "key": "D",
+        "text": "-3"
+      }
     ],
     "correct": "B",
     "points_lost": 20,
     "trap": "Vertex koordinatasi (4, 15) bo'lgani uchun x = 4 bilan y = 15 ni adashtirib A ni tanlashadi.",
     "desmos_hack": "⚡ DESMOSDA 3 SONIYADA:\nDesmosga f(x) = -3(x - 4)^2 + 15 deb yozing. Parabolaning eng yuqori cho'qqisini bosing: (4, 15). Maksimal qiymat har doim y qiymatidir, ya'ni 15 (Variant B)!",
-    "explanation": "Vertex shaklida y = a(x - h)² + k. Bu yerda h = 4, k = 15. a = -3 < 0 bo'lgani uchun parabola pastga qaragan, eng yuqori qiymat y = 15 da erishiladi."
+    "explanation": "Vertex shaklida y = a(x - h)² + k. Bu yerda h = 4, k = 15. a = -3 (noldan kichik) bo'lgani uchun parabola pastga qaragan, eng yuqori qiymat y = 15 da erishiladi."
   },
   {
     "id": 6,
     "topic": "Algebra - Systems with No Solution (Parallel Lines)",
     "question": "Quyidagi tenglamalar sistemasi x va y uchun yechimga ega bo'lmasa, a ning qiymati nechaga teng?\n\n3x - 5y = 12\nax + 10y = 7",
     "options": [
-      {"key": "A", "text": "-6"},
-      {"key": "B", "text": "6"},
-      {"key": "C", "text": "-3"},
-      {"key": "D", "text": "15"}
+      {
+        "key": "A",
+        "text": "-6"
+      },
+      {
+        "key": "B",
+        "text": "6"
+      },
+      {
+        "key": "C",
+        "text": "-3"
+      },
+      {
+        "key": "D",
+        "text": "15"
+      }
     ],
     "correct": "A",
     "points_lost": 25,
@@ -97,13 +169,25 @@
   },
   {
     "id": 7,
-    "topic": "Geometry & Trigonometry - Complementary Angle Theorem",
-    "question": "To'g'ri burchakli uchburchakda sin(x°) = cos(3x - 10°) bo'lsa, x ning qiymatini toping (x > 0).",
+    "topic": "Geometry and Trigonometry - Complementary Angle Theorem",
+    "question": "To'g'ri burchakli uchburchakda sin(x°) = cos(3x - 10°) bo'lsa, x ning qiymatini toping (x - o'tkir burchak).",
     "options": [
-      {"key": "A", "text": "25°"},
-      {"key": "B", "text": "20°"},
-      {"key": "C", "text": "30°"},
-      {"key": "D", "text": "45°"}
+      {
+        "key": "A",
+        "text": "25°"
+      },
+      {
+        "key": "B",
+        "text": "20°"
+      },
+      {
+        "key": "C",
+        "text": "30°"
+      },
+      {
+        "key": "D",
+        "text": "45°"
+      }
     ],
     "correct": "A",
     "points_lost": 25,
