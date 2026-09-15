@@ -14,12 +14,18 @@ import json
 import logging
 import os
 import re
-from typing import Dict, List, Optional, Any
+from typing import Any
 
-from aiogram import Router, F
-from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram import F, Router
 from aiogram.exceptions import TelegramBadRequest
+from aiogram.filters import Command
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    WebAppInfo,
+)
 
 from config import WEBAPP_URL
 from database import db
@@ -33,16 +39,16 @@ router = Router()
 QUESTIONS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "questions.json")
 try:
     with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
-        QUESTIONS: List[Dict[str, Any]] = json.load(f)
+        QUESTIONS: list[dict[str, Any]] = json.load(f)
 except Exception as e:
     logger.critical(f"Failed to load questions from {QUESTIONS_FILE}: {e}")
     QUESTIONS = []
 
 # In-memory session cache backed by database local cache
-USER_SESSIONS: Dict[int, Dict[str, Any]] = {}
+USER_SESSIONS: dict[int, dict[str, Any]] = {}
 
 
-def get_user_session(user_id: int, fallback_idx: int = 0) -> Dict[str, Any]:
+def get_user_session(user_id: int, fallback_idx: int = 0) -> dict[str, Any]:
     """Retrieves the user's active diagnostic session from memory or persistent storage."""
     str_id = str(user_id)
     if user_id in USER_SESSIONS:
@@ -53,17 +59,18 @@ def get_user_session(user_id: int, fallback_idx: int = 0) -> Dict[str, Any]:
         USER_SESSIONS[user_id] = active_sessions[str_id]
         return active_sessions[str_id]
 
-    new_session: Dict[str, Any] = {
+    new_session: dict[str, Any] = {
         "current_idx": fallback_idx,
         "correct": 0,
-        "incorrect_items": []
+        "incorrect_items": [],
+        "answered_indices": []
     }
     USER_SESSIONS[user_id] = new_session
     active_sessions[str_id] = new_session
     return new_session
 
 
-def save_user_session(user_id: int, session: Dict[str, Any]) -> None:
+def save_user_session(user_id: int, session: dict[str, Any]) -> None:
     """Saves session state into memory and persistent cache."""
     str_id = str(user_id)
     USER_SESSIONS[user_id] = session
@@ -87,7 +94,7 @@ def clear_user_session(user_id: int) -> None:
         logger.warning(f"Error clearing diagnostic session for {user_id}: {e}")
 
 
-async def safe_answer_callback(callback: CallbackQuery, text: Optional[str] = None, show_alert: bool = False) -> None:
+async def safe_answer_callback(callback: CallbackQuery, text: str | None = None, show_alert: bool = False) -> None:
     """Answers a callback query safely without raising unhandled exceptions."""
     try:
         await callback.answer(text=text, show_alert=show_alert)
@@ -98,7 +105,7 @@ async def safe_answer_callback(callback: CallbackQuery, text: Optional[str] = No
 async def safe_edit_message(
     callback: CallbackQuery,
     text: str,
-    reply_markup: Optional[InlineKeyboardMarkup] = None
+    reply_markup: InlineKeyboardMarkup | None = None
 ) -> bool:
     """
     Edits a Telegram message safely using HTML parse_mode.
@@ -136,8 +143,8 @@ def get_question_keyboard(q_idx: int) -> InlineKeyboardMarkup:
         return InlineKeyboardMarkup(inline_keyboard=[])
 
     q = QUESTIONS[q_idx]
-    buttons: List[List[InlineKeyboardButton]] = []
-    row: List[InlineKeyboardButton] = []
+    buttons: list[list[InlineKeyboardButton]] = []
+    row: list[InlineKeyboardButton] = []
     for opt in q.get("options", []):
         opt_key = str(opt.get("key", "")).strip()
         opt_text = str(opt.get("text", "")).strip()
@@ -156,7 +163,7 @@ def get_question_keyboard(q_idx: int) -> InlineKeyboardMarkup:
 
 def get_after_answer_keyboard(q_idx: int, is_last: bool) -> InlineKeyboardMarkup:
     """Builds navigation and Desmos hack buttons after answering."""
-    buttons: List[List[InlineKeyboardButton]] = [
+    buttons: list[list[InlineKeyboardButton]] = [
         [InlineKeyboardButton(text="⚡ Desmos Hack (10s yechim)", callback_data=f"hack_{q_idx}")],
     ]
     if not is_last:
@@ -168,7 +175,7 @@ def get_after_answer_keyboard(q_idx: int, is_last: bool) -> InlineKeyboardMarkup
 
 def get_hack_keyboard(q_idx: int, is_last: bool) -> InlineKeyboardMarkup:
     """Builds navigation after viewing Desmos cheatcode."""
-    buttons: List[List[InlineKeyboardButton]] = []
+    buttons: list[list[InlineKeyboardButton]] = []
     if not is_last:
         buttons.append([InlineKeyboardButton(text="Keyingi savol ➡️", callback_data=f"next_{q_idx + 1}")])
     else:
@@ -176,7 +183,7 @@ def get_hack_keyboard(q_idx: int, is_last: bool) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-def format_question_text(q_idx: int, total: int, q: Dict[str, Any]) -> str:
+def format_question_text(q_idx: int, total: int, q: dict[str, Any]) -> str:
     """Builds question view with safe escaping and visual progress indicator."""
     topic = html.escape(str(q.get("topic", "Math")))
     question = html.escape(str(q.get("question", "")))
@@ -249,7 +256,8 @@ async def cmd_diagnostic(message: Message) -> None:
     session = {
         "current_idx": 0,
         "correct": 0,
-        "incorrect_items": []
+        "incorrect_items": [],
+        "answered_indices": []
     }
     save_user_session(user_id, session)
 
@@ -273,7 +281,8 @@ async def start_quiz(callback: CallbackQuery) -> None:
         session = {
             "current_idx": 0,
             "correct": 0,
-            "incorrect_items": []
+            "incorrect_items": [],
+            "answered_indices": []
         }
         save_user_session(user_id, session)
         await send_question(callback, q_idx=0)
@@ -283,7 +292,7 @@ async def start_quiz(callback: CallbackQuery) -> None:
 
 @router.callback_query(F.data.startswith("ans_"))
 async def handle_answer(callback: CallbackQuery) -> None:
-    """Evaluates the selected answer option and reveals explanation."""
+    """Evaluates the selected answer option and reveals explanation with idempotency."""
     try:
         user_id = callback.from_user.id
         data_parts = (callback.data or "").split("_")
@@ -305,10 +314,14 @@ async def handle_answer(callback: CallbackQuery) -> None:
         is_correct = (selected_key == correct_key)
         is_last = (q_idx == len(QUESTIONS) - 1)
 
-        if is_correct:
-            session["correct"] = session.get("correct", 0) + 1
-        else:
-            session.setdefault("incorrect_items", []).append(q)
+        # Idempotency guard: only record score change if not already answered
+        answered_indices = session.setdefault("answered_indices", [])
+        if q_idx not in answered_indices:
+            answered_indices.append(q_idx)
+            if is_correct:
+                session["correct"] = session.get("correct", 0) + 1
+            else:
+                session.setdefault("incorrect_items", []).append(q)
 
         session["current_idx"] = q_idx
         save_user_session(user_id, session)

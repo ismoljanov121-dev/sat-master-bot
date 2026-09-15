@@ -1,37 +1,51 @@
 """
-SAT Master AI - Start Command, Referrals, and Primary Dashboard
+EduTest Pro - Start Command, Referrals, and Primary Dashboard
 """
 
-from aiogram import Router, F
-from aiogram.filters import CommandStart, CommandObject, Command
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
-from config import WEBAPP_URL
-from database import db
-import logging
 import html
+import logging
+
+from aiogram import F, Router
+from aiogram.filters import Command, CommandObject, CommandStart
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    WebAppInfo,
+)
+
+from config import BRAND_NAME, CENTER_NAME, WEBAPP_URL, is_admin
+from database import db
 
 logger = logging.getLogger("StartHandler")
 
 router = Router()
 
-def get_main_menu_keyboard() -> InlineKeyboardMarkup:
-    """Creates the primary navigation dashboard for the user."""
+def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
+    """Creates the primary navigation dashboard for the user with 3 clear P0 paths."""
     buttons = [
         [
             InlineKeyboardButton(
-                text="📚 Cheksiz SAT Mashq Bazasi (Math / RW)",
-                callback_data="practice_hub"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text="🔬 AI Rentgen Diagnostika (5 daqiqa)",
+                text="🔬 Diagnostika (7 savol - Bepul)",
                 callback_data="start_diagnostic"
             )
         ],
         [
             InlineKeyboardButton(
-                text="⚡ Desmos Hiylalari & Cheatcodes",
+                text="📝 Mock Imtihon (EduTest Pro Engine)",
+                callback_data="exam_hub"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="📚 SAT Mashq Bazasi (Math / RW)",
+                callback_data="practice_hub"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="⚡ Desmos Strategiyalari",
                 callback_data="desmos_catalog"
             ),
             InlineKeyboardButton(
@@ -41,17 +55,26 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
-                text="📱 Shaxsiy Rejim & 60 Kunlik Tracker (Web App)",
+                text="📱 O'quvchi Kabineti & Tracker (Web App)",
                 web_app=WebAppInfo(url=WEBAPP_URL)
             )
         ],
         [
             InlineKeyboardButton(
-                text="👥 Do'stlarni Taklif Qilish (VIP)",
+                text="👥 Do'stlarni Taklif Qilish",
                 callback_data="referral_menu"
             )
         ]
     ]
+
+    if user_id and is_admin(user_id):
+        buttons.append([
+            InlineKeyboardButton(
+                text="⚙️ Administrator Paneli",
+                callback_data="admin_panel_open"
+            )
+        ])
+
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 @router.message(CommandStart())
@@ -99,16 +122,17 @@ async def cmd_start(message: Message, command: CommandObject = None):
 
         welcome_text = (
             f"Assalomu alaykum, <b>{user_name}</b>! ⚡\n\n"
-            f"Xush kelibsiz! Bu <b>SAT Master AI</b> — Digital SAT 1500+ ball olishingiz uchun "
-            f"shaxsiy <b>AI Rentgen Diagnostika</b> va <b>Desmos Hiylalari</b> tizimi.\n\n"
-            f"🎯 <b>BIZNING IMKONIYATLAR:</b>\n"
-            f"• 🔬 <b>AI Rentgen:</b> 5-7 ta nozik savol orqali qaysi mavzu sening 80-100 ballingni o'g'irlayotganini aniqlaydi.\n"
-            f"• ⚡ <b>Desmos Hacks:</b> Digital SAT Math savollarini formulalarsiz, 10 soniyada yechish sirlari.\n"
-            f"• 📱 <b>60 Kunlik Kundalik:</b> SAT 1500 va IELTS 8.0 uchun to'liq intizom WebApp'i.\n"
-            f"• 👥 <b>VIP Bonuslar:</b> Do'stlaringizni taklif qilib, Hard Module 2 testlarini bepul oching!\n\n"
-            f"👇 <i>Hozir o'z bilimingizni rentgen qilish uchun quyidagi tugmani bosing:</i>"
+            f"Xush kelibsiz! Bu <b>{BRAND_NAME}</b> — {CENTER_NAME} uchun maxsus ishlab chiqilgan "
+            f"raqamli diagnostika, mock imtihon va dars nazorati tizimi.\n\n"
+            f"🎯 <b>ASOSIY IMKONIYATLAR:</b>\n"
+            f"• 🔬 <b>Diagnostika:</b> 7 ta nozik savol orqali bilim darajangiz va zaif mavzularni aniqlaydi.\n"
+            f"• 📝 <b>Mock Imtihon:</b> Haqiqiy vaqt nazorati va aralash savollar bilan to'liq mock sinovi.\n"
+            f"• 📚 <b>SAT Mashq:</b> Math, Reading va Writing bo'yicha cheksiz mashqlar bazasi.\n"
+            f"• ⚡ <b>Desmos Strategiyalari:</b> Digital SAT Math savollarini tezkor yechish usullari.\n"
+            f"• 📱 <b>O'quvchi Kabineti:</b> 60 kunlik tayyorgarlik rejasi va xatolar daftarchasi.\n\n"
+            f"👇 <i>Boshlash uchun quyidagi tugmalardan birini tanlang:</i>"
         )
-        await message.answer(welcome_text, reply_markup=get_main_menu_keyboard(), parse_mode="HTML")
+        await message.answer(welcome_text, reply_markup=get_main_menu_keyboard(user_id), parse_mode="HTML")
     except Exception as e:
         logger.error(f"Critical error in cmd_start: {e}")
         try:
@@ -120,9 +144,9 @@ async def cmd_start(message: Message, command: CommandObject = None):
             pass
 
 DESMOS_HUB_TEXT = (
-    "⚡ <b>DIGITAL SAT DESMOS MASTER CHEATSHEET</b>\n"
+    "⚡ <b>DIGITAL SAT DESMOS STRATEGIYALARI</b>\n"
     "━━━━━━━━━━━━━━━━━━━━━━\n"
-    "<i>Formula yodlamang — Desmos'da 5-10 soniyada hal qiling!</i>\n\n"
+    "<i>Formula yodlamang — Desmos imkoniyatlaridan maksimal foydalaning!</i>\n\n"
     "1️⃣ <b>Tenglamalar Sistemasi</b> ➔ Kesishgan nuqta = Yechim\n"
     "2️⃣ <b>Parabola & Vertex</b> ➔ Cho'qqi (h, k) da k = Max/Min\n"
     "3️⃣ <b>Aylana Radiusi & Markazi</b> ➔ Tenglamani to'g'ridan-to'g'ri chizish\n"
@@ -269,12 +293,13 @@ async def cb_desmos_detail(callback: CallbackQuery):
 @router.callback_query(F.data == "back_to_menu")
 async def back_to_menu(callback: CallbackQuery):
     try:
+        user_id = callback.from_user.id
         welcome_text = (
-            "⚡ <b>ASOSIY BOSHQARUV MENYUSI</b>\n\n"
+            f"⚡ <b>{BRAND_NAME} — ASOSIY BOSHQARUV MENYUSI</b>\n\n"
             "Kerakli bo'limni tanlang:"
         )
         try:
-            await callback.message.edit_text(welcome_text, reply_markup=get_main_menu_keyboard(), parse_mode="HTML")
+            await callback.message.edit_text(welcome_text, reply_markup=get_main_menu_keyboard(user_id), parse_mode="HTML")
         except Exception:
             pass
     finally:
@@ -282,6 +307,25 @@ async def back_to_menu(callback: CallbackQuery):
             await callback.answer()
         except Exception:
             pass
+
+@router.callback_query(F.data == "admin_panel_open")
+async def cb_open_admin_panel(callback: CallbackQuery):
+    """Direct button trigger to open admin panel if authorized."""
+    user_id = callback.from_user.id
+    if not is_admin(user_id):
+        await callback.answer("⛔ Ushbu bo'lim faqat administratorlar uchun.", show_alert=True)
+        return
+
+    from handlers.admin import format_admin_dashboard_text, get_admin_main_keyboard
+    try:
+        text = format_admin_dashboard_text()
+        await callback.message.edit_text(text, reply_markup=get_admin_main_keyboard(), parse_mode="HTML")
+    finally:
+        try:
+            await callback.answer()
+        except Exception:
+            pass
+
 
 @router.message(Command("webapp"))
 @router.message(Command("rejim"))

@@ -5,12 +5,19 @@ instant feedback, Desmos hacks, SAT grammar strategies, and streak tracking.
 """
 
 import html
-import re
 import logging
-from typing import Dict, Any, Optional
-from aiogram import Router, F
+import re
+from typing import Any
+
+from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
+
 from database import db
 from services.question_service import qs
 
@@ -37,7 +44,7 @@ def get_practice_hub_keyboard() -> InlineKeyboardMarkup:
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-def get_practice_question_keyboard(q_data: Dict[str, Any], section: str) -> InlineKeyboardMarkup:
+def get_practice_question_keyboard(q_data: dict[str, Any], section: str) -> InlineKeyboardMarkup:
     """Builds inline keyboard for selecting answer options A, B, C, D."""
     buttons = []
     options = q_data.get("options", [])
@@ -66,7 +73,7 @@ def get_practice_question_keyboard(q_data: Dict[str, Any], section: str) -> Inli
     ])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-def get_post_answer_keyboard(q_data: Dict[str, Any], section: str) -> InlineKeyboardMarkup:
+def get_post_answer_keyboard(q_data: dict[str, Any], section: str) -> InlineKeyboardMarkup:
     """Builds keyboard after answering with Hack/Rule button and Next Question button."""
     q_sec = q_data.get("section", "math").lower()
     hack_label = "⚡ Desmos Hackni Ko'rish" if q_sec == "math" else "🎯 SAT Qoidasi & Taktikasi"
@@ -82,7 +89,7 @@ def get_post_answer_keyboard(q_data: Dict[str, Any], section: str) -> InlineKeyb
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-async def safe_edit_practice(callback: CallbackQuery, text: str, reply_markup: Optional[InlineKeyboardMarkup] = None):
+async def safe_edit_practice(callback: CallbackQuery, text: str, reply_markup: InlineKeyboardMarkup | None = None):
     """Safely edits message with plain-text fallback on entity parser error."""
     try:
         await callback.message.edit_text(text, reply_markup=reply_markup, parse_mode="HTML")
@@ -94,7 +101,7 @@ async def safe_edit_practice(callback: CallbackQuery, text: str, reply_markup: O
         except Exception as inner_e:
             logger.error(f"Fallback edit failed in practice: {inner_e}")
 
-async def render_question_view(callback: CallbackQuery, q_data: Dict[str, Any], section: str):
+async def render_question_view(callback: CallbackQuery, q_data: dict[str, Any], section: str):
     """Formats and renders a Digital SAT practice question."""
     user_id = callback.from_user.id
     stats = db.get_user_practice_stats(user_id)

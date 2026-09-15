@@ -4,9 +4,16 @@ Enables students to invite classmates and earn rewards (VIP Desmos Cheatsheets, 
 """
 
 import html
-from aiogram import Router, F
+
+from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
+
 from database import db
 
 router = Router()

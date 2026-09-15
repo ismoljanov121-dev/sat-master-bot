@@ -5,9 +5,9 @@ and generates actionable high-impact surgical advice.
 """
 
 import html
-from typing import List, Dict
 
-def generate_surgery_report(user_name: str, total_q: int, correct_q: int, incorrect_items: List[Dict]) -> str:
+
+def generate_surgery_report(user_name: str, total_q: int, correct_q: int, incorrect_items: list[dict]) -> str:
     """Generates the jaw-dropping surgical score breakdown report."""
     base_math_score = 800
     points_lost = sum(item.get("points_lost", 20) for item in incorrect_items)
@@ -16,7 +16,7 @@ def generate_surgery_report(user_name: str, total_q: int, correct_q: int, incorr
     safe_name = html.escape(user_name or "Abituriyent")
 
     # Group weaknesses by topic
-    topic_counts: Dict[str, int] = {}
+    topic_counts: dict[str, int] = {}
     for item in incorrect_items:
         t = item.get("topic", "General Math")
         topic_counts[t] = topic_counts.get(t, 0) + 1

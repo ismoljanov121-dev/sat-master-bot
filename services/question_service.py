@@ -4,11 +4,11 @@ Manages authentic Digital SAT Question Bank (Reading, Writing, Math)
 and provides endless dynamic SAT Math generation for infinite practice.
 """
 
-import os
 import json
-import random
 import logging
-from typing import Dict, List, Optional, Any
+import os
+import random
+from typing import Any, Tuple
 
 logger = logging.getLogger("QuestionService")
 
@@ -18,12 +18,12 @@ DIAGNOSTIC_BANK_FILE = os.path.join(BASE_DIR, "data", "questions.json")
 
 class QuestionService:
     def __init__(self):
-        self.curated_questions: List[Dict[str, Any]] = []
+        self.curated_questions: list[dict[str, Any]] = []
         self._load_bank()
 
     def _load_bank(self):
         """Loads curated SAT questions from disk."""
-        questions: List[Dict[str, Any]] = []
+        questions: list[dict[str, Any]] = []
         
         # Load main question bank if available
         if os.path.exists(CURATED_BANK_FILE):
@@ -60,19 +60,60 @@ class QuestionService:
         """Reloads the bank from disk."""
         self._load_bank()
 
-    def get_question_by_id(self, qid: str) -> Optional[Dict[str, Any]]:
+    def get_question_by_id(self, qid: str) -> dict[str, Any] | None:
         """Finds a question by its unique ID."""
         for q in self.curated_questions:
             if str(q.get("id")) == str(qid):
                 return q
         return None
 
-    def get_questions_by_section(self, section: str) -> List[Dict[str, Any]]:
+    def get_questions_by_section(self, section: str) -> list[dict[str, Any]]:
         """Filters questions by section: 'reading', 'writing', 'math'."""
         sec = section.lower().strip()
         return [q for q in self.curated_questions if q.get("section", "").lower() == sec]
 
-    def get_next_question(self, answered_ids: List[str], section: str = "mixed") -> Dict[str, Any]:
+    def get_questions_count_by_section(self) -> dict[str, int]:
+        """Returns question count per section."""
+        counts = {"math": 0, "reading": 0, "writing": 0}
+        for q in self.curated_questions:
+            sec = str(q.get("section", "")).lower().strip()
+            if sec in counts:
+                counts[sec] += 1
+        return counts
+
+    @staticmethod
+    def validate_question_schema(q: dict[str, Any]) -> Tuple[bool, str]:
+        """
+        Validates individual question against schema:
+        - unique ID
+        - section in ('math', 'reading', 'writing')
+        - non-empty question
+        - exactly 4 options with keys A, B, C, D
+        - valid correct key
+        - non-empty explanation
+        """
+        if not isinstance(q, dict):
+            return False, "Question is not a dict"
+        if not q.get("id"):
+            return False, "Missing id"
+        if q.get("section") not in ("math", "reading", "writing"):
+            return False, f"Invalid section: {q.get('section')}"
+        if not q.get("question"):
+            return False, "Missing question text"
+        options = q.get("options", [])
+        if not isinstance(options, list) or len(options) != 4:
+            return False, f"Expected 4 options, got {len(options) if isinstance(options, list) else 'non-list'}"
+        keys = [opt.get("key") for opt in options if isinstance(opt, dict)]
+        if set(keys) != {"A", "B", "C", "D"}:
+            return False, f"Option keys must be A, B, C, D; got {keys}"
+        if q.get("correct") not in ("A", "B", "C", "D"):
+            return False, f"Invalid correct key: {q.get('correct')}"
+        if not q.get("explanation"):
+            return False, "Missing explanation"
+        return True, "Valid"
+
+
+    def get_next_question(self, answered_ids: list[str], section: str = "mixed") -> dict[str, Any]:
         """
         Selects the next question for practice.
         If all curated questions in this section have been answered,
@@ -101,7 +142,7 @@ class QuestionService:
         # If reading or writing pool exhausted, recycle pool with random choice
         return random.choice(pool)
 
-    def generate_dynamic_sat_question(self) -> Dict[str, Any]:
+    def generate_dynamic_sat_question(self) -> dict[str, Any]:
         """
         Generates infinite, authentic Digital SAT Math questions algorithmically
         covering top College Board tested templates with verified answers and Desmos hacks.

@@ -1,19 +1,51 @@
 """
-SAT AI Bot - Configuration
+EduTest Pro - Centralized Configuration
+Brand, Academy Context, Admin Authorization, and Server Settings
 """
 
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
-BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
+# --- Core Brand & Center Information ---
+BRAND_NAME: str = "EduTest Pro"
+BOT_NAME: str = "EduTest Pro | Mock & Exam System"
+CENTER_NAME: str = os.getenv("CENTER_NAME", "MARSTIF ACADEMY").strip()
+MENTOR_NAME: str = os.getenv("MENTOR_NAME", "Marifat Jamal").strip()
 
-# Admin IDs for reports (optional)
-ADMIN_IDS = [int(x.strip()) for x in os.getenv("ADMIN_IDS", "").split(",") if x.strip().isdigit()]
+# --- Telegram Bot Token ---
+BOT_TOKEN: str = os.getenv("BOT_TOKEN", "").strip()
 
-# WebApp URL (Render hosted URL with fallback)
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://sat-master-bot.onrender.com/webapp").strip()
+# --- Administrator IDs ---
+def _parse_admin_ids(raw_value: str) -> list[int]:
+    """Parses comma-separated or space-separated Telegram IDs safely."""
+    ids: list[int] = []
+    if not raw_value:
+        return ids
+    normalized = raw_value.replace(";", ",").replace(" ", ",")
+    for token in normalized.split(","):
+        cleaned = token.strip()
+        if cleaned.isdigit():
+            ids.append(int(cleaned))
+    return ids
 
-# 24/7 Backup Channel (Defaults to @acacafagag)
-BACKUP_CHANNEL = os.getenv("BACKUP_CHANNEL", "@acacafagag").strip()
+ADMIN_IDS: list[int] = _parse_admin_ids(os.getenv("ADMIN_IDS", ""))
+
+def is_admin(user_id: int) -> bool:
+    """Checks if the given Telegram user ID has administrator privileges."""
+    return user_id in ADMIN_IDS
+
+# --- WebApp & Server Settings ---
+WEBAPP_URL: str = os.getenv("WEBAPP_URL", "http://127.0.0.1:8080/webapp").strip()
+PORT: int = int(os.getenv("PORT", "8080"))
+
+# --- 24/7 Backup Channel (Optional, disabled if empty) ---
+BACKUP_CHANNEL: str = os.getenv("BACKUP_CHANNEL", "").strip()
+
+# --- Database Storage Paths ---
+BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
+LOCAL_DB_FILE: str = os.path.join(BASE_DIR, "users_db.json")
+MONGO_URI: str = os.getenv("MONGO_URI", "").strip()
+

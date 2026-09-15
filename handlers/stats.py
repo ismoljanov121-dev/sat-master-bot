@@ -3,9 +3,16 @@ SAT Master AI - User Statistics & Admin Backup Triggers
 """
 
 import html
-from aiogram import Router, F
+
+from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
+
 from database import db
 from services.backup_service import perform_backup
 
@@ -76,12 +83,22 @@ async def cb_stats(callback: CallbackQuery):
         except Exception:
             pass
 
+from config import BACKUP_CHANNEL, is_admin
+
+
 @router.message(Command("backup"))
 async def cmd_manual_backup(message: Message):
-    """Allows manual trigger of cloud backup to backup channel."""
-    status_msg = await message.answer("⏳ <i>Zaxira nusxasi olinmoqda va kanalga yuklanmoqda...</i>", parse_mode="HTML")
+    """Allows manual trigger of cloud backup to backup channel (Admin only)."""
+    user_id = message.from_user.id
+    if not is_admin(user_id):
+        await message.answer("⛔ <b>Kirish taqiqlandi!</b> Ushbu buyruq faqat administratorlar uchun.", parse_mode="HTML")
+        return
+
+    status_msg = await message.answer("⏳ <i>Zaxira nusxasi olinmoqda va yuklanmoqda...</i>", parse_mode="HTML")
     success = await perform_backup(message.bot, manual=True)
+    target = BACKUP_CHANNEL if BACKUP_CHANNEL else "Lokal fayl"
     if success:
-        await status_msg.edit_text("✅ <b>Zaxira nusxasi (@acacafagag) kanaliga muvaffaqiyatli jo'natildi!</b>", parse_mode="HTML")
+        await status_msg.edit_text(f"✅ <b>Zaxira nusxasi ({target}) ga muvaffaqiyatli jo'natildi!</b>", parse_mode="HTML")
     else:
-        await status_msg.edit_text("❌ <b>Zaxiralashda xatolik yuz berdi. Loglarni tekshiring.</b>", parse_mode="HTML")
+        await status_msg.edit_text("❌ <b>Zaxiralashda xatolik yuz berdi yoki kanal sozlanmagan.</b>", parse_mode="HTML")
+
