@@ -38,7 +38,7 @@ Ushbu qo'llanma bugun **Marstif Academy** rahbari va ma'muriyati (Marifat Jamal)
 ### 00:00 – 01:00 | 1-qadam: Kirish va Mahsulot Pozitsionirovkasi
 - **Siz aytasiz:**
   > *"Assalomu alaykum! Biz bilamizki, har shanba-yakshanba markazda Digital SAT mock imtihonini o'tkazish, test varaqalarini tarqatish, 50-60 ta o'quvchining javobini qo'lda tekshirish kamida 3-4 soat o'qituvchi va ma'murlar vaqtini oladi. O'quvchi natijasini esa 2 kundan keyin oladi.
-  > Biz Marstif Academy uchun **EduTest Pro** tizimini tayyorladik. Hozir 3 daqiqa ichida bu jarayon qanday 0 sekundga tushishini ko'rsataman."*
+  > Biz Marstif Academy uchun **EduTest Pro** tizimini tayyorladik. Hozir 3 daqiqa ichida bu jarayon qanday qilib to'liq avtomatlashtirilgan va lahzalik (real-time) natijaga aylanishini ko'rsataman."*
 
 ---
 
@@ -94,12 +94,13 @@ Ushbu qo'llanma bugun **Marstif Academy** rahbari va ma'muriyati (Marifat Jamal)
 
 ---
 
-## 3. Kutilmagan vaziyatlar va Failover Rejasi (Internet uzilsa)
+## 3. Kutilmagan vaziyatlar va Failover Rejasi (Internet va Xotira Himoyasi)
 
-- **Agar internet uzilsa yoki Telegram API sekinlashsa:**
-  - Bot lokal `users_db.json` faylida to'liq atomik keshda ishlaydi.
-  - Ma'lumotlar yo'qolmaydi (`asyncio.Lock` va `os.replace` himoyasi bor).
-  - WebApp mini-ilovani to'g'ridan-to'g'ri brauzerda `http://127.0.0.1:8080/webapp` orqali ochib, "Demo Ko'rgazma Rejimi"da funksionalligini ko'rsatishingiz mumkin.
+- **Tarmoq va Xotira Ishonchliligi:**
+  - Telegram boti ishlashi uchun internet aloqasi majburiydir (Telegram serverlari bilan bog'lanish uchun).
+  - Biroq, MongoDB buluti uzilsa yoki server to'satdan o'chib qolsa, bot lokal `users_db.json` faylida to'liq atomik keshda ishlaydi.
+  - Ma'lumotlar yo'qolmaydi (`asyncio.Lock`, flush, fsync va `os.replace` himoyasi bor).
+  - Agar tashqi internet uzilsa, WebApp interfeysini lokal brauzerda `http://127.0.0.1:8080/webapp` orqali "Offline Demo Rejimi"da xavfsiz ko'rsatishingiz mumkin.
 
 ---
 

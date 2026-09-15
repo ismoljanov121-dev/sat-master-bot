@@ -1,5 +1,5 @@
 """
-SAT Master AI - Question Service Engine
+EduTest Pro - Question Service Engine
 Manages authentic Digital SAT Question Bank (Reading, Writing, Math)
 and provides endless dynamic SAT Math generation for infinite practice.
 """

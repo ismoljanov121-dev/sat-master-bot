@@ -67,7 +67,8 @@ class Database:
             "exam_attempts": {},
             "diagnostic_sessions": {},
             "practice_stats": {},
-            "webapp_data": {}
+            "webapp_data": {},
+            "attention_events": []
         }
 
         if os.path.exists(LOCAL_DB_FILE):
@@ -353,19 +354,63 @@ class Database:
         return False
 
     # --- Exam Attempts (Student Tests) ---
+    async def create_user_attempt_atomic(
+        self,
+        user_id: int,
+        attempt_data: dict[str, Any]
+    ) -> tuple[bool, dict[str, Any] | None, str]:
+        """
+        Atomically ensures only one active attempt exists for a user.
+        If an active unexpired attempt exists, returns (False, existing_attempt, message).
+        Otherwise saves new attempt and returns (True, attempt_data, message).
+        """
+        async with self._lock:
+            for att in self.local_cache.get("exam_attempts", {}).values():
+                if att.get("user_id") == user_id and att.get("status") == "active":
+                    try:
+                        dl = datetime.fromisoformat(att["deadline"])
+                        if dl.tzinfo is None:
+                            dl = dl.replace(tzinfo=timezone.utc)
+                        if datetime.now(timezone.utc) <= dl:
+                            return False, att, "Foydalanuvchida allaqachon faol imtihon mavjud"
+                        else:
+                            att["status"] = "expired"
+                    except Exception:
+                        pass
+
+            attempt_id = attempt_data["attempt_id"]
+            self.local_cache.setdefault("exam_attempts", {})[attempt_id] = attempt_data
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, self._save_local_db_sync)
+
+            if self.is_mongo_active and (self.db is not None):
+                try:
+                    await self.db.exam_attempts.update_one(
+                        {"attempt_id": attempt_id},
+                        {"$set": attempt_data},
+                        upsert=True
+                    )
+                except Exception as e:
+                    logger.error(f"MongoDB create_user_attempt_atomic error: {e}")
+
+            return True, attempt_data, "Muvaffaqiyatli yaratildi"
+
     async def save_attempt(self, attempt_data: dict[str, Any]) -> None:
-        """Saves student exam attempt and increments user exam count if submitted."""
+        """Saves student exam attempt and increments user exam count once if submitted (idempotent)."""
         attempt_id = attempt_data["attempt_id"]
         self.local_cache.setdefault("exam_attempts", {})[attempt_id] = attempt_data
 
         user_id_str = str(attempt_data.get("user_id", ""))
         status = attempt_data.get("status")
 
-        if status in ("submitted", "expired") and user_id_str in self.local_cache.get("users", {}):
-            user = self.local_cache["users"][user_id_str]
-            user["exams_taken"] = user.get("exams_taken", 0) + 1
-            if attempt_data.get("score"):
-                user["last_mock_score"] = attempt_data["score"].get("accuracy_percentage")
+        if status in ("submitted", "expired"):
+            if not attempt_data.get("counter_recorded", False):
+                attempt_data["counter_recorded"] = True
+                if user_id_str in self.local_cache.get("users", {}):
+                    user = self.local_cache["users"][user_id_str]
+                    user["exams_taken"] = user.get("exams_taken", 0) + 1
+                    if attempt_data.get("score"):
+                        user["last_mock_score"] = attempt_data["score"].get("accuracy_percentage")
 
         await self._atomic_save_local()
 
@@ -459,10 +504,42 @@ class Database:
                 "attempt_id": att.get("attempt_id"),
                 "student_name": name,
                 "user_id": uid,
+                "session_id": att.get("session_id"),
                 "template_name": att.get("template_name", "mock"),
                 "accuracy": score.get("accuracy_percentage", 0),
                 "correct_count": score.get("correct_count", 0),
                 "total_questions": score.get("total_questions", 0),
+                "by_section": score.get("by_section", {}),
+                "weaknesses": score.get("weaknesses", []),
+                "date_tashkent": utc_to_tashkent_str(att.get("start_time")),
+                "status": att.get("status")
+            })
+        return results
+
+    def get_session_results(self, session_id: str) -> list[dict[str, Any]]:
+        """Returns completed attempts belonging to a specific session_id."""
+        attempts = [
+            att for att in self.local_cache.get("exam_attempts", {}).values()
+            if att.get("session_id") == session_id and att.get("status") in ("submitted", "expired")
+        ]
+        attempts.sort(key=lambda x: x.get("start_time", ""), reverse=True)
+        results = []
+        for att in attempts:
+            uid = att.get("user_id")
+            user = self.get_user(uid)
+            name = user.get("full_name", f"ID: {uid}") if user else f"ID: {uid}"
+            score = att.get("score") or {}
+            results.append({
+                "attempt_id": att.get("attempt_id"),
+                "student_name": name,
+                "user_id": uid,
+                "session_id": session_id,
+                "template_name": att.get("template_name", "mock"),
+                "accuracy": score.get("accuracy_percentage", 0),
+                "correct_count": score.get("correct_count", 0),
+                "total_questions": score.get("total_questions", 0),
+                "by_section": score.get("by_section", {}),
+                "weaknesses": score.get("weaknesses", []),
                 "date_tashkent": utc_to_tashkent_str(att.get("start_time")),
                 "status": att.get("status")
             })
@@ -546,6 +623,32 @@ class Database:
 
     def get_webapp_user_data(self, user_id: int) -> dict[str, Any] | None:
         return self.local_cache.get("webapp_data", {}).get(str(user_id))
+
+    # --- Attention Events (Web / Exam Focus Monitoring) ---
+    async def save_attention_event(self, user_id: int, event_data: dict[str, Any]) -> None:
+        """Saves focus loss, tab switch, or blur events."""
+        entry = {
+            "user_id": user_id,
+            "event": event_data.get("event"),
+            "attempt_id": event_data.get("attempt_id"),
+            "timestamp": event_data.get("timestamp") or get_utc_now_str(),
+            "details": event_data.get("details", {})
+        }
+        self.local_cache.setdefault("attention_events", []).append(entry)
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.attention_events.insert_one(entry)
+            except Exception as e:
+                logger.error(f"MongoDB save_attention_event error: {e}")
+
+    def get_attention_events(self, user_id: int | None = None) -> list[dict[str, Any]]:
+        """Returns attention events, optionally filtered by user_id."""
+        events = self.local_cache.get("attention_events", [])
+        if user_id is not None:
+            return [e for e in events if e.get("user_id") == user_id]
+        return list(events)
 
 
 # Singleton instance

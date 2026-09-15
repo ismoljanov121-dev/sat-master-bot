@@ -1,7 +1,7 @@
 """
-SAT Master AI - Infinite Practice Engine (Math, Reading, Writing)
+EduTest Pro - Infinite Practice Engine (Math, Reading, Writing)
 Provides endless practice with authentic Digital SAT questions,
-instant feedback, Desmos hacks, SAT grammar strategies, and streak tracking.
+instant feedback, Desmos strategies, SAT grammar strategies, and streak tracking.
 """
 
 import html

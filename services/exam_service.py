@@ -6,6 +6,7 @@ Timeout Enforcement, and Section/Domain Score Aggregation.
 
 import logging
 import random
+import string
 import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -154,32 +155,49 @@ class ExamEngine:
     """Server-authoritative state manager for exam sessions and attempts."""
 
     @staticmethod
-    def generate_join_code(prefix: str = "MARS") -> str:
-        """Generates a 6-character clean join code (e.g., MARS26)."""
-        suffix = f"{random.randint(10, 99)}"
-        return f"{prefix[:4].upper()}{suffix}"
+    def generate_join_code(prefix: str = "MARS", existing_codes: set[str] | None = None) -> str:
+        """Generates an alphanumeric 6-character clean join code (e.g., MARS7K) guaranteeing uniqueness."""
+        chars = string.ascii_uppercase + string.digits
+        for _ in range(200):
+            suffix = "".join(random.choices(chars, k=2))
+            code = f"{prefix[:4].upper()}{suffix}"
+            if existing_codes is None or code not in existing_codes:
+                return code
+        return f"{prefix[:4].upper()}{uuid.uuid4().hex[:2].upper()}"
 
     @staticmethod
     def create_attempt(
         user_id: int,
         template_name: str = "demo_mock",
         session_id: str | None = None,
-        custom_seed: int | None = None
+        custom_seed: int | None = None,
+        session_deadline: str | None = None
     ) -> dict[str, Any]:
-        """Creates an authoritative exam attempt with strict server-side deadline."""
+        """Creates an authoritative exam attempt with strict server-side deadline and attempt nonce."""
         template = EXAM_TEMPLATES.get(template_name, EXAM_TEMPLATES["demo_mock"])
         duration = template["duration_seconds"]
 
         now_utc = datetime.now(timezone.utc)
         deadline_utc = now_utc + timedelta(seconds=duration)
+        if session_deadline:
+            try:
+                s_dl = datetime.fromisoformat(session_deadline)
+                if s_dl.tzinfo is None:
+                    s_dl = s_dl.replace(tzinfo=timezone.utc)
+                if s_dl < deadline_utc:
+                    deadline_utc = s_dl
+            except Exception as e:
+                logger.warning(f"Failed to parse session_deadline {session_deadline}: {e}")
 
         seed = custom_seed if custom_seed is not None else int(now_utc.timestamp() * 1000) ^ user_id
         questions = prepare_shuffled_questions(template_name, seed)
 
         attempt_id = f"att_{uuid.uuid4().hex[:8]}"
+        nonce = uuid.uuid4().hex[:6]
 
         attempt_data = {
             "attempt_id": attempt_id,
+            "nonce": nonce,
             "user_id": user_id,
             "session_id": session_id,
             "template_name": template_name,
@@ -215,13 +233,17 @@ class ExamEngine:
     def submit_answer(
         attempt: dict[str, Any],
         q_idx: int,
-        selected_key: str
+        selected_key: str,
+        expected_nonce: str | None = None
     ) -> tuple[str, dict[str, Any]]:
         """
-        Submits an answer with idempotency and server deadline enforcement.
+        Submits an answer with idempotency, nonce validation, and server deadline enforcement.
         Returns: (status_code, updated_attempt)
-        status_codes: 'recorded', 'already_answered', 'expired', 'invalid_index'
+        status_codes: 'recorded', 'already_answered', 'expired', 'invalid_index', 'invalid_nonce'
         """
+        if expected_nonce and attempt.get("nonce") != expected_nonce:
+            return "invalid_nonce", attempt
+
         if ExamEngine.is_attempt_expired(attempt):
             attempt["status"] = "expired"
             ExamEngine.finalize_score(attempt)
@@ -238,6 +260,9 @@ class ExamEngine:
         # ignore repeated taps to prevent double counting.
         if str_idx in answers:
             return "already_answered", attempt
+
+        if q_idx != attempt.get("current_idx"):
+            return "invalid_index", attempt
 
         target_q = questions[q_idx]
         correct_key = target_q.get("correct", "").strip().upper()

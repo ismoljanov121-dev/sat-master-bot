@@ -10,7 +10,7 @@
 
 | Hozirgi An'anaviy Holat (Qog'ozli Mock) | EduTest Pro Bilan Raqamli Holat |
 | :--- | :--- |
-| **Vaqt yo'qotilishi:** 50 ta o'quvchining test varaqalarini o'qituvchilar 3-4 soat tekshiradi. | **0 sekund:** O'quvchi oxirgi javobni bosishi bilanoq natija tayyor bo'ladi. |
+| **Vaqt yo'qotilishi:** 50 ta o'quvchining test varaqalarini o'qituvchilar 3-4 soat tekshiradi. | **Lahzalik (Avtomatlashtirilgan):** O'quvchi oxirgi javobni bosishi bilanoq natija tayyor bo'ladi. |
 | **Qog'oz xarajatlari:** Har haftalik mock uchun yuzlab sahifa qog'oz chop etiladi. | **100% Qog'ozsiz (Paperless):** Testlar to'g'ridan-to'g'ri Telegram platformasida o'tadi. |
 | **Yuzaki baholash:** O'quvchiga faqat umumiy ball aytiladi, qaysi mavzuda xato qilgani noma'lum qoladi. | **Chuqur analitika:** O'quvchining aynan qaysi mavzularda (Algebra, Geometry, Craft & Structure) oqsayotgani aniqlanadi. |
 

@@ -982,13 +982,30 @@
         }
 
         // ==================== DATA STORAGE ====================
-        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        let errors = JSON.parse(localStorage.getItem('errors')) || [];
-        let settings = JSON.parse(localStorage.getItem('settings')) || {
+        let tasks = [];
+        try {
+            const raw = localStorage.getItem('tasks');
+            tasks = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(tasks)) tasks = [];
+        } catch (e) { tasks = []; }
+
+        let errors = [];
+        try {
+            const raw = localStorage.getItem('errors');
+            errors = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(errors)) errors = [];
+        } catch (e) { errors = []; }
+
+        let settings = {
             centerName: '',
             groupName: '',
             mentorName: ''
         };
+        try {
+            const raw = localStorage.getItem('settings');
+            const parsed = raw ? JSON.parse(raw) : null;
+            if (parsed && typeof parsed === 'object') settings = Object.assign(settings, parsed);
+        } catch (e) {}
 
         function escapeHTML(str) {
             if (!str) return '';
@@ -1009,10 +1026,25 @@
             return '';
         }
 
+        let syncTimeout = null;
+        function setSyncBadge(statusText, colorClass) {
+            let badge = document.getElementById('syncStatusBadge');
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.id = 'syncStatusBadge';
+                badge.className = 'fixed bottom-4 right-4 text-xs font-semibold px-2.5 py-1 rounded-full shadow-lg transition-all duration-300 z-50 backdrop-blur-md';
+                document.body.appendChild(badge);
+            }
+            badge.style.opacity = '1';
+            badge.className = `fixed bottom-4 right-4 text-xs font-semibold px-2.5 py-1 rounded-full shadow-lg transition-all duration-300 z-50 backdrop-blur-md ${colorClass}`;
+            badge.textContent = statusText;
+        }
+
         async function syncDataWithBackend() {
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
+                setSyncBadge('Sinxronlanmoqda 🔄', 'bg-blue-500/20 text-blue-300 border border-blue-500/30');
                 try {
-                    await fetch('/api/v1/user/progress', {
+                    const res = await fetch('/api/v1/user/progress', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1024,25 +1056,46 @@
                             settings: settings
                         })
                     });
+                    if (!res.ok) {
+                        throw new Error(`HTTP ${res.status}`);
+                    }
+                    setSyncBadge('Sinxronlandi ✅', 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30');
+                    setTimeout(() => {
+                        const b = document.getElementById('syncStatusBadge');
+                        if (b && b.textContent === 'Sinxronlandi ✅') b.style.opacity = '0';
+                    }, 3000);
                 } catch (e) {
                     console.warn('Backend sync failed:', e);
+                    setSyncBadge('Xatolik ⚠️', 'bg-rose-500/20 text-rose-300 border border-rose-500/30 cursor-pointer');
+                    const b = document.getElementById('syncStatusBadge');
+                    if (b) {
+                        b.onclick = () => {
+                            b.style.opacity = '1';
+                            syncDataWithBackend();
+                        };
+                    }
                 }
             }
         }
 
+        function syncDataWithBackendDebounced() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(syncDataWithBackend, 500);
+        }
+
         function saveTasks() {
             localStorage.setItem('tasks', JSON.stringify(tasks));
-            syncDataWithBackend();
+            syncDataWithBackendDebounced();
         }
 
         function saveErrors() {
             localStorage.setItem('errors', JSON.stringify(errors));
-            syncDataWithBackend();
+            syncDataWithBackendDebounced();
         }
 
         function saveSettings() {
             localStorage.setItem('settings', JSON.stringify(settings));
-            syncDataWithBackend();
+            syncDataWithBackendDebounced();
         }
 
         // ==================== TOAST NOTIFICATIONS ====================
@@ -1721,13 +1774,19 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             input.accept = 'application/json';
             input.onchange = e => {
                 const file = e.target.files[0];
+                if (!file) return;
+                if (file.size > 500 * 1024) {
+                    alert("Fayl hajmi 500 KB dan oshmasligi kerak!");
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = event => {
                     try {
                         const data = JSON.parse(event.target.result);
-                        tasks = data.tasks || [];
-                        errors = data.errors || [];
-                        settings = data.settings || {};
+                        if (!data || typeof data !== 'object') throw new Error("Invalid format");
+                        tasks = Array.isArray(data.tasks) ? data.tasks.slice(0, 100) : [];
+                        errors = Array.isArray(data.errors) ? data.errors.slice(0, 100) : [];
+                        settings = (data.settings && typeof data.settings === 'object') ? data.settings : {};
                         saveTasks();
                         saveErrors();
                         saveSettings();
@@ -1736,7 +1795,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
                         updateStats();
                         showToast(t('toast_data_imported'));
                     } catch (err) {
-                        alert('Invalid file format');
+                        alert("Fayl formati yaroqsiz yoki buzilgan.");
                     }
                 };
                 reader.readAsText(file);
@@ -1762,43 +1821,61 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
                     'X-Telegram-Init-Data': window.Telegram.WebApp.initData
                 }
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
             .then(res => {
                 if (res.status === 'ok' && res.data) {
-                    if (Array.isArray(res.data.tasks) && res.data.tasks.length > 0) {
+                    if (Array.isArray(res.data.tasks)) {
                         tasks = res.data.tasks;
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
                     }
-                    if (Array.isArray(res.data.errors) && res.data.errors.length > 0) {
+                    if (Array.isArray(res.data.errors)) {
                         errors = res.data.errors;
+                        localStorage.setItem('errors', JSON.stringify(errors));
                     }
-                    if (res.data.settings) {
+                    if (res.data.settings && typeof res.data.settings === 'object') {
                         settings = Object.assign(settings, res.data.settings);
+                        localStorage.setItem('settings', JSON.stringify(settings));
                     }
                     renderTasks();
                     renderErrors();
                     updateStats();
+                    setSyncBadge('Sinxronlandi ✅', 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30');
+                    setTimeout(() => {
+                        const b = document.getElementById('syncStatusBadge');
+                        if (b && b.textContent === 'Sinxronlandi ✅') b.style.opacity = '0';
+                    }, 3000);
                 }
             })
-            .catch(err => console.log('Backend hydrate notice:', err));
-
-            // Log visibility change for honest attention events (signal, not proof)
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    fetch('/api/v1/user/attention-event', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Telegram-Init-Data': window.Telegram.WebApp.initData
-                        },
-                        body: JSON.stringify({ event: 'tab_hidden' })
-                    }).catch(() => {});
-                }
+            .catch(err => {
+                console.log('Backend hydrate notice:', err);
+                setSyncBadge('Offline 💾', 'bg-slate-500/20 text-slate-300 border border-slate-500/30');
             });
+
+            // Log visibility and window focus changes for honest attention signals
+            function sendAttentionSignal(eventType) {
+                fetch('/api/v1/user/attention-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Telegram-Init-Data': window.Telegram.WebApp.initData
+                    },
+                    body: JSON.stringify({ event: eventType, timestamp: new Date().toISOString() })
+                }).catch(() => {});
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                sendAttentionSignal(document.hidden ? 'tab_hidden' : 'tab_visible');
+            });
+            window.addEventListener('blur', () => sendAttentionSignal('window_blur'));
+            window.addEventListener('focus', () => sendAttentionSignal('window_focus'));
         } else {
             // External browser preview mode banner
             const previewBanner = document.createElement('div');
             previewBanner.className = 'bg-amber-500/20 border-b border-amber-500/40 text-amber-200 text-xs px-4 py-2 text-center fixed top-0 left-0 right-0 z-50 backdrop-blur-md';
-            previewBanner.innerHTML = '⚡ <b>Demo Ko\'rgazma Rejimi:</b> Telegram bot orqali ochilganda ma\'lumotlar profilingiz bilan avtomatik sinxronlanadi.';
+            previewBanner.innerHTML = '⚡ <b>Offline Demo Rejimi (Lokal ko\'rgazma):</b> Telegram bot orqali ochilganda ma\'lumotlar profilingiz bilan avtomatik sinxronlanadi.';
             document.body.prepend(previewBanner);
         }
     </script>

@@ -1,8 +1,8 @@
 @echo off
-title SAT Master AI Bot
+title EduTest Pro - Marstif Academy
 cd /d "%~dp0"
 echo ========================================================
-echo   SAT Master AI Bot - Digital SAT 1500+ AI Diagnostic
+echo   EduTest Pro - Marstif Academy Digital SAT Engine
 echo ========================================================
 python bot.py
 pause

@@ -1,5 +1,5 @@
 """
-SAT Master AI - User Statistics & Admin Backup Triggers
+EduTest Pro - User Statistics & Admin Backup Triggers
 """
 
 import html

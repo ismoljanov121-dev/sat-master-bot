@@ -12,7 +12,7 @@ Features:
 import html
 import logging
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from aiogram import F, Router
 from aiogram.filters import Command
@@ -25,7 +25,7 @@ from aiogram.types import (
 )
 
 from config import BRAND_NAME, CENTER_NAME, is_admin
-from database import db, get_tashkent_now_str, utc_to_tashkent_str
+from database import TASHKENT_TZ, db, get_tashkent_now_str, utc_to_tashkent_str
 from services.backup_service import perform_backup
 from services.exam_service import (
     EXAM_TEMPLATES,
@@ -185,23 +185,34 @@ async def cb_admin_create_session(callback: CallbackQuery):
             await callback.message.edit_text(suff_msg, reply_markup=kb, parse_mode="HTML")
             return
 
-        # Generate unique join code
-        code = exam_engine.generate_join_code(prefix="MARS")
+        # Generate unique alphanumeric join code
+        active_codes = {
+            s.get("code", "").upper()
+            for s in db.local_cache.get("exam_sessions", {}).values()
+            if s.get("status") == "active"
+        }
+        code = exam_engine.generate_join_code(prefix="MARS", existing_codes=active_codes)
         session_id = f"sess_{uuid.uuid4().hex[:8]}"
+
+        now_utc = datetime.now(timezone.utc)
+        dur_sec = template["duration_seconds"]
+        deadline_utc = now_utc + timedelta(seconds=dur_sec)
 
         session_data = {
             "session_id": session_id,
             "code": code,
             "template_name": template_name,
             "title": template["title"],
-            "duration_seconds": template["duration_seconds"],
+            "duration_seconds": dur_sec,
             "created_by": callback.from_user.id,
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "starts_at": now_utc.isoformat(),
+            "deadline": deadline_utc.isoformat(),
+            "created_at": now_utc.isoformat(),
             "status": "active"
         }
         await db.save_exam_session(session_data)
 
-        dur_min = template["duration_seconds"] // 60
+        dur_min = dur_sec // 60
         announce_text = (
             f"✅ <b>YANGI MOCK SESSIYA OCHILDI!</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -261,6 +272,10 @@ async def cb_admin_active_sessions(callback: CallbackQuery):
             lines.append(f"🟢 <b>Kod: {code}</b> | {title}\n   <i>Ochilgan: {time_str}</i>\n")
             buttons.append([
                 InlineKeyboardButton(
+                    text=f"📊 Natijalar: {code}",
+                    callback_data=f"adm:sess_filter:{sess_id}"
+                ),
+                InlineKeyboardButton(
                     text=f"⏹ Yopish: {code}",
                     callback_data=f"adm:close_sess:{sess_id}"
                 )
@@ -298,26 +313,36 @@ async def cb_admin_close_session(callback: CallbackQuery):
             pass
 
 
-@router.callback_query(F.data == "adm:results")
+@router.callback_query(F.data.startswith("adm:results") | F.data.startswith("adm:sess_filter:"))
 async def cb_admin_recent_results(callback: CallbackQuery):
     if not await check_admin_access(callback):
         return
 
     try:
-        results = db.get_recent_exam_results(limit=10)
+        is_sess_filter = callback.data.startswith("adm:sess_filter:")
+        if is_sess_filter:
+            sess_id = callback.data.replace("adm:sess_filter:", "").strip()
+            results = db.get_session_results(sess_id)
+            sess_obj = db.get_exam_session(sess_id)
+            code_label = sess_obj.get("code", sess_id) if sess_obj else sess_id
+            header = f"👥 <b>SESSIYA NATIJALARI (Kod: {code_label}):</b>"
+        else:
+            results = db.get_recent_exam_results(limit=10)
+            header = "👥 <b>SO'NGGI MOCK NATIJALARI:</b>"
+
         if not results:
             kb = InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text="⬅️ Ortga", callback_data="adm:refresh")]
             ])
             await callback.message.edit_text(
-                "ℹ️ <b>Hozircha topshirilgan mock imtihonlar natijasi yo'q.</b>",
+                f"ℹ️ <b>Hozircha natijalar mavjud emas.</b>",
                 reply_markup=kb,
                 parse_mode="HTML"
             )
             return
 
         lines = [
-            "👥 <b>SO'NGGI MOCK NATIJALARI:</b>",
+            header,
             "━━━━━━━━━━━━━━━━━━━━━━\n"
         ]
         for idx, r in enumerate(results, 1):
@@ -326,9 +351,18 @@ async def cb_admin_recent_results(callback: CallbackQuery):
             corr = r["correct_count"]
             tot = r["total_questions"]
             dt = r["date_tashkent"]
+            sec = r.get("by_section") or {}
+            m_stat = f"M: {sec.get('math', {}).get('correct', 0)}/{sec.get('math', {}).get('total', 0)}"
+            r_stat = f"R: {sec.get('reading', {}).get('correct', 0)}/{sec.get('reading', {}).get('total', 0)}"
+            w_stat = f"W: {sec.get('writing', {}).get('correct', 0)}/{sec.get('writing', {}).get('total', 0)}"
+            weak = r.get("weaknesses") or []
+            weak_domains = [w.get("domain", "") for w in weak[:2] if w.get("domain")]
+            weak_text = f" | Zaif: {', '.join(weak_domains)}" if weak_domains else ""
+
             lines.append(
                 f"<b>{idx}. {name}</b> — <b>{acc}%</b> ({corr}/{tot})\n"
-                f"   <i>Vaqt: {dt}</i>"
+                f"   <i>Taqsimot: {m_stat} | {r_stat} | {w_stat}{weak_text}</i>\n"
+                f"   <i>Vaqt: {dt}</i>\n"
             )
 
         kb = InlineKeyboardMarkup(inline_keyboard=[

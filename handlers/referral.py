@@ -1,6 +1,6 @@
 """
-SAT Master AI - Referral and Virality Engine
-Enables students to invite classmates and earn rewards (VIP Desmos Cheatsheets, Hard Module 2).
+EduTest Pro - Referral and Virality Engine
+Enables students to invite classmates and earn rewards (VIP Desmos Strategiyalari, Hard Module 2).
 """
 
 import html

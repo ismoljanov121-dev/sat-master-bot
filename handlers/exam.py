@@ -70,14 +70,15 @@ def get_exam_question_keyboard(
 ) -> InlineKeyboardMarkup:
     """
     Builds compact inline keyboard for exam questions.
-    Callback format strictly below 64 bytes:
-    - Option: ex:a:<opt_key> (e.g., ex:a:A)
-    - Nav: ex:n:<idx> (e.g., ex:n:2)
-    - Finish: ex:fin
+    Callback format strictly below 64 bytes and bound to attempt nonce and question index:
+    - Option: ex:a:<nonce>:<idx>:<opt_key> (e.g., ex:a:a1b2c3:0:A)
+    - Nav: ex:n:<nonce>:<idx> (e.g., ex:n:a1b2c3:2)
+    - Finish: ex:f:<nonce> (e.g., ex:f:a1b2c3)
     """
     questions = attempt.get("questions", [])
     total = len(questions)
     target_q = questions[q_idx]
+    nonce = attempt.get("nonce", attempt.get("attempt_id", "")[:6])
 
     answers = attempt.get("answers", {})
     recorded_ans = answers.get(str(q_idx), {}).get("selected") if str(q_idx) in answers else None
@@ -91,7 +92,7 @@ def get_exam_question_keyboard(
         opt_key = opt["key"]
         prefix = "🔘" if active_selection == opt_key else "⚪"
         btn_text = f"{prefix} {opt_key}"
-        btn = InlineKeyboardButton(text=btn_text, callback_data=f"ex:a:{opt_key}")
+        btn = InlineKeyboardButton(text=btn_text, callback_data=f"ex:a:{nonce}:{q_idx}:{opt_key}")
         if opt_key in ("A", "B"):
             row1.append(btn)
         else:
@@ -105,19 +106,19 @@ def get_exam_question_keyboard(
     # Navigation row
     nav_row = []
     if q_idx > 0:
-        nav_row.append(InlineKeyboardButton(text="⬅️ Oldingi", callback_data=f"ex:n:{q_idx - 1}"))
+        nav_row.append(InlineKeyboardButton(text="⬅️ Oldingi", callback_data=f"ex:n:{nonce}:{q_idx - 1}"))
 
     if q_idx + 1 < total:
-        nav_row.append(InlineKeyboardButton(text="Keyingi ➡️", callback_data=f"ex:n:{q_idx + 1}"))
+        nav_row.append(InlineKeyboardButton(text="Keyingi ➡️", callback_data=f"ex:n:{nonce}:{q_idx + 1}"))
     else:
-        nav_row.append(InlineKeyboardButton(text="🏁 Tugatish", callback_data="ex:fin"))
+        nav_row.append(InlineKeyboardButton(text="🏁 Tugatish", callback_data=f"ex:f:{nonce}"))
 
     if nav_row:
         buttons.append(nav_row)
 
     # Quick exit / abort button
     buttons.append([
-        InlineKeyboardButton(text="⏹ Imtihonni topshirish", callback_data="ex:fin")
+        InlineKeyboardButton(text="⏹ Imtihonni topshirish", callback_data=f"ex:f:{nonce}")
     ])
 
     return InlineKeyboardMarkup(inline_keyboard=buttons)
@@ -238,13 +239,28 @@ async def cmd_mock(message: Message, command: CommandObject | None = None):
             )
             return
 
-        # Start attempt for this specific session
-        attempt = exam_engine.create_attempt(
+        # Start attempt for this specific session with session deadline enforcement
+        attempt_candidate = exam_engine.create_attempt(
             user_id=user_id,
             template_name=session.get("template_name", "demo_mock"),
-            session_id=session.get("session_id")
+            session_id=session.get("session_id"),
+            session_deadline=session.get("deadline")
         )
-        await db.save_attempt(attempt)
+        created, attempt, msg = await db.create_user_attempt_atomic(user_id, attempt_candidate)
+        if not created and attempt:
+            att_nonce = attempt.get("nonce", "")
+            kb = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="▶️ Imtihonni davom ettirish", callback_data="ex:resume")],
+                [InlineKeyboardButton(text="🏁 Imtihonni topshirish", callback_data=f"ex:f:{att_nonce}")]
+            ])
+            await message.answer(
+                "⚠️ <b>Sizda tugallanmagan faol mock imtihon mavjud!</b>\n"
+                "Iltimos, avvalgi imtihonni yakunlang yoki davom ettiring:",
+                reply_markup=kb,
+                parse_mode="HTML"
+            )
+            return
+
         text = format_exam_question_text(attempt, 0)
         kb = get_exam_question_keyboard(attempt, 0)
         await message.answer(
@@ -328,9 +344,21 @@ async def cb_start_template(callback: CallbackQuery):
             await callback.message.edit_text(suff_msg, reply_markup=kb, parse_mode="HTML")
             return
 
-        # Create authoritative attempt
-        attempt = exam_engine.create_attempt(user_id=user_id, template_name=template_name)
-        await db.save_attempt(attempt)
+        # Create authoritative attempt atomically
+        attempt_candidate = exam_engine.create_attempt(user_id=user_id, template_name=template_name)
+        created, attempt, msg = await db.create_user_attempt_atomic(user_id, attempt_candidate)
+        if not created and attempt:
+            att_nonce = attempt.get("nonce", "")
+            kb = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="▶️ Imtihonni davom ettirish", callback_data="ex:resume")],
+                [InlineKeyboardButton(text="🏁 Imtihonni topshirish", callback_data=f"ex:f:{att_nonce}")]
+            ])
+            await callback.message.edit_text(
+                "⚠️ <b>Sizda allaqachon tugallanmagan faol mock imtihon mavjud!</b>",
+                reply_markup=kb,
+                parse_mode="HTML"
+            )
+            return
 
         text = format_exam_question_text(attempt, 0)
         kb = get_exam_question_keyboard(attempt, 0)
@@ -373,19 +401,41 @@ async def cb_resume_exam(callback: CallbackQuery):
 
 @router.callback_query(F.data.startswith("ex:a:"))
 async def cb_select_answer(callback: CallbackQuery):
-    """Handles answer option selection: ex:a:<opt_key>."""
+    """Handles answer option selection: ex:a:<nonce>:<idx>:<opt_key> (or ex:a:<opt_key>)."""
     try:
         user_id = callback.from_user.id
-        selected_key = callback.data.replace("ex:a:", "").strip().upper()
+        parts = callback.data.split(":")
+        if len(parts) >= 5:
+            expected_nonce = parts[2]
+            q_idx = int(parts[3])
+            selected_key = parts[4].strip().upper()
+        else:
+            expected_nonce = None
+            q_idx = None
+            selected_key = parts[2].strip().upper()
 
         active_attempt = db.get_user_active_attempt(user_id)
+        answered = False
         if not active_attempt:
             await callback.answer("Imtihon sessiyasi topilmadi yoki yakunlangan.", show_alert=True)
+            answered = True
             return
 
-        idx = active_attempt.get("current_idx", 0)
-        status, updated_attempt = exam_engine.submit_answer(active_attempt, idx, selected_key)
+        if expected_nonce and active_attempt.get("nonce") != expected_nonce:
+            await callback.answer("⛔ Ushbu savol eski yoki boshqa imtihon sessiyasiga tegishli.", show_alert=True)
+            answered = True
+            return
+
+        target_idx = q_idx if q_idx is not None else active_attempt.get("current_idx", 0)
+        status, updated_attempt = exam_engine.submit_answer(
+            active_attempt, target_idx, selected_key, expected_nonce=expected_nonce
+        )
         await db.save_attempt(updated_attempt)
+
+        if status == "invalid_nonce":
+            await callback.answer("⛔ Sessiya eskirgan.", show_alert=True)
+            answered = True
+            return
 
         if status == "expired":
             report_text = format_exam_result_report(updated_attempt)
@@ -412,8 +462,15 @@ async def cb_select_answer(callback: CallbackQuery):
             )
             return
 
-        # Render next question
-        next_idx = updated_attempt.get("current_idx", idx)
+        if status == "already_answered":
+            await callback.answer("ℹ️ Ushbu savolga allaqachon javob berilgan.")
+            answered = True
+        elif status == "invalid_index":
+            await callback.answer("ℹ️ Savol tartibi mos kelmadi.")
+            answered = True
+
+        # Render next/current question
+        next_idx = updated_attempt.get("current_idx", target_idx)
         text = format_exam_question_text(updated_attempt, next_idx)
         kb = get_exam_question_keyboard(updated_attempt, next_idx)
         try:
@@ -424,22 +481,33 @@ async def cb_select_answer(callback: CallbackQuery):
     except Exception as e:
         logger.error(f"Error in cb_select_answer: {e}")
     finally:
-        try:
-            await callback.answer()
-        except Exception:
-            pass
+        if not answered:
+            try:
+                await callback.answer()
+            except Exception:
+                pass
 
 
 @router.callback_query(F.data.startswith("ex:n:"))
 async def cb_navigate_question(callback: CallbackQuery):
-    """Handles question navigation: ex:n:<idx>."""
+    """Handles question navigation: ex:n:<nonce>:<idx> (or ex:n:<idx>)."""
     try:
         user_id = callback.from_user.id
-        target_idx = int(callback.data.replace("ex:n:", "").strip())
+        parts = callback.data.split(":")
+        if len(parts) >= 4:
+            nonce = parts[2]
+            target_idx = int(parts[3])
+        else:
+            nonce = None
+            target_idx = int(parts[2])
 
         active_attempt = db.get_user_active_attempt(user_id)
         if not active_attempt:
             await callback.answer("Imtihon sessiyasi topilmadi.", show_alert=True)
+            return
+
+        if nonce and active_attempt.get("nonce") != nonce:
+            await callback.answer("⛔ Sessiya eskirgan.", show_alert=True)
             return
 
         if exam_engine.is_attempt_expired(active_attempt):
@@ -468,15 +536,21 @@ async def cb_navigate_question(callback: CallbackQuery):
             pass
 
 
-@router.callback_query(F.data == "ex:fin")
+@router.callback_query(F.data.startswith("ex:f:") | (F.data == "ex:fin"))
 async def cb_finish_exam_early(callback: CallbackQuery):
-    """Manually finishes the exam attempt."""
+    """Manually finishes the exam attempt: ex:f:<nonce> or ex:fin."""
     try:
         user_id = callback.from_user.id
         active_attempt = db.get_user_active_attempt(user_id)
         if not active_attempt:
             await callback.answer("Faol imtihon topilmadi.", show_alert=True)
             return
+
+        if callback.data.startswith("ex:f:"):
+            nonce = callback.data.replace("ex:f:", "").strip()
+            if active_attempt.get("nonce") != nonce:
+                await callback.answer("⛔ Sessiya eskirgan.", show_alert=True)
+                return
 
         active_attempt["status"] = "submitted"
         exam_engine.finalize_score(active_attempt)

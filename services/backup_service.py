@@ -20,7 +20,7 @@ logger = logging.getLogger("BackupService")
 TASHKENT_TZ = timezone(timedelta(hours=5))
 
 async def export_full_database_state() -> dict:
-    """Exports complete snapshot of users, exams, quizzes, and webapp data."""
+    """Exports complete snapshot of users, exams, quizzes, webapp data, and attention events."""
     export_data = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "timestamp_tashkent": datetime.now(TASHKENT_TZ).strftime("%Y-%m-%d %H:%M:%S"),
@@ -30,7 +30,9 @@ async def export_full_database_state() -> dict:
         "users": {},
         "quizzes": [],
         "exam_sessions": {},
-        "exam_attempts": {}
+        "exam_attempts": {},
+        "webapp_data": {},
+        "attention_events": []
     }
 
     # Fetch from MongoDB if active
@@ -44,8 +46,27 @@ async def export_full_database_state() -> dict:
             quizzes_cursor = db.db.quiz_results.find({}, {"_id": 0})
             export_data["quizzes"] = await quizzes_cursor.to_list(length=10000)
 
+            sessions_cursor = db.db.exam_sessions.find({}, {"_id": 0})
+            sessions_list = await sessions_cursor.to_list(length=10000)
+            for s in sessions_list:
+                export_data["exam_sessions"][s.get("session_id")] = s
+
+            attempts_cursor = db.db.exam_attempts.find({}, {"_id": 0})
+            attempts_list = await attempts_cursor.to_list(length=10000)
+            for a in attempts_list:
+                export_data["exam_attempts"][a.get("attempt_id")] = a
+
+            webapp_cursor = db.db.webapp_data.find({}, {"_id": 0})
+            webapp_list = await webapp_cursor.to_list(length=10000)
+            for w in webapp_list:
+                export_data["webapp_data"][str(w.get("user_id"))] = w
+
+            att_cursor = db.db.attention_events.find({}, {"_id": 0})
+            export_data["attention_events"] = await att_cursor.to_list(length=10000)
+
             export_data["total_users"] = len(export_data["users"])
             export_data["total_quizzes"] = len(export_data["quizzes"])
+            export_data["total_exams"] = len(export_data["exam_attempts"])
             export_data["source"] = "MongoDB Atlas (Primary Cloud)"
             return export_data
         except Exception as e:
@@ -57,11 +78,27 @@ async def export_full_database_state() -> dict:
     export_data["quizzes"] = local_data.get("quizzes", [])
     export_data["exam_sessions"] = local_data.get("exam_sessions", {})
     export_data["exam_attempts"] = local_data.get("exam_attempts", {})
+    export_data["webapp_data"] = local_data.get("webapp_data", {})
+    export_data["attention_events"] = local_data.get("attention_events", [])
     export_data["total_users"] = len(export_data["users"])
     export_data["total_quizzes"] = len(export_data["quizzes"])
     export_data["total_exams"] = len(export_data["exam_attempts"])
-    export_data["source"] = "Atomic Local Storage (Failover)"
+    export_data["source"] = "Atomic Local Storage (Failover & Durable)"
     return export_data
+
+
+async def restore_database_from_snapshot(snapshot: dict) -> bool:
+    """Restores database state from a verified snapshot dictionary."""
+    try:
+        keys = ["users", "quizzes", "exam_sessions", "exam_attempts", "webapp_data", "attention_events"]
+        for k in keys:
+            if k in snapshot:
+                db.local_cache[k] = snapshot[k]
+        await db._atomic_save_local()
+        return True
+    except Exception as e:
+        logger.error(f"Error restoring database snapshot: {e}")
+        return False
 
 async def perform_backup(bot: Bot, manual: bool = False) -> bool:
     """Executes single backup operation and uploads JSON dump to backup channel."""

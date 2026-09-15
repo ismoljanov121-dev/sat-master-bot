@@ -89,15 +89,23 @@ def validate_telegram_init_data(
         if age_seconds < -MAX_FUTURE_SKEW_SECONDS:
             return False, None, "auth_date kelajak vaqtida berilgan (Soat nomuvofiqligi)"
 
-        # Parse user payload
+        # Parse and validate user payload
         user_json_str = parsed_items.get("user")
-        user_data: dict[str, Any] = {}
-        if user_json_str:
-            try:
-                user_data = json.loads(user_json_str)
-            except Exception as e:
-                logger.warning(f"Could not parse 'user' JSON: {e}")
-                return False, None, "User ma'lumotlari JSON formatida emas"
+        if not user_json_str:
+            return False, None, "initData ichida 'user' ma'lumotlari topilmadi"
+
+        try:
+            user_data = json.loads(user_json_str)
+        except Exception as e:
+            logger.warning(f"Could not parse 'user' JSON: {e}")
+            return False, None, "User ma'lumotlari JSON formatida emas"
+
+        if not isinstance(user_data, dict):
+            return False, None, "User obyekti noto'g'ri shaklda"
+
+        user_id = user_data.get("id")
+        if not isinstance(user_id, int) or user_id <= 0:
+            return False, None, "User ID musbat butun son bo'lishi shart"
 
         return True, user_data, "Muvaffaqiyatli autentifikatsiya qilindi"
 

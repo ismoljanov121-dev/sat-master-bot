@@ -8,6 +8,7 @@ Integrates:
 """
 
 import asyncio
+from datetime import datetime
 import json
 import logging
 import os
@@ -121,33 +122,97 @@ async def api_user_progress_get(request: web.Request) -> web.Response:
     })
 
 
+ALLOWED_ATTENTION_EVENTS = {"tab_hidden", "tab_visible", "window_blur", "window_focus"}
+
+
+def validate_progress_schema(payload: dict) -> tuple[bool, str]:
+    """Validates user progress payload against strict schema rules."""
+    if not isinstance(payload, dict):
+        return False, "Payload lug'at (object) ko'rinishida bo'lishi shart"
+
+    # Tasks validation
+    tasks = payload.get("tasks")
+    if tasks is not None:
+        if not isinstance(tasks, list):
+            return False, "tasks massiv bo'lishi shart"
+        if len(tasks) > 100:
+            return False, "tasks soni 100 tadan oshmasligi kerak"
+        for t in tasks:
+            if not isinstance(t, dict):
+                return False, "Har bir task obyekt bo'lishi shart"
+            subj = t.get("subject", "")
+            if not isinstance(subj, str) or len(subj) > 100:
+                return False, "Task subject matn bo'lishi va 100 belgidan oshmasligi kerak"
+            dur = t.get("duration")
+            if dur is not None:
+                if not isinstance(dur, (int, float)) or not (1 <= dur <= 600):
+                    return False, "Task duration 1 dan 600 daqiqagacha bo'lishi kerak"
+            d_str = t.get("date")
+            if d_str is not None:
+                if not isinstance(d_str, str) or len(d_str) != 10:
+                    return False, "Task date formati YYYY-MM-DD bo'lishi kerak"
+                try:
+                    datetime.strptime(d_str, "%Y-%m-%d")
+                except ValueError:
+                    return False, "Task date formati YYYY-MM-DD bo'lishi kerak"
+
+    # Errors validation
+    errors = payload.get("errors")
+    if errors is not None:
+        if not isinstance(errors, list):
+            return False, "errors massiv bo'lishi shart"
+        if len(errors) > 100:
+            return False, "errors soni 100 tadan oshmasligi kerak"
+        for err in errors:
+            if not isinstance(err, dict):
+                return False, "Har bir error obyekt bo'lishi shart"
+            sol = err.get("solution")
+            if sol is not None and isinstance(sol, str) and sol.strip():
+                if not (sol.startswith("https://") or sol.startswith("http://")):
+                    return False, "Xatolik yechimi havolasi http(s):// bilan boshlanishi kerak"
+
+    # Settings validation
+    settings = payload.get("settings")
+    if settings is not None:
+        if not isinstance(settings, dict):
+            return False, "settings lug'at bo'lishi shart"
+        if len(settings) > 20:
+            return False, "settings kalitlari soni 20 tadan oshmasligi kerak"
+
+    return True, "Valid"
+
+
 async def api_user_progress_post(request: web.Request) -> web.Response:
     """
     POST /api/v1/user/progress
     Persists student tasks, error log entries, and settings to backend.
+    Enforces strict schema validation. Allows empty arrays to clear data.
     """
     init_data = request.headers.get("X-Telegram-Init-Data")
-    if not init_data:
-        try:
-            body = await request.json()
-            init_data = body.get("initData", "")
-        except Exception:
-            pass
+    try:
+        payload = await request.json()
+    except Exception:
+        return web.json_response({"status": "error", "message": "Noto'g'ri JSON formati"}, status=400)
+
+    if not init_data and isinstance(payload, dict):
+        init_data = payload.get("initData", "")
 
     is_valid, user_data, msg = validate_telegram_init_data(init_data or "")
     if not is_valid or not user_data:
         return web.json_response({"status": "error", "message": "Ruxsatsiz kirish: initData tasdiqlanmadi"}, status=401)
 
     user_id = user_data.get("id")
-    try:
-        payload = await request.json()
-    except Exception:
-        return web.json_response({"status": "error", "message": "Noto'g'ri JSON formati"}, status=400)
+    if not user_id or not isinstance(user_id, int) or user_id <= 0:
+        return web.json_response({"status": "error", "message": "Yaroqsiz user ID"}, status=400)
 
     # Validate size
     payload_str = json.dumps(payload)
     if len(payload_str.encode("utf-8")) > 102400:  # 100 KB limit
         return web.json_response({"status": "error", "message": "Payload hajmi 100 KB dan oshmasligi kerak"}, status=413)
+
+    is_valid_schema, schema_err = validate_progress_schema(payload)
+    if not is_valid_schema:
+        return web.json_response({"status": "error", "message": schema_err}, status=400)
 
     await db.save_webapp_user_data(user_id, payload)
     return web.json_response({
@@ -160,29 +225,49 @@ async def api_attention_event_post(request: web.Request) -> web.Response:
     """
     POST /api/v1/user/attention-event
     Honest anti-cheat boundary: logs focus/visibility changes as an attention signal,
-    without drawing definitive cheating conclusions.
+    without drawing definitive cheating conclusions. Requires authentication and valid schema.
     """
     init_data = request.headers.get("X-Telegram-Init-Data")
-    is_valid, user_data, _ = validate_telegram_init_data(init_data or "")
-
-    user_id = user_data.get("id") if user_data else "anonymous"
     try:
         body = await request.json()
-        event_type = body.get("event", "visibility_change")
-        logger.info(f"Attention event logged: user_id={user_id}, event={event_type}")
     except Exception:
-        pass
+        return web.json_response({"status": "error", "message": "Noto'g'ri JSON formati"}, status=400)
+
+    if not init_data and isinstance(body, dict):
+        init_data = body.get("initData", "")
+
+    is_valid, user_data, msg = validate_telegram_init_data(init_data or "")
+    if not is_valid or not user_data:
+        return web.json_response({"status": "error", "message": "Ruxsatsiz kirish: initData tasdiqlanmadi"}, status=401)
+
+    user_id = user_data.get("id")
+    if not user_id or not isinstance(user_id, int) or user_id <= 0:
+        return web.json_response({"status": "error", "message": "Yaroqsiz user ID"}, status=400)
+
+    if not isinstance(body, dict):
+        return web.json_response({"status": "error", "message": "Body lug'at bo'lishi shart"}, status=400)
+
+    event_type = body.get("event")
+    if event_type not in ALLOWED_ATTENTION_EVENTS:
+        return web.json_response({
+            "status": "error",
+            "message": f"Yaroqsiz event turi: {event_type}. Ruxsat etilganlar: {list(ALLOWED_ATTENTION_EVENTS)}"
+        }, status=400)
+
+    await db.save_attention_event(user_id, body)
+    logger.info(f"Attention event logged to database: user_id={user_id}, event={event_type}")
 
     return web.json_response({
         "status": "ok",
         "recorded": True,
-        "note": "Attention signal qayd etildi (dalil emas, xizmat signali)"
+        "event": event_type,
+        "note": "Attention signal DB ga qayd etildi (dalil emas, xizmat signali)"
     })
 
 
 def setup_web_app() -> web.Application:
-    """Constructs the unified aiohttp web application with API routes."""
-    app = web.Application()
+    """Constructs the unified aiohttp web application with API routes and 256KB request limit."""
+    app = web.Application(client_max_size=256 * 1024)
     # CORS options
     app.router.add_get("/", health_handler)
     app.router.add_get("/health", health_handler)
