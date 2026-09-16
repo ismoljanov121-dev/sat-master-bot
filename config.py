@@ -15,8 +15,9 @@ BOT_NAME: str = os.getenv("BOT_NAME", "EduTest Pro | Mock & Exam System").strip(
 CENTER_NAME: str = os.getenv("CENTER_NAME", "Mustaqil Digital SAT Tayyorgarlik").strip()
 MENTOR_NAME: str = os.getenv("MENTOR_NAME", "SAT Mentor").strip()
 
-# --- Telegram Bot Token ---
+# --- Telegram Bot Token & Username ---
 BOT_TOKEN: str = os.getenv("BOT_TOKEN", "").strip()
+BOT_USERNAME: str = os.getenv("BOT_USERNAME", "SAT_helper123_bot").strip().lstrip("@")
 
 # --- Administrator IDs ---
 def _parse_admin_ids(raw_value: str) -> list[int]:

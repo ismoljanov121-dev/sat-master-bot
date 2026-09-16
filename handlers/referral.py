@@ -14,12 +14,13 @@ from aiogram.types import (
     Message,
 )
 
+from config import BOT_USERNAME
 from database import db
 
 router = Router()
 
 def get_referral_keyboard(user_id: int) -> InlineKeyboardMarkup:
-    ref_link = f"https://t.me/edutest_pro_bot?start=ref_{user_id}"
+    ref_link = f"https://t.me/{BOT_USERNAME}?start=ref_{user_id}"
     share_url = f"https://t.me/share/url?url={ref_link}&text=Digital%20SAT%201500%2B%20uchun%20AI%20Rentgen%20va%20Desmos%20hiylalari!%20Tekin%20sinab%20ko'r:"
     
     buttons = [
@@ -35,7 +36,7 @@ async def cmd_referral(message: Message):
     
     user_data = db.local_cache.get("users", {}).get(str(user_id), {})
     ref_count = user_data.get("referrals_count", 0)
-    ref_link = f"https://t.me/edutest_pro_bot?start=ref_{user_id}"
+    ref_link = f"https://t.me/{BOT_USERNAME}?start=ref_{user_id}"
 
     text = (
         f"👥 <b>DO'STLARNI TAKLIF QILING VA VIP IMKONIYATLARNI OCHING!</b>\n"
@@ -58,7 +59,7 @@ async def cb_referral(callback: CallbackQuery):
         user_id = callback.from_user.id
         user_data = db.local_cache.get("users", {}).get(str(user_id), {})
         ref_count = user_data.get("referrals_count", 0)
-        ref_link = f"https://t.me/edutest_pro_bot?start=ref_{user_id}"
+        ref_link = f"https://t.me/{BOT_USERNAME}?start=ref_{user_id}"
 
         text = (
             f"👥 <b>DO'STLARNI TAKLIF QILING VA VIP IMKONIYATLARNI OCHING!</b>\n"
