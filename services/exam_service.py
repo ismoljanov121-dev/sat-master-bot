@@ -21,29 +21,44 @@ TASHKENT_TZ = timezone(timedelta(hours=5))
 
 # --- Exam Template Definitions ---
 EXAM_TEMPLATES: dict[str, dict[str, Any]] = {
+    "daily_10m": {
+        "name": "daily_10m",
+        "title": "Bugungi 10 daqiqalik mashq",
+        "description": "6 ta savol / 10 daqiqa (2 Math, 2 Reading, 2 Writing)",
+        "duration_seconds": 10 * 60,
+        "section_quotas": {
+            "reading": 2,
+            "writing": 2,
+            "math": 2
+        },
+        "is_official": False,
+        "disclaimer": "Mustaqil Digital SAT mashqi. Bluebook formatidan ilhomlangan mustaqil tayyorgarlik vositasi."
+    },
+    "pilot_mock": {
+        "name": "pilot_mock",
+        "title": "Digital SAT Pilot Mock",
+        "description": "18 ta savol / 25 daqiqa (6 Math, 6 Reading, 6 Writing)",
+        "duration_seconds": 25 * 60,
+        "section_quotas": {
+            "reading": 6,
+            "writing": 6,
+            "math": 6
+        },
+        "is_official": False,
+        "disclaimer": "Mustaqil Digital SAT Pilot Mock sinovi. Bluebook formatidan ilhomlangan mustaqil tayyorgarlik vositasi."
+    },
     "demo_mock": {
         "name": "demo_mock",
-        "title": "EduTest Pro Demo Mock",
-        "description": "12 ta savol / 12 daqiqa (4 Math, 4 Reading, 4 Writing)",
-        "duration_seconds": 12 * 60,
+        "title": "EduTest Digital SAT Mini Mock",
+        "description": "12 ta savol / 15 daqiqa (4 Math, 4 Reading, 4 Writing)",
+        "duration_seconds": 15 * 60,
         "section_quotas": {
             "math": 4,
             "reading": 4,
             "writing": 4
         },
-        "is_official": False
-    },
-    "marstif_full": {
-        "name": "marstif_full",
-        "title": f"{CENTER_NAME} Full Mock Test",
-        "description": "122 ta savol / 185 daqiqa (Reading 52, Writing 40, Math 30)",
-        "duration_seconds": 185 * 60,
-        "section_quotas": {
-            "reading": 52,
-            "writing": 40,
-            "math": 30
-        },
-        "is_official": True
+        "is_official": False,
+        "disclaimer": "Mustaqil Digital SAT mashqi. Bluebook formatidan ilhomlangan mustaqil tayyorgarlik vositasi."
     }
 }
 
@@ -324,6 +339,20 @@ class ExamEngine:
 
         accuracy = round((correct_count / total_q) * 100) if total_q > 0 else 0
 
+        # Calculate pacing / time spent
+        total_time_seconds = 0
+        try:
+            start_iso = attempt.get("start_time")
+            if start_iso:
+                start_dt = datetime.fromisoformat(start_iso)
+                if start_dt.tzinfo is None:
+                    start_dt = start_dt.replace(tzinfo=timezone.utc)
+                total_time_seconds = max(int((datetime.now(timezone.utc) - start_dt).total_seconds()), 1)
+        except Exception:
+            total_time_seconds = 0
+
+        avg_sec_per_q = round(total_time_seconds / len(answers), 1) if answers else 0.0
+
         # Sort weak domains
         sorted_weaknesses = [
             {"domain": dom, "errors": count}
@@ -336,6 +365,8 @@ class ExamEngine:
             "answered_questions": len(answers),
             "correct_count": correct_count,
             "accuracy_percentage": accuracy,
+            "total_time_seconds": total_time_seconds,
+            "avg_seconds_per_question": avg_sec_per_q,
             "by_section": by_section,
             "weaknesses": sorted_weaknesses[:3],
             "submitted_at": datetime.now(timezone.utc).isoformat()

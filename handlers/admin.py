@@ -133,14 +133,20 @@ async def cb_admin_new_session_menu(callback: CallbackQuery):
         kb = InlineKeyboardMarkup(inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="⚡ Demo Mock (12 savol / 12 daqiqa)",
-                    callback_data="adm:create_sess:demo_mock"
+                    text="⏱️ 10 Daqiqalik Mashq (6 savol / 10 daqiqa)",
+                    callback_data="adm:create_sess:daily_10m"
                 )
             ],
             [
                 InlineKeyboardButton(
-                    text=f"🏛️ {CENTER_NAME} Full Mock (122 savol)",
-                    callback_data="adm:create_sess:marstif_full"
+                    text="⚡ Digital SAT Pilot Mock (18 savol / 25 daqiqa)",
+                    callback_data="adm:create_sess:pilot_mock"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="🔬 Mini Mock (12 savol / 15 daqiqa)",
+                    callback_data="adm:create_sess:demo_mock"
                 )
             ],
             [

@@ -37,6 +37,8 @@ from database import db
 from handlers.admin import router as admin_router
 from handlers.diagnostic import router as diag_router
 from handlers.exam import router as exam_router
+from handlers.feedback import router as feedback_router
+from handlers.mistakes import router as mistakes_router
 from handlers.practice import router as practice_router
 from handlers.referral import router as referral_router
 from handlers.start import router as start_router
@@ -265,6 +267,36 @@ async def api_attention_event_post(request: web.Request) -> web.Response:
     })
 
 
+async def api_test_questions_get(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/test/questions?mode=daily_10m|pilot_mock|diagnostic
+    Returns structured questions for mobile Mini App interactive testing.
+    """
+    mode = request.query.get("mode", "daily_10m")
+    if mode == "diagnostic":
+        from handlers.diagnostic import QUESTIONS
+        return web.json_response({
+            "status": "ok",
+            "mode": mode,
+            "title": "Digital SAT Diagnostika (Math)",
+            "duration_seconds": 15 * 60,
+            "questions": QUESTIONS
+        })
+
+    from services.exam_service import EXAM_TEMPLATES, prepare_shuffled_questions
+    tpl = EXAM_TEMPLATES.get(mode, EXAM_TEMPLATES["daily_10m"])
+    seed = int(datetime.now().timestamp() * 1000)
+    questions = prepare_shuffled_questions(mode, seed)
+    return web.json_response({
+        "status": "ok",
+        "mode": mode,
+        "title": tpl.get("title"),
+        "description": tpl.get("description"),
+        "duration_seconds": tpl.get("duration_seconds"),
+        "questions": questions
+    })
+
+
 def setup_web_app() -> web.Application:
     """Constructs the unified aiohttp web application with API routes and 256KB request limit."""
     app = web.Application(client_max_size=256 * 1024)
@@ -278,6 +310,7 @@ def setup_web_app() -> web.Application:
     app.router.add_get("/api/v1/user/progress", api_user_progress_get)
     app.router.add_post("/api/v1/user/progress", api_user_progress_post)
     app.router.add_post("/api/v1/user/attention-event", api_attention_event_post)
+    app.router.add_get("/api/v1/test/questions", api_test_questions_get)
 
     if os.path.exists(WEBAPP_DIR):
         app.router.add_static("/static/", path=WEBAPP_DIR, name="static")
@@ -306,6 +339,8 @@ async def main():
 
     # Register Routers
     dp.include_router(start_router)
+    dp.include_router(mistakes_router)
+    dp.include_router(feedback_router)
     dp.include_router(exam_router)
     dp.include_router(admin_router)
     dp.include_router(diag_router)
@@ -315,11 +350,13 @@ async def main():
 
     # Set commands menu
     commands = [
-        BotCommand(command="start", description="Bosh menyu va diagnostika"),
+        BotCommand(command="start", description="Bosh menyu va 3 asosiy yo'l"),
         BotCommand(command="mock", description="Mock Imtihon Markazi"),
         BotCommand(command="practice", description="Cheksiz SAT Mashq Bazasi"),
+        BotCommand(command="mistakes", description="Xatolarim daftari"),
+        BotCommand(command="feedback", description="Taklif va fikr bildirish"),
         BotCommand(command="admin", description="Administrator Paneli"),
-        BotCommand(command="webapp", description="O'quvchi Kabineti & Tracker"),
+        BotCommand(command="webapp", description="O'quvchi Kabineti & Test Runner"),
         BotCommand(command="diagnostic", description="Diagnostika Testi (Math)"),
         BotCommand(command="desmos", description="Desmos Strategiyalari"),
         BotCommand(command="stats", description="Mening Natijalarim"),

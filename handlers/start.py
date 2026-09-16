@@ -24,22 +24,43 @@ router = Router()
 
 def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
     """Creates the primary navigation dashboard for the user with 3 clear P0 paths."""
+    unresolved_count = db.get_unresolved_mistakes_count(user_id) if user_id else 0
+    mistakes_btn_text = f"❌ 3. Xatolarim daftari ({unresolved_count})" if unresolved_count > 0 else "❌ 3. Xatolarim daftari"
+
     buttons = [
+        # --- 3 Clear P0 Paths ---
         [
             InlineKeyboardButton(
-                text="🔬 Diagnostika (7 savol - Bepul)",
+                text="🎯 1. Darajamni bilish (7 savol - Bepul)",
                 callback_data="start_diagnostic"
             )
         ],
         [
             InlineKeyboardButton(
-                text="📝 Mock Imtihon (EduTest Pro Engine)",
-                callback_data="exam_hub"
+                text="⏱️ 2. Bugungi 10 daqiqalik mashq",
+                callback_data="ex_start:daily_10m"
             )
         ],
         [
             InlineKeyboardButton(
-                text="📚 SAT Mashq Bazasi (Math / RW)",
+                text=mistakes_btn_text,
+                callback_data="notebook_menu"
+            )
+        ],
+        # --- Secondary Features ---
+        [
+            InlineKeyboardButton(
+                text="📱 Mini Appda Test Topshirish & Tracker",
+                web_app=WebAppInfo(url=WEBAPP_URL)
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="📝 Mock Imtihon Markazi",
+                callback_data="exam_hub"
+            ),
+            InlineKeyboardButton(
+                text="📚 SAT Mashq Bazasi",
                 callback_data="practice_hub"
             )
         ],
@@ -55,11 +76,9 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
-                text="📱 O'quvchi Kabineti & Tracker (Web App)",
-                web_app=WebAppInfo(url=WEBAPP_URL)
-            )
-        ],
-        [
+                text="💬 Fikr va Taklif (Feedback)",
+                callback_data="send_feedback_prompt"
+            ),
             InlineKeyboardButton(
                 text="👥 Do'stlarni Taklif Qilish",
                 callback_data="referral_menu"
@@ -122,15 +141,14 @@ async def cmd_start(message: Message, command: CommandObject = None):
 
         welcome_text = (
             f"Assalomu alaykum, <b>{user_name}</b>! ⚡\n\n"
-            f"Xush kelibsiz! Bu <b>{BRAND_NAME}</b> — {CENTER_NAME} uchun maxsus ishlab chiqilgan "
-            f"raqamli diagnostika, mock imtihon va dars nazorati tizimi.\n\n"
-            f"🎯 <b>ASOSIY IMKONIYATLAR:</b>\n"
-            f"• 🔬 <b>Diagnostika:</b> 7 ta nozik savol orqali bilim darajangiz va zaif mavzularni aniqlaydi.\n"
-            f"• 📝 <b>Mock Imtihon:</b> Haqiqiy vaqt nazorati va aralash savollar bilan to'liq mock sinovi.\n"
-            f"• 📚 <b>SAT Mashq:</b> Math, Reading va Writing bo'yicha cheksiz mashqlar bazasi.\n"
-            f"• ⚡ <b>Desmos Strategiyalari:</b> Digital SAT Math savollarini tezkor yechish usullari.\n"
-            f"• 📱 <b>O'quvchi Kabineti:</b> 60 kunlik tayyorgarlik rejasi va xatolar daftarchasi.\n\n"
-            f"👇 <i>Boshlash uchun quyidagi tugmalardan birini tanlang:</i>"
+            f"Xush kelibsiz! Bu <b>{BRAND_NAME}</b> — Digital SAT imtihoniga mustaqil tayyorlanish "
+            "uchun mo'ljallangan intellektual platforma (bepul pilot versiyasi).\n\n"
+            "🎯 <b>SIZ UCHUN 3 TA ASOSIY YO'L:</b>\n"
+            "1️⃣ <b>🎯 Darajamni bilish:</b> 7 ta nozik savol orqali bilim darajangiz va zaif mavzularni bepul aniqlang.\n"
+            "2️⃣ <b>⏱️ Bugungi 10 daqiqalik mashq:</b> Kunlik odatga aylanadigan tezkor 6 savollik mikro-mashq.\n"
+            "3️⃣ <b>❌ Xatolarim daftari:</b> Ilgari xato qilgan savollaringizni to'liq o'zlashtirguncha qayta mashq qiling.\n\n"
+            "📱 Shuningdek, <b>Mini App</b> orqali mobil telefonda qulay test topshirishingiz mumkin.\n\n"
+            "👇 <i>Quyidagi 3 ta asosiy yo'ldan birini tanlang:</i>"
         )
         await message.answer(welcome_text, reply_markup=get_main_menu_keyboard(user_id), parse_mode="HTML")
     except Exception as e:

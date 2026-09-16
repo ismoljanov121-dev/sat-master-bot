@@ -39,21 +39,33 @@ def get_exam_hub_keyboard() -> InlineKeyboardMarkup:
     buttons = [
         [
             InlineKeyboardButton(
-                text="⚡ Demo Mock (12 savol / 12 daqiqa)",
+                text="⏱️ Bugungi 10 daqiqalik mashq (6 savol)",
+                callback_data="ex_start:daily_10m"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="⚡ Digital SAT Pilot Mock (18 savol / 25 daq)",
+                callback_data="ex_start:pilot_mock"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="🔬 Mini Mock (12 savol / 15 daqiqa)",
                 callback_data="ex_start:demo_mock"
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"🏛️ {CENTER_NAME} Full Mock (122 savol)",
-                callback_data="ex_start:marstif_full"
-            )
-        ],
-        [
+                text="❌ Xatolarim Daftari",
+                callback_data="notebook_menu"
+            ),
             InlineKeyboardButton(
                 text="📊 Mening Natijalarim",
                 callback_data="ex_my_results"
-            ),
+            )
+        ],
+        [
             InlineKeyboardButton(
                 text="⬅️ Bosh Menyu",
                 callback_data="back_to_menu"
@@ -181,6 +193,8 @@ def format_exam_result_report(attempt: dict[str, Any]) -> str:
     acc = score.get("accuracy_percentage", 0)
     by_sec = score.get("by_section", {})
     weaknesses = score.get("weaknesses", [])
+    avg_sec = score.get("avg_seconds_per_question", 0)
+    total_time_sec = score.get("total_time_seconds", 0)
 
     m_c = by_sec.get("math", {}).get("correct", 0)
     m_t = by_sec.get("math", {}).get("total", 0)
@@ -193,12 +207,17 @@ def format_exam_result_report(attempt: dict[str, Any]) -> str:
     filled = acc // 10
     gauge = "🟩" * filled + "⬜" * (10 - filled)
 
+    time_str = f"{total_time_sec // 60} daq {total_time_sec % 60} soniya" if total_time_sec >= 60 else f"{total_time_sec} soniya"
+
     lines = [
         f"🏆 <b>MOCK IMTIHON NATIJASI — {BRAND_NAME}</b>",
         "━━━━━━━━━━━━━━━━━━━━━━",
         f"📋 <b>Test turi:</b> {html.escape(str(attempt.get('title', 'Mock')))}",
         f"🎯 <b>Umumiy aniqlik:</b> {acc}% ({correct}/{total} ta to'g'ri)",
         f"<i>{gauge}</i>\n",
+        "⏱️ <b>Vaqt sarfi & Tezlik (Pacing):</b>",
+        f"• <b>Jami sarflangan vaqt:</b> {time_str}",
+        f"• <b>O'rtacha tezlik:</b> ~{avg_sec} soniya / savol\n",
         "📊 <b>Bo'limlar kesimida tahlil:</b>",
         f"• 🧮 <b>Math:</b> {m_c}/{m_t} ta to'g'ri",
         f"• 📖 <b>Reading:</b> {r_c}/{r_t} ta to'g'ri",
@@ -213,12 +232,37 @@ def format_exam_result_report(attempt: dict[str, Any]) -> str:
         lines.append("")
 
     lines.append(
-        "💡 <i>Eslatma: Ushbu test EduTest Pro formatidagi diagnostik mock bo'lib, "
-        "College Board rasmiy 1600 balli hisoblanmaydi. Natija o'quv markaz o'qituvchisi "
-        "tomonidan dars rejasini moslashtirish uchun foydalaniladi.</i>"
+        "💡 <i>Eslatma: Ushbu mustaqil pilot mock Digital SAT Bluebook formatidan ilhomlangan. "
+        "Xato qilingan barcha savollar avtomatik ravishda 'Xatolarim daftari'ga saqlandi.</i>"
     )
 
     return "\n".join(lines)
+
+
+async def _sync_exam_mistakes_to_notebook(user_id: int, attempt: dict[str, Any]) -> None:
+    """Extracts incorrect or skipped answers from attempt and registers them in error notebook."""
+    questions = attempt.get("questions", [])
+    answers = attempt.get("answers", {})
+    for idx, q in enumerate(questions):
+        ans_entry = answers.get(str(idx))
+        if not ans_entry or not ans_entry.get("is_correct"):
+            try:
+                await db.record_mistake(
+                    user_id=user_id,
+                    question_id=str(q.get("id", f"exam_{attempt.get('attempt_id')}_{idx}")),
+                    section=str(q.get("section", "math")),
+                    domain=str(q.get("domain", "General")),
+                    question_text=str(q.get("question", "")),
+                    correct_answer=str(q.get("correct", "A")),
+                    user_answer=str(ans_entry.get("selected", "-") if ans_entry else "Javob berilmadi"),
+                    explanation=str(q.get("explanation", "")),
+                    hack=str(q.get("strategy_or_hack", "")),
+                    options=q.get("options", []),
+                    passage=q.get("passage"),
+                    source=f"exam:{attempt.get('template_name', 'mock')}"
+                )
+            except Exception as err:
+                logger.warning(f"Error recording exam mistake: {err}")
 
 
 # --- Handlers ---
@@ -438,8 +482,13 @@ async def cb_select_answer(callback: CallbackQuery):
             return
 
         if status == "expired":
+            await _sync_exam_mistakes_to_notebook(user_id, updated_attempt)
             report_text = format_exam_result_report(updated_attempt)
             kb = InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="❌ Xatolarim Daftari", callback_data="notebook_menu"),
+                    InlineKeyboardButton(text="📊 Natijalarim", callback_data="ex_my_results")
+                ],
                 [InlineKeyboardButton(text="⬅️ Bosh Menyu", callback_data="back_to_menu")]
             ])
             await callback.message.edit_text(
@@ -451,8 +500,13 @@ async def cb_select_answer(callback: CallbackQuery):
 
         # If completed all questions
         if updated_attempt.get("status") == "submitted":
+            await _sync_exam_mistakes_to_notebook(user_id, updated_attempt)
             report_text = format_exam_result_report(updated_attempt)
             kb = InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="❌ Xatolarim Daftari", callback_data="notebook_menu"),
+                    InlineKeyboardButton(text="📊 Natijalarim", callback_data="ex_my_results")
+                ],
                 [InlineKeyboardButton(text="⬅️ Bosh Menyu", callback_data="back_to_menu")]
             ])
             await callback.message.edit_text(
@@ -514,9 +568,18 @@ async def cb_navigate_question(callback: CallbackQuery):
             active_attempt["status"] = "expired"
             exam_engine.finalize_score(active_attempt)
             await db.save_attempt(active_attempt)
+            await _sync_exam_mistakes_to_notebook(user_id, active_attempt)
             report_text = format_exam_result_report(active_attempt)
+            kb = InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="❌ Xatolarim Daftari", callback_data="notebook_menu"),
+                    InlineKeyboardButton(text="📊 Natijalarim", callback_data="ex_my_results")
+                ],
+                [InlineKeyboardButton(text="⬅️ Bosh Menyu", callback_data="back_to_menu")]
+            ])
             await callback.message.edit_text(
                 "⏰ <b>Imtihon vaqti tugadi!</b>\n\n" + report_text,
+                reply_markup=kb,
                 parse_mode="HTML"
             )
             return
@@ -555,9 +618,14 @@ async def cb_finish_exam_early(callback: CallbackQuery):
         active_attempt["status"] = "submitted"
         exam_engine.finalize_score(active_attempt)
         await db.save_attempt(active_attempt)
+        await _sync_exam_mistakes_to_notebook(user_id, active_attempt)
 
         report_text = format_exam_result_report(active_attempt)
         kb = InlineKeyboardMarkup(inline_keyboard=[
+            [
+                InlineKeyboardButton(text="❌ Xatolarim Daftari", callback_data="notebook_menu"),
+                InlineKeyboardButton(text="📊 Natijalarim", callback_data="ex_my_results")
+            ],
             [InlineKeyboardButton(text="⬅️ Bosh Menyu", callback_data="back_to_menu")]
         ])
         await callback.message.edit_text(

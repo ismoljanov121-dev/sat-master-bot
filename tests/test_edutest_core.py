@@ -143,15 +143,26 @@ class TestEduTestCore(unittest.TestCase):
 
     # --- 6. Pool Sufficiency Guard ---
     def test_pool_sufficiency_guard(self):
-        # Demo Mock requires 12 questions (4 Math, 4 Reading, 4 Writing) -> must be sufficient
-        is_suff_demo, _msg_demo, _ = check_template_pool_sufficiency("demo_mock")
-        self.assertTrue(is_suff_demo)
+        # Daily 10m requires 6 questions (2 Math, 2 Reading, 2 Writing) -> must be sufficient
+        is_suff_daily, _msg_daily, _ = check_template_pool_sufficiency("daily_10m")
+        self.assertTrue(is_suff_daily)
 
-        # Full Mock requires 122 questions -> must honestly declare insufficient pool
-        is_suff_full, msg_full, stats = check_template_pool_sufficiency("marstif_full")
-        self.assertFalse(is_suff_full)
-        self.assertIn("Savollar bazasi to'liq emas", msg_full)
-        self.assertIn("math", stats)
+        # Pilot Mock requires 18 questions (6 Math, 6 Reading, 6 Writing) -> must be sufficient
+        is_suff_pilot, _msg_pilot, _ = check_template_pool_sufficiency("pilot_mock")
+        self.assertTrue(is_suff_pilot)
+
+        # Oversized Mock requiring 100 questions -> must honestly declare insufficient pool
+        oversized = {
+            "oversized": {
+                "name": "oversized",
+                "section_quotas": {"math": 100, "reading": 100, "writing": 100}
+            }
+        }
+        with patch.dict("services.exam_service.EXAM_TEMPLATES", oversized):
+            is_suff_over, msg_over, stats = check_template_pool_sufficiency("oversized")
+            self.assertFalse(is_suff_over)
+            self.assertIn("Savollar bazasi to'liq emas", msg_over)
+            self.assertIn("math", stats)
 
     # --- 7. Admin Authorization ---
     def test_admin_authorization(self):

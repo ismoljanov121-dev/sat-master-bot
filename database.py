@@ -68,7 +68,9 @@ class Database:
             "diagnostic_sessions": {},
             "practice_stats": {},
             "webapp_data": {},
-            "attention_events": []
+            "attention_events": [],
+            "error_notebook": {},
+            "student_feedback": []
         }
 
         if os.path.exists(LOCAL_DB_FILE):
@@ -649,6 +651,138 @@ class Database:
         if user_id is not None:
             return [e for e in events if e.get("user_id") == user_id]
         return list(events)
+
+    # --- Error Notebook (Xatolar Daftari) ---
+    async def record_mistake(
+        self,
+        user_id: int,
+        question_id: str,
+        section: str,
+        domain: str,
+        question_text: str,
+        correct_answer: str,
+        user_answer: str,
+        explanation: str,
+        hack: str = "",
+        options: list[dict[str, str]] | None = None,
+        passage: str | None = None,
+        source: str = "practice"
+    ) -> None:
+        """
+        Records or updates a student mistake in the persistent error notebook.
+        Thread-safe and atomic.
+        """
+        str_id = str(user_id)
+        user_mistakes = self.local_cache.setdefault("error_notebook", {}).setdefault(str_id, {})
+        now_utc = get_utc_now_str()
+        qid_str = str(question_id)
+        existing = user_mistakes.get(qid_str)
+
+        if existing:
+            existing["mistake_count"] = existing.get("mistake_count", 1) + 1
+            existing["last_attempted_at"] = now_utc
+            existing["user_answer"] = user_answer
+            existing["resolved"] = False  # re-opened if made again
+        else:
+            user_mistakes[qid_str] = {
+                "question_id": qid_str,
+                "section": section,
+                "domain": domain,
+                "question_text": question_text,
+                "options": options or [],
+                "passage": passage,
+                "correct_answer": correct_answer,
+                "user_answer": user_answer,
+                "explanation": explanation,
+                "hack": hack,
+                "source": source,
+                "mistake_count": 1,
+                "resolved": False,
+                "first_made_at": now_utc,
+                "last_attempted_at": now_utc,
+                "resolved_at": None
+            }
+
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.error_notebook.update_one(
+                    {"user_id": user_id, "question_id": qid_str},
+                    {"$set": user_mistakes[qid_str]},
+                    upsert=True
+                )
+            except Exception as e:
+                logger.error(f"MongoDB record_mistake error: {e}")
+
+    def get_user_mistakes(self, user_id: int, resolved_filter: bool | None = False) -> list[dict[str, Any]]:
+        """
+        Returns mistakes for the user.
+        If resolved_filter is False, returns only active (unresolved) mistakes.
+        If resolved_filter is True, returns only resolved mistakes.
+        If resolved_filter is None, returns all mistakes.
+        """
+        str_id = str(user_id)
+        user_mistakes = self.local_cache.get("error_notebook", {}).get(str_id, {})
+        all_items = list(user_mistakes.values())
+        if resolved_filter is None:
+            return all_items
+        return [m for m in all_items if m.get("resolved") == resolved_filter]
+
+    async def resolve_mistake(self, user_id: int, question_id: str) -> bool:
+        """Marks a previously mistaken question as resolved/mastered."""
+        str_id = str(user_id)
+        user_mistakes = self.local_cache.get("error_notebook", {}).get(str_id, {})
+        qid_str = str(question_id)
+        if qid_str in user_mistakes:
+            user_mistakes[qid_str]["resolved"] = True
+            user_mistakes[qid_str]["resolved_at"] = get_utc_now_str()
+            await self._atomic_save_local()
+            if self.is_mongo_active and (self.db is not None):
+                try:
+                    await self.db.error_notebook.update_one(
+                        {"user_id": user_id, "question_id": qid_str},
+                        {"$set": {"resolved": True, "resolved_at": user_mistakes[qid_str]["resolved_at"]}}
+                    )
+                except Exception as e:
+                    logger.error(f"MongoDB resolve_mistake error: {e}")
+            return True
+        return False
+
+    def get_unresolved_mistakes_count(self, user_id: int) -> int:
+        return len(self.get_user_mistakes(user_id, resolved_filter=False))
+
+    # --- Student Feedback (Taklif va Fikrlar) ---
+    async def save_student_feedback(
+        self,
+        user_id: int,
+        username: str,
+        full_name: str,
+        feedback_text: str,
+        category: str = "general"
+    ) -> dict[str, Any]:
+        """Saves student feedback into database."""
+        entry = {
+            "id": f"fb_{int(datetime.now(timezone.utc).timestamp() * 1000)}",
+            "user_id": user_id,
+            "username": username,
+            "full_name": full_name,
+            "category": category,
+            "text": feedback_text,
+            "created_at": get_utc_now_str()
+        }
+        self.local_cache.setdefault("student_feedback", []).append(entry)
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.student_feedback.insert_one(entry)
+            except Exception as e:
+                logger.error(f"MongoDB save_student_feedback error: {e}")
+        return entry
+
+    def get_all_feedback(self) -> list[dict[str, Any]]:
+        return list(self.local_cache.get("student_feedback", []))
 
 
 # Singleton instance

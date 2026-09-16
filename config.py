@@ -10,10 +10,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- Core Brand & Center Information ---
-BRAND_NAME: str = "EduTest Pro"
-BOT_NAME: str = "EduTest Pro | Mock & Exam System"
-CENTER_NAME: str = os.getenv("CENTER_NAME", "MARSTIF ACADEMY").strip()
-MENTOR_NAME: str = os.getenv("MENTOR_NAME", "Marifat Jamal").strip()
+BRAND_NAME: str = os.getenv("BRAND_NAME", "EduTest Pro").strip()
+BOT_NAME: str = os.getenv("BOT_NAME", "EduTest Pro | Mock & Exam System").strip()
+CENTER_NAME: str = os.getenv("CENTER_NAME", "Mustaqil Digital SAT Tayyorgarlik").strip()
+MENTOR_NAME: str = os.getenv("MENTOR_NAME", "SAT Mentor").strip()
 
 # --- Telegram Bot Token ---
 BOT_TOKEN: str = os.getenv("BOT_TOKEN", "").strip()

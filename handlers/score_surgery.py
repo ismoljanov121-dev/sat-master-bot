@@ -1,52 +1,70 @@
 """
-SAT AI Bot - Score Surgery (AI Rentgen Diagnostika Tahlili)
-Calculates exact score loss, diagnoses conceptual weaknesses,
-and generates actionable high-impact surgical advice.
+SAT AI Bot - Diagnostic Performance Analysis (Score Surgery)
+Provides honest diagnostic breakdown, conceptual weakness analysis,
+and actionable preparation recommendations without fake scores or ungrounded promises.
 """
 
 import html
+from typing import Any
 
 
-def generate_surgery_report(user_name: str, total_q: int, correct_q: int, incorrect_items: list[dict]) -> str:
-    """Generates the jaw-dropping surgical score breakdown report."""
-    base_math_score = 800
-    points_lost = sum(item.get("points_lost", 20) for item in incorrect_items)
-    estimated_score = max(base_math_score - points_lost, 400)
-
+def generate_surgery_report(
+    user_name: str,
+    total_q: int,
+    correct_q: int,
+    incorrect_items: list[dict[str, Any]]
+) -> str:
+    """
+    Generates an honest, insightful educational diagnosis report.
+    Presents exact accuracy %, conceptual domain gaps, and tailored study steps.
+    """
     safe_name = html.escape(user_name or "Abituriyent")
+    accuracy_percent = round((correct_q / total_q) * 100) if total_q > 0 else 0
+
+    # Skill level assessment
+    if accuracy_percent == 100:
+        level_badge = "🏆 <b>A'lo daraja (Advanced)</b>"
+        level_desc = "Barcha savollar to'g'ri yechildi. Asosiy e'tiborni vaqt nazorati va qiyin modullarga qarating."
+    elif accuracy_percent >= 70:
+        level_badge = "📈 <b>Yaxshi daraja (Proficient)</b>"
+        level_desc = "Konseptual poydevor mustahkam, ammo ayrim nozik nuqtalarda ehtiyotsizlik yoki usul xatosi bor."
+    elif accuracy_percent >= 40:
+        level_badge = "⚠️ <b>O'rta daraja (Developing)</b>"
+        level_desc = "Asosiy mavzularda bo'shliqlar mavjud. Tejamkor Desmos usullari va formulalarni chuqurroq mustahkamlash zarur."
+    else:
+        level_badge = "🚩 <b>Boshlang'ich daraja (Foundational)</b>"
+        level_desc = "Mavzularni noldan tizimli o'rganish va asosiy qoidalarni mustahkamlab olish tavsiya etiladi."
 
     # Group weaknesses by topic
     topic_counts: dict[str, int] = {}
     for item in incorrect_items:
-        t = item.get("topic", "General Math")
+        t = item.get("topic") or item.get("domain") or "General Math"
         topic_counts[t] = topic_counts.get(t, 0) + 1
 
     report = [
-        "🔬 <b>AI RENTGEN DIAGNOSTIKA: JARROHLIK XULOSASI</b>",
+        "🔬 <b>DIAGNOSTIKA TAHLILI VA BILIM RENTGENI</b>",
         "━━━━━━━━━━━━━━━━━━━━━━",
-        f"👤 <b>Abituriyent:</b> {safe_name}",
-        f"🎯 <b>To'g'ri javoblar:</b> {correct_q} / {total_q}",
-        f"📉 <b>Yo'qotilgan ball:</b> -{points_lost} ball",
-        f"📊 <b>Taxminiy Math Ballingiz:</b> <b>{estimated_score} / 800</b>\n",
-        "🚨 <b>ASOSIY TASHXIS VA 'BALL O'G'RILARI':</b>"
+        f"👤 <b>O'quvchi:</b> {safe_name}",
+        f"🎯 <b>Natija:</b> {correct_q} / {total_q} ta to'g'ri (<b>{accuracy_percent}%</b>)",
+        f"📊 <b>Baholash:</b> {level_badge}",
+        f"<i>{level_desc}</i>\n",
+        "📌 <b>ANIQLANGAN ZAIF MAVZULAR:</b>"
     ]
 
     if not incorrect_items:
-        report.append("🌟 <b>Dahshatli natija!</b> Birorta ham xato qilmadingiz. Sizning bazangiz 780-800 ballik darajada!")
-        report.append("\n⚡ <i>Tavsiya: Endi vaqt bilan ishlash va Hard Module 2 tezligini oshirish ustida ishlang.</i>")
+        report.append("✨ <i>Birorta ham xato aniqlanmadi! Diagnostika savollarini a'lo bajardingiz.</i>")
+        report.append("\n⚡ <b>Tavsiya:</b> Endi 'Bugungi 10 daqiqalik mashq' yoki 'Pilot Mock' orqali Reading & Writing ko'nikmalarini ham sinab ko'ring.")
     else:
-        for topic, count in topic_counts.items():
-            safe_topic = html.escape(topic)
-            report.append(f"• <b>{safe_topic}:</b> {count} ta xato (-{count * 20} ball)")
+        for topic, count in sorted(topic_counts.items(), key=lambda x: x[1], reverse=True):
+            safe_topic = html.escape(str(topic))
+            report.append(f"• <b>{safe_topic}:</b> {count} ta noaniq javob")
 
-        report.append("\n💡 <b>ENG MUHIM SIR:</b>")
-        report.append("Siz matematikani bilmaganingizdan emas, <b>Digital SAT Desmos hiylalarini ishlatmaganingiz</b> va standart tuzoqlarga tushganingiz uchun ball yo'qotyapsiz!")
-        report.append(f"\n🚀 <b>1 KUNDA +{points_lost} BALL QO'SHISH REJASI:</b>")
-        report.append("1. Quyidagi har bir xato savol ostidagi <b>[⚡ Desmos Hack]</b> tugmasini bosing.")
-        report.append("2. Formulani yozishni emas, grafikni 5 soniyada o'qishni o'rganing.")
-        report.append("3. 60 kunlik kundalik orqali aynan shu mavzularni yoping!")
+        report.append("\n🎯 <b>FOYDALI TAVSIYALAR:</b>")
+        report.append("1. Har bir xato qilgan savol ostidagi <b>[⚡ Desmos usuli]</b> va yechim tahlilini diqqat bilan o'rganing.")
+        report.append("2. Ushbu savollar avtomatik ravishda <b>❌ Xatolar daftari</b>ga kiritildi. Ertaga ularni qayta yechib ko'ring.")
+        report.append("3. Nazariy formulalar bilan birga grafik yordamida tezkor tekshirish odatini shakllantiring.")
 
     report.append("\n━━━━━━━━━━━━━━━━━━━━━━")
-    report.append("👇 <i>Xatolaringizni Desmos orqali 5 soniyada yechish yo'lini ko'rish uchun quyidagi tugmani bosing:</i>")
+    report.append("ℹ️ <i>Eslatma: Bu natija rasmiy SAT balli emas; mustaqil 7 savollik diagnostika orqali tayyorgarlik darajangizni xolisona ko'rsatuvchi ko'rsatkichdir.</i>")
 
     return "\n".join(report)

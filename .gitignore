@@ -4,3 +4,5 @@ __pycache__/
 cloudflared.exe
 *.log
 users_db.json
+backup_audit_*/
+.ruff_cache/

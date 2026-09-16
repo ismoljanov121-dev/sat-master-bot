@@ -9,6 +9,7 @@ Features:
 - Graceful error recovery and 'message is not modified' suppression
 """
 
+import asyncio
 import html
 import json
 import logging
@@ -322,6 +323,23 @@ async def handle_answer(callback: CallbackQuery) -> None:
                 session["correct"] = session.get("correct", 0) + 1
             else:
                 session.setdefault("incorrect_items", []).append(q)
+                try:
+                    await db.record_mistake(
+                        user_id=user_id,
+                        question_id=str(q.get("id", f"diag_{q_idx}")),
+                        section=str(q.get("section", "math")),
+                        domain=str(q.get("domain", q.get("topic", "General Math"))),
+                        question_text=str(q.get("question", "")),
+                        correct_answer=correct_key,
+                        user_answer=selected_key,
+                        explanation=str(q.get("explanation", "")),
+                        hack=str(q.get("desmos_hack", "")),
+                        options=q.get("options", []),
+                        passage=q.get("passage"),
+                        source="diagnostic"
+                    )
+                except Exception as rec_err:
+                    logger.warning(f"Failed to record diagnostic mistake: {rec_err}")
 
         session["current_idx"] = q_idx
         save_user_session(user_id, session)
@@ -386,15 +404,14 @@ async def finish_quiz(callback: CallbackQuery) -> None:
         correct_count = session.get("correct", 0)
         total_questions = len(QUESTIONS)
 
-        points_lost = sum(item.get("points_lost", 20) for item in incorrect_items)
-        estimated_score = max(800 - points_lost, 400)
-        weaknesses = [str(item.get("topic", "General")) for item in incorrect_items]
+        accuracy_percent = round((correct_count / total_questions) * 100) if total_questions > 0 else 0
+        weaknesses = [str(item.get("topic") or item.get("domain") or "General") for item in incorrect_items]
 
         # Save to Database (MongoDB Atlas + local cache)
         try:
             await db.save_quiz_result(
                 user_id=user_id,
-                score=estimated_score,
+                score=accuracy_percent,
                 correct=correct_count,
                 total=total_questions,
                 weaknesses=weaknesses
@@ -411,16 +428,19 @@ async def finish_quiz(callback: CallbackQuery) -> None:
         )
 
         kb = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="🔄 Testni Qayta Topshirish", callback_data="start_diagnostic")],
             [
-                InlineKeyboardButton(text="⚡ Desmos Hiylalari", callback_data="desmos_catalog"),
-                InlineKeyboardButton(text="📊 Mening Natijam", callback_data="my_stats")
+                InlineKeyboardButton(text="❌ Xatolarim Daftari", callback_data="notebook_menu"),
+                InlineKeyboardButton(text="🔄 Qayta Topshirish", callback_data="start_diagnostic")
             ],
             [
-                InlineKeyboardButton(text="📱 Shaxsiy Rejim & 60 Kunlik Tracker (Web App)", web_app=WebAppInfo(url=WEBAPP_URL))
+                InlineKeyboardButton(text="⏱️ 10 Daqiqalik Mashq", callback_data="ex_start:daily_10m"),
+                InlineKeyboardButton(text="⚡ Desmos Hiylalari", callback_data="desmos_catalog")
             ],
             [
-                InlineKeyboardButton(text="👥 Do'stlarni Taklif Qilish (VIP)", callback_data="referral_menu"),
+                InlineKeyboardButton(text="📊 Mening Natijam", callback_data="my_stats"),
+                InlineKeyboardButton(text="📱 Mini App (Tracker)", web_app=WebAppInfo(url=WEBAPP_URL))
+            ],
+            [
                 InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")
             ]
         ])

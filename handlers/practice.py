@@ -273,6 +273,30 @@ async def cb_answer_practice(callback: CallbackQuery):
         # Record in database
         db.record_practice_answer(user_id, q_data.get("id", ""), is_correct, q_data.get("section", "math"))
         
+        if not is_correct:
+            try:
+                await db.record_mistake(
+                    user_id=user_id,
+                    question_id=str(q_data.get("id", "")),
+                    section=str(q_data.get("section", "math")),
+                    domain=str(q_data.get("domain", "General")),
+                    question_text=str(q_data.get("question", "")),
+                    correct_answer=correct_key,
+                    user_answer=selected_key,
+                    explanation=str(q_data.get("explanation", "")),
+                    hack=str(q_data.get("strategy_or_hack", "")),
+                    options=q_data.get("options", []),
+                    passage=q_data.get("passage"),
+                    source="practice"
+                )
+            except Exception as rec_err:
+                logger.warning(f"Failed to record practice mistake: {rec_err}")
+        else:
+            try:
+                await db.resolve_mistake(user_id, str(q_data.get("id", "")))
+            except Exception:
+                pass
+
         stats = db.get_user_practice_stats(user_id)
         streak = stats.get("current_streak", 0)
         
