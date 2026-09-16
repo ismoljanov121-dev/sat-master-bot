@@ -1,0 +1,698 @@
+[
+  {
+    "id": "m_geo_trig_01",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Right Triangles & Trigonometric Ratios",
+    "difficulty": "Easy",
+    "passage": null,
+    "question": "To'g'ri burchakli uchburchak ABC da burchak C = 90°. Agar sin(A) = 3/5 bo'lsa, cos(B) ning qiymati nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "3/5"
+      },
+      {
+        "key": "B",
+        "text": "4/5"
+      },
+      {
+        "key": "C",
+        "text": "3/4"
+      },
+      {
+        "key": "D",
+        "text": "5/3"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri burchakli uchburchakda o'tkir burchaklar yig'indisi 90° ga teng: A + B = 90°. Kofunksiyalar qoidasiga (Complementary Angle Theorem) ko'ra: har qanday ikkita bir-birini 90° ga to'ldiruvchi burchaklar uchun sin(A) = cos(90° - A) = cos(B). Shuning uchun sin(A) = 3/5 bo'lsa, cos(B) ham aynan 3/5 ga teng bo'ladi.",
+    "strategy_or_hack": "⚡ SAT QOIDASI (1 SONIYADA):\nTo'g'ri burchakli uchburchakda sin(A) har doim cos(B) ga teng! Hech qanday Pifagor teoremasi yoki chizma chizish shart emas. sin(A) = 3/5 bo'lsa, cos(B) ham 3/5!"
+  },
+  {
+    "id": "m_geo_circ_01",
+    "section": "math",
+    "domain": "Geometry and Trigonometry - Circle Equations & Radius",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "xy-tekisligida x² + y² + 6x - 14y - 42 = 0 tenglama aylanani ifodalaydi. Ushbu aylananing radiusi nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "10"
+      },
+      {
+        "key": "B",
+        "text": "100"
+      },
+      {
+        "key": "C",
+        "text": "7"
+      },
+      {
+        "key": "D",
+        "text": "√42"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'la kvadratga ajratamiz:\n(x² + 6x + 9) + (y² - 14y + 49) = 42 + 9 + 49\n(x + 3)² + (y - 7)² = 100\nAylana tenglamasi: (x - h)² + (y - k)² = R².\nR² = 100 bo'lgani uchun, radius R = √100 = 10.\nB variant (100) — ko'pchilik shoshib R² ni belgilab qo'yadigan tuzoqdir!",
+    "strategy_or_hack": "⚡ DESMOS HACK (5 soniya):\n1. Tenglamani to'g'ridan-to'g'ri Desmosga yozing: x^2 + y^2 + 6x - 14y - 42 = 0\n2. Markazni bosing: (-3, 7)\n3. Aylananing eng yuqori nuqtasini bosing: (-3, 17)\n🎯 Masofa: 17 - 7 = 10 ➔ R = 10 (A variant)!"
+  },
+  {
+    "id": "m_alg_abs_01",
+    "section": "math",
+    "domain": "Algebra - Linear Inequalities and Modeling",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "|2x - 5| ≤ 9 tengsizlikni qanoatlantiruvchi nechta butun (integer) x qiymatlari mavjud?",
+    "options": [
+      {
+        "key": "A",
+        "text": "10 ta"
+      },
+      {
+        "key": "B",
+        "text": "9 ta"
+      },
+      {
+        "key": "C",
+        "text": "8 ta"
+      },
+      {
+        "key": "D",
+        "text": "Cheksiz ko'p"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Modul tengsizligini qo'sh tengsizlikka aylantiramiz:\n-9 ≤ 2x - 5 ≤ 9\nHar tomonga 5 qo'shamiz: -4 ≤ 2x ≤ 14\n2 ga bo'lamiz: -2 ≤ x ≤ 7\nButun sonlar: -2, -1, 0, 1, 2, 3, 4, 5, 6, 7.\nJami butun yechimlar soni: 7 - (-2) + 1 = 10 ta.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\n1. 1-qator: y = |2x - 5|\n2. 2-qator: y = 9\n🎯 Kesishish nuqtalari: x = -2 va x = 7. Oraliqdagi butun sonlar: 7 - (-2) + 1 = 10 ta!"
+  },
+  {
+    "id": "m_alg_trap_01",
+    "section": "math",
+    "domain": "Algebra - Linear Equations and Systems",
+    "difficulty": "Easy",
+    "passage": null,
+    "question": "Agar 4x + 12 = 36 bo'lsa, 2x + 6 ifodaning qiymati nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "18"
+      },
+      {
+        "key": "B",
+        "text": "6"
+      },
+      {
+        "key": "C",
+        "text": "24"
+      },
+      {
+        "key": "D",
+        "text": "12"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Tenglamaning ikkala tomoniga e'tibor bering: 4x + 12 ifodaning har bir hadi 2x + 6 dan 2 barobar katta!\nShuning uchun tenglikning ikkala tomonini shunchaki 2 ga bo'lamiz:\n(4x + 12) / 2 = 36 / 2\n2x + 6 = 18.\nKo'pchilik o'quvchilar avval x = 6 ni topib, shoshib B variant (6) ni belgilab qo'yishadi — savolda x emas, 2x + 6 so'ralgan!",
+    "strategy_or_hack": "⚡ SAT TAKTIKASI:\nSAT har doim 'x' ning o'rniga biror ifodani (masalan 2x + 6 yoki 3x - 1) so'raydi. Dastlabki ifodani qisqartirish yoki ko'paytirish mumkinligini tekshiring: 36 / 2 = 18!"
+  },
+  {
+    "id": "m_alg_sys_01",
+    "section": "math",
+    "domain": "Algebra - Linear Equations and Systems",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Quyidagi tenglamalar sistemasi cheksiz ko'p yechimga (infinitely many solutions) ega bo'lishi uchun c o'zgarmas soni nechaga teng bo'lishi kerak?\n\n3x - 5y = 12\n9x - 15y = 4c",
+    "options": [
+      {
+        "key": "A",
+        "text": "9"
+      },
+      {
+        "key": "B",
+        "text": "36"
+      },
+      {
+        "key": "C",
+        "text": "3"
+      },
+      {
+        "key": "D",
+        "text": "12"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Chiziqli tenglamalar sistemasi cheksiz ko'p yechimga ega bo'lishi uchun ikkala to'g'ri chiziq ustma-ust tushishi (bir xil tenglama bo'lishi) kerak.\n1-tenglamani 3 ga ko'paytiramiz: 3 * (3x - 5y) = 3 * 12 ➔ 9x - 15y = 36.\n2-tenglamada ozod had 4c ga teng. Demak: 4c = 36 ➔ c = 9.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\n1-qatorga 3x - 5y = 12 ni yozing.\n2-qatorga 9x - 15y = 4c ni yozib, c ga variantlarni qo'ying. c = 9 bo'lganda ikkala chiziq butunlay birlashadi (ustma-ust tushadi)!"
+  },
+  {
+    "id": "m_adv_rad_01",
+    "section": "math",
+    "domain": "Advanced Math - Polynomials & Radical Equations",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "√(2x + 15) = x ning nechta haqiqiy yechimi mavjud?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 ta (faqat x = 5)"
+      },
+      {
+        "key": "B",
+        "text": "2 ta (x = 5 va x = -3)"
+      },
+      {
+        "key": "C",
+        "text": "0 ta"
+      },
+      {
+        "key": "D",
+        "text": "1 ta (faqat x = -3)"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Ikkala tomonni kvadratga ko'taramiz: 2x + 15 = x²\nx² - 2x - 15 = 0\n(x - 5)(x + 3) = 0 ➔ x = 5 yoki x = -3.\nTekshirish (Extraneous root): arifmetik kvadrat ildiz hech qachon manfiy songa teng bo'la olmaydi:\n• x = 5 uchun: √(10 + 15) = √25 = 5 (To'g'ri)\n• x = -3 uchun: √(-6 + 15) = √9 = 3 ≠ -3 (Yolg'on yechim!)\nShuning uchun faqat 1 ta yechim bor: x = 5.",
+    "strategy_or_hack": "⚡ DESMOS HACK (3 soniya):\n1. 1-qator: y = √(2x + 15)\n2. 2-qator: y = x\n🎯 Chiziq va egri chiziq faqat bitta nuqtada (5, 5) kesishadi! Yolg'on yechim (-3) grafikda umuman kesishmaydi. Javob: A!"
+  },
+  {
+    "id": "m_adv_vert_01",
+    "section": "math",
+    "domain": "Advanced Math - Parabola Vertex & Extremum",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "To'pning t soniyadagi yerdan balandligi h(t) = -5t² + 20t + 2 (metr) funksiya bilan modellashtiriladi. To'p erishadigan maksimal balandlik necha metr?",
+    "options": [
+      {
+        "key": "A",
+        "text": "22"
+      },
+      {
+        "key": "B",
+        "text": "20"
+      },
+      {
+        "key": "C",
+        "text": "2"
+      },
+      {
+        "key": "D",
+        "text": "25"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Parabolaning cho'qqisi (vertex) vaqti: t = -b / (2a) = -20 / (2 * (-5)) = 2 soniya.\nMaksimal balandlik: h(2) = -5(2)² + 20(2) + 2 = -20 + 40 + 2 = 22 metr.\nB variant (20) — tezlik yoki vaqt bilan adashtiruvchi chalg'ituvchidir.",
+    "strategy_or_hack": "⚡ DESMOS HACK (5 soniya):\nDesmosga y = -5x^2 + 20x + 2 ni yozing. Parabolaning cho'qqi nuqtasini bosing: (2, 22). y qiymati = 22 — bu maksimal balandlik!"
+  },
+  {
+    "id": "m_adv_poly_01",
+    "section": "math",
+    "domain": "Advanced Math - Polynomials & Radical Equations",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "P(x) ko'phad uchun P(4) = 0 va P(-2) = 18 ekanligi ma'lum. Quyidagi ifodalardan qaysi biri P(x) ko'phadning aniq ko'paytuvchisi (factor) hisoblanadi?",
+    "options": [
+      {
+        "key": "A",
+        "text": "x - 4"
+      },
+      {
+        "key": "B",
+        "text": "x + 4"
+      },
+      {
+        "key": "C",
+        "text": "x - 2"
+      },
+      {
+        "key": "D",
+        "text": "x + 2"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Ko'phadlarning Bezu teoremasi (Factor Theorem)ga ko'ra: agar P(c) = 0 bo'lsa, u holda (x - c) ifodasi P(x) ko'phadning ko'paytuvchisi (factor) bo'ladi. P(4) = 0 bo'lgani sababli, (x - 4) albatta P(x) ning ko'paytuvchisidir. B variant (x + 4) ishorada adashuvchilar uchun tuzoq.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI:\nP(c) = 0 bo'lsa ➔ ko'paytuvchi (x - c) bo'ladi! Qavs ichidagi ishora har doim teskari bo'ladi: P(4) = 0 bo'lsa, (x - 4) to'g'ri."
+  },
+  {
+    "id": "m_prob_unit_01",
+    "section": "math",
+    "domain": "Problem Solving - Unit Conversions & Rates",
+    "difficulty": "Easy",
+    "passage": null,
+    "question": "Avtomobil soatiga 60 mil (miles per hour) tezlikda harakatlanmoqda. 1 mil = 5,280 fut va 1 soat = 3,600 soniya bo'lsa, avtomobilning tezligi sekundiga necha fut (feet per second)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "88"
+      },
+      {
+        "key": "B",
+        "text": "60"
+      },
+      {
+        "key": "C",
+        "text": "72"
+      },
+      {
+        "key": "D",
+        "text": "120"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Birliklar o'lchamini almashtiramiz:\n(60 mil / 1 soat) * (5280 fut / 1 mil) * (1 soat / 3600 soniya)\n= (60 * 5280) / 3600 = 316800 / 3600 = 88 fut/soniya.",
+    "strategy_or_hack": "⚡ DESMOS HACK:\nDesmos kalkulyatoriga to'g'ridan-to'g'ri yozing: (60 * 5280) / 3600 ➔ Natija: 88!"
+  },
+  {
+    "id": "m_prob_exp_01",
+    "section": "math",
+    "domain": "Advanced Math - Exponential Functions",
+    "difficulty": "Hard",
+    "passage": null,
+    "question": "Laboratoriyadagi bakteriyalar koloniyasi har 6 soatda o'z sonini 2 barobarga oshiradi (ikkilanadi). Agar dastlab koloniyada 400 ta bakteriya bo'lgan bo'lsa, t soatdan so'ng bakteriyalar soni B(t) ni ifodalovchi to'g'ri funksiyani aniqlang.",
+    "options": [
+      {
+        "key": "A",
+        "text": "B(t) = 400(2)^(t/6)"
+      },
+      {
+        "key": "B",
+        "text": "B(t) = 400(2)^(6t)"
+      },
+      {
+        "key": "C",
+        "text": "B(t) = 400(6)^(t/2)"
+      },
+      {
+        "key": "D",
+        "text": "B(t) = 400 + 2^(t/6)"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Eksponentsial ikkilanish formulasi: B(t) = B₀ * 2^(t / d), bunda d — ikkilanish davri (6 soat). t = 6 bo'lganda daraja 6/6 = 1 bo'lib, soni 400 * 2 = 800 bo'ladi. B variant (6t) — eng keng tarqalgan tuzoq: t = 6 bo'lganda bakteriya 2^36 barobar oshib ketadi, bu mutlaqo xato.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI (Son qo'yib tekshirish):\nt = 6 soatni variantlarga qo'ying. 6 soatda 400 ta bakteriya 800 ta bo'lishi kerak:\nA) 400 * 2^(6/6) = 400 * 2 = 800 (To'g'ri!)\nB) 400 * 2^(36) = trillionlar (Xato!)"
+  },
+  {
+    "id": "m_prob_table_01",
+    "section": "math",
+    "domain": "Problem Solving - Data Analysis & Statistics",
+    "difficulty": "Medium",
+    "passage": null,
+    "question": "Maktabdagi 200 nafar o'quvchi o'rtasida o'tkazilgan so'rovnomada 120 nafari sport to'garagiga, 80 nafari musiqa to'garagiga a'zo ekanligi ma'lum bo'ldi. Har ikkala to'garakka qatnashadigan o'quvchilar soni 30 nafar. Tasodifiy tanlangan sport to'garagi a'zosining ayni paytda musiqa to'garagiga ham qatnashishi ehtimolligi (conditional probability) nechaga teng?",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/4 (25%)"
+      },
+      {
+        "key": "B",
+        "text": "3/20 (15%)"
+      },
+      {
+        "key": "C",
+        "text": "3/8 (37.5%)"
+      },
+      {
+        "key": "D",
+        "text": "1/2 (50%)"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Shartli ehtimollik: P(Musiqa | Sport) = n(Sport va Musiqa) / n(Sport).\nDiqqat: jami 200 nafar emas, tanlangan o'quvchi 'sport to'garagi a'zosi' ekanligi oldindan ma'lum!\nDemak maxraj: 120.\nSurat: 30.\nEhtimollik = 30 / 120 = 1/4 = 0.25 (25%).\nB variant (3/20 = 30/200) — savol shartini o'qimay barcha o'quvchilarga nisbatan hisoblaganlar uchun tuzoq!",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI:\n'Given that' yoki 'Tasodifiy tanlangan [Guruh] a'zosining...' deyilganda, umumiy o'quvchilar soni (200) bekor bo'ladi. Yangi maxraj faqat o'sha guruh (120) bo'ladi: 30 / 120 = 1/4!"
+  },
+  {
+    "id": "r_vic_pragmatic_01",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Easy",
+    "passage": "Engineers designing off-grid electrical systems in remote mountainous villages opted against experimental solid-state batteries in favor of well-tested lead-acid cells. Although the older batteries offered lower energy density, the engineers prioritized a ______ solution that local technicians could readily repair and maintain without specialized tools.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "pragmatic"
+      },
+      {
+        "key": "B",
+        "text": "visionary"
+      },
+      {
+        "key": "C",
+        "text": "precarious"
+      },
+      {
+        "key": "D",
+        "text": "theoretical"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Matn muhandislarning yangi va sinovdan o'tmagan batareyalar o'rniga, qishloq sharoitida oson ta'mirlanadigan amaliy va ishonchli yechimni tanlaganini tushuntiradi. 'Pragmatic' (amaliy, qulay va real hayotga mos) kontekstga to'liq mos tushadi. Visionary (xayoliy/ulkan), precarious (xatarli/beqaror), theoretical (nazariy) zid ma'no beradi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'local technicians could readily repair and maintain without specialized tools' (mahalliy ustalar maxsus asboblarsiz oson ta'mirlay oladigan) degan izoh amaliy yondashuvni bildiradi. Shuning uchun 'pragmatic' eng to'g'ri tanlov."
+  },
+  {
+    "id": "r_vic_substantiate_01",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Medium",
+    "passage": "For decades, paleoclimatologists hypothesized that sudden volcanic super-eruptions triggered Pleistocene glaciation events. However, lacking high-resolution ice-core sulfate markers, researchers were unable to ______ their causal claims until advanced mass spectrometry became available.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "substantiate"
+      },
+      {
+        "key": "B",
+        "text": "disseminate"
+      },
+      {
+        "key": "C",
+        "text": "relinquish"
+      },
+      {
+        "key": "D",
+        "text": "fabricate"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Matnda tadqiqotchilar o'zlarining taxminlarini (claims) ilgari surgan bo'lsa-da, yetarli asbob-uskuna bo'lmagani sababli ularni dalillar bilan isbotlay olmaganliklari (unable to substantiate) aytiladi. 'Substantiate' dalillar bilan asoslamoq, isbotlamoq deganidir. Disseminate (tarqatmoq), relinquish (voz kechmoq), fabricate (to'qib chiqarmoq) mos kelmaydi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'claims' (da'vo/nazariya) so'zi bilan birga 'substantiate' (dalil bilan tasdiqlash) tushunchasi College Board ning eng sevimli akademik juftligidir."
+  },
+  {
+    "id": "r_vic_ephemeral_01",
+    "section": "reading",
+    "domain": "Craft and Structure - Words in Context",
+    "difficulty": "Hard",
+    "passage": "Unlike perennial desert shrubs whose extensive taproots anchor them through years of severe drought, annual desert wildflowers exhibit a strictly ______ life cycle, germinating rapidly following sporadic winter rainstorms and withering within days after dispersing their seeds.",
+    "question": "Which choice completes the text with the most logical and precise word or phrase?",
+    "options": [
+      {
+        "key": "A",
+        "text": "ephemeral"
+      },
+      {
+        "key": "B",
+        "text": "interminable"
+      },
+      {
+        "key": "C",
+        "text": "monolithic"
+      },
+      {
+        "key": "D",
+        "text": "indomitable"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Matnda ko'p yillik o'simliklarga (perennial) qarama-qarshi o'laroq, sahro yovvoyi gullari yomg'irdan keyin tez o'sib, bir necha kunda urug'ini sochib qurib qolishi aytilgan. 'Ephemeral' juda qisqa muddatli, o'tkinchi deganidir. Interminable (cheksiz/tugamas), monolithic (bir butun/yaxlit), indomitable (yengilmas) ma'noga ziddir.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: 'Unlike perennial' (ko'p yillikdan farqli o'laroq) va 'withering within days' (bir necha kun ichida quriydigan) iboralariga e'tibor bering. Bular to'g'ridan-to'g'ri 'ephemeral' (qisqa umrli) so'zini talab qiladi."
+  },
+  {
+    "id": "r_cid_hydro_01",
+    "section": "reading",
+    "domain": "Information and Ideas - Central Ideas and Details",
+    "difficulty": "Medium",
+    "passage": "Before the discovery of hydrothermal vents in 1977, biological dogma asserted that all complex multicellular ecosystems ultimately depend upon photosynthetic solar energy. Deep-sea vent communities completely upended this assumption: surrounded by pitch-black, superheated mineral waters, giant tube worms and vent shrimp flourish without sunlight. Instead of utilizing chlorophyll, primary producers in these benthic communities rely upon chemosynthesis, oxidizing toxic hydrogen sulfide expelled from Earth's crust to synthesize organic carbon.",
+    "question": "Which choice best states the main idea of the text?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The discovery of hydrothermal vents proved that thriving ecosystems can be sustained through chemosynthesis without reliance on solar energy."
+      },
+      {
+        "key": "B",
+        "text": "Photosynthesis is significantly more efficient than chemosynthesis in deep benthic marine environments."
+      },
+      {
+        "key": "C",
+        "text": "Giant tube worms are the only marine organisms capable of surviving toxic concentrations of hydrogen sulfide."
+      },
+      {
+        "key": "D",
+        "text": "Biological dogma accurately predicted the nutritional strategies of vent-dwelling shrimp prior to 1977."
+      }
+    ],
+    "correct": "A",
+    "explanation": "Matnning asosiy g'oyasi: 1977-yilgacha barcha hayot quyosh nuri va fotosintezga tayanadi degan dogma mavjud edi, biroq gidrotermal manbalardagi ekotizim quyosh nurisiz, xemasintez hisobiga hayot kechira olishini isbotlab, bu qarashni tubdan o'zgartirdi (A variant). B matnda yo'q, C 'only organisms' deb xato umumlashtiradi, D esa dogma bashorat qilmaganini inkor qiladi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: Asosiy g'oyani topishda 'upended this assumption' (bu qarashni ag'dar-to'ntar qildi) kabi o'zgarish jumlalariga qarang. Matn eski qarash va yangi kashfiyot o'rtasidagi farqni ko'rsatadi."
+  },
+  {
+    "id": "r_evid_migr_01",
+    "section": "reading",
+    "domain": "Information and Ideas - Command of Evidence (Textual)",
+    "difficulty": "Hard",
+    "passage": "Biologists investigating the nocturnal migratory orientation of European robins hypothesized that the birds detect Earth's magnetic field through quantum cryptochrome proteins located in their retinal photoreceptor cells. To test whether this magnetoreception is wavelength-dependent, researchers exposed migrating robins to artificial magnetic fields under various lighting conditions. They observed that the birds maintained precise migratory orientation under blue and green ambient light, but became entirely disoriented under yellow and red wavelengths.",
+    "question": "Which finding, if true, would most directly support the researchers' hypothesis regarding retinal cryptochromes?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Retinal cryptochrome proteins are chemically activated and form radical pairs only when exposed to blue or green light spectra."
+      },
+      {
+        "key": "B",
+        "text": "European robins migrate primarily during overcast nights when ambient moonlight is absorbed by cloud cover."
+      },
+      {
+        "key": "C",
+        "text": "Robins deprived of food prior to migration exhibit reduced flight speeds regardless of ambient lighting."
+      },
+      {
+        "key": "D",
+        "text": "Earth's magnetic field fluctuates in intensity depending on solar storm activity."
+      }
+    ],
+    "correct": "A",
+    "explanation": "Tadqiqotchilar qushlarning ko'zidagi kriptoxrom oqsillari yorug'lik to'lqiniga bog'liq magnit sezuvchanlikni beradi deb taxmin qilishgan. Qushlar faqat ko'k va yashil nurlarda to'g'ri yo'nalish olgan. Agar A variant to'g'ri bo'lsa (kriptoxromlar aynan ko'k va yashil nurda kimyoviy faollashadi), bu tajriba natijasini biologik jihatdan 100% isbotlaydi. B, C, D esa gipotezani to'g'ridan-to'g'ri tasdiqlamaydi.",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: Gipotezani qo'llab-quvvatlash uchun mexanizm (kriptoxrom oqsillari) va tajriba sharti (ko'k va yashil nur) o'rtasida to'g'ridan-to'g'ri sababiy bog'liqlik ko'rsatilgan variantni tanlang."
+  },
+  {
+    "id": "r_conn_ai_01",
+    "section": "reading",
+    "domain": "Craft and Structure - Cross-Text Connections",
+    "difficulty": "Hard",
+    "passage": "Text 1:\nProponents of neural machine translation argue that modern large language models have effectively conquered the language barrier. By parsing billions of multilingual sentence pairs, these systems generate syntactically flawless translations across technical, legal, and conversational domains with near-instantaneous speed.\n\nText 2:\nWhile machine translation accurately matches semantic terminology, it repeatedly falters when confronting cultural subtext, satirical irony, and regional idioms. Human communication relies on an unspoken architecture of shared societal experience that statistical token prediction algorithms cannot truly comprehend.",
+    "question": "Based on the texts, how would the author of Text 2 most likely respond to the claims made in Text 1?",
+    "options": [
+      {
+        "key": "A",
+        "text": "By asserting that superficial syntactic precision does not equate to genuine comprehension of cultural nuances."
+      },
+      {
+        "key": "B",
+        "text": "By agreeing that machine translation has completely eliminated the need for human professional linguists."
+      },
+      {
+        "key": "C",
+        "text": "By demonstrating that language models cannot translate even basic technical manuals accurately."
+      },
+      {
+        "key": "D",
+        "text": "By arguing that multilingual sentence datasets will soon solve the problem of satirical irony."
+      }
+    ],
+    "correct": "A",
+    "explanation": "Text 1 sun'iy intellekt tarjimasining tezligi va sintaktik mukammalligini maqtaydi. Text 2 esa bunga e'tiroz bildirib, tashqi to'g'ri sintaksis insoniy madaniy kontekst va kinoyalarni tushunishga teng emasligini ta'kidlaydi (A variant). B va D Text 2 ga butunlay zid, C esa matnda aytilmagan (Text 2 texnik qo'llanmalarni tarjima qila olmaydi demagan).",
+    "strategy_or_hack": "🎯 SAT TAKTIKASI: Ikki matnli savollarda birinchi matn ijobiy (proponents), ikkinchi matn esa cheklovni (while... repeatedly falters) ko'rsatadi. Har doim ikkinchi muallifning cheklovchi nuqtai nazariga e'tibor qarating."
+  },
+  {
+    "id": "w_bound_dash_01",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries & Punctuation",
+    "difficulty": "Medium",
+    "passage": "The James Webb Space Telescope—equipped with an infrared primary mirror spanning over twenty-one ______ has unveiled galaxies that formed less than four hundred million years after the Big Bang.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "feet—"
+      },
+      {
+        "key": "B",
+        "text": "feet,"
+      },
+      {
+        "key": "C",
+        "text": "feet;"
+      },
+      {
+        "key": "D",
+        "text": "feet:"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Gap o'rtasida qo'shimcha izoh (non-essential parenthetical element) birinchi tire (em dash) bilan ochilgan: 'The James Webb Space Telescope—equipped with...'. Juft tire qoidasiga ko'ra, tire bilan ochilgan oraliq izoh aynan ikkinchi tire bilan yopilishi shart: 'twenty-one feet—has unveiled...'. Tire bilan boshlanib vergul yoki nuqtali vergul bilan yopish grammatik xatodir.",
+    "strategy_or_hack": "⚡ SAT GRAMMATIKA QOIDASI:\nJuftlik qoidasi (Symmetry Rule): Agar kirish so'z tire (—) bilan ochilgan bo'lsa, uni faqat tire (—) bilan yopish kerak! Vergul yoki nuqtali vergul qo'yish taqiqlanadi."
+  },
+  {
+    "id": "w_bound_colon_01",
+    "section": "writing",
+    "domain": "Standard English Conventions - Boundaries & Punctuation",
+    "difficulty": "Easy",
+    "passage": "Archaeologists excavating the ruins of Pompeii uncovered a remarkable culinary ______ a remarkably preserved thermopolium counter displaying earthenware vessels containing traces of duck, pork, and snail stew.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "artifact:"
+      },
+      {
+        "key": "B",
+        "text": "artifact,"
+      },
+      {
+        "key": "C",
+        "text": "artifact; which was"
+      },
+      {
+        "key": "D",
+        "text": "artifact"
+      }
+    ],
+    "correct": "A",
+    "explanation": "To'g'ri javob A (ikki nuqta / colon). Birinchi qism 'Archaeologists excavating the ruins of Pompeii uncovered a remarkable culinary artifact' — to'liq mustaqil gap (independent clause). Undan keyin esa o'sha artefaktning aynan nima ekanligini ochib beruvchi tushuntirish va misol kelmoqda. Mustaqil gapdan keyin tushuntirish berish uchun ikki nuqta (colon) qo'yiladi.",
+    "strategy_or_hack": "⚡ SAT COLON QOIDASI:\nIkki nuqta (:) qo'yilishi uchun uning chap tomoni to'liq mustaqil gap bo'lishi, o'ng tomoni esa chapdagi tushunchani tushuntirishi yoki ro'yxat keltirishi shart!"
+  },
+  {
+    "id": "w_struct_dangle_01",
+    "section": "writing",
+    "domain": "Standard English Conventions - Modifiers & Parallelism",
+    "difficulty": "Hard",
+    "passage": "Having analyzed sediment cores extracted from the bed of Lake Titicaca, ______ that severe multi-decade droughts coincided precisely with the collapse of the Tiwanaku civilization.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "options": [
+      {
+        "key": "A",
+        "text": "paleoclimatologists concluded"
+      },
+      {
+        "key": "B",
+        "text": "the conclusion reached by paleoclimatologists was"
+      },
+      {
+        "key": "C",
+        "text": "it was concluded by paleoclimatologists"
+      },
+      {
+        "key": "D",
+        "text": "the Tiwanaku civilization's collapse proved"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Dangling Modifier (osilib qolgan aniqlovchi) qoidasi: 'Having analyzed sediment cores...' (cho'kindi jinslarni tahlil qilgach...) deb boshlangan kirish qism harakatni kim bajarganini talab qiladi. Cho'kindilarni tahlil qilgan narsa 'xulosa' yoki 'qulash' emas, balki olimlar (paleoclimatologists)dir! Shuning uchun verguldan keyin darhol 'paleoclimatologists' kelishi shart (A variant).",
+    "strategy_or_hack": "⚡ SAT MODIFIER HACK:\nGap '-ing' yoki '-ed' bilan boshlanganda, 'Bu ishni kim qildi?' deb so'rang. Tahlilni olimlar qilgan, demak verguldan keyin birinchi so'z olimlar (paleoclimatologists) bo'lishi shart!"
+  },
+  {
+    "id": "w_trans_conv_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Medium",
+    "passage": "Traditional deterministic algorithms rely on explicit, programmer-written logic rules to process incoming data. ______ modern deep neural networks identify complex latent patterns autonomously through iterative exposure to massive training datasets.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Conversely,"
+      },
+      {
+        "key": "B",
+        "text": "Furthermore,"
+      },
+      {
+        "key": "C",
+        "text": "For example,"
+      },
+      {
+        "key": "D",
+        "text": "Accordingly,"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Birinchi gap an'anaviy qat'iy dasturlash qoidalariga asoslanishini aytsa, ikkinchi gap neyron tarmoqlar qoidalarsiz o'zi mustaqil naqshlarni o'rganishini aytadi. Bu ikki tizim o'rtasidagi to'g'ridan-to'g'ri qarama-qarshilik (kontrast)dir. 'Conversely' (aksincha, aks holda) kontrastni bildiradi. Furthermore (qo'shimcha), For example (misol), Accordingly (mos ravishda) ma'noga to'g'ri kelmaydi.",
+    "strategy_or_hack": "⚡ TRANSITION TAKTIKASI:\nIkki gap bir-biriga zidmi yoki bir-birini tasdiqlayaptimi? An'anaviy qoidalar VS O'z-o'zidan o'rganuvchi AI = Kontrast! Javob: Conversely (yoki However, In contrast)."
+  },
+  {
+    "id": "w_trans_spec_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Transitions",
+    "difficulty": "Easy",
+    "passage": "Extreme weather events have inflicted severe disruptions on global maritime supply chains over the past year. ______ persistent low water levels in the Panama Canal forced maritime authorities to reduce daily vessel transit slots by more than thirty percent.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Specifically,"
+      },
+      {
+        "key": "B",
+        "text": "Nevertheless,"
+      },
+      {
+        "key": "C",
+        "text": "In comparison,"
+      },
+      {
+        "key": "D",
+        "text": "Ultimately,"
+      }
+    ],
+    "correct": "A",
+    "explanation": "Birinchi gapda umumiy muammo ('extreme weather disruptions on global supply chains') aytiladi. Ikkinchi gapda esa ushbu umumiy holatning aniq bitta misoli — Panama kanalidagi suv sathi pasayishi keltiriladi. Umumiydan xususiyga o'tishda 'Specifically' (xususan, aniqrog'i) eng mos bog'lovchidir. Nevertheless (shunga qaramay) va In comparison (taqqoslaganda) noo'rin.",
+    "strategy_or_hack": "⚡ SAT TRANSITION QOIDASI:\nUmumiy fakt ➔ Aniq hodisa (Panama kanali). Umumiy fikrdan aniq voqeaga tushilganda har doim 'Specifically' yoki 'For instance' tanlanadi."
+  },
+  {
+    "id": "w_rhet_jwst_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Rhetorical Synthesis",
+    "difficulty": "Medium",
+    "passage": "While researching astronomical observatories, a student took the following notes:\n• The Hubble Space Telescope was launched in 1990 and observes predominantly in visible and ultraviolet light.\n• Hubble orbits Earth at an altitude of approximately 540 kilometers.\n• The James Webb Space Telescope (JWST) was launched in 2021 and observes primarily in infrared wavelengths.\n• JWST is stationed at the Second Lagrange Point (L2), roughly 1.5 million kilometers from Earth.\n• Infrared instruments allow JWST to penetrate cosmic dust clouds that obscure visible light.",
+    "question": "The student wants to contrast the primary observational wavelengths of the Hubble and James Webb space telescopes. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    "options": [
+      {
+        "key": "A",
+        "text": "While the Hubble Space Telescope observes predominantly in visible and ultraviolet spectra, the James Webb Space Telescope observes primarily in infrared wavelengths."
+      },
+      {
+        "key": "B",
+        "text": "Launched in 1990 and 2021 respectively, Hubble orbits close to Earth at 540 kilometers, whereas JWST is positioned at the distant L2 point."
+      },
+      {
+        "key": "C",
+        "text": "The James Webb Space Telescope utilizes infrared instruments to penetrate cosmic dust clouds that obscure visible light."
+      },
+      {
+        "key": "D",
+        "text": "Stationed 1.5 million kilometers from Earth, JWST is far more distant than Hubble, which orbits at an altitude of only 540 kilometers."
+      }
+    ],
+    "correct": "A",
+    "explanation": "Savolning aniq maqsadi (goal): Hubble va JWST teleskoplarining kuzatish to'lqin uzunliklarini (observational wavelengths) taqqoslash/qarama-qarshi qo'yish. A variant ikkala teleskopning spektrlarini (visible/ultraviolet vs infrared) aniq taqqoslaydi. B va D orbital masofani solishtiradi, C esa faqat bitta teleskop haqida gapiradi.",
+    "strategy_or_hack": "⚡ RHETORICAL SYNTHESIS STRATEGIYASI:\nHar doim savoldagi maqsadga (goal) e'tibor bering! Savol 'observational wavelengths' (to'lqin uzunliklari)ni taqqoslashni so'radi. Variantlar ichidan faqat to'lqin uzunligini solishtirgan yagona variant A!"
+  },
+  {
+    "id": "w_rhet_maya_01",
+    "section": "writing",
+    "domain": "Expression of Ideas - Rhetorical Synthesis",
+    "difficulty": "Hard",
+    "passage": "While researching ancient agricultural innovations, a student took the following notes:\n• The ancient Maya civilization inhabited regions characterized by alternating seasons of torrential flooding and severe seasonal drought.\n• In wetland lowlands, Maya farmers engineered chinampas (raised fields crisscrossed by canals) to elevate crops above floodwaters.\n• In steep mountainous terrain, Maya engineers constructed stone-faced agricultural terraces to retain topsoil and moisture.\n• These complementary hydraulic engineering systems enabled the Maya to achieve surplus food production in ecologically fragile landscapes.",
+    "question": "The student wants to emphasize how Maya farmers adapted their agricultural techniques to differing geographic terrains. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+    "options": [
+      {
+        "key": "A",
+        "text": "To adapt to diverse landscapes, Maya farmers constructed raised fields to protect crops from lowland floods and carved stone terraces to conserve soil on steep mountain slopes."
+      },
+      {
+        "key": "B",
+        "text": "The ancient Maya civilization successfully inhabited challenging environments that suffered from both seasonal torrential flooding and severe droughts."
+      },
+      {
+        "key": "C",
+        "text": "By developing raised fields crisscrossed by drainage canals, Maya farmers were able to achieve surplus food production in wetland lowlands."
+      },
+      {
+        "key": "D",
+        "text": "Complementary hydraulic systems were essential for agricultural survival in the fragile ecosystems of the ancient Americas."
+      }
+    ],
+    "correct": "A",
+    "explanation": "Talabaning maqsadi: Maya dehqonlari o'z usullarini turli geografik relyeflarga (differing geographic terrains) qanday moslashtirganini ta'kidlash. A variant ikkala geografik hududni (pasttekislikdagi botqoqlar vs tik tog' yonbag'irlari) va ularga mos muhandislik yechimlarini (raised fields vs stone terraces) to'liq o'z ichiga oladi. B faqat iqlimni aytadi, C faqat bitta relyefni olgan, D esa umumiy gap.",
+    "strategy_or_hack": "⚡ RHETORICAL SYNTHESIS HACK:\nMaqsad: 'differing geographic terrains' (turli relyeflar). Demak to'g'ri javobda kamida 2 xil relyef (lowland va mountain slopes) bo'lishi shart! Yagona to'liq variant — A."
+  }
+]

@@ -46,7 +46,9 @@ class QuestionService:
                             q_copy = dict(q)
                             q_copy["id"] = f"diag_{q.get('id')}"
                             q_copy["section"] = "math"
-                            q_copy["difficulty"] = "Medium"
+                            q_copy["domain"] = q.get("topic", "Math - General")
+                            q_copy["difficulty"] = "Hard" if q.get("id") in (1, 3, 5) else "Medium"
+                            q_copy["passage"] = None
                             q_copy["strategy_or_hack"] = q.get("desmos_hack", "")
                             # Avoid duplicates
                             if not any(item.get("id") == q_copy["id"] for item in questions):
@@ -113,34 +115,80 @@ class QuestionService:
         return True, "Valid"
 
 
-    def get_next_question(self, answered_ids: list[str], section: str = "mixed") -> dict[str, Any]:
-        """
-        Selects the next question for practice.
-        If all curated questions in this section have been answered,
-        or for endless math, dynamically generates infinite authentic SAT questions!
-        """
+    def get_available_domains(self, section: str = "all") -> list[str]:
+        """Returns sorted list of unique domains for the given section."""
         sec = section.lower().strip()
+        domains = set()
+        for q in self.curated_questions:
+            q_sec = str(q.get("section", "")).lower().strip()
+            if sec in ("all", "mixed") or q_sec == sec:
+                dom = q.get("domain")
+                if dom:
+                    domains.add(dom)
+        return sorted(list(domains))
+
+    def get_available_difficulties(self) -> list[str]:
+        """Returns standardized difficulty levels."""
+        return ["Easy", "Medium", "Hard"]
+
+    def filter_questions(
+        self,
+        section: str = "all",
+        domain: str = "all",
+        difficulty: str = "all"
+    ) -> list[dict[str, Any]]:
+        """Filters curated questions by section, domain, and difficulty."""
+        sec = section.lower().strip()
+        diff = difficulty.capitalize().strip()
+        dom = domain.strip().lower()
+
+        results = []
+        for q in self.curated_questions:
+            q_sec = str(q.get("section", "")).lower().strip()
+            q_diff = str(q.get("difficulty", "")).capitalize().strip()
+            q_dom = str(q.get("domain", "")).strip().lower()
+
+            if sec not in ("all", "mixed") and q_sec != sec:
+                continue
+            if diff != "All" and q_diff != diff:
+                continue
+            if dom != "all" and dom not in q_dom:
+                continue
+
+            results.append(q)
+        return results
+
+    def get_next_filtered_question(
+        self,
+        answered_ids: list[str],
+        section: str = "mixed",
+        domain: str = "all",
+        difficulty: str = "all"
+    ) -> dict[str, Any]:
+        """
+        Selects next question adhering to active section, domain, and difficulty filters.
+        If unanswered questions exist in filter, picks one.
+        If all matching curated questions answered, falls back to dynamic math question or recycles matching pool.
+        """
+        pool = self.filter_questions(section=section, domain=domain, difficulty=difficulty)
         answered_set = set(str(qid) for qid in answered_ids)
-
-        # 1. Filter candidates from curated bank
-        if sec == "mixed":
-            pool = self.curated_questions
-        else:
-            pool = [q for q in self.curated_questions if q.get("section", "").lower() == sec]
-
         unanswered = [q for q in pool if str(q.get("id")) not in answered_set]
 
-        # 2. If there are unanswered curated questions, pick one randomly
         if unanswered:
             return random.choice(unanswered)
 
-        # 3. If pool is empty or all answered:
-        # If user is in math or mixed mode, generate a dynamic infinite question!
-        if sec in ("math", "mixed") or not pool:
+        sec = section.lower().strip()
+        if (sec in ("math", "mixed", "all") and (domain == "all" or "math" in domain.lower() or "algebra" in domain.lower() or "geometry" in domain.lower())) or not pool:
             return self.generate_dynamic_sat_question()
 
-        # If reading or writing pool exhausted, recycle pool with random choice
-        return random.choice(pool)
+        if pool:
+            return random.choice(pool)
+
+        return self.generate_dynamic_sat_question()
+
+    def get_next_question(self, answered_ids: list[str], section: str = "mixed") -> dict[str, Any]:
+        """Backward-compatible wrapper for get_next_filtered_question."""
+        return self.get_next_filtered_question(answered_ids, section=section, domain="all", difficulty="all")
 
     def generate_dynamic_sat_question(self) -> dict[str, Any]:
         """
