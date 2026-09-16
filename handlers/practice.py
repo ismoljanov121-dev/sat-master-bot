@@ -20,6 +20,7 @@ from aiogram.types import (
 )
 
 from database import db
+from services.question_repository import vault
 from services.question_service import qs
 from services.sat_taxonomy import get_skills_for_domain
 
@@ -302,7 +303,7 @@ async def cmd_practice(message: Message):
     diff_badge = filters.get("difficulty", "all").capitalize()
     dom_badge = filters.get("domain", "all")
 
-    v_counts = qs.vault.get_published_counts_by_section()
+    v_counts = vault.get_published_counts_by_section()
     math_c = v_counts.get("math", 0)
     read_c = v_counts.get("reading", 0)
     writ_c = v_counts.get("writing", 0)
@@ -316,7 +317,7 @@ async def cmd_practice(message: Message):
         f"Bu yerda siz Digital SAT imtihoni savollarini mavzu va qiyinlik bo'yicha saralab mashq qilishingiz mumkin.\n\n"
         f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
         f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
-        f"• Jami tasdiqlangan: <b>{total_c} ta</b> (100% Digital SAT original)\n\n"
+        f"• Jami tasdiqlangan: <b>{total_c} ta</b> (Digital SAT talablariga moslashtirilgan)\n\n"
         f"📊 <b>Sizning Natijalaringiz:</b>\n"
         f"• 📝 Jami yechilgan: <b>{total} ta</b>\n"
         f"• 🎯 To'g'ri javoblar: <b>{correct} ta</b> (Aniqlik: <b>{accuracy}%</b>)\n"
@@ -348,7 +349,7 @@ async def cb_practice_hub(callback: CallbackQuery):
         diff_badge = filters.get("difficulty", "all").capitalize()
         dom_badge = filters.get("domain", "all")
 
-        v_counts = qs.vault.get_published_counts_by_section()
+        v_counts = vault.get_published_counts_by_section()
         math_c = v_counts.get("math", 0)
         read_c = v_counts.get("reading", 0)
         writ_c = v_counts.get("writing", 0)
@@ -361,7 +362,7 @@ async def cb_practice_hub(callback: CallbackQuery):
             f"Assalomu alaykum, <b>{user_name}</b>!\n\n"
             f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
             f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
-            f"• Jami tasdiqlangan: <b>{total_c} ta</b> (100% Digital SAT original)\n\n"
+            f"• Jami tasdiqlangan: <b>{total_c} ta</b> (Digital SAT talablariga moslashtirilgan)\n\n"
             f"📊 <b>Sizning Natijalaringiz:</b>\n"
             f"• 📝 Jami yechilgan: <b>{total} ta</b>\n"
             f"• 🎯 To'g'ri javoblar: <b>{correct} ta</b> (Aniqlik: <b>{accuracy}%</b>)\n"
@@ -388,10 +389,11 @@ async def cb_menu_sec(callback: CallbackQuery):
         f"🔀 <b>BO'LIMNI TANLANG</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"Qaysi yo'nalish bo'yicha mashq qilmoqchisiz?\n"
-        f"• <b>Math</b>: Algebra, Advanced Math, Geometriya, Desmos\n"
-        f"• <b>Reading</b>: Words in Context, Central Ideas, Evidence\n"
+        f"• <b>Math</b>: Algebra, Advanced Math, Problem Solving, Geometry\n"
+        f"• <b>Reading</b>: Words in Context, Central Ideas, Textual Evidence\n"
         f"• <b>Writing</b>: Punctuation, Grammar, Transitions, Synthesis\n"
-        f"• <b>Mixed</b>: Barcha bo'limlardan aralash"
+        f"• <b>Mixed</b>: Barcha bo'limlardan aralash\n\n"
+        f"<i>ℹ️ Eslatma: Rasmiy Digital SAT imtihonida Reading va Writing bitta yaxlit 'Reading & Writing' bo'limida beriladi. O'quvchi qulayligi va aniq zaiflikni bartaraf etish uchun bu yerda alohida ajratilgan.</i>"
     )
     await safe_edit_practice(callback, text, reply_markup=get_section_selector_keyboard())
     await callback.answer()

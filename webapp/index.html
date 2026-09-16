@@ -330,6 +330,16 @@
 
                     <label class="block p-4 rounded-xl border border-slate-700 bg-slate-900/50 cursor-pointer hover:border-violet-500 transition-all">
                         <div class="flex items-start gap-3">
+                            <input type="radio" name="trMode" value="full_mock" class="mt-1 text-violet-600 focus:ring-0">
+                            <div>
+                                <div class="font-semibold text-sm text-white" data-i18n="tr_mode_full">🎓 To'liq Digital SAT Formati (98 savol / 134 daq)</div>
+                                <div class="text-xs text-gray-400 mt-1" data-i18n="tr_mode_full_desc">Reading & Writing 54 savol/64 daq + Math 44 savol/70 daq (Mustaqil simulyatsiya)</div>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="block p-4 rounded-xl border border-slate-700 bg-slate-900/50 cursor-pointer hover:border-violet-500 transition-all">
+                        <div class="flex items-start gap-3">
                             <input type="radio" name="trMode" value="diagnostic" class="mt-1 text-violet-600 focus:ring-0">
                             <div>
                                 <div class="font-semibold text-sm text-white" data-i18n="tr_mode_diag">🔬 Diagnostika Testi (7 savol / 15 daq)</div>
@@ -337,6 +347,18 @@
                             </div>
                         </div>
                     </label>
+                </div>
+
+                <!-- Autosave Resume Banner -->
+                <div id="trResumeCard" class="hidden mb-4 p-4 rounded-xl border border-amber-500/40 bg-amber-500/10 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-300">⚡ Yakunlanmagan test mavjud</div>
+                        <div id="trResumeDetails" class="text-[11px] text-gray-400 mt-0.5">Avvalgi javoblaringiz va qolgan vaqt saqlangan.</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="trResumeBtn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs spring-scale transition-all">Davom etish</button>
+                        <button id="trDiscardResumeBtn" class="px-2 py-1.5 rounded-lg bg-slate-800 text-gray-400 text-xs hover:text-white spring-scale" title="Bekor qilish">✕</button>
+                    </div>
                 </div>
 
                 <button id="trStartBtn" class="spring-scale w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 font-bold transition-all shadow-lg neon-glow">
@@ -778,6 +800,8 @@
                 tr_mode_daily_desc: 'Kunlik mikromashq: 2 Math, 2 Reading, 2 Writing',
                 tr_mode_pilot: '⚡ Digital SAT Pilot Mock (18 savol / 25 daq)',
                 tr_mode_pilot_desc: 'Reading, Writing va Math bo\'yicha kengaytirilgan mock',
+                tr_mode_full: '🎓 To\'liq Digital SAT Formati (98 savol / 134 daq)',
+                tr_mode_full_desc: 'Reading & Writing (54 savol/64 daq) + Math (44 savol/70 daq). Mustaqil simulyatsiya.',
                 tr_mode_diag: '🔬 Diagnostika Testi (7 savol / 15 daq)',
                 tr_mode_diag_desc: 'Math konseptual bo\'shliqlarni aniqlash',
                 tr_start_btn: 'Testni Boshlash 🚀',
@@ -887,7 +911,9 @@
                 tr_mode_daily_desc: 'Микротренировка: 2 Math, 2 Reading, 2 Writing',
                 tr_mode_pilot: '⚡ Digital SAT Pilot Mock (18 вопросов)',
                 tr_mode_pilot_desc: 'Расширенный мок-тест по всем секциям',
-                tr_mode_diag: '🔬 Диагностика (7 вопросов)',
+                tr_mode_full: '🎓 Полный формат Digital SAT (98 вопр. / 134 мин)',
+                tr_mode_full_desc: 'Reading & Writing 54 вопр/64 мин + Math 44 вопр/70 мин (Независимая симуляция)',
+                tr_mode_diag: '🔬 Диагностический тест (7 вопросов)',
                 tr_mode_diag_desc: 'Определение концептуальных пробелов в Math',
                 tr_start_btn: 'Начать Тест 🚀',
                 tr_flag: 'Отметить',
@@ -996,6 +1022,8 @@
                 tr_mode_daily_desc: 'Micro-practice: 2 Math, 2 Reading, 2 Writing',
                 tr_mode_pilot: '⚡ Digital SAT Pilot Mock (18 questions)',
                 tr_mode_pilot_desc: 'Full-domain pilot mock test with timer',
+                tr_mode_full: '🎓 Full Digital SAT Simulation (98 q / 134 min)',
+                tr_mode_full_desc: 'Reading & Writing (54 q / 64 min) + Math (44 q / 70 min). Independent simulation.',
                 tr_mode_diag: '🔬 Diagnostic Quiz (7 questions)',
                 tr_mode_diag_desc: 'Identify foundational gaps in Math',
                 tr_start_btn: 'Start Test 🚀',
@@ -1410,6 +1438,7 @@
                 }
                 if (tab === 'testrunner') {
                     if (trTab) trTab.classList.remove('hidden');
+                    if (typeof checkTestRunnerAutosave === 'function') checkTestRunnerAutosave();
                 }
                 if (tab === 'errors') errorsTab.classList.remove('hidden');
             });
@@ -2194,6 +2223,89 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             }
         ];
 
+        function saveTestRunnerAutosave() {
+            if (trState && trState.questions && trState.questions.length > 0 && trState.remainingSeconds > 0) {
+                try {
+                    localStorage.setItem('tr_autosave', JSON.stringify({
+                        mode: trState.mode,
+                        currentIdx: trState.currentIdx,
+                        answers: trState.answers,
+                        flags: trState.flags,
+                        remainingSeconds: trState.remainingSeconds,
+                        totalSeconds: trState.totalSeconds,
+                        questions: trState.questions,
+                        timestamp: Date.now()
+                    }));
+                } catch(e) {}
+            }
+        }
+
+        function clearTestRunnerAutosave() {
+            try {
+                localStorage.removeItem('tr_autosave');
+            } catch(e) {}
+            const resumeCard = document.getElementById('trResumeCard');
+            if (resumeCard) resumeCard.classList.add('hidden');
+        }
+
+        function checkTestRunnerAutosave() {
+            const raw = localStorage.getItem('tr_autosave');
+            if (!raw) return;
+            try {
+                const saved = JSON.parse(raw);
+                if (saved && Array.isArray(saved.questions) && saved.questions.length > 0 && saved.remainingSeconds > 10) {
+                    const diffHours = (Date.now() - (saved.timestamp || 0)) / (1000 * 3600);
+                    if (diffHours < 24) {
+                        const resumeCard = document.getElementById('trResumeCard');
+                        const details = document.getElementById('trResumeDetails');
+                        const answeredCount = Object.keys(saved.answers || {}).length;
+                        const m = Math.floor(saved.remainingSeconds / 60);
+                        const s = saved.remainingSeconds % 60;
+                        if (details) {
+                            details.textContent = `${saved.questions.length} savoldan ${answeredCount} tasi belgilangan. Qolgan vaqt: ${m}:${s.toString().padStart(2, '0')}`;
+                        }
+                        if (resumeCard) resumeCard.classList.remove('hidden');
+                    } else {
+                        clearTestRunnerAutosave();
+                    }
+                }
+            } catch(e) {
+                clearTestRunnerAutosave();
+            }
+        }
+
+        document.getElementById('trResumeBtn').addEventListener('click', () => {
+            playTap();
+            haptic();
+            const raw = localStorage.getItem('tr_autosave');
+            if (!raw) return;
+            try {
+                const saved = JSON.parse(raw);
+                trState.mode = saved.mode || 'daily_10m';
+                trState.currentIdx = saved.currentIdx || 0;
+                trState.answers = saved.answers || {};
+                trState.flags = saved.flags || {};
+                trState.questions = saved.questions;
+                trState.remainingSeconds = saved.remainingSeconds;
+                trState.totalSeconds = saved.totalSeconds || saved.remainingSeconds;
+
+                document.getElementById('trLauncher').classList.add('hidden');
+                document.getElementById('trResultScreen').classList.add('hidden');
+                document.getElementById('trActiveTest').classList.remove('hidden');
+
+                startTestTimer();
+                renderTestQuestion();
+            } catch(e) {
+                clearTestRunnerAutosave();
+            }
+        });
+
+        document.getElementById('trDiscardResumeBtn').addEventListener('click', () => {
+            playTap();
+            haptic();
+            clearTestRunnerAutosave();
+        });
+
         document.getElementById('trStartBtn').addEventListener('click', async () => {
             playTap();
             haptic();
@@ -2203,13 +2315,14 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
         });
 
         async function launchTestRunner(mode) {
+            clearTestRunnerAutosave();
             trState.mode = mode;
             trState.currentIdx = 0;
             trState.answers = {};
             trState.flags = {};
             trState.startTime = Date.now();
 
-            let durationSec = (mode === 'pilot_mock') ? 25 * 60 : (mode === 'diagnostic') ? 15 * 60 : 10 * 60;
+            let durationSec = (mode === 'full_mock') ? 134 * 60 : (mode === 'pilot_mock') ? 25 * 60 : (mode === 'diagnostic') ? 15 * 60 : 10 * 60;
             trState.remainingSeconds = durationSec;
             trState.totalSeconds = durationSec;
 
@@ -2241,6 +2354,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
 
             startTestTimer();
             renderTestQuestion();
+            saveTestRunnerAutosave();
         }
 
         function startTestTimer() {
@@ -2249,6 +2363,9 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             trState.timerInterval = setInterval(() => {
                 trState.remainingSeconds--;
                 updateTimerDisplay();
+                if (trState.remainingSeconds % 5 === 0) {
+                    saveTestRunnerAutosave();
+                }
                 if (trState.remainingSeconds <= 0) {
                     clearInterval(trState.timerInterval);
                     finishTestRunner();
@@ -2361,6 +2478,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             playTap();
             haptic();
             trState.answers[trState.currentIdx] = key;
+            saveTestRunnerAutosave();
             renderTestQuestion();
         };
 
@@ -2368,6 +2486,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             playTap();
             haptic();
             trState.flags[trState.currentIdx] = !trState.flags[trState.currentIdx];
+            saveTestRunnerAutosave();
             renderTestQuestion();
         });
 
@@ -2453,6 +2572,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
 
         function finishTestRunner() {
             if (trState.timerInterval) clearInterval(trState.timerInterval);
+            clearTestRunnerAutosave();
             playSuccess();
             launchConfetti();
 
@@ -2590,6 +2710,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             document.getElementById('trResultScreen').classList.add('hidden');
             document.getElementById('trActiveTest').classList.add('hidden');
             document.getElementById('trLauncher').classList.remove('hidden');
+            checkTestRunnerAutosave();
         });
 
         // ==================== INITIALIZE ====================
@@ -2597,6 +2718,7 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
         renderTasks();
         renderErrors();
         updateStats();
+        checkTestRunnerAutosave();
         
         // Telegram WebApp initialization & Hydration
         const hasTgInitData = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData;

@@ -221,6 +221,16 @@ class TestTestQuestionsApi(AioHTTPTestCase):
         self.assertEqual(data["mode"], "diagnostic")
         self.assertEqual(len(data["questions"]), 7)
 
+    @unittest_run_loop
+    async def test_get_full_mock_questions(self):
+        resp = await self.client.get("/api/v1/test/questions?mode=full_mock")
+        self.assertEqual(resp.status, 200)
+        data = await resp.json()
+        self.assertEqual(data["status"], "ok")
+        self.assertEqual(data["mode"], "full_mock")
+        self.assertEqual(len(data["questions"]), 98)
+        self.assertEqual(data["duration_seconds"], 134 * 60)
+
 
 if __name__ == "__main__":
     unittest.main()

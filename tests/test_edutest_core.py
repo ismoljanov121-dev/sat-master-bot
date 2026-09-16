@@ -151,11 +151,11 @@ class TestEduTestCore(unittest.TestCase):
         is_suff_pilot, _msg_pilot, _ = check_template_pool_sufficiency("pilot_mock")
         self.assertTrue(is_suff_pilot)
 
-        # Oversized Mock requiring 100 questions -> must honestly declare insufficient pool
+        # Oversized Mock requiring 1000 questions -> must honestly declare insufficient pool
         oversized = {
             "oversized": {
                 "name": "oversized",
-                "section_quotas": {"math": 100, "reading": 100, "writing": 100}
+                "section_quotas": {"math": 1000, "reading": 1000, "writing": 1000}
             }
         }
         with patch.dict("services.exam_service.EXAM_TEMPLATES", oversized):
@@ -222,6 +222,8 @@ class TestEduTestCore(unittest.TestCase):
         # 1. Valid signature passes
         is_valid, user_data, msg = validate_telegram_init_data(valid_init_data, bot_token=token)
         self.assertTrue(is_valid, f"Validation failed unexpectedly: {msg}")
+        self.assertIsNotNone(user_data)
+        assert user_data is not None
         self.assertEqual(user_data["id"], 12345678)
         self.assertEqual(user_data["first_name"], "Otabek")
 

@@ -23,15 +23,15 @@ logger = logging.getLogger("StartHandler")
 router = Router()
 
 def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
-    """Creates the primary navigation dashboard for the user with 3 clear P0 paths."""
+    """Creates the primary navigation dashboard for the user with 4 clear P0 paths."""
     unresolved_count = db.get_unresolved_mistakes_count(user_id) if user_id else 0
-    mistakes_btn_text = f"❌ 3. Xatolarim daftari ({unresolved_count})" if unresolved_count > 0 else "❌ 3. Xatolarim daftari"
+    mistakes_btn_text = f"❌ 4. Xatolarim daftari ({unresolved_count})" if unresolved_count > 0 else "❌ 4. Xatolarim daftari"
 
     buttons = [
-        # --- 3 Clear P0 Paths ---
+        # --- 4 Clear P0 Daily Preparation Paths ---
         [
             InlineKeyboardButton(
-                text="🎯 1. Darajamni bilish (7 savol - Bepul)",
+                text="🎯 1. Darajamni bilish (Diagnostika - Bepul)",
                 callback_data="start_diagnostic"
             )
         ],
@@ -43,11 +43,17 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
+                text="📚 3. Mavzu tanlash (Math / Reading / Writing)",
+                callback_data="practice_hub"
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text=mistakes_btn_text,
                 callback_data="notebook_menu"
             )
         ],
-        # --- Secondary Features ---
+        # --- Mini App & Mock Center ---
         [
             InlineKeyboardButton(
                 text="📱 Mini Appda Test Topshirish & Tracker",
@@ -60,25 +66,21 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
                 callback_data="exam_hub"
             ),
             InlineKeyboardButton(
-                text="📚 SAT Mashq Bazasi",
-                callback_data="practice_hub"
+                text="⚡ Desmos Strategiyalari",
+                callback_data="desmos_catalog"
             )
         ],
         [
-            InlineKeyboardButton(
-                text="⚡ Desmos Strategiyalari",
-                callback_data="desmos_catalog"
-            ),
             InlineKeyboardButton(
                 text="📊 Mening Natijam",
                 callback_data="my_stats"
+            ),
+            InlineKeyboardButton(
+                text="💬 Fikr va Taklif",
+                callback_data="send_feedback_prompt"
             )
         ],
         [
-            InlineKeyboardButton(
-                text="💬 Fikr va Taklif (Feedback)",
-                callback_data="send_feedback_prompt"
-            ),
             InlineKeyboardButton(
                 text="👥 Do'stlarni Taklif Qilish",
                 callback_data="referral_menu"
@@ -143,12 +145,13 @@ async def cmd_start(message: Message, command: CommandObject = None):
             f"Assalomu alaykum, <b>{user_name}</b>! ⚡\n\n"
             f"Xush kelibsiz! Bu <b>{BRAND_NAME}</b> — Digital SAT imtihoniga mustaqil tayyorlanish "
             "uchun mo'ljallangan intellektual platforma (bepul pilot versiyasi).\n\n"
-            "🎯 <b>SIZ UCHUN 3 TA ASOSIY YO'L:</b>\n"
-            "1️⃣ <b>🎯 Darajamni bilish:</b> 7 ta nozik savol orqali bilim darajangiz va zaif mavzularni bepul aniqlang.\n"
-            "2️⃣ <b>⏱️ Bugungi 10 daqiqalik mashq:</b> Kunlik odatga aylanadigan tezkor 6 savollik mikro-mashq.\n"
-            "3️⃣ <b>❌ Xatolarim daftari:</b> Ilgari xato qilgan savollaringizni to'liq o'zlashtirguncha qayta mashq qiling.\n\n"
-            "📱 Shuningdek, <b>Mini App</b> orqali mobil telefonda qulay test topshirishingiz mumkin.\n\n"
-            "👇 <i>Quyidagi 3 ta asosiy yo'ldan birini tanlang:</i>"
+            "🎯 <b>SIZ UCHUN 4 TA ASOSIY TAYYORGARLIK YO'LI:</b>\n"
+            "1️⃣ <b>🎯 Darajamni bilish:</b> 7 ta nozik diagnostika savoli orqali bilim darajangiz va zaif mavzularni bepul aniqlang.\n"
+            "2️⃣ <b>⏱️ Bugungi 10 daqiqalik mashq:</b> Kunlik odatga aylanadigan tezkor mikro-mashq (Math, Reading, Writing).\n"
+            "3️⃣ <b>📚 Mavzu tanlash:</b> Math, Reading va Writing bo'yicha mustaqil mavzular, ko'nikmalar va qiyinlik filtri.\n"
+            "4️⃣ <b>❌ Xatolarim daftari:</b> Ilgari xato qilgan savollaringizni to'liq o'zlashtirguncha qayta yeching.\n\n"
+            "📱 Shuningdek, <b>Mini App</b> orqali mobil telefonda vaqt nazorati va qulay interfeysda test topshirishingiz mumkin.\n\n"
+            "👇 <i>Quyidagi asosiy yo'nalishlardan birini tanlang:</i>"
         )
         await message.answer(welcome_text, reply_markup=get_main_menu_keyboard(user_id), parse_mode="HTML")
     except Exception as e:

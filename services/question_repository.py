@@ -124,9 +124,14 @@ class QuestionRepository:
         if passage is not None:
             passage = str(passage).strip()
         question_text = str(q.get("question", "")).strip()
-        options = q.get("options", [])
+        raw_options = q.get("options", [])
+        if raw_options and isinstance(raw_options[0], str):
+            keys = ["A", "B", "C", "D", "E"]
+            options = [{"key": keys[i], "text": str(opt)} for i, opt in enumerate(raw_options)]
+        else:
+            options = raw_options
         options_json = json.dumps(options, ensure_ascii=False)
-        correct = str(q.get("correct", "A")).upper().strip()
+        correct = str(q.get("correct") or q.get("correct_answer") or "A").upper().strip()
         explanation = str(q.get("explanation", "")).strip()
         strategy_or_hack = str(q.get("strategy_or_hack") or q.get("desmos_hack", "")).strip()
         author = str(q.get("author", "internal_authoring")).strip()

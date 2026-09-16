@@ -59,6 +59,19 @@ EXAM_TEMPLATES: dict[str, dict[str, Any]] = {
         },
         "is_official": False,
         "disclaimer": "Mustaqil Digital SAT mashqi. Bluebook formatidan ilhomlangan mustaqil tayyorgarlik vositasi."
+    },
+    "full_mock": {
+        "name": "full_mock",
+        "title": "Digital SAT To'liq Formatli Mock",
+        "description": "98 ta savol / 134 daqiqa (Reading & Writing 54 savol / 64 daqiqa + Math 44 savol / 70 daqiqa)",
+        "duration_seconds": 134 * 60,
+        "section_quotas": {
+            "reading": 27,
+            "writing": 27,
+            "math": 44
+        },
+        "is_official": False,
+        "disclaimer": "Mustaqil Digital SAT formati simulyatsiyasi. Rasmiy College Board yoki Bluebook imtihoni emas. 100% mustaqil mualliflik savollari."
     }
 }
 
@@ -116,8 +129,15 @@ def prepare_shuffled_questions(template_name: str, seed: int) -> list[dict[str, 
         rng.shuffle(shuffled_pool)
         selected_raw.extend(shuffled_pool[:count])
 
-    # Shuffle the overall question order across sections
-    rng.shuffle(selected_raw)
+    # Order questions according to template structure
+    if template_name == "full_mock":
+        rw_pool = [q for q in selected_raw if q.get("section") in ("reading", "writing")]
+        math_pool = [q for q in selected_raw if q.get("section") == "math"]
+        rng.shuffle(rw_pool)
+        rng.shuffle(math_pool)
+        selected_raw = rw_pool + math_pool
+    else:
+        rng.shuffle(selected_raw)
 
     prepared: list[dict[str, Any]] = []
     for q in selected_raw:

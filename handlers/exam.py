@@ -51,6 +51,12 @@ def get_exam_hub_keyboard() -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
+                text="🎓 Digital SAT To'liq Mock (98 savol / 134 daq)",
+                callback_data="ex_start:full_mock"
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text="🔬 Mini Mock (12 savol / 15 daqiqa)",
                 callback_data="ex_start:demo_mock"
             )

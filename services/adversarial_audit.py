@@ -11,7 +11,7 @@ Enforces rigorous multi-stage verification on every question candidate:
 """
 
 from typing import Any
-from services.sat_taxonomy import validate_taxonomy_item, SAT_TAXONOMY, VALID_DIFFICULTIES
+from services.sat_taxonomy import validate_taxonomy_item, normalize_taxonomy, SAT_TAXONOMY, VALID_DIFFICULTIES
 from services.math_verifier import verify_math_options_distinctness
 from services.duplicate_detector import check_candidate_against_existing
 
@@ -51,7 +51,12 @@ def adversarial_audit_question(
     domain = str(candidate.get("domain", "")).strip()
     skill = str(candidate.get("skill", "")).strip() or None
 
-    is_tax_valid, tax_msg = validate_taxonomy_item(section, domain, skill)
+    sec_norm, dom_norm, skl_norm = normalize_taxonomy(section, domain, skill)
+    candidate["section"] = sec_norm
+    candidate["domain"] = dom_norm
+    candidate["skill"] = skl_norm
+
+    is_tax_valid, tax_msg = validate_taxonomy_item(sec_norm, dom_norm, skl_norm)
     if not is_tax_valid:
         errors.append(f"Taxonomy validation failed: {tax_msg}")
     else:

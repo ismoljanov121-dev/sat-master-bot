@@ -1,0 +1,234 @@
+[
+  {
+    "batch_name": "Batch_2_Expansion",
+    "timestamp": "2026-09-16T13:17:07.976349+00:00",
+    "count": 1,
+    "items": [
+      {
+        "id": "m_alg_lin_02",
+        "section": "math",
+        "domain": "Algebra",
+        "errors": [
+          "Duplication check failed: Near-duplicate detected with question 'batch1_math_001' (Similarity: 86.2%)"
+        ],
+        "metadata": {
+          "schema_ok": false,
+          "taxonomy_ok": true,
+          "math_distinct_ok": true,
+          "pedagogical_ok": true,
+          "duplicate_checked": true,
+          "max_similarity": 0.8620689655172413
+        }
+      }
+    ]
+  },
+  {
+    "batch_name": "Batch_100_Expansion",
+    "timestamp": "2026-09-16T18:41:00+05:00",
+    "count": 4,
+    "items": [
+      {
+        "id": "m_b4_14_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: High syntactic and equation similarity (96.77%) with vault 'm_b3_adv_02'. Action: Rejected from publishing and replaced with original circle-tangent conceptual problem."
+        ],
+        "metadata": {
+          "max_similarity": 0.9677,
+          "remediated": true,
+          "new_id": "m_b4_14"
+        }
+      },
+      {
+        "id": "m_b4_15_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Template similarity (88.26%) with vault 'm_b3_adv_03'. Action: Rejected from publishing and replaced with original pharmacology exponential decay model."
+        ],
+        "metadata": {
+          "max_similarity": 0.8826,
+          "remediated": true,
+          "new_id": "m_b4_15"
+        }
+      },
+      {
+        "id": "m_b4_18_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Radical equation similarity (95.12%) with vault 'm_adv_rad_01'. Action: Rejected from publishing and replaced with original rational exponents problem."
+        ],
+        "metadata": {
+          "max_similarity": 0.9512,
+          "remediated": true,
+          "new_id": "m_b4_18"
+        }
+      },
+      {
+        "id": "m_b4_19_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Duplicate quadratic equation (93.51%) with vault 'batch1_math_010'. Action: Rejected from publishing and replaced with original suspension bridge parabolic vertex problem."
+        ],
+        "metadata": {
+          "max_similarity": 0.9351,
+          "remediated": true,
+          "new_id": "m_b4_19"
+        }
+      }
+    ]
+  },
+  {
+    "batch_name": "Batch_5_Expansion",
+    "timestamp": "2026-09-16T19:55:00+05:00",
+    "count": 11,
+    "items": [
+      {
+        "id": "m_b5_01_draft_candidate",
+        "section": "math",
+        "domain": "Algebra",
+        "errors": [
+          "Duplication gate: Template similarity (81.2%) with vault 'm_alg_trap_01'. Action: Rejected from publishing and replaced with digital thermometer calibration problem."
+        ],
+        "metadata": {
+          "max_similarity": 0.812,
+          "remediated": true,
+          "new_id": "m_b5_01"
+        }
+      },
+      {
+        "id": "m_b5_03_draft_candidate",
+        "section": "math",
+        "domain": "Algebra",
+        "errors": [
+          "Duplication gate: Coefficient similarity (82.2%) with vault 'batch1_math_006'. Action: Rejected from publishing and replaced with venture capital asset portfolio system."
+        ],
+        "metadata": {
+          "max_similarity": 0.822,
+          "remediated": true,
+          "new_id": "m_b5_03"
+        }
+      },
+      {
+        "id": "m_b5_07_draft_candidate",
+        "section": "math",
+        "domain": "Algebra",
+        "errors": [
+          "Duplication gate: Linear equation similarity (93.2%) with vault 'M_ALG_001'. Action: Rejected from publishing and replaced with warehouse forklift payload inequality."
+        ],
+        "metadata": {
+          "max_similarity": 0.932,
+          "remediated": true,
+          "new_id": "m_b5_07"
+        }
+      },
+      {
+        "id": "m_b5_09_draft_candidate",
+        "section": "math",
+        "domain": "Algebra",
+        "errors": [
+          "Duplication gate: Inequality template similarity (93.2%) with vault 'batch1_math_005'. Action: Rejected from publishing and replaced with coordinate plane triangle area."
+        ],
+        "metadata": {
+          "max_similarity": 0.932,
+          "remediated": true,
+          "new_id": "m_b5_09"
+        }
+      },
+      {
+        "id": "m_b5_10_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Quadratic vertex similarity (85.7%) with vault 'batch1_math_012'. Action: Rejected from publishing and replaced with agricultural wheat yield parabolic model."
+        ],
+        "metadata": {
+          "max_similarity": 0.857,
+          "remediated": true,
+          "new_id": "m_b5_10"
+        }
+      },
+      {
+        "id": "m_b5_11_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Discriminant template similarity (89.0%) with vault 'm_b3_adv_01'. Action: Rejected from publishing and replaced with model rocket vertical height vertex."
+        ],
+        "metadata": {
+          "max_similarity": 0.890,
+          "remediated": true,
+          "new_id": "m_b5_11"
+        }
+      },
+      {
+        "id": "m_b5_12_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Polynomial multiplication similarity (83.8%) with vault 'M_ADV_004'. Action: Rejected from publishing and replaced with quantum mechanics complex product."
+        ],
+        "metadata": {
+          "max_similarity": 0.838,
+          "remediated": true,
+          "new_id": "m_b5_12"
+        }
+      },
+      {
+        "id": "m_b5_14_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Intersection system similarity (90.8%) with vault 'batch1_math_011'. Action: Rejected from publishing and replaced with rational function vertical asymptote."
+        ],
+        "metadata": {
+          "max_similarity": 0.908,
+          "remediated": true,
+          "new_id": "m_b5_14"
+        }
+      },
+      {
+        "id": "m_b5_17_draft_candidate",
+        "section": "math",
+        "domain": "Advanced Math",
+        "errors": [
+          "Duplication gate: Exponent expression similarity (88.6%) with vault 'M_ADV_004'. Action: Rejected from publishing and replaced with marine algae quadrupling exponential function."
+        ],
+        "metadata": {
+          "max_similarity": 0.886,
+          "remediated": true,
+          "new_id": "m_b5_17"
+        }
+      },
+      {
+        "id": "m_b5_27_draft_candidate",
+        "section": "math",
+        "domain": "Geometry and Trigonometry",
+        "errors": [
+          "Duplication gate: Trigonometric identity template similarity (81.0%) with vault 'm_geo_trig_01'. Action: Rejected from publishing and replaced with surveyor transit angle of elevation."
+        ],
+        "metadata": {
+          "max_similarity": 0.810,
+          "remediated": true,
+          "new_id": "m_b5_27"
+        }
+      },
+      {
+        "id": "m_b5_28_draft_candidate",
+        "section": "math",
+        "domain": "Geometry and Trigonometry",
+        "errors": [
+          "Duplication gate: Circle equation similarity (94.7%) with vault 'batch1_math_027'. Action: Rejected from publishing and replaced with circle chord length and radius theorem."
+        ],
+        "metadata": {
+          "max_similarity": 0.947,
+          "remediated": true,
+          "new_id": "m_b5_28"
+        }
+      }
+    ]
+  }
+]

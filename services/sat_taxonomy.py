@@ -86,6 +86,84 @@ def get_skills_for_domain(section: str, domain: str) -> list[str]:
     return []
 
 
+def normalize_taxonomy(section: str, domain: str, skill: str | None = None) -> tuple[str, str, str]:
+    """
+    Normalizes section, domain, and skill into canonical Digital SAT taxonomy terms.
+    Splits composite domains like 'Craft and Structure - Words in Context' into
+    domain='Craft and Structure', skill='Words in Context'.
+    """
+    sec = (section or "math").lower().strip()
+    dom = (domain or "").strip()
+    skl = (skill or "").strip()
+
+    # If domain has hyphen composite like "Domain - Subskill"
+    if " - " in dom:
+        parts = dom.split(" - ", 1)
+        potential_dom = parts[0].strip()
+        potential_skl = parts[1].strip()
+        if not skl or skl.lower() == dom.lower():
+            skl = potential_skl
+        dom = potential_dom
+
+    # Normalize Section aliases
+    if sec in ("reading & writing", "rw", "english", "verbal"):
+        # Infer reading vs writing based on domain
+        dom_lower = dom.lower()
+        if any(w in dom_lower for w in ("standard english", "grammar", "expression", "boundary", "transition", "rhetorical")):
+            sec = "writing"
+        else:
+            sec = "reading"
+
+    # Match canonical section
+    if sec not in SAT_TAXONOMY:
+        for s_key in SAT_TAXONOMY:
+            if s_key in sec:
+                sec = s_key
+                break
+
+    if sec not in SAT_TAXONOMY:
+        sec = "math"
+
+    # Match canonical domain within section
+    matched_domain = None
+    for official_dom in SAT_TAXONOMY[sec]:
+        if official_dom.lower() == dom.lower() or dom.lower() in official_dom.lower() or official_dom.lower() in dom.lower():
+            matched_domain = official_dom
+            break
+        # Common aliases
+        if sec == "math":
+            if "problem" in dom.lower() and "problem" in official_dom.lower():
+                matched_domain = official_dom
+                break
+            if "geometry" in dom.lower() and "geometry" in official_dom.lower():
+                matched_domain = official_dom
+                break
+        elif sec == "writing":
+            if "standard" in dom.lower() and "standard" in official_dom.lower():
+                matched_domain = official_dom
+                break
+            if "expression" in dom.lower() and "expression" in official_dom.lower():
+                matched_domain = official_dom
+                break
+
+    if not matched_domain:
+        # Default to first domain of section
+        matched_domain = list(SAT_TAXONOMY[sec].keys())[0]
+
+    # Match canonical skill
+    official_skills = SAT_TAXONOMY[sec][matched_domain]
+    matched_skill = None
+    if skl:
+        for s in official_skills:
+            if skl.lower() in s.lower() or s.lower() in skl.lower():
+                matched_skill = s
+                break
+    if not matched_skill:
+        matched_skill = official_skills[0]
+
+    return sec, matched_domain, matched_skill
+
+
 def validate_taxonomy_item(section: str, domain: str, skill: str | None = None) -> tuple[bool, str]:
     """Validates whether a section, domain, and optional skill conform to SAT standards."""
     sec = section.lower().strip()
@@ -94,7 +172,7 @@ def validate_taxonomy_item(section: str, domain: str, skill: str | None = None) 
 
     matched_domain = None
     for d_name in SAT_TAXONOMY[sec]:
-        if d_name.lower() == domain.lower() or domain.lower() in d_name.lower():
+        if d_name.lower() == domain.lower() or domain.lower() in d_name.lower() or d_name.lower() in domain.lower():
             matched_domain = d_name
             break
 
@@ -103,7 +181,7 @@ def validate_taxonomy_item(section: str, domain: str, skill: str | None = None) 
 
     if skill:
         skills = SAT_TAXONOMY[sec][matched_domain]
-        matched_skill = any(s.lower() == skill.lower() or skill.lower() in s.lower() for s in skills)
+        matched_skill = any(s.lower() == skill.lower() or skill.lower() in s.lower() or s.lower() in skill.lower() for s in skills)
         if not matched_skill:
             return False, f"Skill '{skill}' not found in domain '{matched_domain}'"
 

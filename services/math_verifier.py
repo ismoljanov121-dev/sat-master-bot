@@ -10,16 +10,23 @@ import sympy as sp
 
 
 def extract_numbers_or_expr(text: str) -> str:
-    """Cleans option text to extract core algebraic/numerical value."""
+    """Cleans option text to extract core algebraic/numerical value when safe."""
     t = text.strip()
+    # If option has qualitative direction or conditions, retain whole text to preserve semantic distinction
+    for word in ("kamaydi", "oshdi", "ortdi", "tushdi", "decrease", "increase", "faqat", "only", "hech", "cheksiz", "mavjud emas", "aniqlab bo'lmaydi"):
+        if word in t.lower():
+            return t.lower()
+
     # If option is e.g. "x = 5" -> extract "5"
     if "=" in t and len(t.split("=")) == 2:
         left, right = t.split("=")
-        if left.strip().isalpha() and len(left.strip()) == 1:
+        if left.strip().isalpha() and len(left.strip()) <= 2:
             t = right.strip()
-    # Remove unit descriptions like "ta", "metr", "fut/soniya", etc.
-    t = re.sub(r"\s*(ta|metr|fut|soniya|kg|km|%|yil|mil|hours?|feet).*$", "", t, flags=re.IGNORECASE).strip()
-    # Remove parentheses
+
+    # Remove simple trailing units ONLY when preceded strictly by a number, e.g. "25 metr", "10 kg", "15%"
+    t = re.sub(r"^([+-]?\d+(?:\.\d+)?(?:/[+-]?\d+)?)\s*(?:ta|metr|fut|soniya|kg|km|%|yil|mil|hours?|feet|dollars?|\$)\.?$", r"\1", t, flags=re.IGNORECASE).strip()
+
+    # Remove outer parentheses if any
     t = re.sub(r"^\((.*)\)$", r"\1", t).strip()
     return t
 
@@ -37,7 +44,7 @@ def verify_math_options_distinctness(options: list[dict[str, Any]]) -> tuple[boo
         raw_text = extract_numbers_or_expr(opt.get("text", ""))
         try:
             py_expr = raw_text.replace("^", "**")
-            parsed = sp.sympify(py_expr, evaluate=True)
+            parsed = sp.sympify(py_expr)
             parsed_items.append((raw_text, parsed))
         except Exception:
             parsed_items.append((raw_text, None))
@@ -102,7 +109,10 @@ def verify_single_correct_choice(
         raw = extract_numbers_or_expr(opt.get("text", ""))
         try:
             opt_sym = sp.sympify(raw.replace("^", "**"))
-            if sp.simplify(calc_sym - opt_sym) == 0:
+            if isinstance(calc_sym, sp.Expr) and isinstance(opt_sym, sp.Expr):
+                if sp.simplify(calc_sym - opt_sym) == 0:
+                    matching_keys.append(k)
+            elif str(calc_sym).strip().lower() == raw.lower():
                 matching_keys.append(k)
         except Exception:
             if str(calc_sym).strip().lower() == raw.lower():
