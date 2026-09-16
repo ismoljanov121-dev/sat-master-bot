@@ -16,50 +16,26 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CURATED_BANK_FILE = os.path.join(BASE_DIR, "data", "sat_question_bank.json")
 DIAGNOSTIC_BANK_FILE = os.path.join(BASE_DIR, "data", "questions.json")
 
+from services.question_repository import vault
+
 class QuestionService:
     def __init__(self):
         self.curated_questions: list[dict[str, Any]] = []
         self._load_bank()
 
     def _load_bank(self):
-        """Loads curated SAT questions from disk."""
-        questions: list[dict[str, Any]] = []
-        
-        # Load main question bank if available
-        if os.path.exists(CURATED_BANK_FILE):
-            try:
-                with open(CURATED_BANK_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        questions.extend(data)
-                        logger.info(f"Loaded {len(data)} questions from sat_question_bank.json")
-            except Exception as e:
-                logger.error(f"Error loading sat_question_bank.json: {e}")
+        """Loads PUBLISHED questions from the SQLite Question Vault."""
+        published = vault.get_published_questions()
+        if not published:
+            # Fallback/Bootstrap if vault is not initialized yet
+            vault.import_from_json(CURATED_BANK_FILE, default_status="published")
+            published = vault.get_published_questions()
 
-        # Load diagnostic questions as additional math practice
-        if os.path.exists(DIAGNOSTIC_BANK_FILE):
-            try:
-                with open(DIAGNOSTIC_BANK_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if isinstance(data, list):
-                        for q in data:
-                            q_copy = dict(q)
-                            q_copy["id"] = f"diag_{q.get('id')}"
-                            q_copy["section"] = "math"
-                            q_copy["domain"] = q.get("topic", "Math - General")
-                            q_copy["difficulty"] = "Hard" if q.get("id") in (1, 3, 5) else "Medium"
-                            q_copy["passage"] = None
-                            q_copy["strategy_or_hack"] = q.get("desmos_hack", "")
-                            # Avoid duplicates
-                            if not any(item.get("id") == q_copy["id"] for item in questions):
-                                questions.append(q_copy)
-            except Exception as e:
-                logger.error(f"Error loading questions.json: {e}")
-
-        self.curated_questions = questions
+        self.curated_questions = published
+        logger.info(f"QuestionService loaded {len(self.curated_questions)} published questions from vault.")
 
     def reload(self):
-        """Reloads the bank from disk."""
+        """Reloads published questions from the vault."""
         self._load_bank()
 
     def get_question_by_id(self, qid: str) -> dict[str, Any] | None:
@@ -117,15 +93,13 @@ class QuestionService:
 
     def get_available_domains(self, section: str = "all") -> list[str]:
         """Returns sorted list of unique domains for the given section."""
-        sec = section.lower().strip()
-        domains = set()
-        for q in self.curated_questions:
-            q_sec = str(q.get("section", "")).lower().strip()
-            if sec in ("all", "mixed") or q_sec == sec:
-                dom = q.get("domain")
-                if dom:
-                    domains.add(dom)
-        return sorted(list(domains))
+        breakdown = vault.get_breakdown_by_domain(section=section)
+        return sorted(list(breakdown.keys()))
+
+    def get_available_skills(self, domain: str = "all") -> list[str]:
+        """Returns sorted list of unique skills for a domain."""
+        breakdown = vault.get_breakdown_by_skill(domain=domain)
+        return sorted(list(breakdown.keys()))
 
     def get_available_difficulties(self) -> list[str]:
         """Returns standardized difficulty levels."""
@@ -135,42 +109,31 @@ class QuestionService:
         self,
         section: str = "all",
         domain: str = "all",
-        difficulty: str = "all"
+        difficulty: str = "all",
+        skill: str = "all"
     ) -> list[dict[str, Any]]:
-        """Filters curated questions by section, domain, and difficulty."""
-        sec = section.lower().strip()
-        diff = difficulty.capitalize().strip()
-        dom = domain.strip().lower()
-
-        results = []
-        for q in self.curated_questions:
-            q_sec = str(q.get("section", "")).lower().strip()
-            q_diff = str(q.get("difficulty", "")).capitalize().strip()
-            q_dom = str(q.get("domain", "")).strip().lower()
-
-            if sec not in ("all", "mixed") and q_sec != sec:
-                continue
-            if diff != "All" and q_diff != diff:
-                continue
-            if dom != "all" and dom not in q_dom:
-                continue
-
-            results.append(q)
-        return results
+        """Filters published questions by section, domain, skill, and difficulty."""
+        return vault.get_published_questions(
+            section=section if section not in ("all", "mixed") else None,
+            domain=domain if domain != "all" else None,
+            skill=skill if skill != "all" else None,
+            difficulty=difficulty if difficulty.capitalize() != "All" else None
+        )
 
     def get_next_filtered_question(
         self,
         answered_ids: list[str],
         section: str = "mixed",
         domain: str = "all",
-        difficulty: str = "all"
+        difficulty: str = "all",
+        skill: str = "all"
     ) -> dict[str, Any]:
         """
-        Selects next question adhering to active section, domain, and difficulty filters.
+        Selects next question adhering to active section, domain, skill, and difficulty filters.
         If unanswered questions exist in filter, picks one.
         If all matching curated questions answered, falls back to dynamic math question or recycles matching pool.
         """
-        pool = self.filter_questions(section=section, domain=domain, difficulty=difficulty)
+        pool = self.filter_questions(section=section, domain=domain, difficulty=difficulty, skill=skill)
         answered_set = set(str(qid) for qid in answered_ids)
         unanswered = [q for q in pool if str(q.get("id")) not in answered_set]
 
@@ -188,7 +151,7 @@ class QuestionService:
 
     def get_next_question(self, answered_ids: list[str], section: str = "mixed") -> dict[str, Any]:
         """Backward-compatible wrapper for get_next_filtered_question."""
-        return self.get_next_filtered_question(answered_ids, section=section, domain="all", difficulty="all")
+        return self.get_next_filtered_question(answered_ids, section=section, domain="all", difficulty="all", skill="all")
 
     def generate_dynamic_sat_question(self) -> dict[str, Any]:
         """

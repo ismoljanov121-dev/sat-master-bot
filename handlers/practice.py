@@ -21,6 +21,7 @@ from aiogram.types import (
 
 from database import db
 from services.question_service import qs
+from services.sat_taxonomy import get_skills_for_domain
 
 logger = logging.getLogger("PracticeHandler")
 
@@ -31,11 +32,14 @@ router = Router()
 def get_user_filters(user_id: int) -> dict[str, str]:
     """Gets or initializes user practice filters."""
     db.local_cache.setdefault("practice_filters", {})
-    return db.local_cache["practice_filters"].setdefault(str(user_id), {
+    f = db.local_cache["practice_filters"].setdefault(str(user_id), {
         "section": "mixed",
         "difficulty": "all",
-        "domain": "all"
+        "domain": "all",
+        "skill": "all"
     })
+    f.setdefault("skill", "all")
+    return f
 
 def set_user_filter(user_id: int, key: str, value: str):
     """Sets a specific filter parameter for the user."""
@@ -44,12 +48,13 @@ def set_user_filter(user_id: int, key: str, value: str):
     db._save_local_db()
 
 def reset_user_filters(user_id: int):
-    """Resets all filters to default (mixed, all, all)."""
+    """Resets all filters to default (mixed, all, all, all)."""
     db.local_cache.setdefault("practice_filters", {})
     db.local_cache["practice_filters"][str(user_id)] = {
         "section": "mixed",
         "difficulty": "all",
-        "domain": "all"
+        "domain": "all",
+        "skill": "all"
     }
     db._save_local_db()
 
@@ -76,7 +81,9 @@ def get_practice_hub_keyboard(user_id: int) -> InlineKeyboardMarkup:
         "hard": "🔴 Qiyin (Hard)"
     }.get(diff.lower(), "⚪ Barchasi")
 
-    dom_label = "⚪ Barcha Mavzular" if dom == "all" else f"📂 {dom.title()[:14]}.."
+    dom_label = "⚪ Barcha Mavzular" if dom == "all" else f"📂 {dom.title()[:12]}.."
+    skill = filters.get("skill", "all")
+    skill_label = "⚪ Barcha Ko'nikmalar" if skill == "all" else f"🎯 {skill[:16]}.."
 
     buttons = [
         [
@@ -88,6 +95,9 @@ def get_practice_hub_keyboard(user_id: int) -> InlineKeyboardMarkup:
         [
             InlineKeyboardButton(text=f"Qiyinlik: {diff_label}", callback_data="prac_menu_diff"),
             InlineKeyboardButton(text=f"Mavzu: {dom_label}", callback_data="prac_menu_dom")
+        ],
+        [
+            InlineKeyboardButton(text=f"Ko'nikma: {skill_label}", callback_data="prac_menu_skill")
         ],
         [
             InlineKeyboardButton(text="🔄 Filtrlarni Tozalash", callback_data="prac_reset_filters"),
@@ -150,6 +160,20 @@ def get_domain_selector_keyboard(section: str) -> InlineKeyboardMarkup:
         ])
 
     buttons.append([InlineKeyboardButton(text="⚪ Barcha Mavzular (All Topics)", callback_data="prac_set_dom_all")])
+    buttons.append([InlineKeyboardButton(text="⬅️ Orqaga", callback_data="practice_hub")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+
+
+def get_skill_selector_keyboard(section: str, domain: str) -> InlineKeyboardMarkup:
+    """Submenu to pick specific SAT skill under active domain."""
+    buttons = []
+    if domain != "all":
+        skills = get_skills_for_domain(section, domain)
+        for s in skills[:8]:
+            short_s = s[:30] + (".." if len(s) > 30 else "")
+            buttons.append([InlineKeyboardButton(text=f"🎯 {short_s}", callback_data=f"prac_set_skl_{s[:20]}")])
+    buttons.append([InlineKeyboardButton(text="⚪ Barcha Ko'nikmalar (All Skills)", callback_data="prac_set_skl_all")])
     buttons.append([InlineKeyboardButton(text="⬅️ Orqaga", callback_data="practice_hub")])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -278,18 +302,28 @@ async def cmd_practice(message: Message):
     diff_badge = filters.get("difficulty", "all").capitalize()
     dom_badge = filters.get("domain", "all")
 
+    v_counts = qs.vault.get_published_counts_by_section()
+    math_c = v_counts.get("math", 0)
+    read_c = v_counts.get("reading", 0)
+    writ_c = v_counts.get("writing", 0)
+    total_c = v_counts.get("total", 0)
+    skill_badge = filters.get("skill", "all")
+
     hub_text = (
         f"📚 <b>CHEKSIZ DIGITAL SAT MASHQ BAZASI</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"Assalomu alaykum, <b>{user_name}</b>!\n"
         f"Bu yerda siz Digital SAT imtihoni savollarini mavzu va qiyinlik bo'yicha saralab mashq qilishingiz mumkin.\n\n"
+        f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
+        f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
+        f"• Jami tasdiqlangan: <b>{total_c} ta</b> (100% Digital SAT original)\n\n"
         f"📊 <b>Sizning Natijalaringiz:</b>\n"
         f"• 📝 Jami yechilgan: <b>{total} ta</b>\n"
         f"• 🎯 To'g'ri javoblar: <b>{correct} ta</b> (Aniqlik: <b>{accuracy}%</b>)\n"
         f"• 🔥 Hozirgi ketma-ketlik: <b>{streak} ta</b> (Rekord: {best_streak})\n\n"
         f"⚙️ <b>Faol Filtrlar:</b>\n"
         f"• Bo'lim: <code>{sec_badge}</code> | Qiyinlik: <code>{diff_badge}</code>\n"
-        f"• Mavzu: <code>{dom_badge}</code>\n\n"
+        f"• Mavzu: <code>{dom_badge}</code> | Ko'nikma: <code>{skill_badge[:20]}</code>\n\n"
         f"👇 <i>Mashqni boshlash uchun '🚀 Mashqni Boshlash' tugmasini bosing yoki filtrlarni moslang:</i>"
     )
     await message.answer(hub_text, reply_markup=get_practice_hub_keyboard(user_id), parse_mode="HTML")
@@ -314,17 +348,27 @@ async def cb_practice_hub(callback: CallbackQuery):
         diff_badge = filters.get("difficulty", "all").capitalize()
         dom_badge = filters.get("domain", "all")
 
+        v_counts = qs.vault.get_published_counts_by_section()
+        math_c = v_counts.get("math", 0)
+        read_c = v_counts.get("reading", 0)
+        writ_c = v_counts.get("writing", 0)
+        total_c = v_counts.get("total", 0)
+        skill_badge = filters.get("skill", "all")
+
         hub_text = (
             f"📚 <b>CHEKSIZ DIGITAL SAT MASHQ BAZASI</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"Assalomu alaykum, <b>{user_name}</b>!\n\n"
+            f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
+            f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
+            f"• Jami tasdiqlangan: <b>{total_c} ta</b> (100% Digital SAT original)\n\n"
             f"📊 <b>Sizning Natijalaringiz:</b>\n"
             f"• 📝 Jami yechilgan: <b>{total} ta</b>\n"
             f"• 🎯 To'g'ri javoblar: <b>{correct} ta</b> (Aniqlik: <b>{accuracy}%</b>)\n"
             f"• 🔥 Hozirgi ketma-ketlik: <b>{streak} ta</b> (Rekord: {best_streak})\n\n"
             f"⚙️ <b>Faol Filtrlar:</b>\n"
             f"• Bo'lim: <code>{sec_badge}</code> | Qiyinlik: <code>{diff_badge}</code>\n"
-            f"• Mavzu: <code>{dom_badge}</code>\n\n"
+            f"• Mavzu: <code>{dom_badge}</code> | Ko'nikma: <code>{skill_badge[:20]}</code>\n\n"
             f"👇 <i>Mashqni boshlash yoki filtrlarni sozlash:</i>"
         )
         await safe_edit_practice(callback, hub_text, reply_markup=get_practice_hub_keyboard(user_id))
@@ -393,6 +437,7 @@ async def cb_set_section(callback: CallbackQuery):
     set_user_filter(user_id, "section", val)
     # Reset domain when section changes
     set_user_filter(user_id, "domain", "all")
+    set_user_filter(user_id, "skill", "all")
     await cb_practice_hub(callback)
 
 
@@ -426,6 +471,44 @@ async def cb_set_domain(callback: CallbackQuery):
     }
     val = domain_map.get(raw, "all")
     set_user_filter(user_id, "domain", val)
+    set_user_filter(user_id, "skill", "all")
+    await cb_practice_hub(callback)
+
+
+
+@router.callback_query(F.data == "prac_menu_skill")
+async def cb_menu_skill(callback: CallbackQuery):
+    """Opens skill selector menu based on active domain."""
+    user_id = callback.from_user.id
+    filters = get_user_filters(user_id)
+    sec = filters.get("section", "mixed")
+    dom = filters.get("domain", "all")
+
+    if dom == "all":
+        text = (
+            f"🎯 <b>KO'NIKMA (SKILL) TANLASH</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"Aniq ko'nikmani tanlash uchun avval bitta <b>Mavzu (Domain)</b>ni tanlang!\n"
+            f"Hozir barcha mavzular tanlangan."
+        )
+    else:
+        text = (
+            f"🎯 <b>KO'NIKMA (SKILL) TANLANG</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"Tanlangan mavzu: <b>{dom}</b>\n"
+            f"Quyidagi tor ixtisoslashgan ko'nikmalardan birini tanlang:"
+        )
+    await safe_edit_practice(callback, text, reply_markup=get_skill_selector_keyboard(sec, dom))
+    await callback.answer()
+
+
+@router.callback_query(F.data.startswith("prac_set_skl_"))
+async def cb_set_skill(callback: CallbackQuery):
+    """Updates selected skill filter."""
+    user_id = callback.from_user.id
+    raw = callback.data.replace("prac_set_skl_", "").strip()
+    val = "all" if raw == "all" else raw
+    set_user_filter(user_id, "skill", val)
     await cb_practice_hub(callback)
 
 
@@ -450,7 +533,8 @@ async def cb_start_active_practice(callback: CallbackQuery):
         dom = filters.get("domain", "all")
         
         answered_ids = db.get_answered_question_ids(user_id)
-        q_data = qs.get_next_filtered_question(answered_ids, section=sec, domain=dom, difficulty=diff)
+        skill = filters.get("skill", "all")
+        q_data = qs.get_next_filtered_question(answered_ids, section=sec, domain=dom, difficulty=diff, skill=skill)
         
         db.local_cache.setdefault("practice_sessions", {})
         db.local_cache["practice_sessions"][str(user_id)] = {
@@ -481,7 +565,8 @@ async def cb_start_practice_section(callback: CallbackQuery):
         dom = filters.get("domain", "all")
 
         answered_ids = db.get_answered_question_ids(user_id)
-        q_data = qs.get_next_filtered_question(answered_ids, section=section, domain=dom, difficulty=diff)
+        skill = filters.get("skill", "all")
+        q_data = qs.get_next_filtered_question(answered_ids, section=section, domain=dom, difficulty=diff, skill=skill)
         
         db.local_cache.setdefault("practice_sessions", {})
         db.local_cache["practice_sessions"][str(user_id)] = {
@@ -512,7 +597,8 @@ async def cb_next_practice_question(callback: CallbackQuery):
         dom = filters.get("domain", "all")
 
         answered_ids = db.get_answered_question_ids(user_id)
-        q_data = qs.get_next_filtered_question(answered_ids, section=sec, domain=dom, difficulty=diff)
+        skill = filters.get("skill", "all")
+        q_data = qs.get_next_filtered_question(answered_ids, section=sec, domain=dom, difficulty=diff, skill=skill)
         
         db.local_cache.setdefault("practice_sessions", {})
         db.local_cache["practice_sessions"][str(user_id)] = {
