@@ -63,7 +63,7 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
         [
             InlineKeyboardButton(
                 text="📱 Mini Appda Test Topshirish & Tracker",
-                web_app=WebAppInfo(url=WEBAPP_URL)
+                web_app=WebAppInfo(url=f"{WEBAPP_URL}?v=3.1")
             )
         ],
         [
@@ -364,17 +364,18 @@ async def cb_open_admin_panel(callback: CallbackQuery):
 @router.message(Command("rejim"))
 async def cmd_webapp(message: Message):
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📱 Shaxsiy Rejim & Trackerni Ochish", web_app=WebAppInfo(url=WEBAPP_URL))],
+        [InlineKeyboardButton(text="📱 EduTest Pro SAT Mashq Markazini Ochish", web_app=WebAppInfo(url=f"{WEBAPP_URL}?v=3.1"))],
         [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
     ])
     text = (
-        "📱 <b>SHAXSIY REJIM & 60 KUNLIK INTIZOM TRACKERI</b>\n"
+        "📱 <b>EDUTEST PRO — SHAXSIY SAT MASHQ VA IMTIHON MARKAZI</b>\n"
         "━━━━━━━━━━━━━━━━━━━━━━\n"
-        "Ushbu interaktiv Mini App orqali siz:\n"
-        "• 🤖 <b>AI Generator:</b> O'zingizga mos ideal kun tartibini avtomatik tuzasiz.\n"
-        "• ✨ <b>Tayyor Andozalar:</b> SAT 1500+ Standart, Gap Year yoki Maktab rejimlaridan foydalanasiz.\n"
-        "• 📊 <b>Mentorga Hisobot:</b> Kunlik o'qish foizini 1-tugmada o'qituvchingizga yuborasiz.\n"
-        "• ❌ <b>Error Log:</b> Xatolarni daftarga qayd qilib, Desmos bilan yechishni o'rganasiz.\n\n"
+        "Ushbu interaktiv Web App orqali siz:\n"
+        "• ⏱️ <b>Kunlik 50 ta yangi savol:</b> Math, Reading va Writing bo'yicha to'laqonli mashg'ulot.\n"
+        "• 🔬 <b>Xatomni Tuzat:</b> 5 bosqichli pedagogik drill va yangi o'xshash savol bilan mustahkamlash.\n"
+        "• 🎯 <b>Shaxsiy Sinov Quruvchi:</b> Istalgan fan, domen, qiyinlik va vaqt bo'yicha maxsus test yaratish.\n"
+        "• ⚡ <b>Bosqichli Yordam:</b> 1- va 2-darajali maslahatlar (Scaffolding hints).\n"
+        "• 📊 <b>Pacing & Natijalar:</b> Vaqt taqsimoti tahlili va haftalik o'sish hisoboti.\n\n"
         "👇 <i>Pastdagi tugmani bosing va ilovani ishga tushiring:</i>"
     )
     await message.answer(text, reply_markup=kb, parse_mode="HTML")
