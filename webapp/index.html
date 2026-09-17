@@ -251,16 +251,19 @@
                         </div>
                         <p class="text-xs text-gray-400 mt-0.5">Bugungi odat — 1500+ sari eng mustahkam qadam</p>
                     </div>
-                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs">
-                        <span class="emoji-pulse">🔥</span>
-                        <span id="todayStreakBadge">0 kun</span>
+                    <div class="flex items-center gap-2">
+                        <span id="userTierBadge" class="px-2.5 py-1 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs">👑 PRO (Beta)</span>
+                        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs">
+                            <span class="emoji-pulse">🔥</span>
+                            <span id="todayStreakBadge">0 kun</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Daily Target Progress Bar -->
                 <div class="space-y-2 mb-2">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="text-gray-300 font-medium">🎯 Kunlik maqsad: <b class="text-indigo-400">10 ta savol</b></span>
+                        <span class="text-gray-300 font-medium">🎯 Kunlik yangi savollar: <b id="todayLimitGoalText" class="text-indigo-400">50 ta savol</b></span>
                         <span class="text-emerald-400 font-bold" id="todayGoalPct">0%</span>
                     </div>
                     <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
@@ -268,7 +271,7 @@
                     </div>
                     <div class="flex justify-between text-[11px] text-gray-400">
                         <span id="todayAnsweredStat">Bugun ishlangan: 0 ta</span>
-                        <span id="todayTargetStat">Qolgan: 10 ta</span>
+                        <span id="todayTargetStat">Qolgan: 50 ta</span>
                     </div>
                 </div>
             </div>
@@ -308,7 +311,7 @@
             </div>
 
             <!-- Quick Action 3: Unresolved Mistakes Callout -->
-            <div id="todayMistakesCard" class="hidden glass-card rounded-2xl p-5 mb-6 border border-rose-500/40 bg-rose-950/20">
+            <div id="todayMistakesCard" class="hidden glass-card rounded-2xl p-5 mb-4 border border-rose-500/40 bg-rose-950/20">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -322,6 +325,24 @@
                     <button id="todaySolveMistakesBtn" class="spring-scale shrink-0 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md">
                         Qayta Yechish ✍️
                     </button>
+                </div>
+            </div>
+
+            <!-- Quick Action 4: PRO Beta Status -->
+            <div id="proUpgradeBanner" class="glass-card rounded-2xl p-5 mb-6 border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-violet-500/10 to-indigo-500/10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xl">🚀</span>
+                            <h3 class="font-bold text-sm text-amber-300">EduTest Pro Beta — Barcha imkoniyatlar ochiq!</h3>
+                        </div>
+                        <p class="text-xs text-slate-300">
+                            Sinov davrida barcha talabalar uchun shaxsiy moslashuvchan reja, "Xatomni tuzat" chuqur tahlili va maxsus test tuzish mutlaqo bepul faollashtirilgan!
+                        </p>
+                    </div>
+                    <span class="shrink-0 px-3.5 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs text-center shadow-md">
+                        👑 PRO BETA
+                    </span>
                 </div>
             </div>
 
@@ -476,6 +497,58 @@
                                 <div class="font-semibold text-sm text-white" data-i18n="tr_mode_diag">🔬 Diagnostika Testi (7 savol / 15 daq)</div>
                                 <div class="text-xs text-gray-400 mt-1" data-i18n="tr_mode_diag_desc">Math konseptual bo'shliqlarni aniqlash</div>
                             </div>
+                    <label class="block p-4 rounded-xl border border-slate-700 bg-slate-900/50 cursor-pointer hover:border-violet-500 transition-all">
+                        <div class="flex items-start gap-3">
+                            <input type="radio" name="trMode" value="custom_builder" id="trModeCustomRadio" class="mt-1 text-violet-600 focus:ring-0">
+                            <div class="flex-1">
+                                <div class="font-semibold text-sm text-white flex items-center justify-between">
+                                    <span>🎯 Shaxsiy Sinov Quruvchi</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">PRO BETA</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">Mavzu, qiyinlik va savollar sonini mustaqil belgilash</div>
+                                
+                                <!-- Custom builder parameters -->
+                                <div id="trCustomBuilderPanel" class="hidden mt-3 pt-3 border-t border-slate-800 space-y-3">
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="block text-[11px] text-gray-400 mb-1">Bo'lim:</label>
+                                            <select id="customTestSection" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200">
+                                                <option value="all">Barchasi (Aralash)</option>
+                                                <option value="math">🧮 Math</option>
+                                                <option value="reading">📖 Reading</option>
+                                                <option value="writing">✍️ Writing</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[11px] text-gray-400 mb-1">Qiyinlik:</label>
+                                            <select id="customTestDifficulty" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200">
+                                                <option value="All">Barcha daraja</option>
+                                                <option value="Easy">Easy (Oson)</option>
+                                                <option value="Medium">Medium (O'rta)</option>
+                                                <option value="Hard">Hard (Qiyin)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="block text-[11px] text-gray-400 mb-1">Savollar soni:</label>
+                                            <select id="customTestCount" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200">
+                                                <option value="5">5 ta savol</option>
+                                                <option value="10" selected>10 ta savol</option>
+                                                <option value="15">15 ta savol</option>
+                                                <option value="20">20 ta savol</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[11px] text-gray-400 mb-1">Vaqt rejimi:</label>
+                                            <select id="customTestTimed" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200">
+                                                <option value="1" selected>⏱️ SAT Vaqti bilan</option>
+                                                <option value="0">♾️ Vaqtsiz mashq</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </label>
                 </div>
@@ -516,11 +589,17 @@
                         <span id="trTimerDisplay">10:00</span>
                     </div>
 
-                    <!-- Flag Button -->
-                    <button id="trFlagBtn" class="spring-scale flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg border border-slate-700 bg-slate-800 text-gray-300 hover:text-white transition-all">
-                        <span>🚩</span>
-                        <span id="trFlagLabel" data-i18n="tr_flag">Belgilash</span>
-                    </button>
+                    <!-- Action Buttons: Hint & Flag -->
+                    <div class="flex items-center gap-1.5">
+                        <button id="trHintBtn" class="spring-scale flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg border border-amber-500/50 bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-all font-semibold" title="Bosqichli yordam olish">
+                            <span>💡</span>
+                            <span id="trHintLabel">Maslahat</span>
+                        </button>
+                        <button id="trFlagBtn" class="spring-scale flex items-center gap-1 text-xs px-2.5 py-1 rounded-lg border border-slate-700 bg-slate-800 text-gray-300 hover:text-white transition-all">
+                            <span>🚩</span>
+                            <span id="trFlagLabel" data-i18n="tr_flag">Belgilash</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Passage Box (if applicable) -->
@@ -535,6 +614,15 @@
 
                     <!-- Options List (A, B, C, D) -->
                     <div id="trOptionsContainer" class="space-y-3 mb-4"></div>
+
+                    <!-- Tiered Scaffolding Hint Box (Level 1 & Level 2) -->
+                    <div id="trHintBox" class="hidden mb-4 p-4 rounded-xl border border-amber-500/40 bg-amber-950/20 text-xs space-y-2 fade-in">
+                        <div class="flex items-center justify-between font-bold text-amber-300">
+                            <span id="trHintLevelTitle" class="flex items-center gap-1">💡 1-Bosqich: Yo'naltiruvchi Fikr</span>
+                            <button id="trNextHintBtn" class="px-2 py-0.5 rounded-lg bg-amber-500/30 hover:bg-amber-500/50 text-[11px] text-amber-100 font-semibold transition-all">2-Maslahat (Taktika) ➔</button>
+                        </div>
+                        <div id="trHintText" class="text-amber-100/90 leading-relaxed pt-1"></div>
+                    </div>
 
                     <!-- Instant Explanation & Feedback Box (Step 3: Javob Izohi) -->
                     <div id="trInstantExplanation" class="hidden rounded-xl p-4 transition-all duration-300 text-xs space-y-2.5 border">
@@ -733,15 +821,29 @@
                     </button>
                 </div>
 
-                <!-- Fast Re-test Mistake Banner -->
-                <div class="mb-5 p-4 rounded-xl border border-rose-500/40 bg-rose-950/20 flex items-center justify-between gap-3">
-                    <div>
-                        <div class="text-xs font-bold text-rose-300">⚡ Xatolar bo'yicha mashq rejimi</div>
-                        <div class="text-[11px] text-gray-400">Barcha xato qilingan savollarni qayta yechib bilimni mustahkamlang.</div>
+                <!-- Fast Re-test & Deep Fix Actions -->
+                <div class="mb-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="p-4 rounded-xl border border-rose-500/40 bg-rose-950/20 flex items-center justify-between gap-3">
+                        <div>
+                            <div class="text-xs font-bold text-rose-300">⚡ Qayta mashq</div>
+                            <div class="text-[11px] text-gray-400">Xatolarni oddiy qayta yechish</div>
+                        </div>
+                        <button id="retestAllMistakesBtn" class="spring-scale px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shrink-0 shadow-md">
+                            Qayta Yechish ✍️
+                        </button>
                     </div>
-                    <button id="retestAllMistakesBtn" class="spring-scale px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shrink-0 shadow-md">
-                        Qayta Yechish ✍️
-                    </button>
+                    <div class="p-4 rounded-xl border border-indigo-500/40 bg-indigo-950/20 flex items-center justify-between gap-3">
+                        <div>
+                            <div class="text-xs font-bold text-indigo-300 flex items-center gap-1">
+                                <span>🔬 Xatomni Tuzat</span>
+                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-indigo-500/30 text-indigo-200">PRO BETA</span>
+                            </div>
+                            <div class="text-[11px] text-gray-400">5 bosqichli chuqur konseptual tahlil</div>
+                        </div>
+                        <button id="fixMistakeDeepBtn" class="spring-scale px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shrink-0 shadow-md">
+                            Tuzatish 🔍
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Filter Pills -->
@@ -753,6 +855,70 @@
                 </div>
 
                 <div id="errorsList" class="space-y-3"></div>
+            </div>
+        </div>
+    <!-- Fix Mistake Deep Remedial Modal (5 Steps) -->
+    <div id="fixMistakeModal" class="modal-backdrop fixed inset-0 z-50 hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card rounded-2xl p-6 max-w-lg w-full slide-up max-h-[92vh] overflow-y-auto my-auto border border-indigo-500/40 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🔬</span>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Xatomni Tuzat — 5 Bosqichli Yechim</h3>
+                        <p class="text-[11px] text-indigo-300">Shunchaki javobni yodlamay, asosiy qoidani o'rganing</p>
+                    </div>
+                </div>
+                <button id="closeFixMistakeModalBtn" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-gray-400 hover:text-white transition-colors">✕</button>
+            </div>
+
+            <div id="fixMistakeLoading" class="text-center py-8">
+                <div class="emoji-pulse text-3xl mb-2">🔍</div>
+                <div class="text-xs text-gray-400">Xato tahlili va yangi o'xshash savol tayyorlanmoqda...</div>
+            </div>
+
+            <div id="fixMistakeContent" class="hidden space-y-4 text-xs">
+                <!-- Step 1: Error Diagnosis -->
+                <div class="p-3.5 rounded-xl border border-rose-500/40 bg-rose-950/20 space-y-1">
+                    <div class="font-bold text-rose-300 flex items-center gap-1.5">
+                        <span>1️⃣ Xato Tahlili</span>
+                    </div>
+                    <div id="fmDiagText" class="text-gray-200"></div>
+                </div>
+
+                <!-- Step 2: Concept Capsule -->
+                <div class="p-3.5 rounded-xl border border-amber-500/40 bg-amber-950/20 space-y-1">
+                    <div class="font-bold text-amber-300 flex items-center gap-1.5">
+                        <span>2️⃣ Asosiy Qoida / Formula</span>
+                        <span id="fmTopicBadge" class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/30 text-amber-100 font-normal"></span>
+                    </div>
+                    <div id="fmRuleText" class="text-amber-100 leading-relaxed"></div>
+                </div>
+
+                <!-- Step 3: Worked Example -->
+                <div class="p-3.5 rounded-xl border border-blue-500/40 bg-blue-950/20 space-y-1.5">
+                    <div class="font-bold text-blue-300 flex items-center gap-1.5">
+                        <span>3️⃣ Bosqichma-bosqich Namuna</span>
+                    </div>
+                    <div id="fmExampleText" class="text-slate-200 leading-relaxed"></div>
+                    <div id="fmExampleTactics" class="text-[11px] text-indigo-300 font-mono italic"></div>
+                </div>
+
+                <!-- Step 4: Active Application (Transfer Drill) -->
+                <div class="p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 space-y-3">
+                    <div class="font-bold text-emerald-300 flex items-center justify-between">
+                        <span>4️⃣ Yangi O'xshash Savol (Sinov)</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/30 text-emerald-100">Yangi savol</span>
+                    </div>
+                    <div id="fmNewQuestionStem" class="text-white font-medium leading-relaxed"></div>
+                    <div id="fmNewOptionsContainer" class="space-y-2"></div>
+                    <div id="fmTransferResult" class="hidden p-3 rounded-lg text-xs"></div>
+                </div>
+
+                <!-- Step 5: Spaced Repetition -->
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-[11px] text-gray-400">
+                    <span>🔁 Ertaga qayta tekshirish rejalashtirildi</span>
+                    <span class="text-emerald-400 font-bold">Faol</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1727,10 +1893,34 @@
                     const streakEl = document.getElementById('todayStreakBadge');
                     if (streakEl) streakEl.textContent = `${today.streak_days || 0} kun`;
 
+                    // Tier Badge & PRO Banner
+                    const tierBadge = document.getElementById('userTierBadge');
+                    const proBanner = document.getElementById('proUpgradeBanner');
+                    if (data.tier && tierBadge) {
+                        tierBadge.textContent = data.tier.tier_label || (data.tier.is_pro ? '👑 PRO' : '🆓 FREE');
+                        if (data.tier.is_pro) {
+                            tierBadge.className = 'px-2.5 py-1 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs';
+                            if (proBanner) {
+                                if (data.tier.is_beta) {
+                                    proBanner.classList.remove('hidden');
+                                } else {
+                                    proBanner.classList.add('hidden');
+                                }
+                            }
+                        } else {
+                            tierBadge.className = 'px-2.5 py-1 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs';
+                            if (proBanner) proBanner.classList.remove('hidden');
+                        }
+                    }
+
                     // Goal & Progress Bar
-                    const answered = today.answered_today || 0;
-                    const target = today.target_questions || 10;
+                    const daily = data.daily_usage || {};
+                    const answered = (daily.answered_today != null) ? daily.answered_today : (today.answered_today || 0);
+                    const target = (daily.daily_limit != null) ? daily.daily_limit : (today.target_questions || 10);
                     const pct = Math.min(100, Math.round((answered / target) * 100));
+
+                    const limitGoalText = document.getElementById('todayLimitGoalText');
+                    if (limitGoalText) limitGoalText.textContent = `${target} ta savol`;
 
                     const pBar = document.getElementById('todayProgressBar');
                     if (pBar) pBar.style.width = `${pct}%`;
@@ -1846,6 +2036,22 @@
                     haptic();
                     const mainAdd = document.getElementById('addTaskBtn');
                     if (mainAdd) mainAdd.click();
+                });
+            }
+
+            const openProBtn = document.getElementById('openProPlansBtn');
+            if (openProBtn) {
+                openProBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.close) {
+                        showToast("Telegram bot ochilmoqda... /pro buyrug'ini yuboring! ⭐");
+                        setTimeout(() => {
+                            window.Telegram.WebApp.close();
+                        }, 1200);
+                    } else {
+                        showToast("Telegram botimizga kiring va /pro yoki /stars deb yozing! ⭐");
+                    }
                 });
             }
         });
@@ -2869,19 +3075,47 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             trState.remainingSeconds = durationSec;
             trState.totalSeconds = durationSec;
 
-            // Fetch questions safely via /api/v1/practice/questions (no leaked answers!)
+            // Fetch questions safely via /api/v1/practice/questions or /api/v1/practice/custom-test
             try {
-                const res = await fetch(`/api/v1/practice/questions?mode=${mode}`, {
-                    headers: getApiHeaders()
-                });
+                let res;
+                if (mode === 'custom_builder') {
+                    const secEl = document.getElementById('customTestSection');
+                    const diffEl = document.getElementById('customTestDifficulty');
+                    const cntEl = document.getElementById('customTestCount');
+                    const timedEl = document.getElementById('customTestTimed');
+
+                    const section = secEl ? secEl.value : 'all';
+                    const difficulty = diffEl ? diffEl.value : 'All';
+                    const count = cntEl ? parseInt(cntEl.value) : 10;
+                    const timed = timedEl ? (timedEl.value === '1') : true;
+
+                    res = await fetch('/api/v1/practice/custom-test', {
+                        method: 'POST',
+                        headers: getApiHeaders(),
+                        body: JSON.stringify({ section, difficulty, count, timed })
+                    });
+                } else {
+                    res = await fetch(`/api/v1/practice/questions?mode=${mode}`, {
+                        headers: getApiHeaders()
+                    });
+                }
+
+                if (res.status === 403) {
+                    const data = await res.json();
+                    showToast(data.message || "Kunlik limitga yetdingiz! 🎯");
+                    return;
+                }
+
                 if (res.ok) {
                     const data = await res.json();
-                    if (data.status === 'ok' && Array.isArray(data.questions) && data.questions.length > 0) {
-                        trState.questions = data.questions;
-                        trState.sessionId = data.session_id || null;
-                        if (data.duration_seconds) {
-                            trState.remainingSeconds = data.duration_seconds;
-                            trState.totalSeconds = data.duration_seconds;
+                    const qList = (mode === 'custom_builder') ? (data.test ? data.test.questions : []) : data.questions;
+                    if (data.status === 'ok' && Array.isArray(qList) && qList.length > 0) {
+                        trState.questions = qList;
+                        trState.sessionId = data.session_id || (data.test ? data.test.session_id : null);
+                        const dur = data.duration_seconds || (data.test ? data.test.total_time_seconds : null);
+                        if (dur) {
+                            trState.remainingSeconds = dur;
+                            trState.totalSeconds = dur;
                         }
                     } else {
                         trState.questions = TR_OFFLINE_QUESTIONS;
@@ -2949,6 +3183,12 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             if (!trState.questions || trState.questions.length === 0) return;
             const q = trState.questions[trState.currentIdx];
             const total = trState.questions.length;
+
+            // Reset Progressive Hint State
+            const hintBox = document.getElementById('trHintBox');
+            if (hintBox) hintBox.classList.add('hidden');
+            trState.currentHints = null;
+            trState.hintLevel = 0;
 
             document.getElementById('trCurrentIdx').textContent = trState.currentIdx + 1;
             document.getElementById('trTotalIdx').textContent = total;
@@ -3548,9 +3788,184 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
         updateStats();
         checkTestRunnerAutosave();
         switchTab('today');
+        function initProBetaControls() {
+            // 1. Custom Builder Toggle
+            document.querySelectorAll('input[name="trMode"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const panel = document.getElementById('trCustomBuilderPanel');
+                    if (panel) {
+                        if (e.target.value === 'custom_builder') {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            // 2. Progressive Hint Scaffolding
+            const hintBtn = document.getElementById('trHintBtn');
+            const nextHintBtn = document.getElementById('trNextHintBtn');
+            if (hintBtn) {
+                hintBtn.addEventListener('click', async () => {
+                    playTap();
+                    haptic();
+                    if (!trState.questions || trState.questions.length === 0) return;
+                    const q = trState.questions[trState.currentIdx];
+                    if (!q) return;
+
+                    const hintBox = document.getElementById('trHintBox');
+                    const hintText = document.getElementById('trHintText');
+                    const hintTitle = document.getElementById('trHintLevelTitle');
+                    if (!hintBox || !hintText) return;
+
+                    if (hintBox.classList.contains('hidden') || !trState.currentHints) {
+                        hintBox.classList.remove('hidden');
+                        hintText.textContent = "💡 Maslahat yuklanmoqda...";
+                        try {
+                            const res = await fetch(`/api/v1/practice/hint?question_id=${q.id}`, {
+                                headers: getApiHeaders()
+                            });
+                            if (res.ok) {
+                                const d = await res.json();
+                                trState.currentHints = d.hints || {};
+                                trState.hintLevel = 1;
+                                if (hintTitle) hintTitle.innerHTML = "💡 1-Bosqich: Yo'naltiruvchi Fikr";
+                                hintText.textContent = trState.currentHints.hint_level_1 || "Savol shartini diqqat bilan o'qing.";
+                                if (nextHintBtn) {
+                                    nextHintBtn.classList.remove('hidden');
+                                    nextHintBtn.textContent = "2-Maslahat (Taktika) ➔";
+                                }
+                            } else {
+                                hintText.textContent = "Maslahat topilmadi.";
+                            }
+                        } catch (e) {
+                            hintText.textContent = "Maslahatni yuklab bo'lmadi.";
+                        }
+                    } else if (trState.hintLevel === 1 && trState.currentHints) {
+                        trState.hintLevel = 2;
+                        if (hintTitle) hintTitle.innerHTML = "⚡ 2-Bosqich: Taktik Maslahat / Desmos";
+                        hintText.textContent = trState.currentHints.hint_level_2 || "Variantlarni tekshirib ko'ring.";
+                        if (nextHintBtn) nextHintBtn.classList.add('hidden');
+                    }
+                });
+            }
+
+            if (nextHintBtn && hintBtn) {
+                nextHintBtn.addEventListener('click', () => {
+                    hintBtn.click();
+                });
+            }
+
+            // 3. 'Xatomni Tuzat' Deep Remedial Modal
+            const fixMistakeBtn = document.getElementById('fixMistakeDeepBtn');
+            const closeFmBtn = document.getElementById('closeFixMistakeModalBtn');
+            const fmModal = document.getElementById('fixMistakeModal');
+            const fmLoading = document.getElementById('fixMistakeLoading');
+            const fmContent = document.getElementById('fixMistakeContent');
+
+            if (fixMistakeBtn && fmModal) {
+                fixMistakeBtn.addEventListener('click', async () => {
+                    playTap();
+                    haptic();
+                    fmModal.classList.remove('hidden');
+                    fmModal.classList.add('flex');
+                    if (fmLoading) fmLoading.classList.remove('hidden');
+                    if (fmContent) fmContent.classList.add('hidden');
+
+                    try {
+                        const res = await fetch('/api/v1/practice/fix-mistake', {
+                            headers: getApiHeaders()
+                        });
+                        const d = await res.json();
+                        if (d.status === 'empty') {
+                            showToast(d.message || "Hal qilinmagan xatolar topilmadi! 🎯");
+                            fmModal.classList.add('hidden');
+                            fmModal.classList.remove('flex');
+                            return;
+                        }
+                        if (res.ok && d.exercise) {
+                            const ex = d.exercise;
+                            const diagEl = document.getElementById('fmDiagText');
+                            const topicEl = document.getElementById('fmTopicBadge');
+                            const ruleEl = document.getElementById('fmRuleText');
+                            const exTextEl = document.getElementById('fmExampleText');
+                            const exTactEl = document.getElementById('fmExampleTactics');
+
+                            if (diagEl) diagEl.textContent = ex.step_1_diagnosis.difference_analysis;
+                            if (topicEl) topicEl.textContent = ex.step_2_concept_rule.topic;
+                            if (ruleEl) ruleEl.textContent = (ex.step_2_concept_rule.core_principle || '') + "\n" + (ex.step_2_concept_rule.key_takeaway || '');
+                            if (exTextEl) exTextEl.textContent = (ex.step_3_worked_example.prompt || '') + "\n\n💡 Yechim:\n" + (ex.step_3_worked_example.walkthrough || '');
+                            if (exTactEl) exTactEl.textContent = ex.step_3_worked_example.tactical_note ? "⚡ Taktika: " + ex.step_3_worked_example.tactical_note : "";
+
+                            const tQ = ex.step_4_new_drill_question;
+                            const fmStem = document.getElementById('fmNewQuestionStem');
+                            const fmOpts = document.getElementById('fmNewOptionsContainer');
+                            const fmRes = document.getElementById('fmTransferResult');
+                            if (fmRes) fmRes.classList.add('hidden');
+
+                            if (tQ && fmStem && fmOpts) {
+                                fmStem.textContent = tQ.question;
+                                fmOpts.innerHTML = (tQ.options || []).map(opt => `
+                                    <div class="p-2.5 rounded-lg border border-slate-700 bg-slate-900/60 hover:border-indigo-500 cursor-pointer flex items-center gap-2.5 transition-all" onclick="checkTransferAnswer('${tQ.id}', '${opt.key}')">
+                                        <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center font-mono text-xs text-indigo-300 font-bold">${opt.key}</span>
+                                        <span class="text-xs text-slate-200">${escapeHTML(opt.text)}</span>
+                                    </div>
+                                `).join('');
+                            }
+
+                            if (fmLoading) fmLoading.classList.add('hidden');
+                            if (fmContent) fmContent.classList.remove('hidden');
+                        }
+                    } catch (e) {
+                        showToast("Xatolik yuz berdi: " + e.message);
+                        fmModal.classList.add('hidden');
+                        fmModal.classList.remove('flex');
+                    }
+                });
+            }
+
+            if (closeFmBtn && fmModal) {
+                closeFmBtn.addEventListener('click', () => {
+                    fmModal.classList.add('hidden');
+                    fmModal.classList.remove('flex');
+                });
+            }
+        }
+
+        window.checkTransferAnswer = async function(qid, key) {
+            playTap();
+            haptic();
+            try {
+                const res = await fetch('/api/v1/practice/check-answer', {
+                    method: 'POST',
+                    headers: getApiHeaders(),
+                    body: JSON.stringify({ question_id: qid, selected_key: key, time_spent_seconds: 45 })
+                });
+                if (res.ok) {
+                    const d = await res.json();
+                    const fmRes = document.getElementById('fmTransferResult');
+                    if (fmRes) {
+                        fmRes.classList.remove('hidden');
+                        if (d.is_correct) {
+                            fmRes.className = 'p-3 rounded-lg text-xs bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold';
+                            fmRes.textContent = "✅ Ajoyib! Yangi savolni to'g'ri yechdingiz. Ko'nikma mustahkamlandi!";
+                            if (typeof confetti === 'function') confetti();
+                        } else {
+                            fmRes.className = 'p-3 rounded-lg text-xs bg-rose-500/20 border border-rose-500/40 text-rose-300';
+                            fmRes.textContent = `❌ Noto'g'ri. To'g'ri javob: ${d.correct_answer}. Izoh: ${d.explanation}`;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        initProBetaControls();
         loadTodaySummary();
         loadMistakesFromAPI();
-        
+
         // Telegram WebApp initialization & Hydration
         const hasTgInitData = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData;
         if (hasTgInitData) {

@@ -15,7 +15,9 @@ from aiogram.types import (
     WebAppInfo,
 )
 
-from config import BRAND_NAME, CENTER_NAME, WEBAPP_URL, is_admin
+from datetime import datetime, timezone
+
+from config import BOT_USERNAME, BRAND_NAME, CENTER_NAME, WEBAPP_URL, is_admin
 from database import db
 
 logger = logging.getLogger("StartHandler")
@@ -23,37 +25,41 @@ logger = logging.getLogger("StartHandler")
 router = Router()
 
 def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
-    """Creates the primary navigation dashboard for the user with 4 clear P0 paths."""
+    """Creates the primary navigation dashboard for the user with clear daily paths."""
     unresolved_count = db.get_unresolved_mistakes_count(user_id) if user_id else 0
     mistakes_btn_text = f"❌ 4. Xatolarim daftari ({unresolved_count})" if unresolved_count > 0 else "❌ 4. Xatolarim daftari"
 
     buttons = [
-        # --- 4 Clear P0 Daily Preparation Paths ---
+        # --- Primary Daily Action ---
         [
             InlineKeyboardButton(
-                text="🎯 1. Darajamni bilish (Diagnostika - Bepul)",
-                callback_data="start_diagnostic"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text="⏱️ 2. Bugungi 10 daqiqalik mashq",
+                text="⏱️ 1. Bugungi 10 daqiqalik mashq (Tavsiya)",
                 callback_data="ex_start:daily_10m"
             )
         ],
         [
             InlineKeyboardButton(
-                text="📚 3. Mavzu tanlash (Math / Reading / Writing)",
-                callback_data="practice_hub"
+                text="⚡ 2. 3 Daqiqalik Tezkor Starter Mashq",
+                callback_data="start_starter_microdrill"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="🎯 3. Darajamni bilish (Diagnostika - Bepul)",
+                callback_data="start_diagnostic"
             )
         ],
         [
             InlineKeyboardButton(
                 text=mistakes_btn_text,
                 callback_data="notebook_menu"
+            ),
+            InlineKeyboardButton(
+                text="📚 Mavzular",
+                callback_data="practice_hub"
             )
         ],
-        # --- Mini App & Mock Center ---
+        # --- Mini App & Pro Beta Center ---
         [
             InlineKeyboardButton(
                 text="📱 Mini Appda Test Topshirish & Tracker",
@@ -62,11 +68,17 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
+                text="🚀 Pro Beta (Shaxsiy Reja & Xatoni Tuzat)",
+                callback_data="show_pro_plans"
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text="📝 Mock Imtihon Markazi",
                 callback_data="exam_hub"
             ),
             InlineKeyboardButton(
-                text="⚡ Desmos Strategiyalari",
+                text="⚡ Desmos Taktikalari",
                 callback_data="desmos_catalog"
             )
         ],
@@ -76,14 +88,14 @@ def get_main_menu_keyboard(user_id: int | None = None) -> InlineKeyboardMarkup:
                 callback_data="my_stats"
             ),
             InlineKeyboardButton(
-                text="💬 Fikr va Taklif",
-                callback_data="send_feedback_prompt"
+                text="📤 Yutug'imni Ulashish",
+                callback_data="share_progress_btn"
             )
         ],
         [
             InlineKeyboardButton(
-                text="👥 Do'stlarni Taklif Qilish",
-                callback_data="referral_menu"
+                text="💬 Fikr va Taklif",
+                callback_data="send_feedback_prompt"
             )
         ]
     ]
@@ -366,3 +378,76 @@ async def cmd_webapp(message: Message):
         "👇 <i>Pastdagi tugmani bosing va ilovani ishga tushiring:</i>"
     )
     await message.answer(text, reply_markup=kb, parse_mode="HTML")
+
+
+@router.callback_query(F.data == "start_starter_microdrill")
+async def cb_starter_microdrill(callback: CallbackQuery):
+    """Starts a 3-minute starter micro-drill (3 questions) for immediate positive engagement."""
+    user_id = callback.from_user.id
+    from services.custom_test_service import custom_test_service
+    from services.telemetry_service import telemetry
+    from handlers.exam import send_exam_question
+
+    await telemetry.record_event("starter_drill_started", user_id=user_id, metadata={"mode": "starter_microdrill"})
+    test_session = custom_test_service.build_custom_test(user_id=user_id, section="all", count=3, timed=False)
+
+    db.local_cache.setdefault("exam_sessions", {})[str(user_id)] = {
+        "session_id": test_session["session_id"],
+        "mode": "starter_microdrill",
+        "current_index": 0,
+        "questions": test_session["questions"],
+        "user_answers": {},
+        "started_at": datetime.now(timezone.utc).isoformat()
+    }
+    db._save_local_db_sync()
+
+    await callback.message.answer(
+        "⚡ <b>3 Daqiqalik Tezkor Starter Mashq</b>\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "3 ta saralangan savol: 1 Math, 1 Reading, 1 Writing.\n"
+        "Qulay vaqtda diqqat bilan ishlang. Boshladik! 👇",
+        parse_mode="HTML"
+    )
+    await send_exam_question(callback.message, user_id, 0)
+    await callback.answer()
+
+
+@router.callback_query(F.data == "share_progress_btn")
+@router.message(Command("share"))
+async def handle_share_progress(event: Message | CallbackQuery):
+    """Generates an opt-in shareable achievement card."""
+    user = event.from_user
+    user_id = user.id
+    user_name = html.escape(user.first_name or "Abituriyent")
+    stats = db.get_user_practice_stats(user_id)
+    history = db.get_user_pacing_history(user_id, limit=100)
+    total_q = len(history)
+    correct_q = sum(1 for h in history if h.get("is_correct"))
+    acc = int((correct_q / total_q) * 100) if total_q > 0 else 0
+
+    share_text = (
+        f"🎯 <b>Mening Digital SAT Tayyorgarligim — {BRAND_NAME}</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"👤 O'quvchi: <b>{user_name}</b>\n"
+        f"🔥 O'rganish seriyasi: <b>{stats.get('current_streak', 1)} kun</b>\n"
+        f"📚 Ishlangan savollar: <b>{total_q} ta</b>\n"
+        f"🎯 O'rtacha aniqlik: <b>{acc}%</b>\n\n"
+        f"Mustaqil tayyorgarlik va sifatli savollar banki: @{BOT_USERNAME}"
+    )
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text="📤 Do'stlarga Ulashish",
+            switch_inline_query=f"Men EduTest Pro'da {total_q} ta SAT savolini ishladim! O'z darajangni tekshirib ko'r: @{BOT_USERNAME}"
+        )],
+        [InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")]
+    ])
+
+    if isinstance(event, CallbackQuery):
+        try:
+            await event.message.edit_text(share_text, reply_markup=kb, parse_mode="HTML")
+        except Exception:
+            await event.message.answer(share_text, reply_markup=kb, parse_mode="HTML")
+        await event.answer()
+    else:
+        await event.answer(share_text, reply_markup=kb, parse_mode="HTML")
+

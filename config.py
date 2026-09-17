@@ -50,3 +50,15 @@ BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
 LOCAL_DB_FILE: str = os.path.join(BASE_DIR, "users_db.json")
 MONGO_URI: str = os.getenv("MONGO_URI", "").strip()
 
+# --- Tier, Limits & Beta Configuration ---
+FREE_DAILY_QUESTIONS_LIMIT: int = int(os.getenv("FREE_DAILY_QUESTIONS_LIMIT", "50"))
+FREE_WEEKLY_MOCKS_LIMIT: int = int(os.getenv("FREE_WEEKLY_MOCKS_LIMIT", "1"))
+PRO_DAILY_FAIR_USE_LIMIT: int = int(os.getenv("PRO_DAILY_FAIR_USE_LIMIT", "150"))
+
+# Launch & Beta Strategy:
+# PAYMENTS_ENABLED is False: No live invoices sent, no surprise charges.
+# PRO_BETA_MODE is True: Pro features are freely unlocked for all early adopters during beta.
+PAYMENTS_ENABLED: bool = os.getenv("PAYMENTS_ENABLED", "False").lower() in ("true", "1")
+PRO_BETA_MODE: bool = os.getenv("PRO_BETA_MODE", "True").lower() in ("true", "1")
+
+

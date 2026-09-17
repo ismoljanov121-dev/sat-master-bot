@@ -18,8 +18,22 @@ from aiohttp import web
 
 from database import db
 from services.auth_service import validate_telegram_init_data
+from services.custom_test_service import custom_test_service
 from services.exam_service import EXAM_TEMPLATES, prepare_shuffled_questions
+from services.fix_mistake_service import fix_mistake_service
+from services.hint_scaffolding_service import hint_service
+from services.pacing_service import pacing_service
 from services.question_service import qs
+from services.study_plan_service import study_planner
+from services.telemetry_service import telemetry
+from services.tier_service import (
+    can_answer_practice_question,
+    can_take_full_mock,
+    get_daily_question_status,
+    get_user_tier,
+    record_question_attempt,
+)
+from services.weekly_report_service import weekly_report_service
 
 logger = logging.getLogger("PracticeAPI")
 
@@ -95,21 +109,29 @@ async def api_practice_today_summary(request: web.Request) -> web.Response:
         "active_session": active_sess
     }
 
+    tier_info = get_user_tier(user_id)
+    daily_usage = get_daily_question_status(user_id)
+
     return web.json_response({
         "status": "ok",
         "today": today_dict,
+        "tier": tier_info,
+        "daily_usage": daily_usage,
         "user": {
             "id": user_id,
             "first_name": user_profile.get("first_name", "Abituriyent"),
             "level": user_profile.get("level", "Standard"),
+            "tier": tier_info["tier"],
+            "is_pro": tier_info["is_pro"],
             "current_streak": stats.get("current_streak", 0),
             "best_streak": stats.get("best_streak", 0),
             "total_answered": stats.get("total_answered", 0),
             "accuracy": stats.get("accuracy", 0)
         },
         "today_progress": {
-            "answered_today": stats.get("total_answered", 0),
-            "daily_goal": 10,
+            "answered_today": daily_usage["answered_today"],
+            "daily_goal": daily_usage["daily_limit"],
+            "remaining_today": daily_usage["remaining_today"],
             "accuracy_today": stats.get("accuracy", 0)
         },
         "unresolved_mistakes_count": unresolved_count,
@@ -135,6 +157,31 @@ async def api_practice_questions_get(request: web.Request) -> web.Response:
 
     session_id = f"sess_{uuid.uuid4().hex[:12]}"
     raw_questions: list[dict[str, Any]] = []
+
+    # Check Tier and Daily/Weekly Allowance
+    is_mistake_mode = (mode == "mistakes")
+    is_diagnostic_mode = (mode == "diagnostic")
+    is_mock_mode = (mode in ("full_mock", "pilot_mock"))
+
+    if is_mock_mode:
+        allowed, reason = can_take_full_mock(user_id)
+        if not allowed:
+            return web.json_response({
+                "status": "limit_reached",
+                "message": reason,
+                "tier": get_user_tier(user_id),
+                "daily_usage": get_daily_question_status(user_id)
+            }, status=403)
+        await db.increment_weekly_mocks(user_id)
+    elif not is_mistake_mode and not is_diagnostic_mode:
+        allowed, reason = can_answer_practice_question(user_id, is_mistake_practice=False)
+        if not allowed:
+            return web.json_response({
+                "status": "limit_reached",
+                "message": reason,
+                "tier": get_user_tier(user_id),
+                "daily_usage": get_daily_question_status(user_id)
+            }, status=403)
 
     if mode == "mistakes":
         # Load user's unresolved mistakes
@@ -262,11 +309,27 @@ async def api_practice_check_answer(request: web.Request) -> web.Response:
     correct_key = str(q_data.get("correct", "A")).strip().upper()
     is_correct = (selected_key == correct_key)
     section = str(q_data.get("section", "math")).lower()
+    time_spent = int(body.get("time_spent_seconds", body.get("time_spent", 60)))
+    mode_name = session.get("mode", "drill") if session else "drill"
 
     # 1. Update bot practice stats
     db.record_practice_answer(user_id, question_id, is_correct, section)
 
-    # 2. Update error notebook
+    # 2. Record detailed pacing attempt
+    try:
+        await db.record_attempt_detail(
+            user_id=user_id,
+            question_id=question_id,
+            is_correct=is_correct,
+            time_spent_seconds=time_spent,
+            section=section,
+            domain=str(q_data.get("domain", "General")),
+            mode=mode_name
+        )
+    except Exception as e:
+        logger.warning(f"Error in record_attempt_detail: {e}")
+
+    # 3. Update error notebook
     if not is_correct:
         try:
             await db.record_mistake(
@@ -295,7 +358,13 @@ async def api_practice_check_answer(request: web.Request) -> web.Response:
     if session:
         session.setdefault("answers", {})[question_id] = selected_key
 
+    # 4. Record daily usage attempt (Mistakes mode & Mocks are exempt from daily limit)
+    is_mistake_mode = bool(session and session.get("mode") == "mistakes")
+    is_mock = bool(session and session.get("mode") in ("full_mock", "pilot_mock"))
+    await record_question_attempt(user_id, is_mistake_practice=is_mistake_mode, is_mock=is_mock)
+
     updated_stats = db.get_user_practice_stats(user_id)
+    daily_usage = get_daily_question_status(user_id)
 
     return web.json_response({
         "status": "ok",
@@ -308,7 +377,8 @@ async def api_practice_check_answer(request: web.Request) -> web.Response:
         "strategy_or_hack": q_data.get("strategy_or_hack", ""),
         "current_streak": updated_stats.get("current_streak", 0),
         "total_answered": updated_stats.get("total_answered", 0),
-        "accuracy": updated_stats.get("accuracy", 0)
+        "accuracy": updated_stats.get("accuracy", 0),
+        "daily_usage": daily_usage
     })
 
 
@@ -379,8 +449,17 @@ async def api_practice_submit(request: web.Request) -> web.Response:
         # Synchronize practice statistics with bot database
         try:
             db.record_practice_answer(user_id, qid, is_corr, sec)
+            await db.record_attempt_detail(
+                user_id=user_id,
+                question_id=qid,
+                is_correct=is_corr,
+                time_spent_seconds=int(time_spent / max(1, total_count)),
+                section=sec,
+                domain=dom,
+                mode=mode
+            )
         except Exception as e:
-            logger.warning(f"Error in submit record_practice_answer: {e}")
+            logger.warning(f"Error in submit record_practice_answer or attempt_detail: {e}")
 
         if dom not in domain_breakdown:
             domain_breakdown[dom] = {"total": 0, "correct": 0, "pct": 0}
@@ -518,3 +597,253 @@ async def api_mistakes_resolve(request: web.Request) -> web.Response:
         "question_id": question_id,
         "remaining_count": remaining
     })
+
+
+# ==================== 7. ADAPTIVE STUDY PLAN ====================
+async def api_study_plan_get(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/study-plan
+    Retrieves the student's personalized, adaptive SAT preparation schedule.
+    """
+    user_id, err_msg = get_authenticated_user_id(request)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    plan = study_planner.get_plan(user_id)
+    return web.json_response({
+        "status": "ok",
+        "plan": plan,
+        "tier": get_user_tier(user_id)
+    })
+
+
+async def api_study_plan_rebalance(request: web.Request) -> web.Response:
+    """
+    POST /api/v1/study-plan/rebalance
+    Dynamically rebalances study priorities based on latest performance data.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    user_id, err_msg = get_authenticated_user_id(request, body)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    plan = study_planner.rebalance_plan(user_id)
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "study_plan_rebalance"})
+
+    return web.json_response({
+        "status": "ok",
+        "plan": plan,
+        "message": "O'quv rejasi yangi natijalaringiz asosida muvaffaqiyatli moslashtirildi."
+    })
+
+
+# ==================== 8. FIX MY MISTAKE (PEDAGOGICAL LOOP) ====================
+async def api_practice_fix_mistake(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/practice/fix-mistake?mistake_id=...
+    Delivers 5-step corrective drill: error diagnosis, concept capsule,
+    worked example, transfer drill from vault, and spaced repetition scheduling.
+    """
+    user_id, err_msg = get_authenticated_user_id(request)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    mistake_id = request.query.get("mistake_id") or request.query.get("question_id", "")
+    exercise = fix_mistake_service.generate_fix_exercise(user_id, mistake_id)
+
+    if not exercise:
+        return web.json_response({
+            "status": "empty",
+            "message": "Xatolar daftarchangizda hal etilmagan xatoliklar topilmadi. Ajoyib natija! 🎯"
+        }, status=200)
+
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "fix_mistake"})
+    await telemetry.record_event("mistake_revisited", user_id=user_id, metadata={"question_id": mistake_id})
+
+    return web.json_response({
+        "status": "ok",
+        "exercise": exercise
+    })
+
+
+# ==================== 9. CUSTOM TEST BUILDER ====================
+async def api_practice_custom_test(request: web.Request) -> web.Response:
+    """
+    POST /api/v1/practice/custom-test
+    Builds a targeted test with section, domain, skill, difficulty, timer, and 7-day attempt deduplication.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    user_id, err_msg = get_authenticated_user_id(request, body)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    # Check daily question quota
+    allowed, reason = can_answer_practice_question(user_id, is_mistake_practice=False)
+    if not allowed:
+        return web.json_response({
+            "status": "limit_reached",
+            "message": reason,
+            "tier": get_user_tier(user_id),
+            "daily_usage": get_daily_question_status(user_id)
+        }, status=403)
+
+    section = str(body.get("section", "all"))
+    domain = str(body.get("domain", "all"))
+    skill = str(body.get("skill", "all"))
+    difficulty = str(body.get("difficulty", "All"))
+    count = int(body.get("count", 10))
+    timed = bool(body.get("timed", True))
+
+    test_payload = custom_test_service.build_custom_test(
+        user_id=user_id,
+        section=section,
+        domain=domain,
+        skill=skill,
+        difficulty=difficulty,
+        count=count,
+        timed=timed
+    )
+
+    session_id = test_payload["session_id"]
+    questions_lookup = {str(q["id"]): q for q in test_payload["questions"]}
+
+    # Register active test session on server
+    ACTIVE_PRACTICE_SESSIONS[session_id] = {
+        "session_id": session_id,
+        "user_id": user_id,
+        "mode": "custom_drill",
+        "status": "active",
+        "title": f"Shaxsiy Sinov: {section.title()}",
+        "duration_seconds": test_payload["total_time_seconds"] or 600,
+        "remaining_seconds": test_payload["total_time_seconds"] or 600,
+        "started_at": datetime.now(timezone.utc).isoformat(),
+        "questions": test_payload["questions"],
+        "questions_lookup": questions_lookup,
+        "answers": {},
+        "current_index": 0
+    }
+
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "custom_test", "count": count})
+
+    return web.json_response({
+        "status": "ok",
+        "session_id": session_id,
+        "test": test_payload
+    })
+
+
+# ==================== 10. PACING & TIME STRATEGY ANALYTICS ====================
+async def api_analytics_pacing(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/analytics/pacing?limit=50
+    Diagnoses overtime, rushed mistakes, and domain pace efficiency.
+    """
+    user_id, err_msg = get_authenticated_user_id(request)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    limit = int(request.query.get("limit", 50))
+    pacing_data = pacing_service.analyze_user_pacing(user_id, limit=limit)
+
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "pacing_analytics"})
+
+    return web.json_response({
+        "status": "ok",
+        "pacing": pacing_data
+    })
+
+
+# ==================== 11. PRAGMATIC WEEKLY REPORT ====================
+async def api_analytics_weekly_report(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/analytics/weekly-report
+    Answers: 1. Nima yaxshilandi? 2. Nima hali qiyin? 3. Keyingi hafta nimani qilamiz?
+    Discloses sample size honestly if attempts < 15.
+    """
+    user_id, err_msg = get_authenticated_user_id(request)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    report_data = weekly_report_service.generate_weekly_report(user_id)
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "weekly_report"})
+
+    return web.json_response({
+        "status": "ok",
+        "report": report_data
+    })
+
+
+# ==================== 12. TIERED SCAFFOLDING HINTS ====================
+async def api_practice_hint(request: web.Request) -> web.Response:
+    """
+    GET /api/v1/practice/hint?question_id=...
+    Provides Level 1 (concept) and Level 2 (tactical/Desmos) hints without giving away the final choice.
+    """
+    user_id, err_msg = get_authenticated_user_id(request)
+    if not user_id:
+        return web.json_response({"status": "error", "message": err_msg}, status=401)
+
+    question_id = request.query.get("question_id", "").strip()
+    if not question_id:
+        return web.json_response({"status": "error", "message": "question_id parametri talab qilinadi"}, status=400)
+
+    hints = hint_service.get_hints_for_question(question_id)
+    await telemetry.record_event("pro_beta_feature_used", user_id=user_id, metadata={"feature": "hint_scaffolding", "question_id": question_id})
+
+    return web.json_response({
+        "status": "ok",
+        "hints": hints
+    })
+
+
+# ==================== 13. MINIMAL PRIVACY-PRESERVING TELEMETRY ====================
+async def api_telemetry_event(request: web.Request) -> web.Response:
+    """
+    POST /api/v1/telemetry/event
+    Records non-PII operational events (dropoff steps, starter completion, flags).
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        return web.json_response({"status": "error", "message": "Noto'g'ri JSON formati"}, status=400)
+
+    event_name = str(body.get("event", "")).strip()
+    user_id, _ = get_authenticated_user_id(request, body)
+    metadata = body.get("metadata", {})
+
+    recorded = await telemetry.record_event(event_name, user_id=user_id, metadata=metadata)
+    return web.json_response({
+        "status": "ok",
+        "recorded": recorded,
+        "event": event_name
+    })
+
+
+# ==================== ROUTE REGISTRATION HELPER ====================
+def setup_practice_routes(app: web.Application) -> None:
+    """Registers all unified practice, diagnostic, Pro preparation and analytics endpoints."""
+    app.router.add_get("/api/v1/practice/today-summary", api_practice_today_summary)
+    app.router.add_get("/api/v1/practice/questions", api_practice_questions_get)
+    app.router.add_post("/api/v1/practice/check-answer", api_practice_check_answer)
+    app.router.add_post("/api/v1/practice/submit", api_practice_submit)
+    app.router.add_get("/api/v1/mistakes", api_mistakes_get)
+    app.router.add_post("/api/v1/mistakes/resolve", api_mistakes_resolve)
+
+    # Pro Personalized Prep & Diagnostics
+    app.router.add_get("/api/v1/study-plan", api_study_plan_get)
+    app.router.add_post("/api/v1/study-plan/rebalance", api_study_plan_rebalance)
+    app.router.add_get("/api/v1/practice/fix-mistake", api_practice_fix_mistake)
+    app.router.add_post("/api/v1/practice/custom-test", api_practice_custom_test)
+    app.router.add_get("/api/v1/analytics/pacing", api_analytics_pacing)
+    app.router.add_get("/api/v1/analytics/weekly-report", api_analytics_weekly_report)
+    app.router.add_get("/api/v1/practice/hint", api_practice_hint)
+    app.router.add_post("/api/v1/telemetry/event", api_telemetry_event)
+

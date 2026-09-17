@@ -70,7 +70,14 @@ class Database:
             "webapp_data": {},
             "attention_events": [],
             "error_notebook": {},
-            "student_feedback": []
+            "student_feedback": [],
+            "subscriptions": {},
+            "payments": [],
+            "daily_usage": {},
+            "weekly_mocks": {},
+            "study_plans": {},
+            "attempts_history": {},
+            "telemetry_events": []
         }
 
         if os.path.exists(LOCAL_DB_FILE):
@@ -784,6 +791,257 @@ class Database:
     def get_all_feedback(self) -> list[dict[str, Any]]:
         return list(self.local_cache.get("student_feedback", []))
 
+    # --- Subscriptions & Telegram Stars Payments ---
+    def get_user_subscription(self, user_id: int) -> dict[str, Any] | None:
+        """Returns the user's active or latest subscription object."""
+        subs = self.local_cache.setdefault("subscriptions", {})
+        return subs.get(str(user_id))
+
+    async def add_user_subscription(
+        self,
+        user_id: int,
+        plan_id: str,
+        duration_days: int,
+        stars_paid: int,
+        telegram_charge_id: str
+    ) -> dict[str, Any]:
+        """Activates or extends a user's PRO subscription idempotently."""
+        now = datetime.now(timezone.utc)
+        str_id = str(user_id)
+        subs = self.local_cache.setdefault("subscriptions", {})
+        current_sub = subs.get(str_id)
+
+        if current_sub and current_sub.get("is_active"):
+            try:
+                curr_exp = datetime.fromisoformat(current_sub["expires_at"])
+                if curr_exp.tzinfo is None:
+                    curr_exp = curr_exp.replace(tzinfo=timezone.utc)
+                if curr_exp > now:
+                    start_base = curr_exp
+                else:
+                    start_base = now
+            except Exception:
+                start_base = now
+        else:
+            start_base = now
+
+        new_expires = start_base + timedelta(days=duration_days)
+
+        sub_record = {
+            "user_id": user_id,
+            "plan_id": plan_id,
+            "is_active": True,
+            "started_at": now.isoformat(),
+            "expires_at": new_expires.isoformat(),
+            "stars_paid": stars_paid,
+            "latest_charge_id": telegram_charge_id,
+            "updated_at": now.isoformat()
+        }
+        subs[str_id] = sub_record
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.subscriptions.update_one(
+                    {"user_id": user_id},
+                    {"$set": sub_record},
+                    upsert=True
+                )
+            except Exception as e:
+                logger.error(f"MongoDB add_user_subscription error: {e}")
+
+        return sub_record
+
+    def has_payment_charge_id(self, telegram_charge_id: str) -> bool:
+        """Idempotency check: returns True if charge_id has already been processed."""
+        if not telegram_charge_id:
+            return False
+        payments = self.local_cache.setdefault("payments", [])
+        return any(p.get("telegram_charge_id") == telegram_charge_id for p in payments)
+
+    async def record_payment(
+        self,
+        user_id: int,
+        plan_id: str,
+        stars_amount: int,
+        telegram_charge_id: str,
+        provider_payment_charge_id: str = ""
+    ) -> dict[str, Any]:
+        """Records a successful Telegram Stars payment transaction."""
+        now_utc = get_utc_now_str()
+        payment_entry = {
+            "payment_id": f"pay_{int(datetime.now(timezone.utc).timestamp() * 1000)}",
+            "user_id": user_id,
+            "plan_id": plan_id,
+            "currency": "XTR",
+            "total_amount": stars_amount,
+            "telegram_charge_id": telegram_charge_id,
+            "provider_payment_charge_id": provider_payment_charge_id,
+            "status": "completed",
+            "created_at": now_utc
+        }
+        self.local_cache.setdefault("payments", []).append(payment_entry)
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.payments.insert_one(payment_entry)
+            except Exception as e:
+                logger.error(f"MongoDB record_payment error: {e}")
+
+        return payment_entry
+
+    # --- Daily Question Usage Tracking ---
+    def get_daily_usage(self, user_id: int, date_str: str) -> int:
+        """Returns the number of questions answered on date_str (YYYY-MM-DD)."""
+        daily = self.local_cache.setdefault("daily_usage", {})
+        user_daily = daily.get(str(user_id), {})
+        return user_daily.get(date_str, 0)
+
+    async def increment_daily_usage(self, user_id: int, date_str: str, count: int = 1) -> int:
+        """Increments and returns new daily question count."""
+        str_id = str(user_id)
+        daily = self.local_cache.setdefault("daily_usage", {})
+        user_daily = daily.setdefault(str_id, {})
+        new_val = user_daily.get(date_str, 0) + count
+        user_daily[date_str] = new_val
+        await self._atomic_save_local()
+
+        if self.is_mongo_active and (self.db is not None):
+            try:
+                await self.db.daily_usage.update_one(
+                    {"user_id": user_id},
+                    {"$set": {f"usage.{date_str}": new_val}},
+                    upsert=True
+                )
+            except Exception as e:
+                logger.error(f"MongoDB increment_daily_usage error: {e}")
+
+        return new_val
+
+    # --- Weekly Mock Tracking ---
+    def get_weekly_mocks_used(self, user_id: int, week_str: str | None = None) -> int:
+        """Returns the number of full mock exams taken during week_str (YYYY-Www)."""
+        if not week_str:
+            now_dt = datetime.now(TASHKENT_TZ)
+            week_str = f"{now_dt.isocalendar().year}-W{now_dt.isocalendar().week:02d}"
+        wm = self.local_cache.setdefault("weekly_mocks", {})
+        user_mocks = wm.get(str(user_id), {})
+        return user_mocks.get(week_str, 0)
+
+    async def increment_weekly_mocks(self, user_id: int, week_str: str | None = None, count: int = 1) -> int:
+        """Increments and returns weekly mock exam count."""
+        if not week_str:
+            now_dt = datetime.now(TASHKENT_TZ)
+            week_str = f"{now_dt.isocalendar().year}-W{now_dt.isocalendar().week:02d}"
+        str_id = str(user_id)
+        wm = self.local_cache.setdefault("weekly_mocks", {})
+        user_mocks = wm.setdefault(str_id, {})
+        new_val = user_mocks.get(week_str, 0) + count
+        user_mocks[week_str] = new_val
+        await self._atomic_save_local()
+        return new_val
+
+    # --- Adaptive Study Plan Persistence ---
+    def get_user_study_plan(self, user_id: int) -> dict[str, Any] | None:
+        """Returns stored adaptive study plan for user."""
+        plans = self.local_cache.setdefault("study_plans", {})
+        return plans.get(str(user_id))
+
+    async def save_user_study_plan(self, user_id: int, plan: dict[str, Any]) -> dict[str, Any]:
+        """Saves or updates user's adaptive study plan."""
+        plans = self.local_cache.setdefault("study_plans", {})
+        plan["updated_at"] = get_utc_now_str()
+        plans[str(user_id)] = plan
+        await self._atomic_save_local()
+        return plan
+
+    # --- Attempts History & Pacing Analytics ---
+    async def record_attempt_detail(
+        self,
+        user_id: int,
+        question_id: str,
+        is_correct: bool = False,
+        time_spent_seconds: int = 0,
+        section: str = "math",
+        domain: str = "General",
+        skill: str = "General",
+        mode: str = "drill"
+    ) -> None:
+        """Records detailed attempt with pacing data for deduplication and analytics."""
+        str_id = str(user_id)
+        history = self.local_cache.setdefault("attempts_history", {})
+        user_history = history.setdefault(str_id, [])
+        attempt_record = {
+            "question_id": question_id,
+            "section": section,
+            "domain": domain,
+            "skill": skill or domain or "General",
+            "mode": mode,
+            "is_correct": bool(is_correct),
+            "time_spent_seconds": max(0, int(time_spent_seconds)),
+            "timestamp": get_utc_now_str()
+        }
+        user_history.append(attempt_record)
+        if len(user_history) > 1000:
+            history[str_id] = user_history[-1000:]
+        await self._atomic_save_local()
+
+    def get_user_recent_attempted_qids(self, user_id: int, days: int = 7) -> set[str]:
+        """Returns set of question IDs attempted by user within the last `days` days."""
+        str_id = str(user_id)
+        history = self.local_cache.setdefault("attempts_history", {}).get(str_id, [])
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+        recent_qids = set()
+        for att in history:
+            ts_raw = att.get("timestamp")
+            if ts_raw:
+                try:
+                    att_dt = datetime.fromisoformat(ts_raw)
+                    if att_dt.tzinfo is None:
+                        att_dt = att_dt.replace(tzinfo=timezone.utc)
+                    if att_dt >= cutoff:
+                        recent_qids.add(att.get("question_id"))
+                except Exception:
+                    recent_qids.add(att.get("question_id"))
+        return recent_qids
+
+    def get_user_pacing_history(self, user_id: int, limit: int = 100) -> list[dict[str, Any]]:
+        """Returns the user's recent attempts history with pacing data."""
+        str_id = str(user_id)
+        history = self.local_cache.setdefault("attempts_history", {}).get(str_id, [])
+        return history[-limit:]
+
+    # --- Minimal Privacy-Preserving Telemetry ---
+    async def log_telemetry_event(
+        self,
+        event_name: str,
+        user_id: int | None = None,
+        metadata: dict[str, Any] | None = None
+    ) -> None:
+        """Logs an anonymous, minimal product engagement event without collecting PII."""
+        events = self.local_cache.setdefault("telemetry_events", [])
+        entry = {
+            "event": event_name,
+            "user_id": user_id,
+            "metadata": metadata or {},
+            "timestamp": get_utc_now_str()
+        }
+        events.append(entry)
+        if len(events) > 5000:
+            self.local_cache["telemetry_events"] = events[-5000:]
+        await self._atomic_save_local()
+
+    def get_telemetry_summary(self) -> dict[str, int]:
+        """Returns count of recorded telemetry events by event_name."""
+        events = self.local_cache.setdefault("telemetry_events", [])
+        counts: dict[str, int] = {}
+        for ev in events:
+            name = ev.get("event", "unknown")
+            counts[name] = counts.get(name, 0) + 1
+        return counts
+
 
 # Singleton instance
 db = Database()
+

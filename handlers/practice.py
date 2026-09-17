@@ -23,6 +23,12 @@ from database import db
 from services.question_repository import vault
 from services.question_service import qs
 from services.sat_taxonomy import get_skills_for_domain
+from services.tier_service import (
+    can_answer_practice_question,
+    get_daily_question_status,
+    get_user_tier,
+    record_question_attempt,
+)
 
 logger = logging.getLogger("PracticeHandler")
 
@@ -101,7 +107,10 @@ def get_practice_hub_keyboard(user_id: int) -> InlineKeyboardMarkup:
             InlineKeyboardButton(text=f"Ko'nikma: {skill_label}", callback_data="prac_menu_skill")
         ],
         [
-            InlineKeyboardButton(text="🔄 Filtrlarni Tozalash", callback_data="prac_reset_filters"),
+            InlineKeyboardButton(text="💎 PRO Ta'riflar (Stars ⭐)", callback_data="show_pro_plans"),
+            InlineKeyboardButton(text="🔄 Filtrlarni Tozalash", callback_data="prac_reset_filters")
+        ],
+        [
             InlineKeyboardButton(text="⬅️ Asosiy Menyu", callback_data="back_to_menu")
         ]
     ]
@@ -310,11 +319,14 @@ async def cmd_practice(message: Message):
     total_c = v_counts.get("total", 0)
     skill_badge = filters.get("skill", "all")
 
+    tier_info = get_user_tier(user_id)
+    daily_status = get_daily_question_status(user_id)
+
     hub_text = (
-        f"📚 <b>CHEKSIZ DIGITAL SAT MASHQ BAZASI</b>\n"
+        f"📚 <b>DIGITAL SAT MASHQ MARKAZI</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"Assalomu alaykum, <b>{user_name}</b>!\n"
-        f"Bu yerda siz Digital SAT imtihoni savollarini mavzu va qiyinlik bo'yicha saralab mashq qilishingiz mumkin.\n\n"
+        f"• 👑 Ta'rif: <b>{tier_info['tier_label']}</b> | 📅 Bugungi mashq: <b>{daily_status['answered_today']}/{daily_status['daily_limit']} ta</b>\n\n"
         f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
         f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
         f"• Jami tasdiqlangan: <b>{total_c} ta</b> (Digital SAT talablariga moslashtirilgan)\n\n"
@@ -356,10 +368,14 @@ async def cb_practice_hub(callback: CallbackQuery):
         total_c = v_counts.get("total", 0)
         skill_badge = filters.get("skill", "all")
 
+        tier_info = get_user_tier(user_id)
+        daily_status = get_daily_question_status(user_id)
+
         hub_text = (
-            f"📚 <b>CHEKSIZ DIGITAL SAT MASHQ BAZASI</b>\n"
+            f"📚 <b>DIGITAL SAT MASHQ MARKAZI</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"Assalomu alaykum, <b>{user_name}</b>!\n\n"
+            f"Assalomu alaykum, <b>{user_name}</b>!\n"
+            f"• 👑 Ta'rif: <b>{tier_info['tier_label']}</b> | 📅 Bugungi mashq: <b>{daily_status['answered_today']}/{daily_status['daily_limit']} ta</b>\n\n"
             f"🏛 <b>Tasdiqlangan Savollar Bazasi:</b>\n"
             f"• 🧮 Math: <b>{math_c}</b> | 📖 Reading: <b>{read_c}</b> | ✍️ Writing: <b>{writ_c}</b>\n"
             f"• Jami tasdiqlangan: <b>{total_c} ta</b> (Digital SAT talablariga moslashtirilgan)\n\n"
@@ -529,6 +545,18 @@ async def cb_start_active_practice(callback: CallbackQuery):
     """Starts or continues practice using active user filters."""
     try:
         user_id = callback.from_user.id
+
+        # Check Free/Pro daily limit
+        allowed, reason = can_answer_practice_question(user_id, is_mistake_practice=False)
+        if not allowed:
+            limit_kb = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="💎 PRO Ta'rifiga Ulanish (Stars)", callback_data="show_pro_plans")],
+                [InlineKeyboardButton(text="📝 Xatolarim Ustida Ishlash (Cheksiz)", callback_data="open_error_notebook")],
+                [InlineKeyboardButton(text="⬅️ Mashq Markaziga Qaytish", callback_data="practice_hub")]
+            ])
+            await safe_edit_practice(callback, f"⚠️ <b>KUNLIK LIMITGA YETILDI</b>\n━━━━━━━━━━━━━━━━━━━━━━\n{reason}", reply_markup=limit_kb)
+            return
+
         filters = get_user_filters(user_id)
         sec = filters.get("section", "mixed")
         diff = filters.get("difficulty", "all")
@@ -637,6 +665,7 @@ async def cb_answer_practice(callback: CallbackQuery):
 
         # Record in database
         db.record_practice_answer(user_id, q_data.get("id", ""), is_correct, q_data.get("section", "math"))
+        await record_question_attempt(user_id, is_mistake_practice=False)
         
         if not is_correct:
             try:

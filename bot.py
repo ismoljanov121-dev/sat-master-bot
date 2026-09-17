@@ -39,6 +39,7 @@ from handlers.diagnostic import router as diag_router
 from handlers.exam import router as exam_router
 from handlers.feedback import router as feedback_router
 from handlers.mistakes import router as mistakes_router
+from handlers.payment import router as payment_router
 from handlers.practice import router as practice_router
 from handlers.referral import router as referral_router
 from handlers.start import router as start_router
@@ -52,6 +53,7 @@ from services.practice_api import (
     api_practice_submit,
     api_mistakes_get,
     api_mistakes_resolve,
+    setup_practice_routes,
 )
 
 
@@ -338,13 +340,8 @@ def setup_web_app() -> web.Application:
     app.router.add_post("/api/v1/user/attention-event", api_attention_event_post)
     app.router.add_get("/api/v1/test/questions", api_test_questions_get)
 
-    # Versioned Practice & Error Notebook API (Unified with Bot)
-    app.router.add_get("/api/v1/practice/today-summary", api_practice_today_summary)
-    app.router.add_get("/api/v1/practice/questions", api_practice_questions_get)
-    app.router.add_post("/api/v1/practice/check-answer", api_practice_check_answer)
-    app.router.add_post("/api/v1/practice/submit", api_practice_submit)
-    app.router.add_get("/api/v1/mistakes", api_mistakes_get)
-    app.router.add_post("/api/v1/mistakes/resolve", api_mistakes_resolve)
+    # Versioned Practice, Error Notebook & Pro Preparation API (Unified with Bot)
+    setup_practice_routes(app)
 
     if os.path.exists(WEBAPP_DIR):
         app.router.add_static("/static/", path=WEBAPP_DIR, name="static")
@@ -377,6 +374,7 @@ async def main():
     dp.include_router(feedback_router)
     dp.include_router(exam_router)
     dp.include_router(admin_router)
+    dp.include_router(payment_router)
     dp.include_router(diag_router)
     dp.include_router(practice_router)
     dp.include_router(referral_router)
@@ -385,6 +383,8 @@ async def main():
     # Set commands menu
     commands = [
         BotCommand(command="start", description="Bosh menyu va 3 asosiy yo'l"),
+        BotCommand(command="pro", description="PRO A'zolik va Telegram Stars ⭐"),
+        BotCommand(command="stars", description="Ta'riflar va Telegram Stars"),
         BotCommand(command="mock", description="Mock Imtihon Markazi"),
         BotCommand(command="practice", description="Cheksiz SAT Mashq Bazasi"),
         BotCommand(command="mistakes", description="Xatolarim daftari"),
@@ -442,13 +442,26 @@ async def main():
     except Exception as e:
         logger.warning(f"Could not fetch bot identity: {e}")
 
-    # Start Web & API Server
+    # Start Web & API Server with resilient fallback
     app = setup_web_app()
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, "0.0.0.0", PORT)
-    await site.start()
-    print(f"🌐 Web Server & /api/v1/ listening on port {PORT}")
+    
+    server_started = False
+    active_port = PORT
+    for candidate_port in [PORT, 8081, 8082, 8083, 8084]:
+        try:
+            site = web.TCPSite(runner, "0.0.0.0", candidate_port)
+            await site.start()
+            active_port = candidate_port
+            server_started = True
+            print(f"🌐 Web Server & /api/v1/ listening on port {active_port}")
+            break
+        except OSError as port_err:
+            logger.warning(f"Port {candidate_port} is busy ({port_err}). Trying next fallback port...")
+
+    if not server_started:
+        logger.error("⚠️ All local ports 8080-8084 are busy. Web server offline; bot polling will proceed.")
 
     # Run bot polling with clean shutdown
     try:
@@ -457,7 +470,8 @@ async def main():
         logger.info("Initiating graceful shutdown...")
         if backup_task and not backup_task.done():
             backup_task.cancel()
-        await runner.cleanup()
+        if server_started:
+            await runner.cleanup()
         await bot.session.close()
         await db.close()
         logger.info("Shutdown completed cleanly.")
