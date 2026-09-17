@@ -45,6 +45,15 @@ from handlers.start import router as start_router
 from handlers.stats import router as stats_router
 from services.auth_service import validate_telegram_init_data
 from services.backup_service import backup_scheduler_loop
+from services.practice_api import (
+    api_practice_today_summary,
+    api_practice_questions_get,
+    api_practice_check_answer,
+    api_practice_submit,
+    api_mistakes_get,
+    api_mistakes_resolve,
+)
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("EduTestPro")
@@ -297,20 +306,45 @@ async def api_test_questions_get(request: web.Request) -> web.Response:
     })
 
 
+@web.middleware
+async def cors_middleware(request: web.Request, handler):
+    if request.method == "OPTIONS":
+        response = web.Response(status=200)
+    else:
+        try:
+            response = await handler(request)
+        except web.HTTPException as ex:
+            response = ex
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Telegram-Init-Data, Authorization"
+    return response
+
+
 def setup_web_app() -> web.Application:
-    """Constructs the unified aiohttp web application with API routes and 256KB request limit."""
-    app = web.Application(client_max_size=256 * 1024)
-    # CORS options
-    app.router.add_get("/", health_handler)
+    """Constructs the unified aiohttp web application with API routes, CORS and 256KB request limit."""
+    app = web.Application(client_max_size=256 * 1024, middlewares=[cors_middleware])
+    
+    # WebApp & Static routes
+    app.router.add_get("/", webapp_handler)
     app.router.add_get("/health", health_handler)
     app.router.add_get("/webapp", webapp_handler)
+    app.router.add_get("/index.html", webapp_handler)
 
-    # Versioned API
+    # Versioned Core API
     app.router.add_post("/api/v1/auth/validate", api_auth_validate)
     app.router.add_get("/api/v1/user/progress", api_user_progress_get)
     app.router.add_post("/api/v1/user/progress", api_user_progress_post)
     app.router.add_post("/api/v1/user/attention-event", api_attention_event_post)
     app.router.add_get("/api/v1/test/questions", api_test_questions_get)
+
+    # Versioned Practice & Error Notebook API (Unified with Bot)
+    app.router.add_get("/api/v1/practice/today-summary", api_practice_today_summary)
+    app.router.add_get("/api/v1/practice/questions", api_practice_questions_get)
+    app.router.add_post("/api/v1/practice/check-answer", api_practice_check_answer)
+    app.router.add_post("/api/v1/practice/submit", api_practice_submit)
+    app.router.add_get("/api/v1/mistakes", api_mistakes_get)
+    app.router.add_post("/api/v1/mistakes/resolve", api_mistakes_resolve)
 
     if os.path.exists(WEBAPP_DIR):
         app.router.add_static("/static/", path=WEBAPP_DIR, name="static")

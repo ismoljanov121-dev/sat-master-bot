@@ -1,6 +1,6 @@
 """
-SAT AI Bot - WebApp Local Static Server
-Serves the 60-day interactive SAT Tracker on port 8080.
+SAT AI Bot - WebApp Local Server (aiohttp with full /api/v1/ support)
+Runs both the WebApp static files and the complete REST API on port 8080.
 """
 
 import os
@@ -11,23 +11,18 @@ if hasattr(sys.stdout, 'reconfigure'):
 if hasattr(sys.stderr, 'reconfigure'):
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from aiohttp import web
+from bot import setup_web_app
+from config import PORT
 
-WEBAPP_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "webapp")
 
-class WebAppHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=WEBAPP_DIR, **kwargs)
+def run_server(port=None):
+    server_port = port or PORT or 8080
+    app = setup_web_app()
+    print(f"✅ WebApp and REST API server running on http://127.0.0.1:{server_port}")
+    print(f"👉 Open http://127.0.0.1:{server_port}/webapp in your browser")
+    web.run_app(app, host="0.0.0.0", port=server_port)
 
-    def end_headers(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-        super().end_headers()
-
-def run_server(port=8080):
-    server = HTTPServer(("127.0.0.1", port), WebAppHandler)
-    print(f"✅ WebApp static server running on http://127.0.0.1:{port}")
-    server.serve_forever()
 
 if __name__ == "__main__":
     run_server()

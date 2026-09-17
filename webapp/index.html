@@ -143,6 +143,32 @@
             from { opacity: 0; transform: translate(-50%, 20px); }
             to { opacity: 1; transform: translate(-50%, 0); }
         }
+    
+        :root {
+            --tg-theme-bg-color: #0f172a;
+            --tg-theme-text-color: #f8fafc;
+            --tg-theme-hint-color: #94a3b8;
+            --tg-theme-link-color: #818cf8;
+            --tg-theme-button-color: #6366f1;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-secondary-bg-color: #1e293b;
+        }
+
+        .instant-correct {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .instant-wrong {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .hack-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+        }
+
     </style>
 </head>
 <body class="text-gray-100">
@@ -193,20 +219,125 @@
             </div>
         </header>
 
-        <!-- Tab Navigation -->
-        <div class="glass-card rounded-2xl p-2 mb-6 flex gap-2">
-            <button class="tab-btn spring-scale flex-1 py-3 rounded-xl font-medium transition-all tab-active" data-tab="schedule">
-                <span data-i18n="tab_schedule">📅 Kun Tartibi</span>
+        <!-- Tab Navigation (5-Step Learning Hub) -->
+        <div class="glass-card rounded-2xl p-1.5 mb-6 flex gap-1.5 overflow-x-auto shadow-xl">
+            <button class="tab-btn spring-scale flex-1 py-3 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all tab-active whitespace-nowrap text-center" data-tab="today">
+                <span>🎯 Bugun</span>
             </button>
-            <button class="tab-btn spring-scale flex-1 py-3 rounded-xl font-medium transition-all" data-tab="report">
-                <span data-i18n="tab_report">📊 Hisobot</span>
+            <button class="tab-btn spring-scale flex-1 py-3 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all whitespace-nowrap text-center" data-tab="testrunner">
+                <span>📝 Mashq</span>
             </button>
-            <button class="tab-btn spring-scale flex-1 py-3 rounded-xl font-medium transition-all" data-tab="testrunner">
-                <span data-i18n="tab_testrunner">📝 Test</span>
+            <button class="tab-btn spring-scale flex-1 py-3 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all whitespace-nowrap text-center relative" data-tab="errors">
+                <span>❌ Xatolarim</span>
+                <span id="navMistakeBadge" class="hidden ml-1 px-1.5 py-0.5 rounded-full bg-rose-500 text-[10px] text-white font-bold">0</span>
             </button>
-            <button class="tab-btn spring-scale flex-1 py-3 rounded-xl font-medium transition-all" data-tab="errors">
-                <span data-i18n="tab_errors">❌ Xatolar</span>
+            <button class="tab-btn spring-scale flex-1 py-3 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all whitespace-nowrap text-center" data-tab="results">
+                <span>📊 Natijalar</span>
             </button>
+            <button class="tab-btn spring-scale flex-1 py-3 px-2 rounded-xl font-semibold text-xs sm:text-sm transition-all whitespace-nowrap text-center" data-tab="schedule">
+                <span>📅 Reja</span>
+            </button>
+        </div>
+
+                <!-- Today Tab (Step 1: Bugun Hub) -->
+        <div id="todayTab" class="tab-content">
+            <!-- Streak & Daily Goal Hero Card -->
+            <div class="glass-card rounded-2xl p-6 mb-6 border border-violet-500/30 bg-gradient-to-br from-slate-900/90 to-indigo-950/40">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">👋</span>
+                            <h2 class="text-lg font-bold text-white" id="todayGreeting">Salom, SAT Aspirant!</h2>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-0.5">Bugungi odat — 1500+ sari eng mustahkam qadam</p>
+                    </div>
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs">
+                        <span class="emoji-pulse">🔥</span>
+                        <span id="todayStreakBadge">0 kun</span>
+                    </div>
+                </div>
+
+                <!-- Daily Target Progress Bar -->
+                <div class="space-y-2 mb-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-gray-300 font-medium">🎯 Kunlik maqsad: <b class="text-indigo-400">10 ta savol</b></span>
+                        <span class="text-emerald-400 font-bold" id="todayGoalPct">0%</span>
+                    </div>
+                    <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden p-0.5 border border-slate-700">
+                        <div id="todayProgressBar" class="h-full rounded-full bg-gradient-to-r from-violet-600 via-indigo-500 to-emerald-400 progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-[11px] text-gray-400">
+                        <span id="todayAnsweredStat">Bugun ishlangan: 0 ta</span>
+                        <span id="todayTargetStat">Qolgan: 10 ta</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action 1: Launch Today's 10-Minute Micro Drill -->
+            <div class="glass-card rounded-2xl p-5 mb-4 border border-indigo-500/40 bg-indigo-900/20 hover:border-indigo-400 transition-all">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xl">⏱️</span>
+                            <h3 class="font-bold text-sm text-white">Bugungi 10 daqiqalik mashq</h3>
+                        </div>
+                        <p class="text-xs text-indigo-200/80 leading-relaxed">
+                            6 ta tanlangan savol (2 Math, 2 Reading, 2 Writing). Har bir savolda darhol o'zbekcha yechim va Desmos taktikasi!
+                        </p>
+                    </div>
+                    <button id="todayStartDrillBtn" class="spring-scale shrink-0 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg neon-glow">
+                        Boshlash 🚀
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Action 2: Active Session Resume Card (if any) -->
+            <div id="todayResumeCard" class="hidden glass-card rounded-2xl p-5 mb-4 border border-amber-500/40 bg-amber-500/10">
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xl">⚡</span>
+                            <h3 class="font-bold text-sm text-amber-300">Yakunlanmagan mashq mavjud</h3>
+                        </div>
+                        <p id="todayResumeInfo" class="text-xs text-gray-300">Oldingi javoblaringiz va vaqtingiz xavfsiz saqlangan.</p>
+                    </div>
+                    <button id="todayResumeBtn" class="spring-scale shrink-0 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md">
+                        Davom etish ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Action 3: Unresolved Mistakes Callout -->
+            <div id="todayMistakesCard" class="hidden glass-card rounded-2xl p-5 mb-6 border border-rose-500/40 bg-rose-950/20">
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xl">❌</span>
+                            <h3 class="font-bold text-sm text-rose-300">Xatolar Daftarchasi</h3>
+                        </div>
+                        <p class="text-xs text-rose-200/80">
+                            Sizda <b id="todayMistakesCount" class="text-rose-400">0</b> ta o'zlashtirilmagan xato bor. Ularni qayta ishlab mustahkamlang!
+                        </p>
+                    </div>
+                    <button id="todaySolveMistakesBtn" class="spring-scale shrink-0 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-md">
+                        Qayta Yechish ✍️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Today Tasks Checklist -->
+            <div class="glass-card rounded-2xl p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <span>📋</span>
+                        <span>Bugungi Dars Vazifalari</span>
+                    </h3>
+                    <button id="todayAddTaskBtn" class="spring-scale w-9 h-9 rounded-xl bg-violet-600 hover:bg-violet-500 flex items-center justify-center text-lg text-white transition-all">
+                        ➕
+                    </button>
+                </div>
+                <div id="todayTasksContainer" class="space-y-3"></div>
+            </div>
         </div>
 
         <!-- Schedule Tab -->
@@ -403,7 +534,20 @@
                     <div id="trQuestionText" class="text-base font-semibold text-white leading-relaxed mb-4"></div>
 
                     <!-- Options List (A, B, C, D) -->
-                    <div id="trOptionsContainer" class="space-y-3"></div>
+                    <div id="trOptionsContainer" class="space-y-3 mb-4"></div>
+
+                    <!-- Instant Explanation & Feedback Box (Step 3: Javob Izohi) -->
+                    <div id="trInstantExplanation" class="hidden rounded-xl p-4 transition-all duration-300 text-xs space-y-2.5 border">
+                        <div id="trInstantHeader" class="flex items-center justify-between font-bold text-sm">
+                            <span id="trInstantStatusBadge"></span>
+                            <span id="trInstantTimeSpent" class="text-[11px] font-mono text-gray-400"></span>
+                        </div>
+                        <div id="trInstantExplanationText" class="text-gray-200 leading-relaxed pt-1"></div>
+                        <div id="trInstantHackBox" class="hidden hack-box p-3 rounded-lg text-amber-300 leading-relaxed font-mono text-[11px]">
+                            <div class="font-bold font-sans text-xs mb-1">⚡ Desmos & SAT Shortcut:</div>
+                            <div id="trInstantHackText"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Bottom Navigation Bar -->
@@ -507,18 +651,107 @@
             </div>
         </div>
 
-        <!-- Errors Tab -->
+                <!-- Results & Analytics Tab (Step 5: Natijalar) -->
+        <div id="resultsTab" class="tab-content hidden">
+            <div class="glass-card rounded-2xl p-6 mb-6 border border-violet-500/30">
+                <div class="text-center mb-6">
+                    <div class="text-4xl mb-2">📊</div>
+                    <h2 class="text-xl font-bold gradient-text">Mashq Natijasi va Tahlil</h2>
+                    <p class="text-xs text-gray-400 mt-1" id="resModeTitle">Digital SAT Micro-Drill</p>
+                </div>
+
+                <!-- Primary Honest Metrics Grid (No fake 1600!) -->
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="text-center p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30">
+                        <div class="text-2xl font-bold text-emerald-400" id="resAccuracyDisplay">0%</div>
+                        <div class="text-[11px] text-gray-400">Aniqlik</div>
+                    </div>
+                    <div class="text-center p-3 rounded-xl bg-blue-500/20 border border-blue-500/30">
+                        <div class="text-2xl font-bold text-blue-400" id="resScoreDisplay">0/0</div>
+                        <div class="text-[11px] text-gray-400">To'g'ri Topildi</div>
+                    </div>
+                    <div class="text-center p-3 rounded-xl bg-violet-500/20 border border-violet-500/30">
+                        <div class="text-lg font-bold text-violet-400 mt-1" id="resPacingDisplay">0 s/q</div>
+                        <div class="text-[11px] text-gray-400">O'rtacha Vaqt</div>
+                    </div>
+                </div>
+
+                <!-- Honest Mastery Notice -->
+                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-indigo-500/30 mb-6 text-xs text-indigo-200/90 leading-relaxed flex items-start gap-2.5">
+                    <span class="text-lg">ℹ️</span>
+                    <div>
+                        <b class="text-white">Haqiqiy Ko'nikma Ko'rsatkichi:</b> Ushbu mashqda soxta 1600 shkala berilmaydi. Rasmiy SAT balli faqat to'liq 98 savolli adaptiv testda belgilanadi. Bu yerda sizning asosiy o'lchovingiz — mavzular aniqligi va pacing tezligi.
+                    </div>
+                </div>
+
+                <!-- Domain Breakdown Grid -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3">Mavzular bo'yicha tahlil</h3>
+                    <div id="resDomainBreakdown" class="space-y-2"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3 mb-6">
+                    <button id="resLaunchNewDrillBtn" class="spring-scale w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 font-bold text-xs text-white transition-all shadow-md neon-glow">
+                        Yangi Mashq Boshlash 🚀
+                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="resGoToErrorsBtn" class="spring-scale py-3 rounded-xl bg-rose-600/30 hover:bg-rose-600/50 border border-rose-500/40 text-xs font-bold text-rose-200 transition-all">
+                            ❌ Xatolar Daftariga O'tish
+                        </button>
+                        <button id="resShareTelegramBtn" class="spring-scale py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-gray-200 transition-all">
+                            📋 Mentorga Hisobot
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Question Review Filters -->
+                <div class="flex gap-2 p-1 rounded-xl bg-slate-900/60 border border-slate-800 mb-4">
+                    <button class="res-filter-btn flex-1 py-1.5 rounded-lg text-xs font-medium text-white bg-violet-600" data-filter="all">Barchasi</button>
+                    <button class="res-filter-btn flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white" data-filter="wrong">Xatolar</button>
+                    <button class="res-filter-btn flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white" data-filter="flagged">Belgilanganlar</button>
+                </div>
+
+                <!-- Review Questions Container -->
+                <div id="resReviewContainer" class="space-y-3"></div>
+            </div>
+        </div>
+
+        <!-- Errors Tab (Step 4: Xatolar Daftarchasi) -->
         <div id="errorsTab" class="tab-content hidden">
             <div class="glass-card rounded-2xl p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-lg font-bold flex items-center gap-2">
-                        <span>❌</span>
-                        <span data-i18n="errors_title">Xatolar Jurnali</span>
-                    </h2>
-                    <button id="addErrorBtn" class="spring-scale w-10 h-10 rounded-xl bg-red-600 hover:bg-red-500 flex items-center justify-center text-xl transition-all">
+                <div class="flex items-center justify-between mb-3">
+                    <div>
+                        <h2 class="text-lg font-bold flex items-center gap-2">
+                            <span>❌</span>
+                            <span>Shaxsiy Xatolar Daftarchasi</span>
+                        </h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Avtomatik yozib boriladi. Qayta to'g'ri topsangizgina o'chiriladi.</p>
+                    </div>
+                    <button id="addErrorBtn" class="spring-scale w-10 h-10 rounded-xl bg-red-600 hover:bg-red-500 flex items-center justify-center text-xl text-white transition-all shadow-md" title="Qo'lda xato qo'shish">
                         ➕
                     </button>
                 </div>
+
+                <!-- Fast Re-test Mistake Banner -->
+                <div class="mb-5 p-4 rounded-xl border border-rose-500/40 bg-rose-950/20 flex items-center justify-between gap-3">
+                    <div>
+                        <div class="text-xs font-bold text-rose-300">⚡ Xatolar bo'yicha mashq rejimi</div>
+                        <div class="text-[11px] text-gray-400">Barcha xato qilingan savollarni qayta yechib bilimni mustahkamlang.</div>
+                    </div>
+                    <button id="retestAllMistakesBtn" class="spring-scale px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shrink-0 shadow-md">
+                        Qayta Yechish ✍️
+                    </button>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
+                    <button class="error-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-violet-600 text-white" data-filter="all">Barchasi</button>
+                    <button class="error-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-gray-400 hover:text-white" data-filter="math">Math</button>
+                    <button class="error-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-gray-400 hover:text-white" data-filter="reading">Reading</button>
+                    <button class="error-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-gray-400 hover:text-white" data-filter="writing">Writing</button>
+                </div>
+
                 <div id="errorsList" class="space-y-3"></div>
             </div>
         </div>
@@ -1413,36 +1646,210 @@
             }, 3000);
         }
 
-        // ==================== TAB NAVIGATION ====================
+        // ==================== TAB NAVIGATION (5-Step Flow) ====================
         const tabBtns = document.querySelectorAll('.tab-btn');
+        const todayTab = document.getElementById('todayTab');
         const scheduleTab = document.getElementById('scheduleTab');
         const reportTab = document.getElementById('reportTab');
         const errorsTab = document.getElementById('errorsTab');
+        const resultsTab = document.getElementById('resultsTab');
+        const trTab = document.getElementById('testrunnerTab');
+
+        function switchTab(tab) {
+            tabBtns.forEach(b => {
+                if (b.dataset.tab === tab) {
+                    b.classList.add('tab-active');
+                } else {
+                    b.classList.remove('tab-active');
+                }
+            });
+
+            if (todayTab) todayTab.classList.add('hidden');
+            if (scheduleTab) scheduleTab.classList.add('hidden');
+            if (reportTab) reportTab.classList.add('hidden');
+            if (errorsTab) errorsTab.classList.add('hidden');
+            if (resultsTab) resultsTab.classList.add('hidden');
+            if (trTab) trTab.classList.add('hidden');
+
+            if (tab === 'today') {
+                if (todayTab) todayTab.classList.remove('hidden');
+                loadTodaySummary();
+                renderTodayTasks();
+            } else if (tab === 'testrunner') {
+                if (trTab) trTab.classList.remove('hidden');
+                if (typeof checkTestRunnerAutosave === 'function') checkTestRunnerAutosave();
+            } else if (tab === 'errors') {
+                if (errorsTab) errorsTab.classList.remove('hidden');
+                loadMistakesFromAPI();
+            } else if (tab === 'results') {
+                if (resultsTab) resultsTab.classList.remove('hidden');
+            } else if (tab === 'schedule') {
+                if (scheduleTab) scheduleTab.classList.remove('hidden');
+            } else if (tab === 'report') {
+                if (reportTab) reportTab.classList.remove('hidden');
+                renderWeeklyProgress();
+            }
+        }
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 playTap();
                 haptic();
-                const tab = btn.dataset.tab;
-                tabBtns.forEach(b => b.classList.remove('tab-active'));
-                btn.classList.add('tab-active');
-                scheduleTab.classList.add('hidden');
-                reportTab.classList.add('hidden');
-                errorsTab.classList.add('hidden');
-                const trTab = document.getElementById('testrunnerTab');
-                if (trTab) trTab.classList.add('hidden');
-                if (tab === 'schedule') scheduleTab.classList.remove('hidden');
-                if (tab === 'report') {
-                    reportTab.classList.remove('hidden');
-                    renderWeeklyProgress();
-                }
-                if (tab === 'testrunner') {
-                    if (trTab) trTab.classList.remove('hidden');
-                    if (typeof checkTestRunnerAutosave === 'function') checkTestRunnerAutosave();
-                }
-                if (tab === 'errors') errorsTab.classList.remove('hidden');
+                switchTab(btn.dataset.tab);
             });
         });
+
+        
+        // ==================== AUTH & API HELPER ====================
+        function getApiHeaders() {
+            const headers = { 'Content-Type': 'application/json' };
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
+                headers['X-Telegram-Init-Data'] = window.Telegram.WebApp.initData;
+            } else {
+                headers['X-Dev-User-Id'] = '12345678';
+                headers['X-Demo-Mode'] = '1';
+            }
+            return headers;
+        }
+
+        // ==================== TODAY HUB (Step 1) ====================
+        async function loadTodaySummary() {
+            try {
+                const res = await fetch('/api/v1/practice/today-summary', {
+                    headers: getApiHeaders()
+                });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (data.status === 'ok' && data.today) {
+                    const today = data.today;
+                    
+                    // Streak
+                    const streakEl = document.getElementById('todayStreakBadge');
+                    if (streakEl) streakEl.textContent = `${today.streak_days || 0} kun`;
+
+                    // Goal & Progress Bar
+                    const answered = today.answered_today || 0;
+                    const target = today.target_questions || 10;
+                    const pct = Math.min(100, Math.round((answered / target) * 100));
+
+                    const pBar = document.getElementById('todayProgressBar');
+                    if (pBar) pBar.style.width = `${pct}%`;
+
+                    const goalPctEl = document.getElementById('todayGoalPct');
+                    if (goalPctEl) goalPctEl.textContent = `${pct}%`;
+
+                    const ansStat = document.getElementById('todayAnsweredStat');
+                    if (ansStat) ansStat.textContent = `Bugun ishlangan: ${answered} ta`;
+
+                    const tarStat = document.getElementById('todayTargetStat');
+                    if (tarStat) tarStat.textContent = `Qolgan: ${Math.max(0, target - answered)} ta`;
+
+                    // Unresolved Mistakes Callout & Nav Badge
+                    const mistakesCount = today.unresolved_mistakes || 0;
+                    const navBadge = document.getElementById('navMistakeBadge');
+                    if (navBadge) {
+                        if (mistakesCount > 0) {
+                            navBadge.textContent = mistakesCount;
+                            navBadge.classList.remove('hidden');
+                        } else {
+                            navBadge.classList.add('hidden');
+                        }
+                    }
+
+                    const mistakesCard = document.getElementById('todayMistakesCard');
+                    const mistakesCountEl = document.getElementById('todayMistakesCount');
+                    if (mistakesCard && mistakesCountEl) {
+                        if (mistakesCount > 0) {
+                            mistakesCountEl.textContent = mistakesCount;
+                            mistakesCard.classList.remove('hidden');
+                        } else {
+                            mistakesCard.classList.add('hidden');
+                        }
+                    }
+
+                    // Active session resume
+                    const resumeCard = document.getElementById('todayResumeCard');
+                    if (resumeCard) {
+                        if (today.has_active_session) {
+                            resumeCard.classList.remove('hidden');
+                            const infoEl = document.getElementById('todayResumeInfo');
+                            if (infoEl && today.active_session) {
+                                infoEl.textContent = `${today.active_session.title || 'Mashq'} — saqlangan`;
+                            }
+                        } else {
+                            resumeCard.classList.add('hidden');
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log('loadTodaySummary fallback:', err);
+            }
+        }
+
+        function renderTodayTasks() {
+            const container = document.getElementById('todayTasksContainer');
+            if (!container) return;
+            if (tasks.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-xs text-gray-500">Bugungi dars vazifalari qo'shilmagan. ➕ tugmasi bilan yangi maqsad qo'shing.</div>`;
+                return;
+            }
+            container.innerHTML = tasks.slice(0, 4).map(task => `
+                <div class="glass-card rounded-xl p-3 flex items-center justify-between gap-3 text-xs">
+                    <div class="flex items-center gap-2.5 flex-1">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${Number(task.id)})" class="w-4 h-4 rounded border-slate-700 text-violet-600 focus:ring-0 cursor-pointer">
+                        <div class="${task.completed ? 'line-through text-gray-500' : 'text-slate-200 font-medium'} flex-1 truncate">
+                            <span class="text-violet-400 font-semibold">[${escapeHTML(task.subject)}]</span> ${escapeHTML(task.description)}
+                        </div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] font-mono shrink-0">${task.duration} daq</span>
+                </div>
+            `).join('');
+        }
+
+        // Hook Today Tab Quick Action Buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const drillBtn = document.getElementById('todayStartDrillBtn');
+            if (drillBtn) {
+                drillBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('testrunner');
+                    launchTestRunner('daily_10m');
+                });
+            }
+
+            const resumeBtn = document.getElementById('todayResumeBtn');
+            if (resumeBtn) {
+                resumeBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('testrunner');
+                    const resumeClick = document.getElementById('trResumeBtn');
+                    if (resumeClick) resumeClick.click();
+                });
+            }
+
+            const solveMistakesBtn = document.getElementById('todaySolveMistakesBtn');
+            if (solveMistakesBtn) {
+                solveMistakesBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('testrunner');
+                    launchTestRunner('mistakes');
+                });
+            }
+
+            const addTBtn = document.getElementById('todayAddTaskBtn');
+            if (addTBtn) {
+                addTBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    const mainAdd = document.getElementById('addTaskBtn');
+                    if (mainAdd) mainAdd.click();
+                });
+            }
+        });
+
 
         // ==================== PRESET TEMPLATES ====================
         const presets = {
@@ -2001,36 +2408,169 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             }
         });
 
+        let currentErrorFilter = 'all';
+
+        async function loadMistakesFromAPI() {
+            try {
+                const res = await fetch('/api/v1/mistakes?resolved=0', {
+                    headers: getApiHeaders()
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.status === 'ok' && Array.isArray(data.mistakes)) {
+                        // Merge server mistakes with local mistakes
+                        const serverErrors = data.mistakes.map(m => ({
+                            id: m.question_id || m.id || Date.now(),
+                            question_id: m.question_id,
+                            subject: (m.section || 'SAT').toUpperCase(),
+                            domain: m.domain || 'General',
+                            problem: m.question_text || m.problem || '',
+                            user_answer: m.user_answer,
+                            correct_answer: m.correct_answer,
+                            solution: m.hack || m.explanation || m.solution || '',
+                            date: m.failed_at || new Date().toISOString()
+                        }));
+
+                        // Avoid duplicate question_ids
+                        const existingQids = new Set(errors.map(e => e.question_id).filter(Boolean));
+                        serverErrors.forEach(se => {
+                            if (!existingQids.has(se.question_id)) {
+                                errors.push(se);
+                                existingQids.add(se.question_id);
+                            }
+                        });
+                        saveErrors();
+                    }
+                }
+            } catch (e) {
+                console.log('Load mistakes offline notice:', e);
+            }
+            renderErrors();
+        }
+
+        window.resolveMistake = async function(questionId) {
+            playCheck();
+            haptic();
+            try {
+                await fetch('/api/v1/mistakes/resolve', {
+                    method: 'POST',
+                    headers: getApiHeaders(),
+                    body: JSON.stringify({ question_id: String(questionId) })
+                });
+            } catch (err) {
+                console.log('Resolve mistake server notice:', err);
+            }
+
+            // Remove from local list
+            errors = errors.filter(e => String(e.question_id || e.id) !== String(questionId));
+            saveErrors();
+            renderErrors();
+            loadTodaySummary();
+            showToast('✅ Savol o\'zlashtirildi deb belgilandi!');
+        };
+
         function renderErrors() {
             const errorsList = document.getElementById('errorsList');
+            if (!errorsList) return;
+
+            // Update badge
+            const navBadge = document.getElementById('navMistakeBadge');
+            if (navBadge) {
+                if (errors.length > 0) {
+                    navBadge.textContent = errors.length;
+                    navBadge.classList.remove('hidden');
+                } else {
+                    navBadge.classList.add('hidden');
+                }
+            }
+
+            let filtered = errors;
+            if (currentErrorFilter !== 'all') {
+                filtered = errors.filter(e => (e.subject || '').toLowerCase().includes(currentErrorFilter));
+            }
             
-            if (errors.length === 0) {
-                errorsList.innerHTML = `<div class="text-center py-8 text-gray-500">
-                    <div class="text-4xl mb-2">✅</div>
-                    <div>${currentLang === 'uz' ? 'Xatolar yo\'q' : currentLang === 'ru' ? 'Нет ошибок' : 'No errors'}</div>
+            if (filtered.length === 0) {
+                errorsList.innerHTML = `<div class="text-center py-10 text-gray-500">
+                    <div class="text-4xl mb-2">🌟</div>
+                    <div class="font-semibold text-slate-300">Xatolar yo\'q! Barchasi to\'g\'ri o\'zlashtirilgan.</div>
+                    <div class="text-xs text-gray-500 mt-1">Yangi mashq bajarib bilimingizni sinab ko\'ring.</div>
                 </div>`;
                 return;
             }
             
-            errorsList.innerHTML = errors.map(error => {
+            errorsList.innerHTML = filtered.map(error => {
+                const qid = error.question_id || error.id;
                 const safeUrl = sanitizeSolutionURL(error.solution);
                 return `
-                <div class="glass-card rounded-xl p-4 spring-scale fade-in">
+                <div class="glass-card rounded-xl p-4 spring-scale fade-in border border-rose-500/30 text-xs space-y-2.5">
                     <div class="flex items-start justify-between gap-3">
-                        <div class="flex-1">
-                            <div class="font-semibold text-red-400">${escapeHTML(error.subject)}</div>
-                            <div class="text-sm text-gray-300 mt-1">${escapeHTML(error.problem)}</div>
-                            ${safeUrl ? `<a href="${escapeHTML(safeUrl)}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-400 hover:text-blue-300 mt-1 inline-block">🔗 ${currentLang === 'uz' ? 'Yechim' : currentLang === 'ru' ? 'Решение' : 'Solution'}</a>` : ''}
-                            <div class="text-xs text-gray-500 mt-1">${escapeHTML(new Date(error.date).toLocaleDateString())}</div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold font-mono text-[10px]">
+                                ${escapeHTML(error.subject || 'SAT')}
+                            </span>
+                            ${error.domain ? `<span class="text-gray-400 text-[11px] font-medium">${escapeHTML(error.domain)}</span>` : ''}
                         </div>
-                        <button onclick="deleteError(${Number(error.id)})" class="spring-scale w-8 h-8 rounded-lg bg-red-600/20 hover:bg-red-600/40 flex items-center justify-center text-sm transition-all">
-                            🗑️
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resolveMistake('${escapeHTML(qid)}')" class="spring-scale px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] shadow-sm flex items-center gap-1" title="Xatoni o'zlashtirildi deb belgilash">
+                                <span>✓</span> <span>O'zlashtirdim</span>
+                            </button>
+                            <button onclick="deleteError(${Number(error.id)})" class="spring-scale w-7 h-7 rounded-lg bg-slate-800 hover:bg-rose-950/60 text-gray-400 hover:text-rose-400 flex items-center justify-center text-xs" title="O'chirish">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="text-sm font-medium text-slate-200 leading-relaxed">${escapeHTML(error.problem)}</div>
+
+                    ${error.user_answer || error.correct_answer ? `
+                        <div class="grid grid-cols-2 gap-2 p-2 rounded-lg bg-slate-900/80 text-[11px]">
+                            ${error.user_answer ? `<div>Siz tanladingiz: <b class="text-rose-400">${escapeHTML(error.user_answer)}</b></div>` : ''}
+                            ${error.correct_answer ? `<div>To'g'ri javob: <b class="text-emerald-400">${escapeHTML(error.correct_answer)}</b></div>` : ''}
+                        </div>
+                    ` : ''}
+
+                    ${error.solution ? `
+                        <div class="text-gray-300 leading-relaxed bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <b>💡 Yechim:</b> ${escapeHTML(error.solution)}
+                        </div>
+                    ` : ''}
+
+                    <div class="text-[10px] text-gray-500 flex items-center justify-between pt-0.5">
+                        <span>📅 ${escapeHTML(new Date(error.date).toLocaleDateString())}</span>
+                        <button onclick="switchTab('testrunner'); launchTestRunner('mistakes');" class="text-rose-400 hover:text-rose-300 font-semibold underline">Qayta yechish ➔</button>
                     </div>
                 </div>
             `;
             }).join('');
         }
+
+        // Filter pills for mistakes
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.error-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    document.querySelectorAll('.error-filter-btn').forEach(b => {
+                        b.classList.remove('bg-violet-600', 'text-white');
+                        b.classList.add('bg-slate-800', 'text-gray-400');
+                    });
+                    btn.classList.add('bg-violet-600', 'text-white');
+                    btn.classList.remove('bg-slate-800', 'text-gray-400');
+                    currentErrorFilter = btn.dataset.filter;
+                    renderErrors();
+                });
+            });
+
+            const retestAllBtn = document.getElementById('retestAllMistakesBtn');
+            if (retestAllBtn) {
+                retestAllBtn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('testrunner');
+                    launchTestRunner('mistakes');
+                });
+            }
+        });
 
         window.deleteError = function(id) {
             playDelete();
@@ -2317,22 +2857,28 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
         async function launchTestRunner(mode) {
             clearTestRunnerAutosave();
             trState.mode = mode;
+            trState.sessionId = null;
             trState.currentIdx = 0;
             trState.answers = {};
             trState.flags = {};
+            trState.explanations = {};
             trState.startTime = Date.now();
+            trState.questionStartTimes = {};
 
             let durationSec = (mode === 'full_mock') ? 134 * 60 : (mode === 'pilot_mock') ? 25 * 60 : (mode === 'diagnostic') ? 15 * 60 : 10 * 60;
             trState.remainingSeconds = durationSec;
             trState.totalSeconds = durationSec;
 
-            // Fetch questions from backend API or fallback
+            // Fetch questions safely via /api/v1/practice/questions (no leaked answers!)
             try {
-                const res = await fetch(`/api/v1/test/questions?mode=${mode}`);
+                const res = await fetch(`/api/v1/practice/questions?mode=${mode}`, {
+                    headers: getApiHeaders()
+                });
                 if (res.ok) {
                     const data = await res.json();
                     if (data.status === 'ok' && Array.isArray(data.questions) && data.questions.length > 0) {
                         trState.questions = data.questions;
+                        trState.sessionId = data.session_id || null;
                         if (data.duration_seconds) {
                             trState.remainingSeconds = data.duration_seconds;
                             trState.totalSeconds = data.duration_seconds;
@@ -2341,10 +2887,17 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
                         trState.questions = TR_OFFLINE_QUESTIONS;
                     }
                 } else {
-                    trState.questions = TR_OFFLINE_QUESTIONS;
+                    // Fallback to older endpoint or offline
+                    const fallbackRes = await fetch(`/api/v1/test/questions?mode=${mode}`);
+                    if (fallbackRes.ok) {
+                        const fbData = await fallbackRes.json();
+                        trState.questions = fbData.questions || TR_OFFLINE_QUESTIONS;
+                    } else {
+                        trState.questions = TR_OFFLINE_QUESTIONS;
+                    }
                 }
             } catch (e) {
-                console.log('TestRunner fetch offline fallback:', e);
+                console.log('Practice questions offline fallback:', e);
                 trState.questions = TR_OFFLINE_QUESTIONS;
             }
 
@@ -2472,12 +3025,121 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             // Answered counter on grid button
             const answeredCount = Object.keys(trState.answers).length;
             document.getElementById('trAnsweredBadge').textContent = `${answeredCount}/${total}`;
+
+            // Track question render time
+            if (!trState.questionStartTimes[trState.currentIdx]) {
+                trState.questionStartTimes[trState.currentIdx] = Date.now();
+            }
+
+            // Step 3: Instant Explanation display if already checked
+            const expContainer = document.getElementById('trInstantExplanation');
+            if (expContainer) {
+                const qid = q.id || String(trState.currentIdx);
+                const cachedExp = trState.explanations[qid];
+                if (cachedExp) {
+                    renderInstantExplanationBox(cachedExp);
+                } else {
+                    expContainer.classList.add('hidden');
+                }
+            }
         }
 
-        window.trSelectAnswer = function(key) {
+        function renderInstantExplanationBox(data) {
+            const expContainer = document.getElementById('trInstantExplanation');
+            if (!expContainer) return;
+
+            expContainer.className = data.is_correct
+                ? 'rounded-xl p-4 transition-all duration-300 text-xs space-y-2.5 border instant-correct fade-in'
+                : 'rounded-xl p-4 transition-all duration-300 text-xs space-y-2.5 border instant-wrong fade-in';
+
+            const badgeEl = document.getElementById('trInstantStatusBadge');
+            if (badgeEl) {
+                badgeEl.innerHTML = data.is_correct
+                    ? '<span class="text-emerald-400 font-bold flex items-center gap-1.5 text-sm">✅ To\'g\'ri javob! Baraka toping</span>'
+                    : `<span class="text-rose-400 font-bold flex items-center gap-1.5 text-sm">❌ Noto\'g\'ri (To\'g\'ri javob: <b class="text-emerald-400 font-mono text-base">${escapeHTML(data.correct_answer)}</b>)</span>`;
+            }
+
+            const expText = document.getElementById('trInstantExplanationText');
+            if (expText) {
+                expText.innerHTML = `<b>💡 Batafsil Yechim:</b> ${escapeHTML(data.explanation || 'Izoh tayyorlanmoqda.')}`;
+            }
+
+            const hackBox = document.getElementById('trInstantHackBox');
+            const hackText = document.getElementById('trInstantHackText');
+            if (hackBox && hackText) {
+                if (data.strategy_or_hack && data.strategy_or_hack.trim()) {
+                    hackText.textContent = data.strategy_or_hack;
+                    hackBox.classList.remove('hidden');
+                } else {
+                    hackBox.classList.add('hidden');
+                }
+            }
+
+            expContainer.classList.remove('hidden');
+        }
+
+        window.trSelectAnswer = async function(key) {
             playTap();
             haptic();
             trState.answers[trState.currentIdx] = key;
+            const q = trState.questions[trState.currentIdx];
+            const qid = q.id || String(trState.currentIdx);
+
+            const qStart = trState.questionStartTimes[trState.currentIdx] || Date.now();
+            const spentSec = Math.max(1, Math.round((Date.now() - qStart) / 1000));
+
+            // Server-Authoritative Instant Validation & Explanation (Anti-Leak)
+            try {
+                const res = await fetch('/api/v1/practice/check-answer', {
+                    method: 'POST',
+                    headers: getApiHeaders(),
+                    body: JSON.stringify({
+                        session_id: trState.sessionId,
+                        question_id: qid,
+                        user_answer: key,
+                        time_spent_seconds: spentSec
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.status === 'ok') {
+                        trState.explanations[qid] = data;
+                        if (data.is_correct) {
+                            playCheck();
+                        } else {
+                            // Auto-add mistake to local notebook
+                            errors.push({
+                                id: Date.now() + Math.random(),
+                                question_id: qid,
+                                date: new Date().toISOString().split('T')[0],
+                                subject: (q.section || 'SAT').toUpperCase(),
+                                problem: `[${q.domain || 'General'}] ${q.question}`,
+                                solution: data.strategy_or_hack || data.explanation || ''
+                            });
+                            saveErrors();
+                        }
+                    }
+                } else {
+                    // Fallback to local offline check if offline
+                    const isCorr = (q.correct && String(key).toUpperCase() === String(q.correct).toUpperCase());
+                    trState.explanations[qid] = {
+                        is_correct: isCorr,
+                        correct_answer: q.correct || key,
+                        explanation: q.explanation || 'Mashq yakunida tahlilni ko\'ring.',
+                        strategy_or_hack: q.strategy_or_hack || ''
+                    };
+                }
+            } catch (err) {
+                const isCorr = (q.correct && String(key).toUpperCase() === String(q.correct).toUpperCase());
+                trState.explanations[qid] = {
+                    is_correct: isCorr,
+                    correct_answer: q.correct || key,
+                    explanation: q.explanation || 'Mashq yakunida tahlilni ko\'ring.',
+                    strategy_or_hack: q.strategy_or_hack || ''
+                };
+            }
+
             saveTestRunnerAutosave();
             renderTestQuestion();
         };
@@ -2570,45 +3232,211 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             finishTestRunner();
         });
 
-        function finishTestRunner() {
+        async function finishTestRunner() {
             if (trState.timerInterval) clearInterval(trState.timerInterval);
             clearTestRunnerAutosave();
             playSuccess();
             launchConfetti();
 
             const questions = trState.questions;
-            let correctCount = 0;
-            let incorrectList = [];
+            const total = questions.length;
+            const timeSpent = Math.max(1, trState.totalSeconds - trState.remainingSeconds);
+            const avgPacing = total > 0 ? Math.round(timeSpent / total) : 0;
 
+            // Generate UUIDv4 idempotency key
+            const idempotencyKey = 'idemp_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+
+            // Server-side final submission with idempotency protection
+            let serverResults = null;
+            try {
+                const res = await fetch('/api/v1/practice/submit', {
+                    method: 'POST',
+                    headers: getApiHeaders(),
+                    body: JSON.stringify({
+                        session_id: trState.sessionId,
+                        idempotency_key: idempotencyKey,
+                        answers: trState.answers,
+                        total_time_spent: timeSpent
+                    })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.status === 'ok' && data.results) {
+                        serverResults = data.results;
+                    }
+                }
+            } catch (err) {
+                console.log('Submission fallback to client calculation:', err);
+            }
+
+            // Calculate locally if server response is not returned
+            let correctCount = 0;
             questions.forEach((q, idx) => {
-                const userAns = trState.answers[idx];
-                const isCorrect = (userAns && String(userAns).toUpperCase() === String(q.correct).toUpperCase());
-                if (isCorrect) {
+                const qid = q.id || String(idx);
+                const exp = trState.explanations[qid];
+                if (exp && exp.is_correct) {
                     correctCount++;
-                } else {
-                    incorrectList.push({
-                        question: q,
-                        userAnswer: userAns || 'Javob berilmadi',
-                        isFlagged: !!trState.flags[idx]
-                    });
+                } else if (q.correct && trState.answers[idx] && String(trState.answers[idx]).toUpperCase() === String(q.correct).toUpperCase()) {
+                    correctCount++;
                 }
             });
 
-            const total = questions.length;
-            const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
-            const timeSpent = Math.max(1, trState.totalSeconds - trState.remainingSeconds);
-            const spentM = Math.floor(timeSpent / 60);
-            const spentS = timeSpent % 60;
+            const accuracy = serverResults ? serverResults.accuracy_pct : (total > 0 ? Math.round((correctCount / total) * 100) : 0);
+            const finalCorrect = serverResults ? serverResults.correct_count : correctCount;
+            const finalPacing = serverResults ? serverResults.avg_time_per_question_seconds : avgPacing;
 
+            // Update Both TestRunner Result and Step 5 Natijalar Tab
             document.getElementById('trActiveTest').classList.add('hidden');
-            document.getElementById('trResultScreen').classList.remove('hidden');
+            
+            // Populate Natijalar Screen
+            const resAcc = document.getElementById('resAccuracyDisplay');
+            if (resAcc) resAcc.textContent = `${accuracy}%`;
 
-            document.getElementById('trAccuracyDisplay').textContent = `${accuracy}%`;
-            document.getElementById('trScoreCountDisplay').textContent = `${correctCount}/${total}`;
-            document.getElementById('trTimeSpentDisplay').textContent = `${spentM}:${spentS.toString().padStart(2, '0')}`;
+            const resScore = document.getElementById('resScoreDisplay');
+            if (resScore) resScore.textContent = `${finalCorrect}/${total}`;
 
-            renderReviewList();
+            const resPacing = document.getElementById('resPacingDisplay');
+            if (resPacing) resPacing.textContent = `${finalPacing} s/q`;
+
+            // Populate Domain Breakdown
+            const domainContainer = document.getElementById('resDomainBreakdown');
+            if (domainContainer) {
+                const domainMap = (serverResults && serverResults.domain_breakdown) ? serverResults.domain_breakdown : {};
+                if (Object.keys(domainMap).length === 0) {
+                    // Group from questions
+                    questions.forEach((q, idx) => {
+                        const d = q.domain || (q.section ? q.section.toUpperCase() : 'General');
+                        if (!domainMap[d]) domainMap[d] = { total: 0, correct: 0 };
+                        domainMap[d].total++;
+                        const qid = q.id || String(idx);
+                        if (trState.explanations[qid] && trState.explanations[qid].is_correct) {
+                            domainMap[d].correct++;
+                        }
+                    });
+                }
+
+                domainContainer.innerHTML = Object.entries(domainMap).map(([domainName, stat]) => {
+                    const dPct = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
+                    const barColor = dPct >= 80 ? 'from-emerald-500 to-teal-400' : dPct >= 50 ? 'from-amber-500 to-yellow-400' : 'from-rose-500 to-red-400';
+                    return `
+                        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-semibold text-slate-200">${escapeHTML(domainName)}</span>
+                                <span class="font-bold text-gray-300">${dPct}% (${stat.correct}/${stat.total})</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full rounded-full bg-gradient-to-r ${barColor}" style="width: ${dPct}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Render Questions Review inside Results Tab
+            renderResultsReviewList();
+
+            // Switch directly to Step 5: Natijalar Tab!
+            switchTab('results');
+            loadTodaySummary();
         }
+
+        function renderResultsReviewList() {
+            const listEl = document.getElementById('resReviewContainer');
+            if (!listEl) return;
+            const filter = trState.currentFilter;
+            const questions = trState.questions;
+
+            let filtered = [];
+            questions.forEach((q, idx) => {
+                const qid = q.id || String(idx);
+                const exp = trState.explanations[qid];
+                const isCorrect = exp ? exp.is_correct : (q.correct && trState.answers[idx] && String(trState.answers[idx]).toUpperCase() === String(q.correct).toUpperCase());
+                const isFlagged = !!trState.flags[idx];
+
+                if (filter === 'wrong' && isCorrect) return;
+                if (filter === 'flagged' && !isFlagged) return;
+                filtered.push({ q, idx, isCorrect, exp });
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = '<div class="text-center py-6 text-gray-500 text-xs">Tanlangan filtr bo\'yicha savollar yo\'q.</div>';
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(({ q, idx, isCorrect, exp }) => {
+                const userAns = trState.answers[idx] || 'Javob berilmadi';
+                const correctAns = (exp && exp.correct_answer) || q.correct || 'A';
+                const expl = (exp && exp.explanation) || q.explanation || '';
+                const hack = (exp && exp.strategy_or_hack) || q.strategy_or_hack || '';
+                const statusBadge = isCorrect
+                    ? '<span class="text-emerald-400 font-bold">✅ To\'g\'ri</span>'
+                    : '<span class="text-rose-400 font-bold">❌ Noto\'g\'ri</span>';
+
+                return `
+                    <div class="glass-card rounded-xl p-4 border border-slate-800 text-xs space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-300">${idx + 1}-savol: ${statusBadge}</span>
+                            <span class="text-gray-500 font-mono text-[11px]">${q.domain || q.section || ''}</span>
+                        </div>
+                        <div class="text-slate-200 text-sm font-medium leading-relaxed">${escapeHTML(q.question)}</div>
+                        <div class="grid grid-cols-2 gap-2 text-[11px] p-2.5 rounded-lg bg-slate-900/80">
+                            <div>Siz tanladingiz: <b class="${isCorrect ? 'text-emerald-400' : 'text-rose-400'}">${escapeHTML(userAns)}</b></div>
+                            <div>To\'g\'ri javob: <b class="text-emerald-400">${escapeHTML(correctAns)}</b></div>
+                        </div>
+                        ${expl ? `<div class="text-gray-300 pt-1 leading-relaxed">💡 <b>Izoh:</b> ${escapeHTML(expl)}</div>` : ''}
+                        ${hack ? `<div class="text-amber-300 font-mono text-[11px] bg-amber-500/10 p-2 rounded-lg border-l-2 border-amber-500">⚡ ${escapeHTML(hack)}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Hook Natijalar Tab Buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const launchDrill = document.getElementById('resLaunchNewDrillBtn');
+            if (launchDrill) {
+                launchDrill.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('testrunner');
+                    launchTestRunner('daily_10m');
+                });
+            }
+
+            const goToErrors = document.getElementById('resGoToErrorsBtn');
+            if (goToErrors) {
+                goToErrors.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('errors');
+                });
+            }
+
+            const shareTg = document.getElementById('resShareTelegramBtn');
+            if (shareTg) {
+                shareTg.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    switchTab('report');
+                    const genBtn = document.getElementById('generateReportBtn');
+                    if (genBtn) genBtn.click();
+                });
+            }
+
+            document.querySelectorAll('.res-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    playTap();
+                    haptic();
+                    document.querySelectorAll('.res-filter-btn').forEach(b => {
+                        b.classList.remove('bg-violet-600', 'text-white');
+                        b.classList.add('text-gray-400');
+                    });
+                    btn.classList.add('bg-violet-600', 'text-white');
+                    btn.classList.remove('text-gray-400');
+                    trState.currentFilter = btn.dataset.filter;
+                    renderResultsReviewList();
+                });
+            });
+        });
 
         function renderReviewList() {
             const listEl = document.getElementById('trReviewList');
@@ -2713,12 +3541,15 @@ ${t('report_date')}: ${new Date().toLocaleDateString()}
             checkTestRunnerAutosave();
         });
 
-        // ==================== INITIALIZE ====================
+        // ==================== INITIALIZE (5-Step Flow) ====================
         updateLanguage();
         renderTasks();
         renderErrors();
         updateStats();
         checkTestRunnerAutosave();
+        switchTab('today');
+        loadTodaySummary();
+        loadMistakesFromAPI();
         
         // Telegram WebApp initialization & Hydration
         const hasTgInitData = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData;
