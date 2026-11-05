@@ -19,6 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger("ielts_sat_bot")
 
 WEBAPP_DIR = Path(__file__).parent / "webapp"
+AUDIO_DIR = WEBAPP_DIR / "audio"
 
 async def health_check(request):
     """Keep-alive endpoint for cron-job.org / Render."""
@@ -38,6 +39,8 @@ async def response_headers(request, handler):
     response.headers.setdefault("Referrer-Policy", "no-referrer")
     if request.path in ("/webapp", "/miniapp"):
         response.headers["Cache-Control"] = "no-cache"
+    elif request.path.startswith("/audio/"):
+        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
     return response
 
 async def setup_web_app():
@@ -46,6 +49,8 @@ async def setup_web_app():
     app.router.add_get("/health", health_check)
     app.router.add_get("/webapp", serve_webapp)
     app.router.add_get("/miniapp", serve_webapp)
+    if AUDIO_DIR.exists():
+        app.router.add_static("/audio", AUDIO_DIR)
     return app
 
 async def start_web_server():

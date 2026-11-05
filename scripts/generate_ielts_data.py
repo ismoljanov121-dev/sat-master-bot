@@ -1,75 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-Generates multi-test datasets for IELTS Listening (6 Full Tests x 40 Qs = 240 Qs)
-and IELTS Reading (6 Full Tests x 40 Qs = 240 Qs) with full tapescripts and passages.
+Generates the IELTS Listening and Reading tests (40 questions each).
+Listening tapescripts come from listening_scripts.py, the same source as the MP3 files.
 """
 import json
+
+from listening_scripts import tapescript
 
 def get_ielts_listening_tests():
     tests = []
     
     # ---------------- TEST 1 ----------------
-    t1_sec1_script = (
-        "Good morning, University Housing Office, Sarah speaking. "
-        "Hello! I am an incoming postgraduate student, Alex Turner. That is T-U-R-N-E-R. "
-        "I need a self-contained flat near the north campus starting from September 15th. "
-        "My contact number is 07892 451209. "
-        "We currently have a 1-bedroom flat on Meadowbank Road, number 14. "
-        "The monthly rent is 650 pounds, which includes water rates and high-speed broadband. "
-        "Electricity is billed separately on a smart meter. "
-        "A refundable security deposit of 400 pounds is required upon signing. "
-        "The tenancy agreement runs for a minimum term of 12 months. "
-        "To secure the reservation, please transfer the deposit and email your passport copy."
-    )
-    t1_sec2_script = (
-        "Welcome to the Royal Botanical Gardens volunteer orientation! "
-        "The solar-powered tropical glasshouse was officially opened in 2022. "
-        "Volunteers primarily assist international visitors at the Welcome Center and distribute trail maps. "
-        "All personal belongings and heavy backpacks must be stored in the Staff Pavilion lockers. "
-        "Our rare Amazonian orchid collection is currently undergoing biological pest control using predatory mites. "
-        "Guided walking tours depart every 45 minutes from the fountain courtyard. "
-        "In case of extreme heat, visitors are directed to shaded mist pavilions located along the southern pine walk. "
-        "Emergency first aid stations are positioned adjacent to the rose pavilion. "
-        "All volunteers are invited to the heritage seed preservation seminar this Thursday afternoon."
-    )
-    t1_sec3_script = (
-        "Welcome Mark and Chloe. Let us review your marine engineering proposal. "
-        "Your decision to prioritize tidal stream turbines rather than offshore wind is justifiable, "
-        "because seawater is approximately 800 times denser than air, ensuring predictable hydrodynamic energy. "
-        "However, marine biofouling from barnacles and rapid saltwater corrosion remain serious engineering bottlenecks. "
-        "We recommend testing epoxy-coated carbon fiber composites rather than marine-grade stainless steel. "
-        "For your velocity sensors, acoustic Doppler current profilers should be deployed on seabed anchoring rigs. "
-        "Your environmental risk matrix must evaluate marine mammal acoustic disruption. "
-        "Submit the revised CAD modeling parameters by Monday morning."
-    )
-    t1_sec4_script = (
-        "In today's cognitive neuroscience lecture, we examine human working memory architecture. "
-        "Working memory operates through three primary slave systems coordinated by the central executive. "
-        "The phonological loop retains speech-based phonetic information for approximately 1.8 to 2 seconds before acoustic decay. "
-        "Simultaneously, the visuospatial sketchpad processes spatial arrangements, mental rotations, and color representations. "
-        "Baddeley subsequently introduced the episodic buffer in the year 2000 to integrate multimodal representations into coherent episodes. "
-        "Neuroimaging confirms that verbal working memory relies heavily on the left dorsolateral prefrontal cortex. "
-        "Cognitive overload occurs when concurrent dual-task processing demands exceed available executive attentional resources."
-    )
-
     t1_questions = [
         # Sec 1
         {"num": 1, "sec": 1, "type": "form", "text": "Student surname: Alex ______", "ans": "Turner", "expl": "Alex Turner (spelled T-U-R-N-E-R)."},
-        {"num": 2, "sec": 1, "type": "form", "text": "Move-in date: ______ September", "ans": "15th", "expl": "Starting from September 15th."},
+        {"num": 2, "sec": 1, "type": "form", "text": "Move-in date: ______ September", "ans": "15th", "alts": ["fifteenth"], "expl": "He wants to move in from September 15th."},
         {"num": 3, "sec": 1, "type": "form", "text": "Contact telephone: 07892 ______", "ans": "451209", "expl": "Phone number is 07892 451209."},
         {"num": 4, "sec": 1, "type": "form", "text": "Address: 14 ______ Road", "ans": "Meadowbank", "expl": "Flat number 14 on Meadowbank Road."},
         {"num": 5, "sec": 1, "type": "form", "text": "Monthly rent: £______", "ans": "650", "expl": "The monthly rent is 650 pounds."},
         {"num": 6, "sec": 1, "type": "form", "text": "Rent covers water and ______", "ans": "broadband", "expl": "Includes water rates and broadband."},
         {"num": 7, "sec": 1, "type": "form", "text": "Utility billed separately: ______", "ans": "electricity", "expl": "Electricity is billed separately."},
         {"num": 8, "sec": 1, "type": "form", "text": "Security deposit amount: £______", "ans": "400", "expl": "Security deposit of 400 pounds."},
-        {"num": 9, "sec": 1, "type": "form", "text": "Minimum contract duration: ______ months", "ans": "12", "expl": "Minimum term of 12 months."},
+        {"num": 9, "sec": 1, "type": "form", "text": "Minimum contract duration: ______ months", "ans": "12", "alts": ["twelve"], "expl": "Minimum term of 12 months, although the taught course lasts nine."},
         {"num": 10, "sec": 1, "type": "form", "text": "Document required: copy of ______", "ans": "passport", "expl": "Email your passport copy."},
 
         # Sec 2
         {"num": 11, "sec": 2, "type": "mcq", "text": "When was the solar glasshouse opened?", "options": ["A. 2020", "B. 2022", "C. 2024"], "ans": "B", "expl": "Officially opened in 2022."},
         {"num": 12, "sec": 2, "type": "mcq", "text": "Where must volunteers store heavy bags?", "options": ["A. Welcome Center", "B. Staff Pavilion lockers", "C. Ticket Office"], "ans": "B", "expl": "Stored in the Staff Pavilion lockers."},
         {"num": 13, "sec": 2, "type": "mcq", "text": "What is being used for orchid pest control?", "options": ["A. Chemical spraying", "B. Predatory mites", "C. Ultrasonic sound"], "ans": "B", "expl": "Using predatory mites."},
-        {"num": 14, "sec": 2, "type": "form", "text": "Guided tours depart every ______ minutes.", "ans": "45", "expl": "Depart every 45 minutes."},
+        {"num": 14, "sec": 2, "type": "form", "text": "Guided tours depart every ______ minutes.", "ans": "45", "alts": ["forty-five", "forty five"], "expl": "They used to leave once an hour, but now depart every 45 minutes."},
         {"num": 15, "sec": 2, "type": "form", "text": "Shaded pavilions are located along the southern ______ walk.", "ans": "pine", "expl": "Southern pine walk."},
         {"num": 16, "sec": 2, "type": "form", "text": "First aid station is next to the ______ pavilion.", "ans": "rose", "expl": "Adjacent to the rose pavilion."},
         {"num": 17, "sec": 2, "type": "mcq", "text": "What event takes place on Thursday?", "options": ["A. Rose festival", "B. Heritage seed seminar", "C. Photo competition"], "ans": "B", "expl": "Heritage seed preservation seminar."},
@@ -85,21 +44,21 @@ def get_ielts_listening_tests():
         {"num": 25, "sec": 3, "type": "form", "text": "Revised CAD parameters must be submitted by ______ morning.", "ans": "Monday", "expl": "By Monday morning."},
         {"num": 26, "sec": 3, "type": "mcq", "text": "Barnacles and corrosion cause marine ______.", "options": ["A. cavitation", "B. biofouling", "C. turbulence"], "ans": "B", "expl": "Marine biofouling and saltwater corrosion."},
         {"num": 27, "sec": 3, "type": "form", "text": "Sensor type utilized: acoustic ______ current profilers.", "ans": "Doppler", "expl": "Acoustic Doppler current profilers."},
-        {"num": 28, "sec": 3, "type": "form", "text": "Turbine test location: seabed ______ profilers.", "ans": "current", "expl": "Current profilers on seabed."},
-        {"num": 29, "sec": 3, "type": "mcq", "text": "The main advantage of tidal stream baseline is its ______.", "options": ["A. predictability", "B. warmth", "C. low velocity"], "ans": "A", "expl": "Predictable hydrodynamic energy."},
+        {"num": 28, "sec": 3, "type": "form", "text": "The profilers will measure the speed of the tidal ______.", "ans": "current", "expl": "They measure the speed of the tidal current at several depths."},
+        {"num": 29, "sec": 3, "type": "mcq", "text": "The main advantage of tidal energy is its ______.", "options": ["A. predictability", "B. warmth", "C. low velocity"], "ans": "A", "expl": "It's predictability: tides can be forecast years in advance."},
         {"num": 30, "sec": 3, "type": "form", "text": "Project proposal belongs to students Mark and ______.", "ans": "Chloe", "expl": "Mark and Chloe."},
 
         # Sec 4
-        {"num": 31, "sec": 4, "type": "form", "text": "Phonological loop retains acoustic data for approximately ______ seconds.", "ans": "2", "expl": "For approximately 1.8 to 2 seconds."},
+        {"num": 31, "sec": 4, "type": "form", "text": "Phonological loop retains acoustic data for approximately ______ seconds.", "ans": "2", "alts": ["two"], "expl": "It stays in the loop for only about 2 seconds."},
         {"num": 32, "sec": 4, "type": "form", "text": "Visuospatial sketchpad processes color, spatial layout and mental ______.", "ans": "rotations", "expl": "Mental rotations and spatial arrangements."},
         {"num": 33, "sec": 4, "type": "form", "text": "Episodic buffer was added by Baddeley in the year ______.", "ans": "2000", "expl": "Introduced in the year 2000."},
         {"num": 34, "sec": 4, "type": "form", "text": "Verbal working memory activates the left ______ prefrontal cortex.", "ans": "dorsolateral", "expl": "Left dorsolateral prefrontal cortex."},
         {"num": 35, "sec": 4, "type": "form", "text": "Cognitive overload occurs when tasks exceed ______ resources.", "ans": "attentional", "expl": "Exceed available executive attentional resources."},
         {"num": 36, "sec": 4, "type": "mcq", "text": "How many slave systems are governed by the central executive?", "options": ["A. Two", "B. Three", "C. Four"], "ans": "B", "expl": "Three primary slave systems."},
-        {"num": 37, "sec": 4, "type": "form", "text": "Central executive coordinates ______ between slave systems.", "ans": "attention", "expl": "Coordinates attentional resources."},
-        {"num": 38, "sec": 4, "type": "form", "text": "Trace decay in phonological loop is caused by ______ time lapse.", "ans": "acoustic", "expl": "Before acoustic decay."},
+        {"num": 37, "sec": 4, "type": "form", "text": "Central executive coordinates ______ between slave systems.", "ans": "attention", "expl": "Its job is to coordinate attention between those systems."},
+        {"num": 38, "sec": 4, "type": "form", "text": "Without rehearsal, the memory trace is lost through ______ decay.", "ans": "acoustic", "expl": "It's gradually lost through acoustic decay."},
         {"num": 39, "sec": 4, "type": "form", "text": "Multimodal binding is executed in the ______ buffer.", "ans": "episodic", "expl": "Episodic buffer integrates multimodal representations."},
-        {"num": 40, "sec": 4, "type": "mcq", "text": "Today's lecture was delivered by Dr. ______.", "options": ["A. Hughes", "B. Vance", "C. Miller"], "ans": "A", "expl": "Dr. Hughes delivered the lecture."}
+        {"num": 40, "sec": 4, "type": "mcq", "text": "Today's lecture was delivered by Dr. ______.", "options": ["A. Hughes", "B. Vance", "C. Miller"], "ans": "A", "expl": "Students are told to ask for Dr Hughes at reception. Dr Vance and Dr Miller run other sessions."}
     ]
 
     tests.append({
@@ -107,97 +66,53 @@ def get_ielts_listening_tests():
         "num": 1,
         "title": "IELTS Academic Mock 1 (40 savol)",
         "subtitle": "University Housing, Botanical Gardens, Tidal Turbines & Working Memory",
-        "scripts": {
-            1: t1_sec1_script,
-            2: t1_sec2_script,
-            3: t1_sec3_script,
-            4: t1_sec4_script
-        },
+        "scripts": {sec: tapescript(1, sec) for sec in (1, 2, 3, 4)},
         "questions": t1_questions
     })
 
     # ---------------- TEST 2 ----------------
-    t2_sec1_script = (
-        "Good morning, Central City Library membership services, Arthur speaking. "
-        "Hello! I would like to register for a full adult library card. My name is Elena Rostova. R-O-S-T-O-V-A. "
-        "I recently moved to 28 Kensington Crescent, apartment 4B. "
-        "My mobile number is 07731 998240. "
-        "Standard membership permits borrowing up to 8 books and 4 audiobooks for a period of 21 days. "
-        "Renewals can be completed online twice without incurring fines. "
-        "A one-off registration fee of 15 pounds is payable for access to the digital research databases. "
-        "Proof of residential address can be established using a utility bill or bank statement. "
-        "Our central branch opens Monday through Saturday from 9:00 AM to 8:00 PM."
-    )
-    t2_sec2_script = (
-        "Good morning visitors, welcome to the Red Deer Valley Wildlife Sanctuary. "
-        "The sanctuary covers 450 hectares of protected native woodland and wetland marsh. "
-        "The main observation hide for migratory waterfowl is situated on Lake Heron, approximately 15 minutes walk along the oak trail. "
-        "Morning feeding sessions occur daily at 10:30 AM at the otter enclosure. "
-        "Bicycles and domestic pets are strictly prohibited inside the wetland conservation perimeter. "
-        "Binoculars and wildlife identification guides can be hired from the visitor desk for a 5 pound deposit. "
-        "Please remain on the elevated timber boardwalks to protect fragile peat soil ecosystems."
-    )
-    t2_sec3_script = (
-        "Good afternoon Dr. Patel, Liam and Sophia here to discuss our zero-carbon concrete project. "
-        "Ordinary Portland cement contributes roughly 8 percent of total anthropogenic carbon emissions. "
-        "In our mixture, we replaced 60 percent of cement clinker with ground granulated blast-furnace slag and fly ash. "
-        "Laboratory compressive strength testing at 28 days demonstrated 48 megapascals, surpassing structural benchmarks. "
-        "However, curing rate in sub-zero temperatures remains slower than conventional concrete. "
-        "We suggest adding sodium silicate chemical activators to accelerate early-stage hydration. "
-        "The next step is conducting life-cycle carbon accounting across a simulated 50-year structural lifespan."
-    )
-    t2_sec4_script = (
-        "Today's human physiology lecture examines circadian regulation and sleep architecture. "
-        "Sleep architecture consists of cyclical 90-minute ultradian oscillations between NREM and REM stages. "
-        "Slow-wave deep sleep, or Stage N3, is characterized by synchronized delta brain waves between 0.5 and 4 Hertz. "
-        "During this deep sleep stage, the glymphatic system facilitates clearance of neurotoxic beta-amyloid proteins from interstitial brain tissue. "
-        "Melatonin secretion is synthesized by the pineal gland and regulated by the suprachiasmatic nucleus. "
-        "Exposure to short-wavelength blue light between 460 and 480 nanometers suppresses nocturnal melatonin synthesis by up to 85 percent. "
-        "Chronic circadian misalignment significantly elevates risks of metabolic cardiovascular disorders."
-    )
-
     t2_questions = [
         {"num": 1, "sec": 1, "type": "form", "text": "Member surname: Elena ______", "ans": "Rostova", "expl": "Elena Rostova (R-O-S-T-O-V-A)."},
         {"num": 2, "sec": 1, "type": "form", "text": "Address: 28 Kensington Crescent, apartment ______", "ans": "4B", "expl": "Apartment 4B."},
         {"num": 3, "sec": 1, "type": "form", "text": "Contact number: 07731 ______", "ans": "998240", "expl": "Mobile number is 07731 998240."},
-        {"num": 4, "sec": 1, "type": "form", "text": "Book borrowing limit: ______ books", "ans": "8", "expl": "Up to 8 books."},
-        {"num": 5, "sec": 1, "type": "form", "text": "Audiobook limit: ______ audiobooks", "ans": "4", "expl": "Up to 4 audiobooks."},
-        {"num": 6, "sec": 1, "type": "form", "text": "Loan duration: ______ days", "ans": "21", "expl": "Period of 21 days."},
-        {"num": 7, "sec": 1, "type": "form", "text": "Database registration fee: £______", "ans": "15", "expl": "One-off fee of 15 pounds."},
+        {"num": 4, "sec": 1, "type": "form", "text": "Book borrowing limit: ______ books", "ans": "8", "alts": ["eight"], "expl": "Up to 8 books."},
+        {"num": 5, "sec": 1, "type": "form", "text": "Audiobook limit: ______ audiobooks", "ans": "4", "alts": ["four"], "expl": "Up to 4 audiobooks."},
+        {"num": 6, "sec": 1, "type": "form", "text": "Loan duration: ______ days", "ans": "21", "alts": ["twenty-one"], "expl": "Period of 21 days."},
+        {"num": 7, "sec": 1, "type": "form", "text": "Database registration fee: £______", "ans": "15", "alts": ["fifteen"], "expl": "One-off fee of 15 pounds."},
         {"num": 8, "sec": 1, "type": "form", "text": "Address proof accepted: utility ______ or bank statement", "ans": "bill", "expl": "Utility bill or bank statement."},
-        {"num": 9, "sec": 1, "type": "form", "text": "Closing time on weekdays: ______ PM", "ans": "8:00", "expl": "Open until 8:00 PM."},
-        {"num": 10, "sec": 1, "type": "form", "text": "Allowed online renewals: ______ times", "ans": "twice", "expl": "Completed online twice without fines."},
+        {"num": 9, "sec": 1, "type": "form", "text": "Closing time on weekdays: ______ PM", "ans": "8:00", "alts": ["8", "8.00", "8 pm", "8:00 pm", "8.00 pm"], "expl": "On weekdays it stays open until 8:00 PM."},
+        {"num": 10, "sec": 1, "type": "form", "text": "Allowed online renewals: ______ times", "ans": "2", "alts": ["two"], "expl": "Each item can be renewed online 2 times without a fine."},
 
         {"num": 11, "sec": 2, "type": "form", "text": "Sanctuary area: ______ hectares", "ans": "450", "expl": "Covers 450 hectares."},
         {"num": 12, "sec": 2, "type": "form", "text": "Waterfowl observation hide is on Lake ______", "ans": "Heron", "expl": "Situated on Lake Heron."},
         {"num": 13, "sec": 2, "type": "form", "text": "Trail name leading to lake: ______ trail", "ans": "oak", "expl": "Along the oak trail."},
-        {"num": 14, "sec": 2, "type": "form", "text": "Otter feeding time: ______ AM", "ans": "10:30", "expl": "Occur daily at 10:30 AM."},
+        {"num": 14, "sec": 2, "type": "form", "text": "Otter feeding time: ______ AM", "ans": "10:30", "alts": ["10.30", "10:30 am", "10.30 am"], "expl": "There's one session each day, at 10:30 AM."},
         {"num": 15, "sec": 2, "type": "mcq", "text": "What is prohibited inside the wetland area?", "options": ["A. Cameras", "B. Bicycles and pets", "C. Water bottles"], "ans": "B", "expl": "Bicycles and domestic pets are prohibited."},
-        {"num": 16, "sec": 2, "type": "form", "text": "Binocular rental deposit: £______", "ans": "5", "expl": "For a 5 pound deposit."},
+        {"num": 16, "sec": 2, "type": "form", "text": "Binocular rental deposit: £______", "ans": "5", "alts": ["five"], "expl": "For a 5 pound deposit."},
         {"num": 17, "sec": 2, "type": "form", "text": "Visitors must walk on timber ______", "ans": "boardwalks", "expl": "Elevated timber boardwalks."},
         {"num": 18, "sec": 2, "type": "form", "text": "Boardwalks protect fragile ______ soil.", "ans": "peat", "expl": "Protect fragile peat soil."},
-        {"num": 19, "sec": 2, "type": "mcq", "text": "Walk duration to Lake Heron is ______ minutes.", "options": ["A. 10", "B. 15", "C. 25"], "ans": "B", "expl": "Approximately 15 minutes walk."},
+        {"num": 19, "sec": 2, "type": "mcq", "text": "Walk duration to Lake Heron is ______ minutes.", "options": ["A. 10", "B. 15", "C. 25"], "ans": "B", "expl": "Some signs say 25 minutes, but it's only about 15 minutes on foot."},
         {"num": 20, "sec": 2, "type": "form", "text": "Identification guides can be obtained from visitor ______.", "ans": "desk", "expl": "Hired from visitor desk."},
 
         {"num": 21, "sec": 3, "type": "mcq", "text": "Cement contributes what percent of human CO2 emissions?", "options": ["A. 4%", "B. 8%", "C. 15%"], "ans": "B", "expl": "Roughly 8 percent of total emissions."},
-        {"num": 22, "sec": 3, "type": "form", "text": "Slag and fly ash replaced ______ percent of cement clinker.", "ans": "60", "expl": "Replaced 60 percent."},
-        {"num": 23, "sec": 3, "type": "form", "text": "Compressive strength at 28 days reached ______ megapascals.", "ans": "48", "expl": "Demonstrated 48 megapascals."},
+        {"num": 22, "sec": 3, "type": "form", "text": "Slag and fly ash replaced ______ percent of cement clinker.", "ans": "60", "alts": ["sixty"], "expl": "Replaced 60 percent."},
+        {"num": 23, "sec": 3, "type": "form", "text": "Compressive strength at 28 days reached ______ megapascals.", "ans": "48", "alts": ["forty-eight"], "expl": "Demonstrated 48 megapascals."},
         {"num": 24, "sec": 3, "type": "form", "text": "Curing slows significantly in ______ temperatures.", "ans": "sub-zero", "expl": "Sub-zero temperatures."},
         {"num": 25, "sec": 3, "type": "form", "text": "Proposed chemical accelerator: sodium ______.", "ans": "silicate", "expl": "Sodium silicate activators."},
-        {"num": 26, "sec": 3, "type": "form", "text": "Carbon accounting timeline: simulated ______-year lifespan.", "ans": "50", "expl": "50-year structural lifespan."},
+        {"num": 26, "sec": 3, "type": "form", "text": "Carbon accounting timeline: simulated ______-year lifespan.", "ans": "50", "alts": ["fifty"], "expl": "50-year structural lifespan."},
         {"num": 27, "sec": 3, "type": "mcq", "text": "Students presenting are Liam and ______.", "options": ["A. Sarah", "B. Sophia", "C. Emma"], "ans": "B", "expl": "Liam and Sophia."},
         {"num": 28, "sec": 3, "type": "form", "text": "Supervising professor: Dr. ______.", "ans": "Patel", "expl": "Dr. Patel."},
         {"num": 29, "sec": 3, "type": "form", "text": "Industrial byproduct used: blast-furnace ______.", "ans": "slag", "expl": "Ground granulated blast-furnace slag."},
         {"num": 30, "sec": 3, "type": "mcq", "text": "Sodium silicate accelerates early ______.", "options": ["A. drying", "B. hydration", "C. cracking"], "ans": "B", "expl": "Accelerate early-stage hydration."},
 
-        {"num": 31, "sec": 4, "type": "form", "text": "Ultradian sleep cycles repeat every ______ minutes.", "ans": "90", "expl": "Cyclical 90-minute oscillations."},
-        {"num": 32, "sec": 4, "type": "form", "text": "Delta wave frequencies range from 0.5 to ______ Hertz.", "ans": "4", "expl": "Between 0.5 and 4 Hertz."},
+        {"num": 31, "sec": 4, "type": "form", "text": "Ultradian sleep cycles repeat every ______ minutes.", "ans": "90", "alts": ["ninety"], "expl": "Cyclical 90-minute oscillations."},
+        {"num": 32, "sec": 4, "type": "form", "text": "Delta wave frequencies range from 0.5 to ______ Hertz.", "ans": "4", "alts": ["four"], "expl": "Between 0.5 and 4 Hertz."},
         {"num": 33, "sec": 4, "type": "form", "text": "Waste clearance system in brain: the ______ system.", "ans": "glymphatic", "expl": "The glymphatic system facilitates clearance."},
         {"num": 34, "sec": 4, "type": "form", "text": "Proteins cleared during deep sleep: beta-______.", "ans": "amyloid", "expl": "Beta-amyloid proteins."},
         {"num": 35, "sec": 4, "type": "form", "text": "Melatonin is produced by the ______ gland.", "ans": "pineal", "expl": "Synthesized by the pineal gland."},
         {"num": 36, "sec": 4, "type": "form", "text": "Master circadian clock: the ______ nucleus.", "ans": "suprachiasmatic", "expl": "Regulated by the suprachiasmatic nucleus."},
         {"num": 37, "sec": 4, "type": "form", "text": "Blue light wavelength that suppresses melatonin: 460 to ______ nanometers.", "ans": "480", "expl": "Between 460 and 480 nanometers."},
-        {"num": 38, "sec": 4, "type": "form", "text": "Blue light suppresses melatonin synthesis by up to ______ percent.", "ans": "85", "expl": "Suppresses melatonin synthesis by up to 85 percent."},
+        {"num": 38, "sec": 4, "type": "form", "text": "Blue light suppresses melatonin synthesis by up to ______ percent.", "ans": "85", "alts": ["eighty-five"], "expl": "Suppresses melatonin synthesis by up to 85 percent."},
         {"num": 39, "sec": 4, "type": "mcq", "text": "Deep slow-wave sleep corresponds to Stage ______.", "options": ["A. N1", "B. N2", "C. N3"], "ans": "C", "expl": "Slow-wave deep sleep, or Stage N3."},
         {"num": 40, "sec": 4, "type": "form", "text": "Chronic misalignment increases risks of ______ cardiovascular disorders.", "ans": "metabolic", "expl": "Metabolic cardiovascular disorders."}
     ]
@@ -207,12 +122,7 @@ def get_ielts_listening_tests():
         "num": 2,
         "title": "IELTS Academic Mock 2 (40 savol)",
         "subtitle": "City Library, Wildlife Sanctuary, Eco-Concrete & Sleep Architecture",
-        "scripts": {
-            1: t2_sec1_script,
-            2: t2_sec2_script,
-            3: t2_sec3_script,
-            4: t2_sec4_script
-        },
+        "scripts": {sec: tapescript(2, sec) for sec in (1, 2, 3, 4)},
         "questions": t2_questions
     })
 

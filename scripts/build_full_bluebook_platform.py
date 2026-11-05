@@ -56,6 +56,10 @@ sat_mock_catalog = [{
 # Load Multi-test IELTS Listening & Reading
 ielts_listening_tests = get_ielts_listening_tests()
 ielts_reading_tests = get_ielts_reading_tests()
+with open(BASE_DIR / "webapp" / "audio" / "manifest.json", "r", encoding="utf-8") as f:
+    audio_manifest = json.load(f)
+for listening_test in ielts_listening_tests:
+    listening_test["audio"] = audio_manifest[str(listening_test["num"])]
 ielts_test_count = min(len(ielts_listening_tests), len(ielts_reading_tests))
 
 ielts_mock_catalog = [{
@@ -479,7 +483,8 @@ html_content = f"""<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- REAL AUDIO INTERACTIVE PLAYER BAR -->
+    <!-- AUDIO PLAYER -->
+    <audio id="listening-audio" preload="metadata"></audio>
     <div class="card-surface p-3.5 rounded-2xl space-y-2.5 border border-emerald-500/30">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
@@ -488,7 +493,7 @@ html_content = f"""<!DOCTYPE html>
           </span>
           <div>
             <h4 id="listening-player-title" class="text-xs font-bold text-white">Section 1 Audio</h4>
-            <span id="listening-player-state" class="text-[10px] text-slate-400">Ingliz tili audio ovozi tayyor</span>
+            <span id="listening-player-state" class="text-[10px] text-slate-400">Tinglashga tayyor</span>
           </div>
         </div>
 
@@ -506,10 +511,10 @@ html_content = f"""<!DOCTYPE html>
       <div class="space-y-1">
         <div class="flex justify-between text-[10px] font-mono text-slate-400">
           <span id="audio-cur-time">00:00</span>
-          <span class="text-slate-500">Vaqt chizig'i (taxminiy)</span>
+          <span class="text-slate-500">Vaqt chizig'i</span>
           <span id="audio-tot-time">00:00</span>
         </div>
-        <input type="range" id="listening-audio-scrubber" min="0" max="100" value="0" oninput="previewListeningSeek(this.value)" onchange="seekListeningAudio(this.value)" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+        <input type="range" id="listening-audio-scrubber" min="0" max="100" step="0.1" value="0" oninput="previewListeningSeek(this.value)" onchange="seekListeningAudio(this.value)" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
       </div>
 
       <!-- Audio Controls (Play, Pause, -10s, +10s, Speed) -->
@@ -520,7 +525,7 @@ html_content = f"""<!DOCTYPE html>
           </button>
           <button id="btn-audio-play-pause" onclick="toggleListeningAudio()" class="py-1.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white flex items-center gap-1.5 shadow-md shadow-emerald-600/30 transition">
             <span id="audio-icon">▶</span>
-            <span id="audio-btn-label">Tinglash (Ovoz)</span>
+            <span id="audio-btn-label">Tinglash</span>
           </button>
           <button onclick="skipAudio(10)" class="py-1.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1 transition">
             <span>+10s ⏩</span>
@@ -550,7 +555,7 @@ html_content = f"""<!DOCTYPE html>
         <span class="flex items-center gap-1.5">📜 Audio Matni va Tapescript (Ko'rish / Yashirish)</span>
         <span id="ts-arrow">▼</span>
       </button>
-      <div id="tapescript-content" class="hidden mt-2 pt-2 border-t border-slate-800 text-xs text-slate-300 leading-relaxed max-h-48 overflow-y-auto"></div>
+      <div id="tapescript-content" class="hidden mt-2 pt-2 border-t border-slate-800 text-xs text-slate-300 leading-relaxed max-h-48 overflow-y-auto whitespace-pre-line"></div>
     </div>
 
     <!-- Questions Container -->
@@ -1485,15 +1490,10 @@ html_content = f"""<!DOCTYPE html>
     let listeningAnswers = {{}};
     let listeningGraded = false;
 
-    // Audio Engine State
-    let speechGen = 0;
-    let activeUtterance = null;
-    let speechWatchdog = null;
+    // Audio Player State
+    const listeningAudio = document.getElementById('listening-audio');
     let isScrubbing = false;
-    let currentSentenceIdx = 0;
     let isListeningAudioPlaying = false;
-    let currentAudioSentences = [];
-    let audioPlaybackRate = 1.0;
 
     function initListeningDropdown() {{
       const select = document.getElementById('listening-test-select');
@@ -1524,16 +1524,15 @@ html_content = f"""<!DOCTYPE html>
         else btn.className = 'py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center';
       }}
 
-      // Setup audio script for this section
-      const scriptText = currentListeningTest.scripts[sec] || "";
-      currentAudioSentences = splitSentences(scriptText);
-      currentSentenceIdx = 0;
+      // Setup audio for this section
+      isScrubbing = false;
+      listeningAudio.src = currentListeningTest.audio[sec].url;
+      listeningAudio.load();
       updateScrubberUI();
 
       document.getElementById('listening-player-title').innerText = 
         `${{currentListeningTest.title}} • Section ${{sec}} Audio`;
-      document.getElementById('listening-player-state').innerText = 
-        `Jami ${{currentAudioSentences.length}} ta jumla • Tinglashga tayyor`;
+      setPlayerState('Tinglashga tayyor');
 
       updateTapescriptContent();
       renderListeningQuestions();
@@ -1542,7 +1541,7 @@ html_content = f"""<!DOCTYPE html>
     function updateTapescriptContent() {{
       const container = document.getElementById('tapescript-content');
       const scriptText = currentListeningTest.scripts[activeListeningSection] || "";
-      container.innerHTML = `<b>Section ${{activeListeningSection}} Audio Tapescript:</b><br><br>${{scriptText}}`;
+      container.innerHTML = `<b>Section ${{activeListeningSection}} Audio Tapescript:</b><br><br>${{escapeHtml(scriptText)}}`;
     }}
 
     function toggleTapescript() {{
@@ -1557,7 +1556,7 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
-    // REAL AUDIO PLAYBACK VIA WEB SPEECH API
+    // AUDIO PLAYER
     function toggleListeningAudio() {{
       if (isListeningAudioPlaying) {{
         pauseListeningAudio();
@@ -1566,119 +1565,48 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
-    function splitSentences(text) {{
-      const clean = text.replace(/\\b(Dr|Mr|Mrs|Ms|Prof)\\.\\s/g, '$1 ');
-      const parts = clean.match(/(?:[^.!?]|[.!?](?=\\S))+(?:[.!?]+|$)/g) || [clean];
-      return parts.map(p => p.trim()).filter(Boolean);
-    }}
-
-    function sentenceSeconds(sentence) {{
-      return Math.max(1, sentence.split(/\\s+/).length / 2.5);
-    }}
-
-    function sentenceStartSeconds(idx) {{
-      return currentAudioSentences.slice(0, idx).reduce((sum, x) => sum + sentenceSeconds(x), 0);
-    }}
-
-    function totalAudioSeconds() {{
-      return sentenceStartSeconds(currentAudioSentences.length);
-    }}
-
-    function sentenceAtSeconds(seconds) {{
-      let elapsed = 0;
-      for (let i = 0; i < currentAudioSentences.length; i++) {{
-        elapsed += sentenceSeconds(currentAudioSentences[i]);
-        if (seconds < elapsed) return i;
-      }}
-      return currentAudioSentences.length - 1;
-    }}
-
     function formatClock(seconds) {{
       const total = Math.floor(seconds);
       return `${{Math.floor(total / 60).toString().padStart(2, '0')}}:${{(total % 60).toString().padStart(2, '0')}}`;
     }}
 
-    function pickEnglishVoice() {{
-      const voices = window.speechSynthesis.getVoices() || [];
-      return voices.find(v => v.lang === 'en-GB') || voices.find(v => /^en[-_]/i.test(v.lang)) || null;
+    function audioDuration() {{
+      const loaded = listeningAudio.duration;
+      return Number.isFinite(loaded) && loaded > 0 ? loaded : currentListeningTest.audio[activeListeningSection].seconds;
     }}
 
-    function showNoSpeechNotice() {{
-      document.getElementById('listening-player-state').innerText =
-        "Bu qurilmada ovoz sintezi yo'q. Hozircha audio matnidan foydalaning.";
+    function setPlayerState(message) {{
+      document.getElementById('listening-player-state').innerText = message;
+    }}
+
+    function showAudioFallback() {{
+      setAudioPlayingState(false);
+      setPlayerState("Audio yuklanmadi. Internetni tekshiring yoki audio matnidan foydalaning.");
       document.getElementById('tapescript-content').classList.remove('hidden');
       document.getElementById('ts-arrow').innerText = '▲';
     }}
 
-    function stopSpeech() {{
-      speechGen++;
-      clearTimeout(speechWatchdog);
-      activeUtterance = null;
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-    }}
-
     function playListeningAudio() {{
-      if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') {{
-        showNoSpeechNotice();
-        return;
-      }}
-      stopSpeech();
-      setAudioPlayingState(true);
-      speakSentence(currentSentenceIdx);
-    }}
-
-    function speakSentence(idx) {{
-      if (!isListeningAudioPlaying) return;
-      if (idx >= currentAudioSentences.length) {{
-        pauseListeningAudio();
-        currentSentenceIdx = 0;
-        updateScrubberUI();
-        return;
-      }}
-
-      const gen = ++speechGen;
-      currentSentenceIdx = idx;
-      updateScrubberUI();
-
-      const text = currentAudioSentences[idx];
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-GB';
-      utter.rate = audioPlaybackRate;
-      const voice = pickEnglishVoice();
-      if (voice) utter.voice = voice;
-
-      const goNext = () => {{
-        clearTimeout(speechWatchdog);
-        if (gen === speechGen && isListeningAudioPlaying) speakSentence(idx + 1);
-      }};
-      utter.onend = goNext;
-      utter.onerror = (e) => {{
-        clearTimeout(speechWatchdog);
-        if (gen !== speechGen || e.error === 'interrupted' || e.error === 'canceled') return;
-        pauseListeningAudio();
-        document.getElementById('listening-player-state').innerText =
-          `Ovoz to'xtadi (${{e.error}}). Qayta bosib ko'ring.`;
-      }};
-
-      activeUtterance = utter;
-      clearTimeout(speechWatchdog);
-      speechWatchdog = setTimeout(goNext, (sentenceSeconds(text) / audioPlaybackRate + 5) * 1000);
-      window.speechSynthesis.speak(utter);
-    }}
-
-    function restartSpeechAt(idx) {{
-      stopSpeech();
-      currentSentenceIdx = idx;
-      updateScrubberUI();
-      if (!isListeningAudioPlaying) return;
-      const gen = speechGen;
-      setTimeout(() => {{ if (gen === speechGen) speakSentence(idx); }}, 120);
+      listeningAudio.play().catch(err => {{
+        if (err.name !== 'AbortError') showAudioFallback();
+      }});
     }}
 
     function pauseListeningAudio() {{
-      stopSpeech();
-      setAudioPlayingState(false);
+      listeningAudio.pause();
     }}
+
+    listeningAudio.addEventListener('play', () => setAudioPlayingState(true));
+    listeningAudio.addEventListener('pause', () => {{
+      setAudioPlayingState(false);
+      if (!listeningAudio.ended) setPlayerState('Pauza');
+    }});
+    listeningAudio.addEventListener('playing', () => setPlayerState('Tinglanmoqda'));
+    listeningAudio.addEventListener('waiting', () => setPlayerState('Yuklanmoqda...'));
+    listeningAudio.addEventListener('ended', () => setPlayerState("Bo'lim tugadi"));
+    listeningAudio.addEventListener('timeupdate', () => updateScrubberUI());
+    listeningAudio.addEventListener('loadedmetadata', () => updateScrubberUI());
+    listeningAudio.addEventListener('error', showAudioFallback);
 
     function setAudioPlayingState(isPlaying) {{
       isListeningAudioPlaying = isPlaying;
@@ -1692,7 +1620,7 @@ html_content = f"""<!DOCTYPE html>
         waveBox.classList.remove('hidden');
       }} else {{
         btnIcon.innerText = "▶";
-        btnLabel.innerText = "Tinglash (Ovoz)";
+        btnLabel.innerText = "Tinglash";
         waveBox.classList.add('hidden');
       }}
     }}
@@ -1700,35 +1628,37 @@ html_content = f"""<!DOCTYPE html>
     // INTERACTIVE SCRUBBER (Orqa/Oldinga surish)
     function previewListeningSeek(percentVal) {{
       isScrubbing = true;
-      document.getElementById('audio-cur-time').innerText = formatClock((percentVal / 100) * totalAudioSeconds());
+      document.getElementById('audio-cur-time').innerText = formatClock((percentVal / 100) * audioDuration());
     }}
 
     function seekListeningAudio(percentVal) {{
       isScrubbing = false;
-      if (!currentAudioSentences.length) return;
-      restartSpeechAt(sentenceAtSeconds((percentVal / 100) * totalAudioSeconds()));
+      listeningAudio.currentTime = (percentVal / 100) * audioDuration();
+      updateScrubberUI();
     }}
 
     function skipAudio(seconds) {{
-      if (!currentAudioSentences.length) return;
-      restartSpeechAt(sentenceAtSeconds(Math.max(0, sentenceStartSeconds(currentSentenceIdx) + seconds)));
+      listeningAudio.currentTime = Math.min(Math.max(listeningAudio.currentTime + seconds, 0), audioDuration());
+      updateScrubberUI();
     }}
 
     function setAudioSpeed(speed) {{
-      audioPlaybackRate = speed;
+      listeningAudio.defaultPlaybackRate = speed;
+      listeningAudio.playbackRate = speed;
       [['spd-08', 0.8], ['spd-10', 1.0], ['spd-12', 1.2]].forEach(([id, value]) => {{
         document.getElementById(id).className = value === speed
           ? 'text-[10px] font-bold px-2 py-1 rounded bg-blue-600 text-white'
           : 'text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-400';
       }});
-      if (isListeningAudioPlaying) restartSpeechAt(currentSentenceIdx);
     }}
 
     function updateScrubberUI() {{
-      const total = totalAudioSeconds() || 1;
-      const current = sentenceStartSeconds(currentSentenceIdx);
-      if (!isScrubbing) document.getElementById('listening-audio-scrubber').value = (current / total) * 100;
-      document.getElementById('audio-cur-time').innerText = formatClock(current);
+      const total = audioDuration();
+      const current = Math.min(listeningAudio.currentTime || 0, total);
+      if (!isScrubbing) {{
+        document.getElementById('listening-audio-scrubber').value = (current / total) * 100;
+        document.getElementById('audio-cur-time').innerText = formatClock(current);
+      }}
       document.getElementById('audio-tot-time').innerText = formatClock(total);
     }}
 
@@ -1840,6 +1770,7 @@ html_content = f"""<!DOCTYPE html>
     function restartListeningTest() {{
       listeningAnswers = {{}};
       listeningGraded = false;
+      listeningAudio.currentTime = 0;
       document.getElementById('listening-res-modal').classList.add('hidden');
       renderListeningQuestions();
     }}
