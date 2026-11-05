@@ -66,15 +66,18 @@ async def post_daily_tip(bot: Bot):
 
 def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
     """Configures scheduled daily posts in Asia/Tashkent timezone."""
-    scheduler = AsyncIOScheduler(timezone=TIMEZONE)
+    scheduler = AsyncIOScheduler(
+        timezone=TIMEZONE,
+        job_defaults={"misfire_grace_time": 3600, "coalesce": True, "max_instances": 1},
+    )
 
     # 09:00 AM Tashkent: 10-Word Vocabulary Pack
-    scheduler.add_job(post_daily_vocab_pack, CronTrigger(hour=9, minute=0), args=[bot])
+    scheduler.add_job(post_daily_vocab_pack, CronTrigger(hour=9, minute=0, timezone=TIMEZONE), args=[bot])
 
     # 14:00 PM Tashkent: Interactive SAT Quiz Poll
-    scheduler.add_job(post_daily_sat_quiz, CronTrigger(hour=14, minute=0), args=[bot])
+    scheduler.add_job(post_daily_sat_quiz, CronTrigger(hour=14, minute=0, timezone=TIMEZONE), args=[bot])
 
     # 20:00 PM Tashkent: Evening Strategy Tip
-    scheduler.add_job(post_daily_tip, CronTrigger(hour=20, minute=0), args=[bot])
+    scheduler.add_job(post_daily_tip, CronTrigger(hour=20, minute=0, timezone=TIMEZONE), args=[bot])
 
     return scheduler

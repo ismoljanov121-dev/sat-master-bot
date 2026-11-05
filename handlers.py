@@ -1,3 +1,4 @@
+import html
 import re
 import logging
 from aiogram import Router, F, Bot
@@ -92,15 +93,15 @@ async def cmd_start(message: Message, bot: Bot):
         return
 
     text = (
-        f"👋 <b>Xush kelibsiz, {message.from_user.first_name}!</b>\n\n"
+        f"👋 <b>Xush kelibsiz, {html.escape(message.from_user.first_name)}!</b>\n\n"
         "🎉 Sizga <b>IELTS & SAT O'quv Bazasi va Mock Tizimi</b>ga to'liq ruxsat berildi.\n\n"
         "Quyidagi tugmalar orqali Mini App’ni ochishingiz yoki materiallarni yuklab olishingiz mumkin:"
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
     await message.answer("📚 <b>O'quv materiallari bo'limlari:</b>", reply_markup=get_materials_inline_keyboard(), parse_mode="HTML")
 
-@router.message(Command("menu"))
-@router.message(Command("mock"))
+@router.message(F.chat.type == "private", Command("menu"))
+@router.message(F.chat.type == "private", Command("mock"))
 async def cmd_menu(message: Message):
     text = (
         "🎯 <b>IELTS 8.5 & SAT 1500+ Asosiy Menyu:</b>\n\n"
@@ -108,7 +109,7 @@ async def cmd_menu(message: Message):
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
 
-@router.message(F.text.contains("Mock"))
+@router.message(F.chat.type == "private", F.text.contains("Mock"))
 async def msg_mock_hub(message: Message):
     text = (
         "🎯 <b>IELTS & SAT Full Mock Tizimi</b>\n\n"
@@ -125,7 +126,7 @@ async def msg_mock_hub(message: Message):
     ])
     await message.answer(text, reply_markup=inline_kb, parse_mode="HTML")
 
-@router.message(F.text.contains("Bepul Materiallar"))
+@router.message(F.chat.type == "private", F.text.contains("Bepul Materiallar"))
 async def msg_materials(message: Message):
     text = (
         "📚 <b>IELTS & SAT Bepul O'quv Materiallari</b>\n\n"
@@ -133,7 +134,7 @@ async def msg_materials(message: Message):
     )
     await message.answer(text, reply_markup=get_materials_inline_keyboard(), parse_mode="HTML")
 
-@router.message(F.text.contains("Rasmiy Kanal"))
+@router.message(F.chat.type == "private", F.text.contains("Rasmiy Kanal"))
 async def msg_channel(message: Message):
     text = (
         "📢 <b>IELTS 8.5 & SAT 1500+ Rasmiy O'quv Kanali:</b>\n\n"
@@ -151,6 +152,7 @@ async def callback_check_sub(callback: CallbackQuery, bot: Bot):
     subscribed = await is_user_subscribed(bot, user_id)
 
     if subscribed:
+        await callback.answer()
         await callback.message.edit_text(
             "✅ <b>Obuna tasdiqlandi!</b> Barcha IELTS va SAT materiallari hamda Mock tizimi ochiq.\n\n"
             "O'zingizga kerakli manbani tanlang:",
@@ -255,7 +257,7 @@ async def group_content_listener(message: Message, bot: Bot):
         logger.info(f"Guruhdan savol/fayl topildi: {message.chat.title}")
         recreated_post = (
             "💡 <b>Kanal O'quvchilari Uchun Maxsus Savol / Tavsiya</b> 🎯\n\n"
-            f"{text.strip()}\n\n"
+            f"{html.escape(text.strip()[:3000])}\n\n"
             "━━━━━━━━━━━━━━━━━━━━\n"
             "📚 <b>Bepul Cambridge IELTS 1–19 va SAT Bluebook bazasi:</b> @ieltssat_dailybot\n"
             "📢 <b>Rasmiy kanalimiz:</b> @ieltssat_daily"
@@ -264,7 +266,7 @@ async def group_content_listener(message: Message, bot: Bot):
             try:
                 await bot.send_message(
                     chat_id=ADMIN_ID,
-                    text=f"📥 <b>Guruhdan yangi post tavsiyasi ({message.chat.title}):</b>\n\n{recreated_post}",
+                    text=f"📥 <b>Guruhdan yangi post tavsiyasi ({html.escape(message.chat.title or '')}):</b>\n\n{recreated_post}",
                     parse_mode="HTML"
                 )
             except Exception:

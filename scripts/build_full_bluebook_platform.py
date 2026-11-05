@@ -23,6 +23,7 @@ Full Bluebook Platform Generator
 import json
 from pathlib import Path
 from generate_ielts_data import get_ielts_listening_tests, get_ielts_reading_tests
+from rebalance_options import rebalance_options
 
 BASE_DIR = Path(r"C:\Users\Otabek\.gemini\antigravity\scratch\sat-master-bot")
 SAT_DATA_FILE = BASE_DIR / "data" / "sat_question_bank.json"
@@ -39,13 +40,15 @@ for q in sat_raw:
         "sec": "rw" if q.get("section") in ["reading", "writing"] else "m",
         "dom": q.get("domain", "General"),
         "dif": q.get("difficulty", "Medium"),
-        "pas": q.get("passage", "") or "",
+        "pas": (q.get("passage", "") or "").replace("\\n", "\n"),
         "q": q.get("question", "") or "",
         "opts": q.get("options", []),
         "cor": q.get("correct", "A"),
         "exp": q.get("explanation", "") or "",
         "strat": q.get("strategy_or_hack", "") or ""
     })
+
+slim_sat_bank = [rebalance_options(q) for q in slim_sat_bank]
 
 # 45 SAT Mocks Catalog
 sat_mock_catalog = []
@@ -132,7 +135,7 @@ html_content = f"""<!DOCTYPE html>
 <html lang="uz" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>IELTS & SAT Daily Hub | Digital Bluebook Platform</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -191,6 +194,18 @@ html_content = f"""<!DOCTYPE html>
     .wave-bar {{
       animation: pulse-wave 1s infinite ease-in-out;
     }}
+    html, body {{ overscroll-behavior-y: none; }}
+    html body {{
+      padding-top: calc(0.75rem + var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px)) !important;
+      padding-bottom: calc(6rem + var(--tg-safe-area-inset-bottom, 0px)) !important;
+    }}
+    input[type=text], select {{ font-size: 16px !important; min-width: 0; }}
+    input[type=range] {{ min-height: 32px; }}
+    .text-slate-500, .placeholder-slate-500::placeholder {{ color: #94a3b8 !important; }}
+    .bg-emerald-600 {{ background-color: #047857 !important; }}
+    #sat-runner-passage, #reading-p-text {{ font-size: 15px !important; line-height: 1.65; }}
+    #sat-runner-stem {{ font-size: 15px !important; }}
+    #sat-runner-options button {{ font-size: 14px !important; min-height: 44px; }}
   </style>
 </head>
 <body class="p-3 sm:p-5 max-w-4xl mx-auto pb-24 text-slate-100">
@@ -504,10 +519,10 @@ html_content = f"""<!DOCTYPE html>
       <div class="space-y-1">
         <div class="flex justify-between text-[10px] font-mono text-slate-400">
           <span id="audio-cur-time">00:00</span>
-          <span class="text-slate-500">Taqvim va orqa/oldinga surish slayderi</span>
+          <span class="text-slate-500">Vaqt chizig'i (taxminiy)</span>
           <span id="audio-tot-time">08:30</span>
         </div>
-        <input type="range" id="listening-audio-scrubber" min="0" max="100" value="0" oninput="seekListeningAudio(this.value)" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
+        <input type="range" id="listening-audio-scrubber" min="0" max="100" value="0" oninput="previewListeningSeek(this.value)" onchange="seekListeningAudio(this.value)" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
       </div>
 
       <!-- Audio Controls (Play, Pause, -10s, +10s, Speed) -->
@@ -536,10 +551,10 @@ html_content = f"""<!DOCTYPE html>
 
     <!-- Sections Tabs (1 to 4) -->
     <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
-      <button onclick="switchListeningSection(1)" id="l-sec-1" class="py-1.5 rounded-lg bg-blue-600 text-white text-center">Sec 1 (1–10)</button>
-      <button onclick="switchListeningSection(2)" id="l-sec-2" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 2 (11–20)</button>
-      <button onclick="switchListeningSection(3)" id="l-sec-3" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 3 (21–30)</button>
-      <button onclick="switchListeningSection(4)" id="l-sec-4" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 4 (31–40)</button>
+      <button onclick="filterListeningSection(1)" id="l-sec-1" class="py-1.5 rounded-lg bg-blue-600 text-white text-center">Sec 1 (1–10)</button>
+      <button onclick="filterListeningSection(2)" id="l-sec-2" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 2 (11–20)</button>
+      <button onclick="filterListeningSection(3)" id="l-sec-3" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 3 (21–30)</button>
+      <button onclick="filterListeningSection(4)" id="l-sec-4" class="py-1.5 rounded-lg bg-slate-800 text-slate-300 text-center">Sec 4 (31–40)</button>
     </div>
 
     <!-- Expandable Tapescript -->
@@ -745,24 +760,60 @@ html_content = f"""<!DOCTYPE html>
     const EXAM_DATA = {exam_data_json};
 
     // Telegram Fullscreen Init
-    if (window.Telegram && window.Telegram.WebApp) {{
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      if (typeof tg.expand === 'function') tg.expand();
-      if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
-      if (typeof tg.disableVerticalSwipes === 'function') tg.disableVerticalSwipes();
+    const tg = window.Telegram && window.Telegram.WebApp;
+    function tgAtLeast(version) {{ return !!(tg && tg.isVersionAtLeast && tg.isVersionAtLeast(version)); }}
+    function tgSafe(action) {{ try {{ action(); }} catch (e) {{ console.warn('[tg]', e); }} }}
+
+    if (tg) {{
+      tgSafe(() => tg.ready());
+      tgSafe(() => tg.expand());
+      if (tgAtLeast('7.7')) tgSafe(() => tg.disableVerticalSwipes());
+      if (tgAtLeast('8.0') && ['android', 'ios'].includes(tg.platform)) tgSafe(() => tg.requestFullscreen());
     }}
 
     function toggleAppFullscreen() {{
-      if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.requestFullscreen === 'function') {{
-        window.Telegram.WebApp.requestFullscreen();
+      if (tgAtLeast('8.0')) {{
+        tgSafe(() => (tg.isFullscreen ? tg.exitFullscreen() : tg.requestFullscreen()));
       }} else if (document.documentElement.requestFullscreen) {{
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen().catch(() => {{}});
       }}
+    }}
+
+    function askConfirm(message, onYes, onNo) {{
+      const done = ok => {{ if (ok) onYes(); else if (onNo) onNo(); }};
+      if (tgAtLeast('6.2')) {{
+        try {{ tg.showConfirm(message, done); return; }}
+        catch (e) {{ if (/PopupOpened/.test(e.message)) return; }}
+      }}
+      done(window.confirm(message));
+    }}
+
+    function notify(message) {{
+      if (tgAtLeast('6.2')) {{
+        try {{ tg.showAlert(message); return; }}
+        catch (e) {{ if (/PopupOpened/.test(e.message)) return; }}
+      }}
+      window.alert(message);
+    }}
+
+    function setExamGuard(enabled) {{
+      if (!tgAtLeast('6.2')) return;
+      tgSafe(() => (enabled ? tg.enableClosingConfirmation() : tg.disableClosingConfirmation()));
+    }}
+
+    function escapeHtml(value) {{
+      return String(value == null ? '' : value).replace(/[&<>"']/g, ch => (
+        {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }}[ch]
+      ));
     }}
 
     // Tab Switching
     function switchMainTab(tabKey) {{
+      if (tabKey !== 'listening') pauseListeningAudio();
+      if (tabKey !== 'sat-hub' && satTimerInterval) {{
+        notify("Avval joriy imtihonni yakunlang yoki undan chiqing.");
+        return;
+      }}
       const tabs = ['sat-hub', 'ielts-hub', 'listening', 'reading', 'writing', 'predict'];
       tabs.forEach(t => {{
         const btn = document.getElementById('nav-' + t);
@@ -810,6 +861,8 @@ html_content = f"""<!DOCTYPE html>
 
     let satTimerSeconds = 32 * 60;
     let satTimerInterval = null;
+    let satDeadline = 0;
+    const SAT_SAVE_KEY = 'sat_attempt_v1';
     let isReviewMode = false;
     let reviewModuleKey = 'rw_m1';
 
@@ -948,18 +1001,40 @@ html_content = f"""<!DOCTYPE html>
       return {{ rw_m1, rw_m2, math_m1, math_m2 }};
     }}
 
-    function startSatMockTest(mockId) {{
+    function saveSatAttempt() {{
+      try {{
+        localStorage.setItem(SAT_SAVE_KEY, JSON.stringify({{
+          mockId: currentSatMock.id, section: satSection, module: satModule,
+          answers: satAnswers, flags: [...satFlags], deadline: satDeadline
+        }}));
+      }} catch (e) {{}}
+    }}
+
+    function clearSatAttempt() {{
+      try {{ localStorage.removeItem(SAT_SAVE_KEY); }} catch (e) {{}}
+    }}
+
+    function restoreSatAttempt() {{
+      let saved = null;
+      try {{ saved = JSON.parse(localStorage.getItem(SAT_SAVE_KEY)); }} catch (e) {{}}
+      if (!saved || !satMocks.some(m => m.id === saved.mockId)) return;
+      askConfirm("Tugallanmagan SAT imtihoningiz bor. Davom ettirasizmi?",
+        () => startSatMockTest(saved.mockId, saved), clearSatAttempt);
+    }}
+
+    function startSatMockTest(mockId, saved = null) {{
       const found = satMocks.find(m => m.id === mockId) || satMocks[0];
       currentSatMock = found;
       satQuestions = generateSatModules(found.num);
 
       // Reset state
-      satAnswers = {{ rw_m1: {{}}, rw_m2: {{}}, math_m1: {{}}, math_m2: {{}} }};
-      satFlags.clear();
-      satSection = 'rw';
-      satModule = 1;
+      satAnswers = saved ? saved.answers : {{ rw_m1: {{}}, rw_m2: {{}}, math_m1: {{}}, math_m2: {{}} }};
+      satFlags = new Set(saved ? saved.flags : []);
+      satSection = saved ? saved.section : 'rw';
+      satModule = saved ? saved.module : 1;
       satQuestionIdx = 0;
       isReviewMode = false;
+      setExamGuard(true);
 
       // Show Runner
       document.getElementById('sat-catalog-view').classList.add('hidden');
@@ -971,10 +1046,10 @@ html_content = f"""<!DOCTYPE html>
 
       document.getElementById('sat-runner-title').innerText = found.title;
 
-      startCurrentModule();
+      startCurrentModule(saved);
     }}
 
-    function startCurrentModule() {{
+    function startCurrentModule(saved = null) {{
       if (satSection === 'rw') {{
         satTimerSeconds = 32 * 60; // 32 mins per RW module
         document.getElementById('sat-section-badge').innerHTML = 
@@ -989,6 +1064,7 @@ html_content = f"""<!DOCTYPE html>
           `Section 2: Math — Modul ${{satModule}}`;
       }}
 
+      if (saved) satTimerSeconds = Math.max(0, Math.ceil((saved.deadline - Date.now()) / 1000));
       satQuestionIdx = 0;
       renderCurrentModulePills();
       loadActiveSatQuestion();
@@ -1101,7 +1177,7 @@ html_content = f"""<!DOCTYPE html>
             <span class="w-5 h-5 rounded-md flex items-center justify-center font-bold text-[10px] ${{badgeClass}}">
               ${{opt.key}}
             </span>
-            <span class="flex-1">${{opt.text}}</span>
+            <span class="flex-1">${{escapeHtml(opt.text)}}</span>
           </button>
         `;
       }}).join('');
@@ -1135,7 +1211,7 @@ html_content = f"""<!DOCTYPE html>
         else if (satSection === 'rw' && satModule === 2) finishBtn.innerText = "Section 1 ni Yakunlash →";
         else if (satSection === 'math' && satModule === 1) finishBtn.innerText = "Modul 1 ni Yakunlash →";
         else finishBtn.innerText = "Imtihonni Yakunlash 🏁";
-        finishBtn.onclick = promptFinishCurrentModule;
+        finishBtn.onclick = () => promptFinishCurrentModule(false);
       }}
     }}
 
@@ -1148,6 +1224,7 @@ html_content = f"""<!DOCTYPE html>
       if (isReviewMode) return;
       const modKey = `${{satSection}}_m${{satModule}}`;
       satAnswers[modKey][satQuestionIdx] = key;
+      saveSatAttempt();
       loadActiveSatQuestion();
     }}
 
@@ -1156,6 +1233,7 @@ html_content = f"""<!DOCTYPE html>
       const flagId = `${{modPrefix}}_${{satQuestionIdx}}`;
       if (satFlags.has(flagId)) satFlags.delete(flagId);
       else satFlags.add(flagId);
+      if (!isReviewMode) saveSatAttempt();
       loadActiveSatQuestion();
     }}
 
@@ -1174,21 +1252,39 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
-    function startSatTimer() {{
-      if (satTimerInterval) clearInterval(satTimerInterval);
-      satTimerInterval = setInterval(() => {{
-        if (satTimerSeconds > 0) {{
-          satTimerSeconds--;
-          const m = Math.floor(satTimerSeconds / 60);
-          const s = satTimerSeconds % 60;
-          document.getElementById('sat-runner-timer').innerText = 
-            `${{m.toString().padStart(2, '0')}}:${{s.toString().padStart(2, '0')}}`;
-        }} else {{
-          clearInterval(satTimerInterval);
-          promptFinishCurrentModule(true);
-        }}
-      }}, 1000);
+    function renderSatTimer() {{
+      const m = Math.floor(satTimerSeconds / 60);
+      const sec = satTimerSeconds % 60;
+      document.getElementById('sat-runner-timer').innerText =
+        `${{m.toString().padStart(2, '0')}}:${{sec.toString().padStart(2, '0')}}`;
     }}
+
+    function stopSatTimer() {{
+      clearInterval(satTimerInterval);
+      satTimerInterval = null;
+    }}
+
+    function satTick() {{
+      satTimerSeconds = Math.max(0, Math.ceil((satDeadline - Date.now()) / 1000));
+      renderSatTimer();
+      if (satTimerSeconds === 0) {{
+        stopSatTimer();
+        promptFinishCurrentModule(true);
+      }}
+    }}
+
+    function startSatTimer() {{
+      stopSatTimer();
+      document.getElementById('sat-timer-label').innerText = 'Modul Vaqti:';
+      satDeadline = Date.now() + satTimerSeconds * 1000;
+      saveSatAttempt();
+      satTimerInterval = setInterval(satTick, 1000);
+      satTick();
+    }}
+
+    document.addEventListener('visibilitychange', () => {{
+      if (!document.hidden && satTimerInterval) satTick();
+    }});
 
     function promptFinishCurrentModule(timeExpired = false) {{
       const questions = getActiveModuleQuestions();
@@ -1197,9 +1293,9 @@ html_content = f"""<!DOCTYPE html>
       const skipped = questions.length - ansCount;
 
       let promptMsg = "";
-      if (timeExpired) {{
-        alert("Modul vaqti tugadi! Keyingi bosqichga o'tilmoqda.");
+      if (timeExpired === true) {{
         advanceToNextSatStage();
+        notify("Modul vaqti tugadi. Keyingi bosqichga o'tildi.");
         return;
       }}
 
@@ -1217,13 +1313,14 @@ html_content = f"""<!DOCTYPE html>
         promptMsg = `Barcha modullar va bo'limlar yakunlandi!\n\nImtihonni topshirib, 1600 ballik rasmiy natijani hisoblashni xohlaysizmi?`;
       }}
 
-      if (confirm(promptMsg)) {{
-        advanceToNextSatStage();
-      }}
+      const stage = `${{satSection}}_m${{satModule}}`;
+      askConfirm(promptMsg, () => {{
+        if (satTimerInterval && stage === `${{satSection}}_m${{satModule}}`) advanceToNextSatStage();
+      }});
     }}
 
     function advanceToNextSatStage() {{
-      if (satTimerInterval) clearInterval(satTimerInterval);
+      stopSatTimer();
 
       if (satSection === 'rw' && satModule === 1) {{
         satModule = 2;
@@ -1250,8 +1347,14 @@ html_content = f"""<!DOCTYPE html>
       startCurrentModule();
     }}
 
+    function scaleSatSection(correct, total) {{
+      return Math.round((200 + (correct / total) * 600) / 10) * 10;
+    }}
+
     function showSatFinalResults() {{
-      if (satTimerInterval) clearInterval(satTimerInterval);
+      stopSatTimer();
+      clearSatAttempt();
+      setExamGuard(false);
 
       // Grade RW (54 Qs)
       let rwCorrect = 0;
@@ -1272,8 +1375,8 @@ html_content = f"""<!DOCTYPE html>
       }});
 
       // College Board Scaled Scoring (RW 200-800, Math 200-800)
-      const rwScaled = Math.round(200 + (rwCorrect / 54) * 600);
-      const mathScaled = Math.round(200 + (mathCorrect / 44) * 600);
+      const rwScaled = scaleSatSection(rwCorrect, 54);
+      const mathScaled = scaleSatSection(mathCorrect, 44);
       const totalScaled = rwScaled + mathScaled;
 
       document.getElementById('sat-runner-card').classList.add('hidden');
@@ -1290,7 +1393,7 @@ html_content = f"""<!DOCTYPE html>
         Siz 98 ta savoldan jami <b>${{rwCorrect + mathCorrect}}</b> tasiga to'g'ri javob berdingiz.<br>
         • Reading & Writing: ${{rwCorrect}} / 54 to'g'ri (<b>${{rwScaled}} ball</b>)<br>
         • Math: ${{mathCorrect}} / 44 to'g'ri (<b>${{mathScaled}} ball</b>)<br><br>
-        <i>AQSh va xalqaro OTMlar uchun grant ehtimolingiz: <b>${{totalScaled >= 1400 ? '94% (Prezident Granti)' : totalScaled >= 1200 ? '78% (Akademik Grant)' : '55% (Standart Qabul)'}}</b>.</i>
+        <i>Bu taxminiy ball, rasmiy College Board natijasi emas.</i>
       `;
       window.scrollTo({{ top: 0, behavior: 'smooth' }});
     }}
@@ -1335,7 +1438,9 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function exitSatRunner() {{
-      if (satTimerInterval) clearInterval(satTimerInterval);
+      stopSatTimer();
+      clearSatAttempt();
+      setExamGuard(false);
       document.getElementById('sat-runner-view').classList.add('hidden');
       document.getElementById('sat-catalog-view').classList.remove('hidden');
       window.scrollTo({{ top: 0, behavior: 'smooth' }});
@@ -1438,15 +1543,17 @@ html_content = f"""<!DOCTYPE html>
     let currentListeningTest = null;
     let activeListeningSection = 1;
     let listeningAnswers = {{}};
+    let listeningGraded = false;
 
     // Audio Engine State
-    let speechUtterances = [];
+    let speechGen = 0;
+    let activeUtterance = null;
+    let speechWatchdog = null;
+    let isScrubbing = false;
     let currentSentenceIdx = 0;
     let isListeningAudioPlaying = false;
     let currentAudioSentences = [];
     let audioPlaybackRate = 1.0;
-    let audioTimerInterval = null;
-    let audioSecondsElapsed = 0;
 
     function initListeningDropdown() {{
       const select = document.getElementById('listening-test-select');
@@ -1462,6 +1569,8 @@ html_content = f"""<!DOCTYPE html>
       currentListeningTest = found;
       activeListeningSection = 1;
       listeningAnswers = {{}};
+      listeningGraded = false;
+      document.getElementById('listening-res-modal').classList.add('hidden');
 
       filterListeningSection(1);
     }}
@@ -1477,9 +1586,8 @@ html_content = f"""<!DOCTYPE html>
 
       // Setup audio script for this section
       const scriptText = currentListeningTest.scripts[sec] || "";
-      currentAudioSentences = scriptText.match(/[^.!?]+[.!?]+/g) || [scriptText];
+      currentAudioSentences = splitSentences(scriptText);
       currentSentenceIdx = 0;
-      audioSecondsElapsed = 0;
       updateScrubberUI();
 
       document.getElementById('listening-player-title').innerText = 
@@ -1518,19 +1626,63 @@ html_content = f"""<!DOCTYPE html>
       }}
     }}
 
+    function splitSentences(text) {{
+      const clean = text.replace(/\\b(Dr|Mr|Mrs|Ms|Prof)\\.\\s/g, '$1 ');
+      const parts = clean.match(/(?:[^.!?]|[.!?](?=\\S))+(?:[.!?]+|$)/g) || [clean];
+      return parts.map(p => p.trim()).filter(Boolean);
+    }}
+
+    function sentenceSeconds(sentence) {{
+      return Math.max(1, sentence.split(/\\s+/).length / 2.5);
+    }}
+
+    function sentenceStartSeconds(idx) {{
+      return currentAudioSentences.slice(0, idx).reduce((sum, x) => sum + sentenceSeconds(x), 0);
+    }}
+
+    function totalAudioSeconds() {{
+      return sentenceStartSeconds(currentAudioSentences.length);
+    }}
+
+    function sentenceAtSeconds(seconds) {{
+      let elapsed = 0;
+      for (let i = 0; i < currentAudioSentences.length; i++) {{
+        elapsed += sentenceSeconds(currentAudioSentences[i]);
+        if (seconds < elapsed) return i;
+      }}
+      return currentAudioSentences.length - 1;
+    }}
+
+    function formatClock(seconds) {{
+      const total = Math.floor(seconds);
+      return `${{Math.floor(total / 60).toString().padStart(2, '0')}}:${{(total % 60).toString().padStart(2, '0')}}`;
+    }}
+
+    function pickEnglishVoice() {{
+      const voices = window.speechSynthesis.getVoices() || [];
+      return voices.find(v => v.lang === 'en-GB') || voices.find(v => /^en[-_]/i.test(v.lang)) || null;
+    }}
+
+    function showNoSpeechNotice() {{
+      document.getElementById('listening-player-state').innerText =
+        "Bu qurilmada ovoz sintezi yo'q. Hozircha audio matnidan foydalaning.";
+      document.getElementById('tapescript-content').classList.remove('hidden');
+      document.getElementById('ts-arrow').innerText = '▲';
+    }}
+
+    function stopSpeech() {{
+      speechGen++;
+      clearTimeout(speechWatchdog);
+      activeUtterance = null;
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    }}
+
     function playListeningAudio() {{
-      if (!window.speechSynthesis) {{
-        alert("Brauzeringiz nutq sintezini qo'llab-quvvatlamaydi.");
+      if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') {{
+        showNoSpeechNotice();
         return;
       }}
-
-      if (window.speechSynthesis.paused) {{
-        window.speechSynthesis.resume();
-        setAudioPlayingState(true);
-        return;
-      }}
-
-      window.speechSynthesis.cancel();
+      stopSpeech();
       setAudioPlayingState(true);
       speakSentence(currentSentenceIdx);
     }}
@@ -1544,31 +1696,47 @@ html_content = f"""<!DOCTYPE html>
         return;
       }}
 
+      const gen = ++speechGen;
       currentSentenceIdx = idx;
       updateScrubberUI();
 
-      const text = currentAudioSentences[idx].trim();
+      const text = currentAudioSentences[idx];
       const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
+      utter.lang = 'en-GB';
       utter.rate = audioPlaybackRate;
+      const voice = pickEnglishVoice();
+      if (voice) utter.voice = voice;
 
-      utter.onend = () => {{
-        if (isListeningAudioPlaying) {{
-          speakSentence(currentSentenceIdx + 1);
-        }}
+      const goNext = () => {{
+        clearTimeout(speechWatchdog);
+        if (gen === speechGen && isListeningAudioPlaying) speakSentence(idx + 1);
       }};
-
+      utter.onend = goNext;
       utter.onerror = (e) => {{
-        console.warn("Speech synthesis notice:", e);
+        clearTimeout(speechWatchdog);
+        if (gen !== speechGen || e.error === 'interrupted' || e.error === 'canceled') return;
+        pauseListeningAudio();
+        document.getElementById('listening-player-state').innerText =
+          `Ovoz to'xtadi (${{e.error}}). Qayta bosib ko'ring.`;
       }};
 
+      activeUtterance = utter;
+      clearTimeout(speechWatchdog);
+      speechWatchdog = setTimeout(goNext, (sentenceSeconds(text) / audioPlaybackRate + 5) * 1000);
       window.speechSynthesis.speak(utter);
     }}
 
+    function restartSpeechAt(idx) {{
+      stopSpeech();
+      currentSentenceIdx = idx;
+      updateScrubberUI();
+      if (!isListeningAudioPlaying) return;
+      const gen = speechGen;
+      setTimeout(() => {{ if (gen === speechGen) speakSentence(idx); }}, 120);
+    }}
+
     function pauseListeningAudio() {{
-      if (window.speechSynthesis) {{
-        window.speechSynthesis.cancel();
-      }}
+      stopSpeech();
       setAudioPlayingState(false);
     }}
 
@@ -1590,65 +1758,38 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     // INTERACTIVE SCRUBBER (Orqa/Oldinga surish)
+    function previewListeningSeek(percentVal) {{
+      isScrubbing = true;
+      document.getElementById('audio-cur-time').innerText = formatClock((percentVal / 100) * totalAudioSeconds());
+    }}
+
     function seekListeningAudio(percentVal) {{
-      if (!currentAudioSentences || currentAudioSentences.length === 0) return;
-      const targetIdx = Math.floor((percentVal / 100) * currentAudioSentences.length);
-      currentSentenceIdx = Math.max(0, Math.min(targetIdx, currentAudioSentences.length - 1));
-
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-
-      updateScrubberUI();
-
-      if (isListeningAudioPlaying) {{
-        speakSentence(currentSentenceIdx);
-      }}
+      isScrubbing = false;
+      if (!currentAudioSentences.length) return;
+      restartSpeechAt(sentenceAtSeconds((percentVal / 100) * totalAudioSeconds()));
     }}
 
     function skipAudio(seconds) {{
-      // Approximate 1 sentence = 4 seconds
-      const sentenceOffset = Math.round(seconds / 4);
-      currentSentenceIdx = Math.max(0, Math.min(currentSentenceIdx + sentenceOffset, currentAudioSentences.length - 1));
-      
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      updateScrubberUI();
-
-      if (isListeningAudioPlaying) {{
-        speakSentence(currentSentenceIdx);
-      }}
+      if (!currentAudioSentences.length) return;
+      restartSpeechAt(sentenceAtSeconds(Math.max(0, sentenceStartSeconds(currentSentenceIdx) + seconds)));
     }}
 
     function setAudioSpeed(speed) {{
       audioPlaybackRate = speed;
-      [0.8, 1.0, 1.2].forEach(s => {{
-        const btn = document.getElementById('spd-' + (s * 10));
-        if (btn) {{
-          if (s === speed) btn.className = 'text-[10px] font-bold px-2 py-1 rounded bg-blue-600 text-white';
-          else btn.className = 'text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-400';
-        }}
+      [['spd-08', 0.8], ['spd-10', 1.0], ['spd-12', 1.2]].forEach(([id, value]) => {{
+        document.getElementById(id).className = value === speed
+          ? 'text-[10px] font-bold px-2 py-1 rounded bg-blue-600 text-white'
+          : 'text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-400';
       }});
-      if (isListeningAudioPlaying) {{
-        window.speechSynthesis.cancel();
-        speakSentence(currentSentenceIdx);
-      }}
+      if (isListeningAudioPlaying) restartSpeechAt(currentSentenceIdx);
     }}
 
     function updateScrubberUI() {{
-      const scrubber = document.getElementById('listening-audio-scrubber');
-      const total = currentAudioSentences.length || 1;
-      const pct = (currentSentenceIdx / total) * 100;
-      scrubber.value = pct;
-
-      const curSec = Math.floor(currentSentenceIdx * 4);
-      const totSec = Math.floor(total * 4);
-      const curM = Math.floor(curSec / 60);
-      const curS = curSec % 60;
-      const totM = Math.floor(totSec / 60);
-      const totS = totSec % 60;
-
-      document.getElementById('audio-cur-time').innerText = 
-        `${{curM.toString().padStart(2, '0')}}:${{curS.toString().padStart(2, '0')}}`;
-      document.getElementById('audio-tot-time').innerText = 
-        `${{totM.toString().padStart(2, '0')}}:${{totS.toString().padStart(2, '0')}}`;
+      const total = totalAudioSeconds() || 1;
+      const current = sentenceStartSeconds(currentSentenceIdx);
+      if (!isScrubbing) document.getElementById('listening-audio-scrubber').value = (current / total) * 100;
+      document.getElementById('audio-cur-time').innerText = formatClock(current);
+      document.getElementById('audio-tot-time').innerText = formatClock(total);
     }}
 
     function renderListeningQuestions() {{
@@ -1673,7 +1814,7 @@ html_content = f"""<!DOCTYPE html>
         }} else {{
           inputHtml = `
             <div class="flex items-center gap-2 pt-1">
-              <input type="text" value="${{savedAns}}" onchange="setListeningAnswer(${{q.num}}, this.value)" placeholder="Javobingizni yozing..." class="flex-1 py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+              <input type="text" value="${{escapeHtml(savedAns)}}" oninput="saveTextAnswer(listeningAnswers, ${{q.num}}, this.value, updateListeningPreview)" placeholder="Javobingizni yozing..." class="flex-1 py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
             </div>
           `;
         }}
@@ -1692,6 +1833,14 @@ html_content = f"""<!DOCTYPE html>
       }}).join('');
 
       updateListeningPreview();
+      if (listeningGraded) paintResults('l', currentListeningTest, listeningAnswers);
+    }}
+
+    function saveTextAnswer(answers, num, value, refreshPreview) {{
+      const clean = value.trim();
+      if (clean) answers[num] = clean;
+      else delete answers[num];
+      refreshPreview();
     }}
 
     function setListeningAnswer(num, val) {{
@@ -1705,40 +1854,52 @@ html_content = f"""<!DOCTYPE html>
       document.getElementById('listening-score-preview').innerText = `${{count}} / 40 kiritildi`;
     }}
 
+    function normalizeAnswer(value) {{
+      return String(value == null ? '' : value).trim().toLowerCase()
+        .replace(/(\\d),(?=\\d{{3}}\\b)/g, '$1')
+        .replace(/(\\d)(st|nd|rd|th)\\b/g, '$1')
+        .replace(/^(a|an|the)\\s+/, '')
+        .replace(/[.\\s]+$/, '')
+        .replace(/\\s+/g, ' ');
+    }}
+
+    function isAnswerCorrect(q, value) {{
+      const user = normalizeAnswer(value);
+      return !!user && [q.ans, ...(q.alts || [])].some(a => normalizeAnswer(a) === user);
+    }}
+
+    function paintResults(prefix, test, answers) {{
+      test.questions.forEach(q => {{
+        const card = document.getElementById(`${{prefix}}-card-${{q.num}}`);
+        const expl = document.getElementById(`${{prefix}}-expl-${{q.num}}`);
+        if (!card || !expl) return;
+        const ok = isAnswerCorrect(q, answers[q.num]);
+        card.classList.add(ok ? 'border-emerald-500/50' : 'border-rose-500/50');
+        expl.classList.remove('hidden');
+        expl.innerHTML = ok
+          ? `<span class="text-emerald-400 font-bold">✅ To'g'ri! (${{q.ans}})</span> • ${{q.expl}}`
+          : `<span class="text-rose-400 font-bold">❌ To'g'ri javob: ${{q.ans}}</span> • ${{q.expl}}`;
+      }});
+    }}
+
     function gradeListeningTest() {{
       pauseListeningAudio();
-      let correct = 0;
-      currentListeningTest.questions.forEach(q => {{
-        const user = (listeningAnswers[q.num] || "").toLowerCase().trim();
-        const expected = q.ans.toLowerCase().trim();
-        const isMatch = user === expected || (user.length > 2 && expected.includes(user));
-        const card = document.getElementById('l-card-' + q.num);
-        const expl = document.getElementById('l-expl-' + q.num);
+      listeningGraded = true;
+      const correct = currentListeningTest.questions.filter(q => isAnswerCorrect(q, listeningAnswers[q.num])).length;
+      paintResults('l', currentListeningTest, listeningAnswers);
 
-        if (isMatch) correct++;
-        if (card) {{
-          card.classList.remove('border-slate-800');
-          card.classList.add(isMatch ? 'border-emerald-500/50' : 'border-rose-500/50');
-        }}
-        if (expl) {{
-          expl.classList.remove('hidden');
-          expl.innerHTML = isMatch
-            ? `<span class="text-emerald-400 font-bold">✅ To'g'ri! (${{q.ans}})</span> • ${{q.expl}}`
-            : `<span class="text-rose-400 font-bold">❌ To'g'ri javob: ${{q.ans}}</span> • ${{q.expl}}`;
-        }}
-      }});
-
-      const band = rawToBand(correct);
+      const band = rawToBand(correct, LISTENING_BANDS);
       const modal = document.getElementById('listening-res-modal');
       modal.classList.remove('hidden');
       document.getElementById('l-res-band').innerText = `Band ${{band.toFixed(1)}}`;
-      document.getElementById('l-res-details').innerText = 
-        `Siz 40 ta savoldan ${{correct}} tasiga to'g'ri javob berdingiz! CEFR Darajasi: ${{band >= 7.0 ? 'C1/C2 Yuqori Daraja' : 'B2 Mustaqil Foydalanuvchi'}}`;
+      document.getElementById('l-res-details').innerText =
+        `Siz 40 ta savoldan ${{correct}} tasiga to'g'ri javob berdingiz! Taxminiy CEFR: ${{bandToCefr(band)}}`;
       modal.scrollIntoView({{ behavior: 'smooth' }});
     }}
 
     function restartListeningTest() {{
       listeningAnswers = {{}};
+      listeningGraded = false;
       document.getElementById('listening-res-modal').classList.add('hidden');
       renderListeningQuestions();
     }}
@@ -1750,6 +1911,7 @@ html_content = f"""<!DOCTYPE html>
     let currentReadingTest = null;
     let activeReadingPassage = 1;
     let readingAnswers = {{}};
+    let readingGraded = false;
 
     function initReadingDropdown() {{
       const select = document.getElementById('reading-test-select');
@@ -1764,6 +1926,8 @@ html_content = f"""<!DOCTYPE html>
       currentReadingTest = found;
       activeReadingPassage = 1;
       readingAnswers = {{}};
+      readingGraded = false;
+      document.getElementById('reading-res-modal').classList.add('hidden');
       switchReadingPassage(1);
     }}
 
@@ -1816,7 +1980,7 @@ html_content = f"""<!DOCTYPE html>
         }} else {{
           inputHtml = `
             <div class="flex items-center gap-2 pt-1">
-              <input type="text" value="${{savedAns}}" onchange="setReadingAnswer(${{q.num}}, this.value)" placeholder="Bo'sh joyga so'z yozing..." class="flex-1 py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+              <input type="text" value="${{escapeHtml(savedAns)}}" oninput="saveTextAnswer(readingAnswers, ${{q.num}}, this.value, updateReadingPreview)" placeholder="Bo'sh joyga so'z yozing..." class="flex-1 py-1.5 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
             </div>
           `;
         }}
@@ -1835,6 +1999,7 @@ html_content = f"""<!DOCTYPE html>
       }}).join('');
 
       updateReadingPreview();
+      if (readingGraded) paintResults('r', currentReadingTest, readingAnswers);
     }}
 
     function setReadingAnswer(num, val) {{
@@ -1849,54 +2014,40 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     function gradeReadingTest() {{
-      let correct = 0;
-      currentReadingTest.questions.forEach(q => {{
-        const user = (readingAnswers[q.num] || "").toUpperCase().trim();
-        const expected = q.ans.toUpperCase().trim();
-        const isMatch = user === expected || (user.length > 2 && expected.includes(user));
-        const card = document.getElementById('r-card-' + q.num);
-        const expl = document.getElementById('r-expl-' + q.num);
+      readingGraded = true;
+      const correct = currentReadingTest.questions.filter(q => isAnswerCorrect(q, readingAnswers[q.num])).length;
+      paintResults('r', currentReadingTest, readingAnswers);
 
-        if (isMatch) correct++;
-        if (card) {{
-          card.classList.remove('border-slate-800');
-          card.classList.add(isMatch ? 'border-emerald-500/50' : 'border-rose-500/50');
-        }}
-        if (expl) {{
-          expl.classList.remove('hidden');
-          expl.innerHTML = isMatch
-            ? `<span class="text-emerald-400 font-bold">✅ To'g'ri! (${{q.ans}})</span> • ${{q.expl}}`
-            : `<span class="text-rose-400 font-bold">❌ To'g'ri javob: ${{q.ans}}</span> • ${{q.expl}}`;
-        }}
-      }});
-
-      const band = rawToBand(correct);
+      const band = rawToBand(correct, READING_BANDS);
       const modal = document.getElementById('reading-res-modal');
       modal.classList.remove('hidden');
       document.getElementById('r-res-band').innerText = `Band ${{band.toFixed(1)}}`;
-      document.getElementById('r-res-details').innerText = 
-        `Siz 40 ta savoldan ${{correct}} tasiga to'g'ri javob berdingiz! Taxminiy Reading Balingiz: Band ${{band.toFixed(1)}}`;
+      document.getElementById('r-res-details').innerText =
+        `Siz 40 ta savoldan ${{correct}} tasiga to'g'ri javob berdingiz! Taxminiy Reading balingiz: Band ${{band.toFixed(1)}}`;
       modal.scrollIntoView({{ behavior: 'smooth' }});
     }}
 
     function restartReadingTest() {{
       readingAnswers = {{}};
+      readingGraded = false;
       document.getElementById('reading-res-modal').classList.add('hidden');
       renderReadingQuestions();
     }}
 
-    function rawToBand(raw) {{
-      if (raw >= 39) return 9.0;
-      if (raw >= 37) return 8.5;
-      if (raw >= 35) return 8.0;
-      if (raw >= 33) return 7.5;
-      if (raw >= 30) return 7.0;
-      if (raw >= 27) return 6.5;
-      if (raw >= 23) return 6.0;
-      if (raw >= 19) return 5.5;
-      if (raw >= 15) return 5.0;
-      if (raw >= 12) return 4.5;
-      return 4.0;
+    const LISTENING_BANDS = [[39, 9], [37, 8.5], [35, 8], [32, 7.5], [30, 7], [26, 6.5], [23, 6], [18, 5.5], [16, 5], [13, 4.5], [10, 4], [8, 3.5], [6, 3], [4, 2.5], [3, 2], [2, 1.5], [1, 1]];
+    const READING_BANDS = [[39, 9], [37, 8.5], [35, 8], [33, 7.5], [30, 7], [27, 6.5], [23, 6], [19, 5.5], [15, 5], [13, 4.5], [10, 4], [8, 3.5], [6, 3], [4, 2.5], [3, 2], [2, 1.5], [1, 1]];
+
+    function rawToBand(raw, table) {{
+      const row = table.find(([min]) => raw >= min);
+      return row ? row[1] : 0;
+    }}
+
+    function bandToCefr(band) {{
+      if (band >= 8.5) return 'C2';
+      if (band >= 7) return 'C1';
+      if (band >= 5.5) return 'B2';
+      if (band >= 4) return 'B1';
+      return 'A2 yoki past';
     }}
 
     // =========================================================================
@@ -1955,16 +2106,12 @@ html_content = f"""<!DOCTYPE html>
       const totalSat = sr + sm;
       document.getElementById('p-tot-sat').innerText = `${{totalSat}} / 1600`;
 
-      if (totalSat >= 1450 && (il + ir) / 2 >= 7.5) {{
-        document.getElementById('p-local-grant').innerText = "99% (To'liq Davlat Granti)";
-        document.getElementById('p-intl-grant').innerText = "94% (Ivy League / Top 50 AQSh)";
-      }} else if (totalSat >= 1300 && (il + ir) / 2 >= 6.5) {{
-        document.getElementById('p-local-grant').innerText = "88% (Yuqori Grant)";
-        document.getElementById('p-intl-grant').innerText = "75% (Merit-Based Grant)";
-      }} else {{
-        document.getElementById('p-local-grant').innerText = "65% (Kontrakt / Yarim Grant)";
-        document.getElementById('p-intl-grant').innerText = "45% (Standart Qabul)";
-      }}
+      const avgBand = (il + ir) / 2;
+      const tier = totalSat >= 1450 && avgBand >= 7.5 ? 'Kuchli profil (taxminiy)'
+        : totalSat >= 1300 && avgBand >= 6.5 ? "O'rtacha profil (taxminiy)"
+        : 'Rivojlantirish kerak (taxminiy)';
+      document.getElementById('p-local-grant').innerText = tier;
+      document.getElementById('p-intl-grant').innerText = tier;
     }}
 
     // Initial Page Setup
@@ -1974,6 +2121,7 @@ html_content = f"""<!DOCTYPE html>
     initReadingDropdown();
     renderWritingPrompts();
     updatePredictor();
+    restoreSatAttempt();
   </script>
 </body>
 </html>

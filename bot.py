@@ -6,6 +6,7 @@ from aiohttp import web, ClientSession, ClientTimeout
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
+from aiogram.exceptions import TelegramNetworkError, TelegramServerError
 
 from config import BOT_TOKEN
 from handlers import router
@@ -30,14 +31,21 @@ async def serve_webapp(request):
         return web.FileResponse(index_file)
     return web.Response(text="Mini App file not found", status=404)
 
+@web.middleware
+async def response_headers(request, handler):
+    response = await handler(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    if request.path in ("/webapp", "/miniapp"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
 async def setup_web_app():
-    app = web.Application()
+    app = web.Application(middlewares=[response_headers])
     app.router.add_get("/", health_check)
     app.router.add_get("/health", health_check)
     app.router.add_get("/webapp", serve_webapp)
     app.router.add_get("/miniapp", serve_webapp)
-    if WEBAPP_DIR.exists():
-        app.router.add_static("/static", WEBAPP_DIR)
     return app
 
 async def start_web_server():
@@ -65,6 +73,18 @@ async def self_ping_loop():
             logger.warning(f"Keep-alive self-ping warning: {e}")
         await asyncio.sleep(8 * 60)  # Ping every 8 minutes (Render sleeps after 15 minutes)
 
+async def run_polling(dp, bot):
+    """Aiogram ishlash paytida o'zi qayta ulanadi, boshlanishdagi getMe xatosini esa shu yerda ushlaymiz."""
+    delay = 5
+    while True:
+        try:
+            await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types(), close_bot_session=False)
+            return
+        except (TelegramNetworkError, TelegramServerError, asyncio.TimeoutError) as e:
+            logger.warning(f"Telegram unavailable at startup: {e}. Retrying in {delay}s")
+            await asyncio.sleep(delay)
+            delay = min(delay * 2, 60)
+
 async def main():
     if not BOT_TOKEN or BOT_TOKEN == "YOUR_TELEGRAM_BOT_TOKEN_HERE":
         logger.error("BOT_TOKEN is missing! Please configure BOT_TOKEN.")
@@ -84,7 +104,7 @@ async def main():
 
     try:
         logger.info("Bot is polling for updates...")
-        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+        await run_polling(dp, bot)
     finally:
         ping_task.cancel()
         scheduler.shutdown()
