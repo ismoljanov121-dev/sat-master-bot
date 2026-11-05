@@ -21,7 +21,7 @@ async def post_daily_vocab_pack(bot: Bot):
         lines.append(f"<b>{i}. {w['w']}</b> — {w['m']}\n   🔗 <i>Kollokatsiya:</i> <code>{w['c']}</code>")
 
     lines.append("\n━━━━━━━━━━━━━━━━━━━━")
-    lines.append("🤖 <b>To'liq IELTS 1–19 va SAT Bluebook bazasi:</b> @ieltssat_dailybot")
+    lines.append("🤖 <b>Bepul IELTS va SAT mashq testlari:</b> @ieltssat_dailybot")
 
     text = "\n".join(lines)
     try:
@@ -56,7 +56,7 @@ async def post_daily_tip(bot: Bot):
         f"💡 <b>Imtihon Strategiyasi: {item['title']}</b>\n\n"
         f"{item['body']}\n\n"
         "━━━━━━━━━━━━━━━━━━━━\n"
-        "🤖 <b>Bepul Cambridge kitoblarini olish:</b> @ieltssat_dailybot"
+        "🤖 <b>Bepul IELTS va SAT mashq testlari:</b> @ieltssat_dailybot"
     )
     try:
         await bot.send_message(chat_id=CHANNEL_ID, text=text, parse_mode="HTML")

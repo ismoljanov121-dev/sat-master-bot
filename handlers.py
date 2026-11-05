@@ -56,10 +56,10 @@ def get_join_inline_keyboard() -> InlineKeyboardMarkup:
 
 def get_materials_inline_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📚 Cambridge IELTS 1–19 To'plami", callback_data="dl_ielts")],
-        [InlineKeyboardButton(text="🎯 Official SAT Bluebook 1–6 Testlari", callback_data="dl_sat")],
-        [InlineKeyboardButton(text="💎 Band 9 Akademik Lug'at & Kollokatsiyalar", callback_data="dl_vocab")],
-        [InlineKeyboardButton(text="⚡ SAT Math 800 & Desmos Sirlari", callback_data="dl_desmos")]
+        [InlineKeyboardButton(text="📚 IELTS Tayyorgarlik Materiallari", callback_data="dl_ielts")],
+        [InlineKeyboardButton(text="🎯 Digital SAT Tayyorgarlik Materiallari", callback_data="dl_sat")],
+        [InlineKeyboardButton(text="💎 Akademik Lug'at & Kollokatsiyalar", callback_data="dl_vocab")],
+        [InlineKeyboardButton(text="⚡ SAT Math Maslahatlari", callback_data="dl_desmos")]
     ])
 
 def get_channel_action_button(label: str) -> InlineKeyboardMarkup:
@@ -75,17 +75,15 @@ async def cmd_start(message: Message, bot: Bot):
 
     if not subscribed:
         text = (
-            "🎓 <b>IELTS 8.5 & SAT 1500+ Rasmiy O'quv Bazasiga Xush Kelibsiz!</b>\n\n"
-            "Ushbu bot orqali nufuzli universitetlarga kirish va grant yutish "
-            "uchun kerak bo'ladigan barcha rasmiy materiallarni <b>bepul</b> olishingiz mumkin.\n\n"
+            "🎓 <b>IELTS 8.5 & SAT 1500+ O'quv Bazasiga Xush Kelibsiz!</b>\n\n"
+            "Ushbu bot orqali SAT va IELTS imtihonlariga tayyorgarlik uchun "
+            "mashq testlari va materiallarni <b>bepul</b> olishingiz mumkin.\n\n"
             "📖 <b>Bazadagi materiallar:</b>\n"
-            "• <b>Full SAT Mock Tizimi:</b> 42 ta test savollari (Math & Reading) tahlillari bilan\n"
-            "• <b>IELTS Listening & Reading:</b> 40 tadan to'liq mock test savollari\n"
-            "• <b>IELTS Writing Bank:</b> 42 ta mavzu va Band 9 shablonlari\n"
-            "• Cambridge IELTS 1–19 PDF va MP3 to'plami\n"
-            "• Digital SAT Bluebook 1–6 rasmiy testlari\n\n"
+            "• <b>Digital SAT Mock:</b> 98 savollik testlar (54 RW + 44 Math) tahlillari bilan\n"
+            "• <b>IELTS Listening & Reading:</b> 40 savollik mashq testlari\n"
+            "• <b>IELTS Writing Bank:</b> Task 1 va Task 2 mavzulari, reja va foydali iboralar bilan\n\n"
             "━━━━━━━━━━━━━━━━━━━━\n"
-            "🔒 <i>Fayllarni yuklab olish va mock testlarni ishlash faqat kanalimiz a'zolari uchun ochiq.</i>\n\n"
+            "🔒 <i>Materiallar va mock testlar faqat kanalimiz a'zolari uchun ochiq.</i>\n\n"
             "👉 Pastdagi tugma orqali <b>@ieltssat_daily</b> kanaliga a'zo bo'ling va <b>'A'zo bo'ldim'</b> tugmasini bosing:"
         )
         await message.answer(text, reply_markup=get_join_inline_keyboard(), parse_mode="HTML")
@@ -95,7 +93,7 @@ async def cmd_start(message: Message, bot: Bot):
     text = (
         f"👋 <b>Xush kelibsiz, {html.escape(message.from_user.first_name)}!</b>\n\n"
         "🎉 Sizga <b>IELTS & SAT O'quv Bazasi va Mock Tizimi</b>ga to'liq ruxsat berildi.\n\n"
-        "Quyidagi tugmalar orqali Mini App’ni ochishingiz yoki materiallarni yuklab olishingiz mumkin:"
+        "Quyidagi tugmalar orqali Mini App’ni ochishingiz yoki materiallar bo'limiga o'tishingiz mumkin:"
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
     await message.answer("📚 <b>O'quv materiallari bo'limlari:</b>", reply_markup=get_materials_inline_keyboard(), parse_mode="HTML")
@@ -112,13 +110,13 @@ async def cmd_menu(message: Message):
 @router.message(F.chat.type == "private", F.text.contains("Mock"))
 async def msg_mock_hub(message: Message):
     text = (
-        "🎯 <b>IELTS & SAT Full Mock Tizimi</b>\n\n"
+        "🎯 <b>IELTS & SAT Mock Tizimi</b>\n\n"
         "Mini App ichida quyidagi kengaytirilgan bo'limlar tayyor:\n\n"
-        "• <b>Digital SAT Full Mock:</b> 42 ta savol (21 Reading/Writing + 21 Math) timer va College Board tahlillari bilan\n"
-        "• <b>IELTS Listening Full Mock:</b> 40 ta savol (Section 1–4) audio pleyer va tapescript bilan\n"
-        "• <b>IELTS Reading Full Mock:</b> 40 ta savol (Passage 1–3) T/F/NG va tushuntirishlar bilan\n"
-        "• <b>IELTS Writing Bank:</b> 42 ta Task 1 va Task 2 mavzulari Band 9 shablonlari bilan\n"
-        "• <b>Score & Grant Predictor:</b> Universitetlar grantini hisoblash kalkulyatori\n\n"
+        "• <b>Digital SAT Mock:</b> 98 ta savol (54 Reading & Writing + 44 Math), taymer va tahlillar bilan\n"
+        "• <b>IELTS Listening:</b> 40 ta savol (Section 1–4) va tapescript bilan\n"
+        "• <b>IELTS Reading:</b> 40 ta savol (Passage 1–3), T/F/NG va tushuntirishlar bilan\n"
+        "• <b>IELTS Writing Bank:</b> Task 1 va Task 2 mavzulari, reja va foydali iboralar bilan\n"
+        "• <b>Ball Predictor:</b> SAT va IELTS ballari bo'yicha taxminiy profil bahosi\n\n"
         "👇 <b>Quyidagi tugma orqali to'liq Mini App’ni oching:</b>"
     )
     inline_kb = InlineKeyboardMarkup(inline_keyboard=[
@@ -137,12 +135,12 @@ async def msg_materials(message: Message):
 @router.message(F.chat.type == "private", F.text.contains("Rasmiy Kanal"))
 async def msg_channel(message: Message):
     text = (
-        "📢 <b>IELTS 8.5 & SAT 1500+ Rasmiy O'quv Kanali:</b>\n\n"
+        "📢 <b>IELTS 8.5 & SAT 1500+ O'quv Kanali:</b>\n\n"
         "👉 @ieltssat_daily\n\n"
         "Kanalda har kuni:\n"
-        "• 09:00 — Band 9 & SAT 1500+ Lug'at\n"
+        "• 09:00 — Akademik Lug'at\n"
         "• 14:00 — Interaktiv Quiz-Viktorina\n"
-        "• 20:00 — Cambridge / Bluebook Tahlillari va Maslahatlar"
+        "• 20:00 — Imtihon Strategiyalari"
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
 
@@ -170,16 +168,16 @@ async def callback_check_sub(callback: CallbackQuery, bot: Bot):
 async def callback_dl_ielts(callback: CallbackQuery):
     await callback.answer()
     text = (
-        "📚 <b>Cambridge IELTS 1–19 To'liq Mega-To'plami</b>\n\n"
-        "Paket tarkibi:\n"
-        "• 1-kitobdan 19-kitobgacha bo'lgan rasmiy testlar (PDF)\n"
-        "• Barcha Listening audio fayllari (MP3) va matnlari (Tapescripts)\n"
-        "• Rasmiy javoblar kaliti va namunaviy insholar\n\n"
-        "📂 Fayllar rasmiy kanalimiz arxiviga joylangan. Quyidagi tugma orqali yuklab oling:"
+        "📚 <b>IELTS Tayyorgarlik Materiallari</b>\n\n"
+        "Bu yerda nimalar bor:\n"
+        "• Mini App'da Listening va Reading mashq testlari\n"
+        "• Writing Bank: Task 1 va Task 2 mavzulari va rejalari\n"
+        "• Kanalda kunlik lug'at va imtihon strategiyalari\n\n"
+        "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
         text,
-        reply_markup=get_channel_action_button("Kanal orqali Cambridge 1–19 yuklash"),
+        reply_markup=get_channel_action_button("Kanalni ochish"),
         parse_mode="HTML"
     )
 
@@ -187,16 +185,16 @@ async def callback_dl_ielts(callback: CallbackQuery):
 async def callback_dl_sat(callback: CallbackQuery):
     await callback.answer()
     text = (
-        "🎯 <b>Official Digital SAT Bluebook 1–6 Testlari</b>\n\n"
-        "Paket tarkibi:\n"
-        "• College Board rasmiy Module 1 & Module 2 Math va Reading savollari\n"
-        "• Har bir savolning bosqichma-bosqich tushuntirilgan yechimlari\n"
-        "• Qiyin darajadagi tenglamalar va funksiyalar tahlili\n\n"
-        "📂 Testlar kanalimiz arxiviga joylangan. Quyidagi tugma orqali oching:"
+        "🎯 <b>Digital SAT Tayyorgarlik Materiallari</b>\n\n"
+        "Bu yerda nimalar bor:\n"
+        "• Mini App'da 98 savollik mock testlar (RW va Math)\n"
+        "• Har bir savolning izohi va strategiyasi\n"
+        "• Kanalda kunlik SAT savoli\n\n"
+        "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
         text,
-        reply_markup=get_channel_action_button("Kanal orqali SAT testlarini ochish"),
+        reply_markup=get_channel_action_button("Kanalni ochish"),
         parse_mode="HTML"
     )
 
@@ -204,16 +202,15 @@ async def callback_dl_sat(callback: CallbackQuery):
 async def callback_dl_vocab(callback: CallbackQuery):
     await callback.answer()
     text = (
-        "💎 <b>Band 9 & SAT 1500+ Akademik Lug'at Jadvali</b>\n\n"
-        "Paket tarkibi:\n"
-        "• Insho va Speaking uchun 500+ yuqori darajadagi kollokatsiyalar\n"
-        "• Mavzular bo'yicha saralangan so'zlar (Technology, Education, Environment)\n"
-        "• O'zbekcha izohlari va kontekstdagi misollari bilan\n\n"
-        "📂 Lug'at fayli kanalimizda saqlanadi. Quyidagi tugma orqali oling:"
+        "💎 <b>Akademik Lug'at va Kollokatsiyalar</b>\n\n"
+        "Kanalda har kuni 09:00 da:\n"
+        "• Mavzu bo'yicha 10 ta akademik so'z\n"
+        "• O'zbekcha izoh va kollokatsiya\n\n"
+        "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
         text,
-        reply_markup=get_channel_action_button("Lug'at jadvalini yuklab olish"),
+        reply_markup=get_channel_action_button("Kanalni ochish"),
         parse_mode="HTML"
     )
 
@@ -221,15 +218,15 @@ async def callback_dl_vocab(callback: CallbackQuery):
 async def callback_dl_desmos(callback: CallbackQuery):
     await callback.answer()
     text = (
-        "⚡ <b>SAT Math 800: Desmos Sirlari & Formulalar</b>\n\n"
-        "Paket tarkibi:\n"
-        "• Desmos kalkulyatorida savollarni 15 soniyada yechish usullari\n"
-        "• Geometriya va algebra uchun eng muhim formulalar varaqasi\n\n"
-        "📂 Qo'llanma kanalimizda saqlanadi. Quyidagi tugma orqali oling:"
+        "⚡ <b>SAT Math Maslahatlari</b>\n\n"
+        "Kanalda:\n"
+        "• Har kuni 14:00 da SAT savoli va yechimi\n"
+        "• Har kuni 20:00 da imtihon strategiyasi\n\n"
+        "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
         text,
-        reply_markup=get_channel_action_button("Desmos qo'llanmasini olish"),
+        reply_markup=get_channel_action_button("Kanalni ochish"),
         parse_mode="HTML"
     )
 
@@ -238,7 +235,7 @@ async def msg_private_fallback(message: Message):
     text = (
         "👋 <b>IELTS & SAT O'quv Bazasiga Xush Kelibsiz!</b>\n\n"
         "Pastdagi doimiy menyu tugmalari orqali Mini App'ni ochishingiz, "
-        "mock test topshirishingiz yoki bepul kitoblarni yuklab olishingiz mumkin."
+        "mock test topshirishingiz yoki materiallar bo'limiga o'tishingiz mumkin."
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
 
@@ -259,7 +256,7 @@ async def group_content_listener(message: Message, bot: Bot):
             "💡 <b>Kanal O'quvchilari Uchun Maxsus Savol / Tavsiya</b> 🎯\n\n"
             f"{html.escape(text.strip()[:3000])}\n\n"
             "━━━━━━━━━━━━━━━━━━━━\n"
-            "📚 <b>Bepul Cambridge IELTS 1–19 va SAT Bluebook bazasi:</b> @ieltssat_dailybot\n"
+            "📚 <b>Bepul IELTS va SAT mashq testlari:</b> @ieltssat_dailybot\n"
             "📢 <b>Rasmiy kanalimiz:</b> @ieltssat_daily"
         )
         if ADMIN_ID:

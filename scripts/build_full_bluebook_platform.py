@@ -1,23 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Full Bluebook Platform Generator
-- SAT: Authentic College Board Bluebook Flow
-  - Section 1: Reading & Writing (Module 1: 27 Qs, 32 min -> Module 2: 27 Qs, 32 min)
-  - Section 2: Math (Module 1: 22 Qs, 35 min -> Module 2: 22 Qs, 35 min)
-  - Inter-module confirmation & transition screens
-  - Zero-spoiler exam mode
-  - 1600 scaled score & 4-module review mode
-- IELTS Listening:
-  - Multi-test support (Cambridge 19, 18, 17, 16)
-  - Real Audio via Web Speech API (English voice, sentence-by-sentence)
-  - Interactive player: Play/Pause, -10s, +10s, Interactive Range Scrubber, Speed 0.8x/1.0x/1.2x
-  - 4 Sections (40 Qs total), expandable Tapescript, Band 1.0-9.0 calculator
-- IELTS Reading:
-  - Multi-test support (Cambridge 19, 18, 17, 16)
-  - 3 Full Passages per test (40 Qs total)
-  - Split passage & question view, TFNG, MCQ, Fill-in, Band calculator
-- 45 Full SAT Mocks & 45 Full IELTS Mocks
-- Writing Bank & Score Predictor
+Mini App generator: builds webapp/index.html.
+- SAT: 2 sections, 4 modules (RW 27 + 27 questions, Math 22 + 22), estimated score
+- Mock count comes from the question bank, so no question appears in two mocks
+- IELTS Listening and Reading: 40 questions per test, from generate_ielts_data.py
+- Writing topics from webapp/exam_bank.json, Score Predictor
 """
 
 import json
@@ -50,63 +37,39 @@ for q in sat_raw:
 
 slim_sat_bank = [rebalance_options(q) for q in slim_sat_bank]
 
-# 45 SAT Mocks Catalog
-sat_mock_catalog = []
-categories_sat = [
-    ("bluebook", "Official Bluebook Test", "College Board Rasmiy Imtihoni", 6),
-    ("princeton", "Princeton Review Full Mock", "Adaptive Diagnostic Standart", 14),
-    ("cb_bank", "College Board Bank Adaptive Mock", "Haqiqiy Imtihon Bazasi", 15),
-    ("master", "Ivy League SAT Master Mock", "Top 1% Universitetlar Darajasi", 10)
-]
+# SAT catalog: only as many mocks as the bank can fill without repeating a question
+rw_question_count = sum(q["sec"] == "rw" for q in slim_sat_bank)
+math_question_count = len(slim_sat_bank) - rw_question_count
+sat_mock_count = min(rw_question_count // 54, math_question_count // 44)
 
-sat_idx = 1
-for cat_id, cat_name, cat_desc, count in categories_sat:
-    for i in range(1, count + 1):
-        sat_mock_catalog.append({
-            "id": f"sat_mock_{sat_idx}",
-            "num": sat_idx,
-            "title": f"Digital SAT Mock #{sat_idx}: {cat_name} {i}",
-            "category": cat_id,
-            "description": f"{cat_desc} • 2 Section (RW 54 + Math 44 = 98 ta savol)",
-            "questions_count": 98,
-            "duration": "2 soat 14 daqiqa",
-            "scale": "1600 Ballik Shkala",
-            "status": "Ochiq / Bepul"
-        })
-        sat_idx += 1
-
-# 45 IELTS Mocks Catalog
-ielts_mock_catalog = []
-categories_ielts = [
-    ("cambridge_new", "Cambridge IELTS 19–16", "Eng so'nggi rasmiy imtihonlar", 12),
-    ("cambridge_mid", "Cambridge IELTS 15–12", "Klassik o'quv standartlari", 12),
-    ("cambridge_old", "Cambridge IELTS 11–7", "Mustahkamlash mocklari", 16),
-    ("official_bc", "British Council & IDP Mock", "Real imtihon simulyatsiyasi", 5)
-]
-
-ielts_idx = 1
-for cat_id, cat_name, cat_desc, count in categories_ielts:
-    for i in range(1, count + 1):
-        ielts_mock_catalog.append({
-            "id": f"ielts_mock_{ielts_idx}",
-            "num": ielts_idx,
-            "title": f"IELTS Academic Mock #{ielts_idx}: {cat_name} Test {i}",
-            "category": cat_id,
-            "volume": f"Vol. {ielts_idx}",
-            "description": f"{cat_desc} • 4 ta ko'nikma (Listening, Reading, Writing, Speaking)",
-            "status": "Ochiq / Bepul",
-            "skills": {
-                "listening": "4 Bo'lim (40 ta savol • Audio)",
-                "reading": "3 Matn (40 ta savol • Akademik)",
-                "writing": "Task 1 & Task 2 (Band 9 Namuna)",
-                "speaking": "Part 1, 2, 3 Mavzulari"
-            }
-        })
-        ielts_idx += 1
+sat_mock_catalog = [{
+    "id": f"sat_mock_{n}",
+    "num": n,
+    "title": f"Digital SAT Mock {n}",
+    "description": "2 Section (RW 54 + Math 44 = 98 ta savol)",
+    "questions_count": 98,
+    "duration": "2 soat 14 daqiqa",
+    "scale": "Taxminiy 1600 ball",
+    "status": "Ochiq / Bepul"
+} for n in range(1, sat_mock_count + 1)]
 
 # Load Multi-test IELTS Listening & Reading
 ielts_listening_tests = get_ielts_listening_tests()
 ielts_reading_tests = get_ielts_reading_tests()
+ielts_test_count = min(len(ielts_listening_tests), len(ielts_reading_tests))
+
+ielts_mock_catalog = [{
+    "id": f"ielts_mock_{n}",
+    "num": n,
+    "title": f"IELTS Academic Mock {n}",
+    "volume": f"Test {n}",
+    "description": "Listening va Reading, 40 tadan savol",
+    "status": "Ochiq / Bepul",
+    "skills": {
+        "listening": "4 Bo'lim (40 ta savol)",
+        "reading": "3 Matn (40 ta savol)"
+    }
+} for n in range(1, ielts_test_count + 1)]
 
 # Writing Prompts
 writing_tasks_1 = [
@@ -118,6 +81,49 @@ writing_tasks_2 = [
     {"num": 1, "category": "Technology & Society", "prompt": "Some people believe that artificial intelligence will replace teachers in the future, while others think teachers will always remain essential. Discuss both views and give your own opinion.", "model": "The inexorable proliferation of artificial intelligence has ignited impassioned debate regarding the future viability of the pedagogical profession. While techno-optimists contend that algorithmic tutoring systems will inevitably render human educators obsolete, I firmly align with the conviction that human teachers embody irreplaceable pedagogical and empathetic dimensions that technology cannot replicate.\n\nOn one hand, advocates of automated education emphasize that AI engines can personalize curricular pacing with unprecedented precision. Machine learning models analyze student diagnostic telemetry instantaneously, adapting practice modules to redress granular cognitive deficiencies. Furthermore, scalable digital tutors can democratize world-class instructional materials across socioeconomically underserved regions.\n\nNevertheless, teaching transcends mere cognitive data dissemination. Education is fundamentally a relational endeavor predicated on psychological mentoring, moral guidance, and affective attunement. A human teacher discerns nuanced emotional cues—frustration, despondency, or nascent curiosity—and modulates motivational strategies accordingly. Moreover, the cultivation of critical thinking, collaborative inquiry, and ethical discernment requires interactive classroom discourse that no algorithm can orchestrate.\n\nIn conclusion, while artificial intelligence will undeniably serve as an indispensable auxiliary teaching assistant, the profound holistic mentorship of human teachers ensures their enduring indispensability."},
     {"num": 2, "category": "Environment & Economics", "prompt": "Governments should place heavy taxes on polluting companies rather than subsidizing clean energy. To what extent do you agree or disagree?", "model": "The optimal fiscal framework for combating anthropogenic climate degradation remains a contentious policy quandary. While punitive environmental taxation compels corporate accountability under the polluter-pays principle, I contend that an asymmetric reliance on taxation is suboptimal, and that strategic public subsidization of decarbonization infrastructure remains equally essential.\n\nPunitive environmental levies undeniably yield immediate economic deterrence. By internalizing negative environmental externalities, carbon taxation renders carbon-intensive industrial methodologies economically unviable, incentivizing corporate executives to eliminate emissions or face crippling financial liability. Furthermore, tax revenues generated can finance regional ecological restoration.\n\nHowever, penalizing pollution without providing economically viable technological alternatives risks crippling foundational industrial supply chains. Renewable energy technologies—such as grid-scale battery storage and green hydrogen electrolyzers—entail formidable upfront capital expenditure and extended amortization periods. Without targeted governmental subsidies, private enterprise cannot overcome initial capital hurdles.\n\nIn conclusion, fiscal environmental policy must not function as a blunt binary choice. True ecological transition necessitates a balanced dual framework: rigorous environmental taxation to disincentivize polluters, coupled with robust clean energy subsidies to accelerate technological deployment."}
 ]
+
+# Writing topics: the full bank with plans, then the short samples above
+with open(BASE_DIR / "webapp" / "exam_bank.json", "r", encoding="utf-8") as f:
+    writing_bank = json.load(f)
+
+
+def short_sample(item, minimum):
+    words = len(item["model"].split())
+    note = f"Qisqa namuna: {words} so'z. Imtihonda kamida {minimum} so'z yozish kerak."
+    return {**item, "model": f"{note}\n\n{item['model']}"}
+
+
+def task1_topic(item):
+    return {
+        "type": item["type"],
+        "title": item["title"],
+        "desc": item["prompt"],
+        "model": "\n\n".join([
+            f"Asosiy jihatlar: {item['key_features']}",
+            f"Umumiy xulosa: {item['overview']}",
+            f"Tuzilma: {item['structure']}",
+            "Foydali iboralar: " + ", ".join(item["band9_vocab"]),
+        ])
+    }
+
+
+def task2_topic(item):
+    return {
+        "category": item["type"],
+        "title": item["title"],
+        "prompt": item["prompt"],
+        "model": "\n\n".join([
+            f"Pozitsiya: {item['stance']}",
+            f"G'oyalar: {item['ideas']}",
+            f"Reja: {item['outline']}",
+            "Foydali iboralar: " + ", ".join(item["band9_vocab"]),
+        ])
+    }
+
+
+writing_tasks_1 = [task1_topic(w) for w in writing_bank["ielts_writing_t1"]] + [short_sample(w, 150) for w in writing_tasks_1]
+writing_tasks_2 = [task2_topic(w) for w in writing_bank["ielts_writing_t2"]] + [short_sample(w, 250) for w in writing_tasks_2]
+writing_total = len(writing_tasks_1) + len(writing_tasks_2)
 
 EXAM_DATA = {
     "sat_mocks": sat_mock_catalog,
@@ -136,7 +142,7 @@ html_content = f"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>IELTS & SAT Daily Hub | Digital Bluebook Platform</title>
+  <title>IELTS & SAT Daily Hub | Mashq Platformasi</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -219,9 +225,9 @@ html_content = f"""<!DOCTYPE html>
       <div>
         <div class="flex items-center gap-1.5">
           <h1 class="text-sm font-extrabold text-white tracking-wide">IELTS & SAT Daily Hub</h1>
-          <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">BLUEBOOK 2026</span>
+          <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">MASHQ</span>
         </div>
-        <p class="text-[11px] text-slate-400">45 ta SAT (2 Section) & 45 ta IELTS Mock Platformasi</p>
+        <p class="text-[11px] text-slate-400">{sat_mock_count} ta SAT va {ielts_test_count} ta IELTS mashq testi</p>
       </div>
     </div>
     <div class="flex items-center gap-1.5">
@@ -237,10 +243,10 @@ html_content = f"""<!DOCTYPE html>
   <!-- MAIN NAVIGATION TABS -->
   <nav class="flex gap-1.5 overflow-x-auto pb-2 mb-4 scrollbar-none text-xs font-semibold">
     <button id="nav-sat-hub" onclick="switchMainTab('sat-hub')" class="nav-active px-3 py-2 rounded-xl bg-blue-600 text-white whitespace-nowrap transition">
-      🎯 45 ta SAT Mock
+      🎯 SAT Mock ({sat_mock_count} ta)
     </button>
     <button id="nav-ielts-hub" onclick="switchMainTab('ielts-hub')" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 whitespace-nowrap transition">
-      🇬🇧 45 ta IELTS Full Mock
+      🇬🇧 IELTS Mock ({ielts_test_count} ta)
     </button>
     <button id="nav-listening" onclick="switchMainTab('listening')" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 whitespace-nowrap transition">
       🎧 IELTS Listening (Audio)
@@ -249,15 +255,15 @@ html_content = f"""<!DOCTYPE html>
       📖 IELTS Reading (Matnlar)
     </button>
     <button id="nav-writing" onclick="switchMainTab('writing')" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 whitespace-nowrap transition">
-      ✍️ Writing Bank (42 ta)
+      ✍️ Writing Bank ({writing_total} ta)
     </button>
     <button id="nav-predict" onclick="switchMainTab('predict')" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 whitespace-nowrap transition">
-      🎓 Ball & Grant Predictor
+      🎓 Ball Predictor
     </button>
   </nav>
 
   <!-- ========================================================================= -->
-  <!-- TAB 1: 45 FULL DIGITAL SAT MOCKS (AUTHENTIC BLUEBOOK 2-SECTION ENGINE) -->
+  <!-- TAB 1: DIGITAL SAT MOCKS (2 SECTIONS, 4 MODULES) -->
   <!-- ========================================================================= -->
   <div id="tab-sat-hub" class="tab-content space-y-4">
     
@@ -266,22 +272,13 @@ html_content = f"""<!DOCTYPE html>
       <div class="card-surface p-3.5 rounded-2xl flex items-center justify-between">
         <div>
           <h2 class="text-xs font-extrabold text-white flex items-center gap-1.5">
-            <span>Digital SAT Mock Imtihonlari (45 ta Full Test)</span>
+            <span>Digital SAT Mock Testlari ({sat_mock_count} ta)</span>
           </h2>
           <p class="text-[11px] text-slate-400">Har bir test: Section 1 (RW 54 ta) + Section 2 (Math 44 ta) = 98 ta savol</p>
         </div>
         <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
-          Bluebook Standarti
+          Mustaqil mashq
         </span>
-      </div>
-
-      <!-- Categories Filter -->
-      <div class="flex gap-1.5 overflow-x-auto pb-1 text-xs font-semibold">
-        <button onclick="filterSatMocks('all')" id="sat-f-all" class="py-1.5 px-3 rounded-xl bg-blue-600 text-white whitespace-nowrap">Barchasi (45)</button>
-        <button onclick="filterSatMocks('bluebook')" id="sat-f-bluebook" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Bluebook Rasmiy (1–6)</button>
-        <button onclick="filterSatMocks('princeton')" id="sat-f-princeton" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Princeton Review (7–20)</button>
-        <button onclick="filterSatMocks('cb_bank')" id="sat-f-cb_bank" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Question Bank (21–35)</button>
-        <button onclick="filterSatMocks('master')" id="sat-f-master" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Ivy League Master (36–45)</button>
       </div>
 
       <!-- SAT Mock Cards Grid -->
@@ -290,7 +287,7 @@ html_content = f"""<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- SAT BLUEBOOK RUNNER VIEW -->
+    <!-- SAT RUNNER VIEW -->
     <div id="sat-runner-view" class="hidden space-y-3.5">
       
       <!-- Top Test Info & Timer Bar -->
@@ -376,7 +373,6 @@ html_content = f"""<!DOCTYPE html>
         <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 max-w-sm mx-auto space-y-1">
           <div>• Modul 1: 22 ta savol (35 daqiqa)</div>
           <div>• Modul 2: 22 ta savol (35 daqiqa)</div>
-          <div>• Rasmiy Desmos kalkulyatoridan foydalanish mumkin</div>
         </div>
         <button onclick="startMathSection()" class="py-2.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-extrabold text-xs shadow-lg shadow-blue-600/30 transition">
           Section 2: Math Qismini Boshlash 🚀
@@ -417,7 +413,7 @@ html_content = f"""<!DOCTYPE html>
             🔍 Barcha Savollar Tahlilini Ko'rish
           </button>
           <button onclick="exitSatRunner()" class="py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">
-            Boshqa Mock Tanlash (45 ta)
+            Boshqa Mock Tanlash
           </button>
         </div>
       </div>
@@ -438,26 +434,17 @@ html_content = f"""<!DOCTYPE html>
   </div>
 
   <!-- ========================================================================= -->
-  <!-- TAB 2: 45 FULL IELTS ACADEMIC MOCKS CATALOG -->
+  <!-- TAB 2: IELTS ACADEMIC MOCKS -->
   <!-- ========================================================================= -->
   <div id="tab-ielts-hub" class="tab-content hidden space-y-3.5">
     <div class="card-surface p-3.5 rounded-2xl flex items-center justify-between">
       <div>
-        <h2 class="text-xs font-extrabold text-white">45 ta IELTS Academic Full Mock Imtihonlari</h2>
-        <p class="text-[11px] text-slate-400">Har bir mock: 4 ta modul (Listening, Reading, Writing, Speaking)</p>
+        <h2 class="text-xs font-extrabold text-white">IELTS Academic Mock Testlari ({ielts_test_count} ta)</h2>
+        <p class="text-[11px] text-slate-400">Har bir test: Listening va Reading, 40 tadan savol. Audio va matnlar haqiqiy imtihondan qisqaroq.</p>
       </div>
       <span class="text-[10px] font-bold px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-        Band 9.0 Standart
+        Mustaqil mashq
       </span>
-    </div>
-
-    <!-- Category Filters -->
-    <div class="flex gap-1.5 overflow-x-auto pb-1 text-xs font-semibold">
-      <button onclick="filterIeltsMocks('all')" id="ielts-f-all" class="py-1.5 px-3 rounded-xl bg-blue-600 text-white whitespace-nowrap">Barchasi (45)</button>
-      <button onclick="filterIeltsMocks('cambridge_new')" id="ielts-f-cnew" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Cambridge 19–16 (1–12)</button>
-      <button onclick="filterIeltsMocks('cambridge_mid')" id="ielts-f-cmid" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Cambridge 15–12 (13–24)</button>
-      <button onclick="filterIeltsMocks('cambridge_old')" id="ielts-f-cold" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">Cambridge 11–7 (25–40)</button>
-      <button onclick="filterIeltsMocks('official_bc')" id="ielts-f-bc" class="py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap">British Council (41–45)</button>
     </div>
 
     <!-- Grid -->
@@ -474,7 +461,7 @@ html_content = f"""<!DOCTYPE html>
       <div class="flex items-center justify-between">
         <div>
           <span class="text-[10px] font-mono text-emerald-400 uppercase font-bold">IELTS Listening Hub</span>
-          <h2 class="text-xs font-extrabold text-white">Rasmiy 40 talik Listening Testlari</h2>
+          <h2 class="text-xs font-extrabold text-white">40 savollik Listening Testlari</h2>
         </div>
         <div class="flex items-center gap-1.5">
           <span id="listening-score-preview" class="text-[11px] font-mono font-bold text-slate-300 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
@@ -520,7 +507,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="flex justify-between text-[10px] font-mono text-slate-400">
           <span id="audio-cur-time">00:00</span>
           <span class="text-slate-500">Vaqt chizig'i (taxminiy)</span>
-          <span id="audio-tot-time">08:30</span>
+          <span id="audio-tot-time">00:00</span>
         </div>
         <input type="range" id="listening-audio-scrubber" min="0" max="100" value="0" oninput="previewListeningSeek(this.value)" onchange="seekListeningAudio(this.value)" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer">
       </div>
@@ -603,7 +590,7 @@ html_content = f"""<!DOCTYPE html>
       <div class="flex items-center justify-between">
         <div>
           <span class="text-[10px] font-mono text-blue-400 uppercase font-bold">IELTS Reading Hub</span>
-          <h2 class="text-xs font-extrabold text-white">Rasmiy 40 talik Reading Testlari</h2>
+          <h2 class="text-xs font-extrabold text-white">40 savollik Reading Testlari</h2>
         </div>
         <div class="flex items-center gap-1.5">
           <span id="reading-score-preview" class="text-[11px] font-mono font-bold text-slate-300 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
@@ -638,7 +625,7 @@ html_content = f"""<!DOCTYPE html>
     <div class="card-surface p-4 rounded-2xl space-y-2">
       <div class="flex justify-between items-center pb-2 border-b border-slate-800">
         <h3 id="reading-p-title" class="text-xs font-bold text-white"></h3>
-        <span class="text-[10px] text-slate-400 font-mono">60 daqiqa</span>
+        <span class="text-[10px] text-slate-400 font-mono">Mashq rejimi</span>
       </div>
       <div id="reading-p-text" class="text-xs leading-relaxed text-slate-300 max-h-72 overflow-y-auto whitespace-pre-line p-2 rounded-xl bg-slate-900 border border-slate-800/80"></div>
     </div>
@@ -676,20 +663,20 @@ html_content = f"""<!DOCTYPE html>
   <div id="tab-writing" class="tab-content hidden space-y-3.5">
     <div class="card-surface p-3.5 rounded-2xl flex items-center justify-between">
       <div>
-        <h2 class="text-xs font-extrabold text-white">IELTS Academic Writing Bank (42 ta Mavzu)</h2>
-        <p class="text-[11px] text-slate-400">Task 1 (Grafiklar) va Task 2 (Esselar) uchun Band 9 modellar</p>
+        <h2 class="text-xs font-extrabold text-white">IELTS Academic Writing Bank ({writing_total} ta Mavzu)</h2>
+        <p class="text-[11px] text-slate-400">Task 1 va Task 2 mavzulari, reja va foydali iboralar bilan</p>
       </div>
       <span class="text-[10px] font-bold px-2 py-1 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
-        Band 9.0
+        Reja + iboralar
       </span>
     </div>
 
     <div class="grid grid-cols-2 gap-2 text-xs font-bold">
       <button onclick="switchWritingTask(1)" id="btn-w-t1" class="py-2 rounded-xl bg-blue-600 text-white text-center">
-        Task 1: Grafiklar (21 ta)
+        Task 1: Grafiklar ({len(writing_tasks_1)} ta)
       </button>
       <button onclick="switchWritingTask(2)" id="btn-w-t2" class="py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-center">
-        Task 2: Esselar (21 ta)
+        Task 2: Insholar ({len(writing_tasks_2)} ta)
       </button>
     </div>
 
@@ -702,7 +689,7 @@ html_content = f"""<!DOCTYPE html>
   <div id="tab-predict" class="tab-content hidden space-y-3.5">
     <div class="card-surface p-4 rounded-2xl space-y-3">
       <h2 class="text-xs font-extrabold text-white">IELTS & SAT Universal Natija Predictori</h2>
-      <p class="text-[11px] text-slate-400">O'z ko'nikmalaringizni belgilang va OTM grant ehtimolini hisoblang</p>
+      <p class="text-[11px] text-slate-400">O'z ballaringizni belgilang va taxminiy profil bahosini ko'ring</p>
 
       <div class="space-y-2.5 pt-2">
         <div>
@@ -744,16 +731,20 @@ html_content = f"""<!DOCTYPE html>
           <span id="p-tot-sat" class="font-mono font-bold text-amber-400 text-sm">1420 / 1600</span>
         </div>
         <div class="flex justify-between items-center text-xs">
-          <span>Grant Imkoniyati (Toshkent Xalqaro OTMlar):</span>
-          <span id="p-local-grant" class="font-mono font-bold text-emerald-400 text-xs">95% (To'liq Grant)</span>
+          <span>Profil bahosi (Toshkent xalqaro OTMlari):</span>
+          <span id="p-local-grant" class="font-mono font-bold text-emerald-400 text-xs">-</span>
         </div>
         <div class="flex justify-between items-center text-xs">
-          <span>Grant Imkoniyati (AQSh / Yevropa OTMlar):</span>
-          <span id="p-intl-grant" class="font-mono font-bold text-blue-400 text-xs">82% (Prezident Granti)</span>
+          <span>Profil bahosi (AQSh / Yevropa OTMlari):</span>
+          <span id="p-intl-grant" class="font-mono font-bold text-blue-400 text-xs">-</span>
         </div>
       </div>
     </div>
   </div>
+
+  <p class="text-[11px] text-slate-400 leading-relaxed text-center mt-6 px-2">
+    Bu mustaqil mashq platformasi: College Board, Cambridge, British Council va IDP bilan aloqador emas va ular tomonidan tasdiqlanmagan. SAT va IELTS tegishli egalarining savdo belgilari.
+  </p>
 
   <script>
     // Embedded Data
@@ -831,10 +822,9 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     // =========================================================================
-    // 1. AUTHENTIC DIGITAL SAT BLUEBOOK ENGINE (2 SECTIONS, 4 MODULES)
+    // 1. DIGITAL SAT ENGINE (2 SECTIONS, 4 MODULES)
     // =========================================================================
     const satMocks = EXAM_DATA.sat_mocks || [];
-    let activeSatCategory = 'all';
 
     // SAT Test Runner State
     let currentSatMock = null;
@@ -862,31 +852,14 @@ html_content = f"""<!DOCTYPE html>
     let satTimerSeconds = 32 * 60;
     let satTimerInterval = null;
     let satDeadline = 0;
-    const SAT_SAVE_KEY = 'sat_attempt_v1';
+    const SAT_SAVE_KEY = 'sat_attempt_v2';
     let isReviewMode = false;
     let reviewModuleKey = 'rw_m1';
 
-    function filterSatMocks(cat) {{
-      activeSatCategory = cat;
-      const cats = ['all', 'bluebook', 'princeton', 'cb_bank', 'master'];
-      cats.forEach(c => {{
-        const btn = document.getElementById('sat-f-' + c);
-        if (btn) {{
-          if (c === cat) btn.className = 'py-1.5 px-3 rounded-xl bg-blue-600 text-white whitespace-nowrap';
-          else btn.className = 'py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap';
-        }}
-      }});
-      renderSatMocksGrid();
-    }}
-
     function renderSatMocksGrid() {{
       const container = document.getElementById('sat-mocks-grid');
-      let filtered = satMocks;
-      if (activeSatCategory !== 'all') {{
-        filtered = satMocks.filter(m => m.category === activeSatCategory);
-      }}
 
-      container.innerHTML = filtered.map(m => `
+      container.innerHTML = satMocks.map(m => `
         <div class="card-surface p-4 rounded-2xl space-y-2 border border-slate-800 hover:border-slate-700 transition">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
@@ -915,7 +888,7 @@ html_content = f"""<!DOCTYPE html>
       `).join('');
     }}
 
-    // Deterministic 98-Question Generator into 4 Modules
+    // Mock n takes every Nth question of the bank (N = mock count), so no two mocks share a question
     function generateSatModules(mockNum) {{
       const qBank = EXAM_DATA.question_bank || [];
       const rwPool = qBank.filter(q => q.sec === 'rw');
@@ -928,7 +901,7 @@ html_content = f"""<!DOCTYPE html>
 
       // RW Modul 1: 27 questions
       for (let i = 0; i < 27; i++) {{
-        const q = rwPool[(mockNum * 27 + i) % rwPool.length];
+        const q = rwPool[mockNum - 1 + i * satMocks.length];
         rw_m1.push({{
           num: i + 1,
           section: 'Reading & Writing',
@@ -946,7 +919,7 @@ html_content = f"""<!DOCTYPE html>
 
       // RW Modul 2: 27 questions
       for (let i = 0; i < 27; i++) {{
-        const q = rwPool[(mockNum * 27 + 27 + i) % rwPool.length];
+        const q = rwPool[mockNum - 1 + (27 + i) * satMocks.length];
         rw_m2.push({{
           num: i + 1,
           section: 'Reading & Writing',
@@ -964,7 +937,7 @@ html_content = f"""<!DOCTYPE html>
 
       // Math Modul 1: 22 questions
       for (let j = 0; j < 22; j++) {{
-        const q = mathPool[(mockNum * 22 + j) % mathPool.length];
+        const q = mathPool[mockNum - 1 + j * satMocks.length];
         math_m1.push({{
           num: j + 1,
           section: 'Math',
@@ -982,7 +955,7 @@ html_content = f"""<!DOCTYPE html>
 
       // Math Modul 2: 22 questions
       for (let j = 0; j < 22; j++) {{
-        const q = mathPool[(mockNum * 22 + 22 + j) % mathPool.length];
+        const q = mathPool[mockNum - 1 + (22 + j) * satMocks.length];
         math_m2.push({{
           num: j + 1,
           section: 'Math',
@@ -1190,7 +1163,7 @@ html_content = f"""<!DOCTYPE html>
         document.getElementById('sat-fb-status').innerHTML = isCorrect
           ? `<span class="text-emerald-400 font-bold">✅ To'g'ri javob (${{q.correct}})!</span>`
           : `<span class="text-rose-400 font-bold">❌ Sizning javobingiz: ${{selected || "Javob berilmagan"}}. To'g'ri javob: ${{q.correct}}</span>`;
-        document.getElementById('sat-fb-expl').innerText = q.explanation || "College Board rasmiy tushuntirishi.";
+        document.getElementById('sat-fb-expl').innerText = q.explanation || "Bu savol uchun izoh yo'q.";
         document.getElementById('sat-fb-hack').innerText = q.strategy ? `⚡ SAT Strategiyasi: ${{q.strategy}}` : "";
       }} else {{
         fbBox.classList.add('hidden');
@@ -1310,7 +1283,7 @@ html_content = f"""<!DOCTYPE html>
           ? `Math Modul 1 da ${{skipped}} ta savol bo'sh qoldi. Modul 2 ga o'tasizmi?`
           : `Math Modul 1 dagi barcha 22 ta savolga javob berildi. Modul 2 ga o'tasizmi?`;
       }} else {{
-        promptMsg = `Barcha modullar va bo'limlar yakunlandi!\n\nImtihonni topshirib, 1600 ballik rasmiy natijani hisoblashni xohlaysizmi?`;
+        promptMsg = `Barcha modullar va bo'limlar yakunlandi!\n\nImtihonni topshirib, taxminiy 1600 ballik natijani hisoblashni xohlaysizmi?`;
       }}
 
       const stage = `${{satSection}}_m${{satModule}}`;
@@ -1374,7 +1347,7 @@ html_content = f"""<!DOCTYPE html>
         if (satAnswers.math_m2[idx] === q.correct) mathCorrect++;
       }});
 
-      // College Board Scaled Scoring (RW 200-800, Math 200-800)
+      // Estimated linear scale (RW 200-800, Math 200-800)
       const rwScaled = scaleSatSection(rwCorrect, 54);
       const mathScaled = scaleSatSection(mathCorrect, 44);
       const totalScaled = rwScaled + mathScaled;
@@ -1447,45 +1420,14 @@ html_content = f"""<!DOCTYPE html>
     }}
 
     // =========================================================================
-    // 2. 45 IELTS MOCKS HUB
+    // 2. IELTS MOCKS HUB
     // =========================================================================
     const ieltsMocks = EXAM_DATA.ielts_mocks || [];
-    let activeIeltsCategory = 'all';
-
-    function filterIeltsMocks(cat) {{
-      activeIeltsCategory = cat;
-      const cats = ['all', 'cnew', 'cmid', 'cold', 'bc'];
-      cats.forEach(c => {{
-        const btn = document.getElementById('ielts-f-' + c);
-        if (btn) {{
-          if ((cat === 'all' && c === 'all') ||
-              (cat === 'cambridge_new' && c === 'cnew') ||
-              (cat === 'cambridge_mid' && c === 'cmid') ||
-              (cat === 'cambridge_old' && c === 'cold') ||
-              (cat === 'official_bc' && c === 'bc')) {{
-            btn.className = 'py-1.5 px-3 rounded-xl bg-blue-600 text-white whitespace-nowrap';
-          }} else {{
-            btn.className = 'py-1.5 px-3 rounded-xl bg-slate-800 text-slate-300 whitespace-nowrap';
-          }}
-        }}
-      }});
-      renderIeltsMocksGrid();
-    }}
 
     function renderIeltsMocksGrid() {{
       const container = document.getElementById('ielts-mocks-grid');
-      let filtered = ieltsMocks;
-      if (activeIeltsCategory === 'cambridge_new') {{
-        filtered = ieltsMocks.filter(m => m.num >= 1 && m.num <= 12);
-      }} else if (activeIeltsCategory === 'cambridge_mid') {{
-        filtered = ieltsMocks.filter(m => m.num >= 13 && m.num <= 24);
-      }} else if (activeIeltsCategory === 'cambridge_old') {{
-        filtered = ieltsMocks.filter(m => m.num >= 25 && m.num <= 40);
-      }} else if (activeIeltsCategory === 'official_bc') {{
-        filtered = ieltsMocks.filter(m => m.num >= 41);
-      }}
 
-      container.innerHTML = filtered.map(m => `
+      container.innerHTML = ieltsMocks.map(m => `
         <div class="card-surface p-4 rounded-2xl space-y-2.5 border border-slate-800 hover:border-slate-700 transition">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
@@ -1502,8 +1444,6 @@ html_content = f"""<!DOCTYPE html>
           <div class="grid grid-cols-2 gap-1.5 text-[10px] text-slate-300 pt-1">
             <div class="p-1.5 rounded bg-slate-900 border border-slate-800">🎧 ${{m.skills.listening}}</div>
             <div class="p-1.5 rounded bg-slate-900 border border-slate-800">📖 ${{m.skills.reading}}</div>
-            <div class="p-1.5 rounded bg-slate-900 border border-slate-800">✍️ ${{m.skills.writing}}</div>
-            <div class="p-1.5 rounded bg-slate-900 border border-slate-800">🗣 ${{m.skills.speaking}}</div>
           </div>
 
           <div class="pt-2 border-t border-slate-800 flex gap-2 justify-end">
@@ -2076,15 +2016,14 @@ html_content = f"""<!DOCTYPE html>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
               ${{w.type || w.category}}
             </span>
-            <span class="text-[10px] font-mono text-emerald-400 font-bold">Band 9.0 Namuna</span>
           </div>
           <h4 class="text-xs font-bold text-white">${{w.title || "IELTS Essay Prompt"}}</h4>
           <p class="text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">${{w.desc || w.prompt}}</p>
           <div class="pt-1">
             <details class="text-xs text-slate-300">
-              <summary class="cursor-pointer text-amber-400 font-bold hover:underline">Band 9 Model Insho & Tahlilni Ko'rish →</summary>
+              <summary class="cursor-pointer text-amber-400 font-bold hover:underline">Reja yoki namunani ko'rish →</summary>
               <div class="mt-2 p-3 rounded-xl bg-slate-900 border border-slate-800 leading-relaxed whitespace-pre-line text-[11px] text-slate-200">
-                ${{w.model}}
+                ${{escapeHtml(w.model)}}
               </div>
             </details>
           </div>
