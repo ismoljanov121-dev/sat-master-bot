@@ -1,0 +1,15 @@
+name: Render Keep-Alive 24/7
+
+on:
+  schedule:
+    # Runs every 10 minutes to prevent Render Free Tier from sleeping
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render WebApp Health
+        run: |
+          curl -s -f --max-time 30 https://sat-master-bot.onrender.com/health || echo "Ping attempted"

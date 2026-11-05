@@ -2,7 +2,7 @@ import os
 import asyncio
 import logging
 from pathlib import Path
-from aiohttp import web
+from aiohttp import web, ClientSession, ClientTimeout
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
@@ -50,12 +50,28 @@ async def start_web_server():
     logger.info(f"Health-check & Mini App web server listening on 0.0.0.0:{port}")
     return runner
 
+async def self_ping_loop():
+    """Keeps Render Free Tier 100% awake 24/7 by pinging public URL every 8 minutes."""
+    render_url = os.getenv("RENDER_EXTERNAL_URL", "https://sat-master-bot.onrender.com")
+    health_url = f"{render_url.rstrip('/')}/health"
+    await asyncio.sleep(45)  # Wait 45 seconds after initial startup
+    while True:
+        try:
+            timeout = ClientTimeout(total=20)
+            async with ClientSession(timeout=timeout) as session:
+                async with session.get(health_url) as resp:
+                    logger.info(f"Keep-alive self-ping: status {resp.status} for {health_url}")
+        except Exception as e:
+            logger.warning(f"Keep-alive self-ping warning: {e}")
+        await asyncio.sleep(8 * 60)  # Ping every 8 minutes (Render sleeps after 15 minutes)
+
 async def main():
     if not BOT_TOKEN or BOT_TOKEN == "YOUR_TELEGRAM_BOT_TOKEN_HERE":
         logger.error("BOT_TOKEN is missing! Please configure BOT_TOKEN.")
         return
 
     web_runner = await start_web_server()
+    ping_task = asyncio.create_task(self_ping_loop())
 
     bot = DefaultBotProperties(parse_mode=ParseMode.HTML)
     bot = Bot(token=BOT_TOKEN, default=bot)
@@ -70,6 +86,7 @@ async def main():
         logger.info("Bot is polling for updates...")
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
     finally:
+        ping_task.cancel()
         scheduler.shutdown()
         await web_runner.cleanup()
         await bot.session.close()
