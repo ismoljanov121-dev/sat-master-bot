@@ -8,7 +8,7 @@ import json
 def get_ielts_listening_tests():
     tests = []
     
-    # ---------------- TEST 1: Cambridge 19 Test 1 ----------------
+    # ---------------- TEST 1 ----------------
     t1_sec1_script = (
         "Good morning, University Housing Office, Sarah speaking. "
         "Hello! I am an incoming postgraduate student, Alex Turner. That is T-U-R-N-E-R. "
@@ -105,7 +105,7 @@ def get_ielts_listening_tests():
     tests.append({
         "id": "ielts_l_1",
         "num": 1,
-        "title": "Cambridge 19: Test 1 (Full 40 Qs)",
+        "title": "IELTS Academic Mock 1 (40 savol)",
         "subtitle": "University Housing, Botanical Gardens, Tidal Turbines & Working Memory",
         "scripts": {
             1: t1_sec1_script,
@@ -116,7 +116,7 @@ def get_ielts_listening_tests():
         "questions": t1_questions
     })
 
-    # ---------------- TEST 2: Cambridge 19 Test 2 ----------------
+    # ---------------- TEST 2 ----------------
     t2_sec1_script = (
         "Good morning, Central City Library membership services, Arthur speaking. "
         "Hello! I would like to register for a full adult library card. My name is Elena Rostova. R-O-S-T-O-V-A. "
@@ -205,7 +205,7 @@ def get_ielts_listening_tests():
     tests.append({
         "id": "ielts_l_2",
         "num": 2,
-        "title": "Cambridge 19: Test 2 (Full 40 Qs)",
+        "title": "IELTS Academic Mock 2 (40 savol)",
         "subtitle": "City Library, Wildlife Sanctuary, Eco-Concrete & Sleep Architecture",
         "scripts": {
             1: t2_sec1_script,
@@ -216,43 +216,12 @@ def get_ielts_listening_tests():
         "questions": t2_questions
     })
 
-    # Generate Tests 3, 4, 5, 6 with thematic topics
-    test_themes = [
-        (3, "Cambridge 18: Test 1 (Full 40 Qs)", "Metro Transit Pass, Maritime Museum, AI Agriculture & Ocean Vent Ecosystems"),
-        (4, "Cambridge 18: Test 2 (Full 40 Qs)", "Sports Complex, Railway Heritage, Bilingual Cognition & Green Hydrogen"),
-        (5, "Cambridge 17: Test 1 (Full 40 Qs)", "Art Workshop, Urban Green Roofs, Space Debris Tracking & Mediterranean Trade"),
-        (6, "Cambridge 16: Test 1 (Full 40 Qs)", "Community Volunteering, Solar Farm Impact, Microplastics & Neural Plasticity")
-    ]
-
-    for t_num, t_title, t_sub in test_themes:
-        # Re-map questions with slight variations for full 40 Qs
-        base_t = tests[t_num % 2]
-        new_q = []
-        for q in base_t["questions"]:
-            new_q.append({
-                "num": q["num"],
-                "sec": q["sec"],
-                "type": q["type"],
-                "text": q["text"],
-                "options": q.get("options", []),
-                "ans": q["ans"],
-                "expl": q["expl"]
-            })
-        tests.append({
-            "id": f"ielts_l_{t_num}",
-            "num": t_num,
-            "title": t_title,
-            "subtitle": t_sub,
-            "scripts": base_t["scripts"],
-            "questions": new_q
-        })
-
     return tests
 
 def get_ielts_reading_tests():
     tests = []
 
-    # ---------------- READING TEST 1: Cambridge 19 Test 1 ----------------
+    # ---------------- READING TEST 1 ----------------
     t1_p1 = (
         "Paragraph A: The Silk Road was never a single paved highway stretching from China to Rome, but rather an intricate continental network of caravan tracks, oasis depots, and maritime corridors spanning over eight thousand kilometers. Originating during the Han Dynasty around 130 BCE, this trans-Eurasian trade artery facilitated not merely the conveyance of Chinese silk, Roman glassware, and Persian tapestries, but the transmission of transformative intellectual technologies.\n\n"
         "Paragraph B: Foremost among these intellectual transmissions was the craft of papermaking. Invented in China by court eunuch Cai Lun in 105 CE using macerated mulberry bark, hemp rags, and old fishing nets, paper provided an incomparably inexpensive, lightweight, and durable alternative to Egyptian papyrus and European vellum. Following the Battle of Talas in 751 CE near modern-day Kyrgyzstan, Chinese papermakers captured by Abbasid forces transferred the craft to Samarkand, where abundant hydraulic mills and flax crops allowed industrial-scale refinement.\n\n"
@@ -323,7 +292,7 @@ def get_ielts_reading_tests():
     tests.append({
         "id": "ielts_r_1",
         "num": 1,
-        "title": "Cambridge 19: Test 1 (Full 40 Qs)",
+        "title": "IELTS Academic Mock 1 (40 savol)",
         "subtitle": "Silk Road Papermaking, Deep-Sea Bioluminescence & Intuitive Cognition",
         "passages": [
             {"num": 1, "title": "Passage 1: The Silk Road & Papermaking in Central Asia", "text": t1_p1},
@@ -333,7 +302,7 @@ def get_ielts_reading_tests():
         "questions": t1_questions
     })
 
-    # ---------------- READING TEST 2: Cambridge 19 Test 2 ----------------
+    # ---------------- READING TEST 2 ----------------
     t2_p1 = (
         "Paragraph A: Tea (Camellia sinensis) is the second most consumed beverage on Earth after water. Legend attributes its discovery in 2737 BCE to Emperor Shennong of China, whose pot of boiled drinking water was accidentally scented by falling wild tea leaves. By the Tang Dynasty (618–907 CE), tea consumption had transitioned from medicinal herbalism into an aesthetic ritual, formalized by scholar Lu Yu in 'The Classic of Tea' (Cha Jing).\n\n"
         "Paragraph B: During the seventeenth century, Dutch and Portuguese merchants introduced tea to European courts. In Britain, the beverage became synonymous with aristocracy following the marriage of King Charles II to Portuguese princess Catherine of Braganza in 1662. To circumvent the Qing Dynasty's strict commercial monopoly and avoid draining silver reserves, the British East India Company initiated illicit opium trade into Guangzhou, precipitating the devastating Opium Wars of 1839–1860.\n\n"
@@ -398,7 +367,7 @@ def get_ielts_reading_tests():
     tests.append({
         "id": "ielts_r_2",
         "num": 2,
-        "title": "Cambridge 19: Test 2 (Full 40 Qs)",
+        "title": "IELTS Academic Mock 2 (40 savol)",
         "subtitle": "Tea Trade History, Gothic Cathedral Engineering & AI Diagnostics",
         "passages": [
             {"num": 1, "title": "Passage 1: The Global History & Economic Impact of Tea Trade", "text": t2_p1},
@@ -407,36 +376,6 @@ def get_ielts_reading_tests():
         ],
         "questions": t2_questions
     })
-
-    # Generate Tests 3, 4, 5, 6 with thematic topics
-    test_themes_r = [
-        (3, "Cambridge 18: Test 1 (Full 40 Qs)", "Antarctic Expeditions, Bilingual Brain Plasticity & Salt Cavern Storage"),
-        (4, "Cambridge 18: Test 2 (Full 40 Qs)", "Canine Evolution, Urban Heat Island Effect & Philosophy of Time"),
-        (5, "Cambridge 17: Test 1 (Full 40 Qs)", "Roman Aqueducts, Coral Reef Bleaching & Nudge Economics"),
-        (6, "Cambridge 16: Test 1 (Full 40 Qs)", "Penicillin Discovery, Megacity Transport & Evolutionary Psychology")
-    ]
-
-    for t_num, t_title, t_sub in test_themes_r:
-        base_t = tests[t_num % 2]
-        new_q = []
-        for q in base_t["questions"]:
-            new_q.append({
-                "num": q["num"],
-                "passage_num": q["passage_num"],
-                "type": q["type"],
-                "text": q["text"],
-                "options": q.get("options", []),
-                "ans": q["ans"],
-                "expl": q["expl"]
-            })
-        tests.append({
-            "id": f"ielts_r_{t_num}",
-            "num": t_num,
-            "title": t_title,
-            "subtitle": t_sub,
-            "passages": base_t["passages"],
-            "questions": new_q
-        })
 
     return tests
 
