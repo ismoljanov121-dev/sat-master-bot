@@ -21,7 +21,7 @@ IELTS_VOCAB_PACKS = [
     {
         "topic": "Education, Brain & Intellectual Development",
         "words": [
-            {"w": "Acquisition", "m": "Eg騏lash, o'zlashtirish", "c": "language acquisition"},
+            {"w": "Acquisition", "m": "Egallash, o'zlashtirish", "c": "language acquisition"},
             {"w": "Cognitive", "m": "Aqliy, tafakkurga oid", "c": "cognitive development"},
             {"w": "Curriculum", "m": "O'quv dasturi", "c": "comprehensive curriculum"},
             {"w": "Proficiency", "m": "Yuqori darajadagi malaka", "c": "linguistic proficiency"},
