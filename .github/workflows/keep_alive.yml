@@ -11,5 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Render WebApp Health
-        run: |
-          curl -s -f --max-time 30 https://sat-master-bot.onrender.com/health || echo "Ping attempted"
+        run: curl -s -f --max-time 60 https://sat-master-bot.onrender.com/health

@@ -163,7 +163,7 @@ async def msg_mock_hub(message: Message):
         "Mini App ichida quyidagi bo'limlar tayyor:\n\n"
         "• <b>Digital SAT Mock:</b> 98 ta savol (54 Reading & Writing + 44 Math), adaptiv 2-modul va batafsil hisobot\n"
         "• <b>Qisqa mashqlar:</b> mavzu bo'yicha 10 savol, xatolar daftari va takrorlash\n"
-        "• <b>IELTS Listening:</b> 40 ta savol (Section 1–4) va tapescript bilan\n"
+        "• <b>IELTS Listening:</b> 40 ta savol (Section 1–4), audio va tapescript bilan\n"
         "• <b>IELTS Reading:</b> 40 ta savol, to'liq uzunlikdagi testlar bilan\n"
         "• <b>IELTS Writing:</b> 46 ta mavzu va AI tekshiruvi\n\n"
         "👇 <b>Quyidagi tugma orqali to'liq Mini App’ni oching:</b>"

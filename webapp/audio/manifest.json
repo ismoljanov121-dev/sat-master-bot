@@ -1,0 +1,38 @@
+{
+  "1": {
+    "1": {
+      "seconds": 256,
+      "url": "/audio/t1_s1-77f7c29630.mp3"
+    },
+    "2": {
+      "seconds": 211,
+      "url": "/audio/t1_s2-cd2632f5e1.mp3"
+    },
+    "3": {
+      "seconds": 254,
+      "url": "/audio/t1_s3-53de59ac89.mp3"
+    },
+    "4": {
+      "seconds": 199,
+      "url": "/audio/t1_s4-4afb1fccba.mp3"
+    }
+  },
+  "2": {
+    "1": {
+      "seconds": 198,
+      "url": "/audio/t2_s1-3f5366cf51.mp3"
+    },
+    "2": {
+      "seconds": 190,
+      "url": "/audio/t2_s2-c8f54489d0.mp3"
+    },
+    "3": {
+      "seconds": 214,
+      "url": "/audio/t2_s3-463a44232c.mp3"
+    },
+    "4": {
+      "seconds": 244,
+      "url": "/audio/t2_s4-6b29f77269.mp3"
+    }
+  }
+}
