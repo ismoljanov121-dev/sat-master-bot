@@ -220,9 +220,15 @@ views.satBreak = {
       <p class="muted">${newSection ? "Xohlasangiz, bir oz dam oling. Vaqt keyingi tugmani bosganingizda boshlanadi." : "Vaqt keyingi tugmani bosganingizda boshlanadi."}</p>
       <div class="card" style="width:100%"><div class="h3">${esc(info.section)}, Modul ${info.module}</div><div class="label num">${count} savol · ${info.minutes} daqiqa</div></div>
       <button class="btn primary block lg" data-act="nextStage">Boshlash</button>
+      <button class="btn block" data-act="back">Keyinroq davom ettirish</button>
     </div></div>`;
   },
-  onBack() {},
+  onBack() {
+    askConfirm("Imtihondan chiqasizmi? Javoblar saqlanadi, keyinroq shu joydan davom ettirasiz.", () => {
+      setExamGuard(false);
+      leaveView();
+    });
+  },
 };
 
 function mockPayload() {

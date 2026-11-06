@@ -12065,7 +12065,7 @@
 "dif": "Easy",
 "pas": "",
 "q": "If \\(6x-4=26\\), what is the value of \\(x\\)?",
-"exp": "Ikkala tomondan \\(-4\\) ni ayiramiz: \\(6x=30\\). So'ng \\(6\\) ga bo'lamiz: \\(x=5\\).",
+"exp": "Ikkala tomonga \\(4\\) ni qo'shamiz: \\(6x=30\\). So'ng \\(6\\) ga bo'lamiz: \\(x=5\\).",
 "strat": "Javobni tenglamaga qo'yib tekshiring: chap tomon o'ng tomonga teng chiqishi kerak.",
 "type": "spr",
 "ans": [
@@ -12095,7 +12095,7 @@
 "dif": "Easy",
 "pas": "",
 "q": "If \\(7x-3=25\\), what is the value of \\(x\\)?",
-"exp": "Ikkala tomondan \\(-3\\) ni ayiramiz: \\(7x=28\\). So'ng \\(7\\) ga bo'lamiz: \\(x=4\\).",
+"exp": "Ikkala tomonga \\(3\\) ni qo'shamiz: \\(7x=28\\). So'ng \\(7\\) ga bo'lamiz: \\(x=4\\).",
 "strat": "Javobni tenglamaga qo'yib tekshiring: chap tomon o'ng tomonga teng chiqishi kerak.",
 "type": "spr",
 "ans": [

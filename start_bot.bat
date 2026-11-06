@@ -1,8 +1,8 @@
 @echo off
-title EduTest Pro - Marstif Academy
+title IELTS & SAT Daily
 cd /d "%~dp0"
 echo ========================================================
-echo   EduTest Pro - Marstif Academy Digital SAT Engine
+echo   IELTS & SAT Daily
 echo ========================================================
 python bot.py
 pause

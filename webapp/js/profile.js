@@ -140,6 +140,7 @@ views.centerSession = {
       ${topics ? `<div class="section-title">Guruhning zaif mavzulari</div><div class="card">${topics}</div>` : ''}
       <div class="section-title">Natijalar</div>
       ${rows ? `<div class="card table-wrap"><table class="data"><thead><tr><th>#</th><th>O'quvchi</th><th>Ball</th><th>To'g'ri</th><th>Daqiqa</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="card empty">Hali natija yo\'q.</div>'}
+      ${open ? `<button class="btn primary block" data-act="shareSession" data-code="${session.code}" data-title="${esc(session.title)}">${icon('share', true)}Guruhga havola yuborish</button>` : ''}
       <div class="grid2"><button class="btn soft" data-act="exportSession" data-code="${session.code}" ${data.count ? '' : 'disabled'}>CSV yuklash</button>
         ${open ? `<button class="btn danger" data-act="closeExam" data-code="${session.code}">Imtihonni yopish</button>` : ''}</div></div>`;
   },
@@ -223,6 +224,10 @@ Object.assign(actions, {
     } catch (e) {
       toast("Yaratib bo'lmadi.");
     }
+  },
+  shareSession(el) {
+    const bot = App.boot?.bot_username;
+    shareLink(`https://t.me/${bot}?start=s_${el.dataset.code}`, `${el.dataset.title}: imtihonga shu havola orqali kiring.`);
   },
   async exportSession(el) {
     try {

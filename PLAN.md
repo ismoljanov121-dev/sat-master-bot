@@ -3,8 +3,7 @@
 Branch `feature/learning-platform`, developed in the `sat-master-bot-dev` worktree.
 Merging to `main` deploys to production (Render auto-deploy), so that step waits for Otabek's approval.
 
-Owner split: real Listening audio (idea 1) belongs to the `feat/listening-mp3-audio` work. This branch
-must not change `scripts/generate_ielts_data.py`, `scripts/listening_scripts.py`, or `webapp/audio/`.
+Real Listening audio (idea 1) was built separately on `feat/listening-mp3-audio` and is merged here.
 
 ## Definition of done
 
@@ -20,17 +19,17 @@ must not change `scripts/generate_ielts_data.py`, `scripts/listening_scripts.py`
 
 ## Stages
 
-- [ ] 1. Cleanup: real `handlers` package, remove dead code, config, tests, CI (idea 3)
-- [ ] 2. Database and `/api/v1` with `initData` auth (idea 2)
-- [ ] 3. Content: normalized bank, LaTeX, grid-in, figures, new questions, Reading tests (ideas 4, 6)
-- [ ] 4. Adaptive mock assembly and IRT score ranges (idea 5)
-- [ ] 5. Mini App rebuild: split files, compiled CSS, exam tools, Telegram theme and navigation (ideas 4, 15)
-- [ ] 6. Score report, practice, mistake notebook (ideas 7, 8)
-- [ ] 7. Diagnostic, study plan, reminders, weekly report (idea 9)
-- [ ] 8. AI Writing with Gemini (idea 10)
-- [ ] 9. Channel without repeats, share card, referrals (idea 12)
-- [ ] 10. Learning center panel: sessions, join codes, results, CSV (idea 14)
-- [ ] 11. Monitoring, health check, full verification, docs (idea 15)
+- [x] 1. Cleanup: real `handlers` package, remove dead code, config, tests, CI (idea 3)
+- [x] 2. Database and `/api/v1` with `initData` auth (idea 2)
+- [x] 3. Content: normalized bank, LaTeX, grid-in, figures, new questions, Reading tests (ideas 4, 6)
+- [x] 4. Adaptive mock assembly and IRT score ranges (idea 5)
+- [x] 5. Mini App rebuild: split files, compiled CSS, exam tools, Telegram theme and navigation (ideas 4, 15)
+- [x] 6. Score report, practice, mistake notebook (ideas 7, 8)
+- [x] 7. Diagnostic, study plan, reminders, weekly report (idea 9)
+- [x] 8. AI Writing with Gemini (idea 10)
+- [x] 9. Channel without repeats, share card, referrals (idea 12)
+- [x] 10. Learning center panel: sessions, join codes, results, CSV (idea 14)
+- [x] 11. Monitoring, health check, full verification, docs (idea 15)
 
 ## Decisions
 

@@ -1,3 +1,4 @@
+import os
 from unittest.mock import AsyncMock, patch
 
 import config
@@ -390,6 +391,10 @@ class ReferralTest(ApiTestCase):
 
 
 class WebTest(ApiTestCase):
+    async def test_ci_runs_on_the_database_it_asked_for(self):
+        expected = "postgres" if os.environ.get("TEST_DATABASE_URL") else "sqlite"
+        self.assertEqual(db.kind, expected)
+
     async def test_health_reports_storage_and_version(self):
         response = await self.client.get("/health")
         data = await response.json()

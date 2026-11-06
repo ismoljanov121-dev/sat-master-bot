@@ -1,113 +1,75 @@
-# EduTest Pro — Administrator Demo Qo'llanmasi (5 Daqiqalik Runbook)
+# Markaz rahbariyati uchun 5 daqiqalik demo
 
-Ushbu qo'llanma bugun **Marstif Academy** rahbari va ma'muriyati (Marifat Jamal) oldida **EduTest Pro** tizimini 5 daqiqa ichida xatosiz, professional va hayratlanarli darajada ko'rsatish uchun mo'ljallangan.
+Bu qo'llanma tizimni o'quv markazi rahbariyatiga ko'rsatish uchun. Hamma qadamlar hozirgi bot va Mini App'da ishlaydi.
 
----
-
-## 1. Uchrashuvdan 15 daqiqa oldin tayyorgarlik (Checklist)
-
-1. **Telegram Akkaunt va Bot tekshiruvi:**
-   - O'zingizning Telegram ID raqamingiz `.env` faylida `ADMIN_IDS` ro'yxatiga kiritilganini tekshiring:
-     ```env
-     ADMIN_IDS=SIZNING_TELEGRAM_ID
-     CENTER_NAME="MARSTIF ACADEMY"
-     MENTOR_NAME="Marifat Jamal"
-     ```
-2. **Botni lokal ishga tushirish:**
-   ```powershell
-   cd D:\AntigravityWorkspace\projects\sat_ai_bot
-   python bot.py
-   ```
-   Konsolda quyidagi xabarni ko'ring:
-   ```
-   🚀 EduTest Pro TIZIMI ISHGA TUSHDI!
-   🤖 Bot: @edutest_pro_bot
-   🏛️ Markaz: MARSTIF ACADEMY
-   🌐 Web Server & /api/v1/ listening on port 8080
-   ```
-3. **Avtomatlashtirilgan testlarni yashil holatini tekshirish:**
-   ```powershell
-   python -m unittest discover -v tests
-   # 11 tests in 0.002s — OK!
-   ```
+Demo uchun ikkita telefon kerak: biri o'qituvchi, biri o'quvchi.
 
 ---
 
-## 2. 5 Daqiqalik Administrator Demo Ssenariysi
+## 1. Uchrashuvdan oldin
 
-### 00:00 – 01:00 | 1-qadam: Kirish va Mahsulot Pozitsionirovkasi
-- **Siz aytasiz:**
-  > *"Assalomu alaykum! Biz bilamizki, har shanba-yakshanba markazda Digital SAT mock imtihonini o'tkazish, test varaqalarini tarqatish, 50-60 ta o'quvchining javobini qo'lda tekshirish kamida 3-4 soat o'qituvchi va ma'murlar vaqtini oladi. O'quvchi natijasini esa 2 kundan keyin oladi.
-  > Biz Marstif Academy uchun **EduTest Pro** tizimini tayyorladik. Hozir 3 daqiqa ichida bu jarayon qanday qilib to'liq avtomatlashtirilgan va lahzalik (real-time) natijaga aylanishini ko'rsataman."*
-
----
-
-### 01:00 – 02:30 | 2-qadam: O'quvchi Tajribasi (Student Journey & Demo Mock)
-- **Ko'rsatasiz:**
-  1. Telefoningizda botga `/start` yuborasiz.
-  2. Ekrandagi toza brendingni ko'rsatasiz:
-     - `EduTest Pro — MARSTIF ACADEMY`
-     - 3 ta asosiy yo'nalish: `🔬 Diagnostika`, `📝 Mock Imtihon`, `📚 SAT Mashq Bazasi`.
-  3. **`📝 Mock Imtihon`** tugmasini bosing:
-     - `⚡ Demo Mock (12 savol / 12 daqiqa)` ni tanlang.
-  4. Test jarayoni:
-     - Ekranda savol, variantlar (A, B, C, D) va server taymeri (`⏳ Qolgan vaqt: 11:58`).
-     - Variantlarni bosing — tizim javobni xavfsiz qayd etadi (qayta bosilsa ham ball ko'paymaydi).
-     - 2-3 ta savolga javob berib, **`🏁 Tugatish`** tugmasini bosing.
-  5. **Natija kartochkasi chiqadi:**
-     - Umumiy aniqlik foizi (masalan: `75% — 9/12 to'g'ri`).
-     - Bo'limlar kesimi: Math, Reading, Writing alohida ko'rsatiladi.
-     - Kuchsiz mavzular (Weaknesses) aniqlab beriladi (masalan: *Algebra - Linear Equations*).
-  - **Siz aytasiz:**
-    > *"Ko'rib turganingizdek, o'quvchi testni tugatishi bilanoq, o'qituvchi 1 daqiqa ham vaqt sarflamasdan o'quvchining qaysi bo'limda oqsayotganini ko'radi."*
+1. Render'da `ADMIN_IDS`, `DATABASE_URL` va `GEMINI_API_KEY` sozlanganini tekshiring.
+2. Botga `/admin` yuboring. Saqlash qatorida Postgres ko'rinishi kerak.
+3. Markaz yarating: `/center_add Marstif Academy`. Bot o'qituvchilar uchun taklif havolasini beradi.
+4. O'qituvchi telefonida havolani oching. Mini App'dagi Profil bo'limida Markaz paneli paydo bo'ladi.
+5. O'quvchi telefonida bir marta mock yoki mashq ishlab qo'ying, shunda Natijalar bo'limi bo'sh bo'lmaydi.
 
 ---
 
-### 02:30 – 04:00 | 3-qadam: Administrator Paneli & Jonli Sessiya (Admin Live Control)
-- **Ko'rsatasiz:**
-  1. Botga `/admin` buyrug'ini yuboring (yoki menyudagi `⚙️ Administrator Paneli` tugmasini bosing).
-  2. **Real-time statistika ekrani:**
-     - Jami o'quvchilar soni.
-     - Bugun faol o'quvchilar.
-     - O'rtacha aniqlik foizi.
-  3. **Guruhli Imtihon Sessiyasini Ochish:**
-     - **`🎯 Yangi Mock Sessiya Ochish`** tugmasini bosing.
-     - Tizim 6 xonali maxsus kod beradi (masalan: `MARS26`).
-     - **Siz aytasiz:**
-       > *"Dars xonasida o'qituvchi doskaga 'MARS26' deb yozib qo'yadi. Butun guruh botga '/mock MARS26' deb yozishi bilan barcha o'quvchilarda bir vaqtda test boshlanadi. Vaqt tugashi bilan test avtomatik yopiladi."*
-  4. **Natijalarni ko'rish:**
-     - **`👥 So'nggi Natijalar`** tugmasi orqali o'quvchilarning topshirgan testlari ro'yxatini ko'rsatasiz.
+## 2. Demo ssenariysi
+
+### 00:00 – 01:00 | Muammo
+
+> "Mock imtihonni qog'ozda o'tkazish va 50 ta o'quvchining javobini qo'lda tekshirish soatlab vaqt oladi. Bu tizimda o'quvchi testni tugatishi bilan natija o'qituvchining telefonida turadi."
+
+### 01:00 – 02:30 | O'quvchi tajribasi
+
+1. Mini App'ni oching va Bugun ekranini ko'rsating: kunlik reja, seriya, haftalik faollik.
+2. SAT bo'limida mock'ni boshlang. Taymer, savollar xaritasi, kalkulyator va formulalar varag'ini ko'rsating.
+3. Natijalar bo'limida oldingi hisobotni oching: ball oralig'i, mavzular bo'yicha tahlil, keyingi qadamlar.
+
+> "O'quvchi faqat ball emas, aynan qaysi mavzuda oqsayotganini va keyin nima qilishni ko'radi."
+
+### 02:30 – 04:00 | Guruh imtihoni
+
+1. O'qituvchi telefonida: Profil, Markaz paneli, Yangi guruh imtihoni.
+2. Imtihonni tanlang. Tizim 6 belgili kod beradi.
+3. O'quvchi telefonida botga `/mock KOD` yozing yoki "Guruhga havola yuborish" tugmasidan foydalaning.
+4. Imtihonni boshlang.
+
+> "O'qituvchi kodni doskaga yozadi, o'quvchilar telefonida ochadi. Qog'oz kerak emas."
+
+Vaqt kam bo'lsa, oldindan tugatilgan imtihon natijalarini oching.
+
+### 04:00 – 05:00 | Natijalar va hisobot
+
+1. Markaz panelida imtihonni oching: topshirganlar, o'rtacha ball, natijalar jadvali.
+2. Guruhning zaif mavzulari blokini ko'rsating.
+3. CSV yuklash tugmasini bosing. Fayl bot chatiga keladi va Excel'da ochiladi.
+
+> "O'qituvchi keyingi darsni aynan shu zaif mavzulardan boshlashi mumkin."
 
 ---
 
-### 04:00 – 05:00 | 4-qadam: 1-Klikda Excel / CSV Eksport
-- **Ko'rsatasiz:**
-  1. Admin panelida **`📥 Natijalarni CSV Yuklab Olish`** tugmasini bosing.
-  2. Bot bir necha soniyada to'liq formatlangan `.csv` faylini yuboradi (`edutest_pro_results_...csv`).
-  3. Telegram ichida yoki Excelda faylni ochib ko'rsatasiz:
-     - O'quvchi ismi, Telegram ID, username.
-     - To'g'ri javoblar soni va aniqlik foizi.
-     - Math / Reading / Writing kesimi.
-     - Toshkent vaqti bilan yozilgan sana.
-  - **Siz aytasiz:**
-    > *"Bu hisobotni markaz rahbariyati oylik hisobotlarga, ota-onalar bilan suhbatlarga yoki o'qituvchilar monitoringiga to'g'ridan-to'g'ri biriktirishi mumkin. Hech qanday qog'ozbozliksiz."*
+## 3. Kutilmagan vaziyatlar
+
+- **Mini App ochilmasa:** `https://sat-master-bot.onrender.com/health` manzilini tekshiring. `status: ok` chiqishi kerak.
+- **Internet uzilsa:** o'quvchi tugatgan test telefonda saqlanadi va keyingi ochilishda serverga yuboriladi.
+- **Mini App yopilib qolsa:** tugallanmagan mock Bugun ekranida "Tugallanmagan imtihon" bo'lib chiqadi. Vaqt to'xtamaydi.
+- **AI band bo'lsa:** tekshiruv sarflanmaydi, bir ozdan keyin qayta uriniladi.
 
 ---
 
-## 3. Kutilmagan vaziyatlar va Failover Rejasi (Internet va Xotira Himoyasi)
+## 4. Halol javoblar
 
-- **Tarmoq va Xotira Ishonchliligi:**
-  - Telegram boti ishlashi uchun internet aloqasi majburiydir (Telegram serverlari bilan bog'lanish uchun).
-  - Biroq, MongoDB buluti uzilsa yoki server to'satdan o'chib qolsa, bot lokal `users_db.json` faylida to'liq atomik keshda ishlaydi.
-  - Ma'lumotlar yo'qolmaydi (`asyncio.Lock`, flush, fsync va `os.replace` himoyasi bor).
-  - Agar tashqi internet uzilsa, WebApp interfeysini lokal brauzerda `http://127.0.0.1:8080/webapp` orqali "Offline Demo Rejimi"da xavfsiz ko'rsatishingiz mumkin.
+**"Bu rasmiy 1600 ballik natijami?"**
+Yo'q. Ball savollarning qiyinligini hisobga olib taxminan hisoblanadi va oraliq bilan ko'rsatiladi. Savollar College Board'niki emas, bu mustaqil mashq platformasi.
 
----
+**"O'quvchi javoblarni ko'chira oladimi?"**
+Ha, nazorat qilinmasa bunga imkon bor. Javob kalitlari ilova ma'lumotida turadi, variantlar tartibi hamma uchun bir xil, taymer esa telefonda ishlaydi. Shuning uchun muhim imtihonlarda telefonlar xonada kuzatilishi kerak.
 
-## 4. Halol Cheklovlar va Professional Javoblar
+**"AI bahosiga ishonsa bo'ladimi?"**
+U mashq uchun yo'l-yo'riq beradi. Rasmiy IELTS bahosi o'rnini bosmaydi, yakuniy bahoni o'qituvchi beradi.
 
-- **Savol:** *"Bu College Board'ning rasmiy 1600 ballini beradimi?"*
-  - **Javob:** *"Yo'q, va biz buni halol aytamiz. Rasmiy 1600 ballik shkala College Board'ning maxsus IRT (Item Response Theory) adaptiv algoritmi orqali hisoblanadi. EduTest Pro o'quv markazning ichki mock testi bo'lib, o'quvchining haqiqiy aniqlik foizini (Accuracy %) va zaif mavzularini aniqlab berishga ixtisoslashgan."*
-
-- **Savol:** *"O'quvchi boshqa ilovaga chiqib ketsa qanday bilamiz?"*
-  - **Javob:** *"Mini App'da o'quvchi boshqa oynaga o'tganda (tab hidden) xizmat signali loglanadi. Biroq yuqori darajadagi jiddiy imtihonlarda markaz xonasida telefonlarni stol ustiga qo'yish yoki kuzatuvchi nazorati eng ishonchli yechim bo'lib qoladi."*
+**"Savollar qancha?"**
+753 ta SAT savoli, 5 ta to'liq mock, 4 ta Reading, 2 ta Listening testi va 46 ta Writing mavzusi. Yangi savollar qo'shib boriladi.

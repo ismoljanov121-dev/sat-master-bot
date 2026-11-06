@@ -147,18 +147,18 @@ function bindAudio() {
   const audio = document.getElementById('audio');
   if (!audio) return;
   const seek = document.getElementById('audio-seek');
+  const clock = document.getElementById('audio-time');
+  const status = document.getElementById('audio-state');
+  const button = document.getElementById('play-btn');
   const format = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   audio.addEventListener('timeupdate', () => {
-    document.getElementById('audio-time').textContent = format(audio.currentTime);
+    clock.textContent = format(audio.currentTime);
     if (audio.duration) seek.value = audio.currentTime / audio.duration * 1000;
   });
-  const state = playing => {
-    const button = document.getElementById('play-btn');
-    if (button) button.innerHTML = icon(playing ? 'pause' : 'play');
-  };
+  const state = playing => { button.innerHTML = icon(playing ? 'pause' : 'play'); };
   audio.addEventListener('play', () => state(true));
   audio.addEventListener('pause', () => state(false));
-  audio.addEventListener('error', () => { document.getElementById('audio-state').textContent = "Audio yuklanmadi. Internetni tekshiring."; });
+  audio.addEventListener('error', () => { status.textContent = "Audio yuklanmadi. Internetni tekshiring."; });
   seek.addEventListener('change', () => { if (audio.duration) audio.currentTime = seek.value / 1000 * audio.duration; });
 }
 
@@ -193,6 +193,7 @@ async function gradeTest() {
   haptic('good');
   it.pane = 'q';
   drawTest();
+  document.getElementById('exam-timer').innerHTML = '<span class="timer off">Yakunlandi</span>';
   const result = await submitAttempt({
     kind: `ielts_${it.kind}`, ref: it.test.num, answers: it.answers,
     duration_s: Math.round((Date.now() - it.startedAt) / 1000), session: it.session || undefined,
@@ -258,6 +259,7 @@ function saveInput(el) {
   document.getElementById('exam-bar').style.width = `${Object.keys(it.answers).length / it.test.questions.length * 100}%`;
 }
 document.addEventListener('input', event => { if (event.target.closest?.('.iq')) saveInput(event.target); });
+document.addEventListener('change', event => { if (event.target.closest?.('.iq')) saveInput(event.target); });
 
 Object.assign(actions, {
   iqSet(el) {

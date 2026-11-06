@@ -4,6 +4,7 @@ import logging
 import os
 import re
 import time
+import warnings
 from pathlib import Path
 
 from aiogram import Bot, Dispatcher
@@ -18,6 +19,9 @@ from database import db
 from handlers import router
 from scheduler import setup_scheduler
 from services import alerts, cards
+
+# String keys are fine for this small app, and the warning would only fill the logs.
+warnings.filterwarnings("ignore", category=web.NotAppKeyWarning)
 
 logging.basicConfig(
     level=logging.INFO,

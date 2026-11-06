@@ -57,7 +57,9 @@ views.report = {
   render({ id, report, review }) {
     App.reportSteps = report.steps || [];
     const body = report.kind === 'sat_mock' ? satReportBody(report) : practiceReportBody(report);
-    const offline = report.offline ? `<div class="card tight small">Internet yo'q, shuning uchun bu taxminiy hisob. Natija ulanish tiklanganda saqlanadi.</div>` : '';
+    const offline = !report.offline ? '' : `<div class="card tight small">${hasTelegramUser
+      ? "Internet yo'q, shuning uchun bu taxminiy hisob. Natija ulanish tiklanganda saqlanadi."
+      : "Natija saqlanmadi. Natijalaringiz saqlanishi uchun testni Telegram ichida oching."}</div>`;
     return `<div class="page flush stack">${offline}${body}
       ${App.reportSteps.length ? `<div class="section-title">Keyingi qadamlar</div><div class="list">${stepButtons(App.reportSteps)}</div>` : ''}
       <div class="grid2">

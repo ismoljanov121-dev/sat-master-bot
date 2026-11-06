@@ -16,25 +16,29 @@
 
 ---
 
-## 2. EduTest Pro Tizimining Asosiy Imkoniyatlari
+## 2. Tizimning Asosiy Imkoniyatlari
 
-1. **Markazlashtirilgan Mock Imtihon Dvigateli (Exam Engine):**
-   - Server tomondan qat'iy nazorat qilinadigan vaqt (taymer).
-   - Tasodifiy variantlar (A, B, C, D har bir o'quvchida turli tartibda tushadi — ko'chirib olishning oldi olinadi).
-   - Guruhli imtihon uchun 6 xonali maxsus sessiya kodi (masalan: `MARS26`).
+Telegram'da tizim **IELTS & SAT Daily** nomi bilan ochiladi.
 
-2. **Administrator Boshqaruv Paneli (`/admin`):**
-   - Real-time statistika: Jami o'quvchilar, bugun faollar, o'rtacha o'zlashtirish ko'rsatkichi.
-   - Jonli imtihon sessiyalarini ochish va yopish.
-   - Har bir o'quvchining zaif mavzulari kesimidagi hisobotini ko'rish.
+1. **Adaptiv Mock Imtihonlar:**
+   - 5 ta Digital SAT mock: ikkinchi modul birinchi modul natijasiga qarab tanlanadi, mavzular rasmiy taqsimotga mos.
+   - Taymer, kalkulyator, formulalar varag'i, savolni belgilash va variantni chizish.
+   - IELTS Reading va Listening: 40 savollik testlar.
 
-3. **1-Klikda Rasmiy CSV / Excel Eksport:**
-   - Oylik o'zlashtirish hisobotlarini bir tugma bilan Excel jadvali ko'rinishida yuklab olish.
-   - Ota-onalar majlislari va ichki monitoring uchun tayyor hujjat.
+2. **Markaz Paneli:**
+   - O'qituvchi guruh imtihonini ochadi va 6 belgili kod oladi (masalan: `GKXMDY`).
+   - O'quvchilar botga `/mock KOD` yozib kiradi.
+   - Natijalar jadvali, o'rtacha ball va guruhning zaif mavzulari.
 
-4. **Desmos Strategiyalari va Cheksiz Mashq:**
-   - Digital SAT imtihonida eng ko'p ball olib beruvchi Desmos kalkulyatoridan tezkor yechish usullari.
-   - Math, Reading va Writing bo'yicha cheksiz mashq qilish muhiti.
+3. **CSV Eksport:**
+   - Guruh imtihoni natijalari bir tugma bilan bot chatiga CSV fayl bo'lib keladi va Excel'da ochiladi.
+
+4. **O'quvchi Uchun Mustaqil Ish:**
+   - 753 ta SAT savoli, mavzu bo'yicha 10 savollik mashqlar va xatolar daftari.
+   - Diagnostika, kunlik reja, eslatmalar va haftalik hisobot.
+   - IELTS Writing uchun AI tekshiruvi (taxminiy band, kuniga cheklangan).
+
+Ballar taxminiy va rasmiy natija emas. Javob kalitlari ilova ma'lumotida turadi, shuning uchun muhim imtihonlarda telefonlarni xonada kuzatish kerak.
 
 ---
 
@@ -50,10 +54,10 @@ Biz Marstif Academy uchun ushbu tizimni to'liq moslashtirib, sozlab berishga tay
 
 - **A Varianti (O'zaro Barter):**
   - Tizimni Marstif Academy uchun to'liq texnik qo'llab-quvvatlash, yangi savollar kiritish va server nazoratini ta'minlash evaziga Otabekning oylik o'qish to'lovi (1 800 000 so'm) o'zaro hisob-kitob (barter) qilinadi.
-  - *Markaz yutug'i:* Markazdan naqd pul chiqmaydi, lekin o'zining shaxsiy brendiga ega professional imtihon tizimiga ega bo'ladi.
+  - *Markaz yutug'i:* Markazdan naqd pul chiqmaydi, lekin guruh imtihonlari va natijalar paneliga ega bo'ladi.
 
 - **B Varianti (Tizimni Sotib Olish va Oylik Obuna):**
-  - Boshlang'ich sozlash va brendlash: 1 200 000 — 1 500 000 so'm (bir martalik).
+  - Boshlang'ich sozlash: 1 200 000 — 1 500 000 so'm (bir martalik).
   - Oylik texnik xizmat va server monitoringi: 300 000 so'm / oy.
 
 ---
