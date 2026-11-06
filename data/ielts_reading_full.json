@@ -1,0 +1,883 @@
+[
+{
+"id": "ielts_read_3",
+"num": 3,
+"title": "IELTS Academic Full Test 3",
+"subtitle": "Vertical farms, qanats, language revival",
+"full": true,
+"passages": [
+{
+"num": 1,
+"title": "Passage 1: Farming Upwards",
+"text": "A\nFor most of human history, growing more food has meant finding more land. Forests were cleared, wetlands drained and hillsides cut into terraces, and the fields moved steadily outwards from the towns they fed. A small but growing group of engineers now proposes to reverse this logic. Instead of spreading across the countryside, they argue, agriculture could rise upwards, in stacked layers inside windowless buildings on the edge of, or even in the middle of, the cities where most people live.\n\nB\nA vertical farm looks more like a laboratory than a field. Plants grow in shallow trays, one above the other, sometimes ten or more levels high. Their roots hang in a thin film of nutrient solution or are sprayed with a fine mist, so no soil is needed. Light comes from rows of LEDs tuned to the red and blue wavelengths that plants use most efficiently, and sensors adjust temperature, humidity and carbon dioxide every few minutes. Because the environment never changes with the seasons, a crop of lettuce that takes two months to mature outdoors can be ready for harvest in less than four weeks, and the same tray can produce a dozen or more crops a year.\n\nC\nSupporters point first to water. Traditional agriculture accounts for around seventy per cent of the fresh water that humans withdraw from rivers and underground sources, and a large share of it evaporates or drains away before the plant can use it. In a closed indoor system the moisture that plants release is captured from the air and returned to the tanks, which means that the same kilogram of lettuce may require as little as five per cent of the water used in an open field. The sealed rooms also keep out most insects, so growers can do without pesticides altogether, a benefit that appeals strongly to buyers of premium salads.\n\nD\nLocation is the second argument. Much of the fresh produce sold in large cities has travelled hundreds of kilometres, and some of it has crossed an ocean. It is picked before it is ripe, chilled, and often loses a good part of its flavour and vitamins on the way. A farm on the city's edge can deliver within hours of harvest. This matters most in places where the climate makes outdoor farming difficult: desert states in the Gulf, which import the great majority of their vegetables, have been among the most enthusiastic investors in the technology.\n\nE\nYet the economics have proved far harsher than the early publicity suggested. Sunlight is free; electricity is not. Engineers estimate that lighting and climate control can make up more than half of a vertical farm's running costs, and the rise in energy prices in the early 2020s pushed several well-funded companies in Europe and North America into bankruptcy. Critics also question the environmental claims. If the electricity comes from burning gas or coal, argues the agricultural economist Dr Maren Holt, a lettuce grown indoors may be responsible for more carbon emissions than one grown in a field and driven across a continent. Unless the power is renewable, she says, \"you are simply moving the pollution from the tractor to the power station\".\n\nF\nThere are also limits on what can be grown. Leafy greens and herbs are ideal: they are light, fast-growing and almost entirely edible. Wheat, rice and maize, which supply most of the world's calories, are a different matter. They need a great deal of light to produce relatively cheap grain, and one widely quoted calculation found that a loaf of bread made from indoor wheat would cost many times the normal price. For the foreseeable future, therefore, vertical farms will not feed the world; at best they will supply a small part of its salad.\n\nG\nEven so, few researchers expect the idea to disappear. The price of LEDs has fallen sharply over the last decade and their efficiency continues to improve, while climate change is making harvests in many traditional growing regions less reliable. The most realistic future, according to the plant scientist Kenji Morita, is a modest one in which indoor farms sit alongside conventional ones rather than replacing them. \"A vertical farm is not a revolution,\" he says. \"It is a useful tool for particular crops in particular places. That may be less exciting than the headlines, but it is a much better business plan.\""
+},
+{
+"num": 2,
+"title": "Passage 2: The Hidden Rivers of the Desert",
+"text": "A\nTravellers crossing the dry plains of Iran or western China sometimes notice a strange line of circular mounds stretching towards the mountains, each one looking like the work of a giant mole. Seen from the air, the rings form dotted paths many kilometres long. They are the only visible sign of one of the most remarkable engineering achievements of the ancient world: the qanat, an underground channel that carries water from the foot of the mountains to fields and villages far out in the desert.\n\nB\nThe principle is simple, although the work is not. Diggers begin by sinking a test well at the base of a slope, where rain and melted snow collect in the gravel beneath the surface. When they reach the water table, they move some distance down the slope and start a gently sloping tunnel that runs back towards this 'mother well'. Vertical shafts are dug every twenty to fifty metres, both to remove the excavated soil and to let air reach the workers. The soil from each shaft is piled around its mouth, which produces the rings seen from above. The tunnel is given a slope so slight that the water flows without eroding the walls, and it eventually emerges at ground level, where it can be led into canals.\n\nC\nNo machinery is involved. Gravity alone moves the water, and because the channel is underground, very little is lost to evaporation, a decisive advantage in places where summer temperatures exceed forty degrees. A well-built qanat delivers a steady flow all year round, day and night, and unlike a modern pump it cannot remove more water than the mountain aquifer supplies. In this sense the system limits itself: when the water table falls after dry years, the flow declines, and farmers are forced to reduce what they plant.\n\nD\nWhere the technique began is still debated. Most scholars place its origins on the Iranian plateau in the first millennium BCE, and there is good evidence that the Persian Empire encouraged its spread by granting tax privileges to anyone who brought new land under irrigation. From there, the knowledge travelled along trade routes. Qanats, known as karez in Central Asia and falaj in Oman, appeared in Afghanistan, Uzbekistan and Xinjiang, and later, with Arab expansion, in North Africa and Spain. Spanish settlers may even have carried the method to parts of Mexico and Chile.\n\nE\nBuilding and maintaining these tunnels required more than technical skill. A village's survival depended on a shared resource that no single family could have built, so elaborate social arrangements grew up around it. Water rights were measured in units of time and passed from parents to children, and elected water masters settled disputes and kept careful records. In some Omani villages, shares were once timed with sundials by day and the movement of the stars by night. Specialised diggers formed respected guilds whose techniques passed from father to son, and whose dangerous work, with cave-ins a constant risk, was rewarded with high status.\n\nF\nDuring the twentieth century, thousands of these systems fell out of use. Diesel pumps, introduced on a large scale after the 1950s, could raise water from deep wells in a fraction of the time and without the need for cooperation between neighbours. Yet the pumps often lowered the water table so far that nearby qanats ran dry. Young people left for the cities, and the skilled diggers grew old with no one to replace them. In Iran alone, tens of thousands of channels once ran; a large proportion are now abandoned.\n\nG\nRecently, however, the old tunnels have attracted new admirers. Hydrologists facing shrinking groundwater reserves point out that qanats are, in effect, sustainable by design. Several have been listed as World Heritage sites, and restoration projects in Iran, Oman and Xinjiang have reopened some channels, often with support from local governments. Nobody expects them to replace modern irrigation. But as water becomes scarcer across Central Asia and the Middle East, a technology that asks people to live within what the land provides may prove to be more modern than it looks."
+},
+{
+"num": 3,
+"title": "Passage 3: Speaking Again",
+"text": "A language is usually said to be endangered when children stop learning it at home. By some estimates, around half of the roughly seven thousand languages spoken today may fall silent by the end of this century. Linguists have been sounding this alarm for decades, and the figures are frequently repeated. Less attention has been paid to a quieter story: in a growing number of communities, languages that seemed to be on the point of vanishing are being deliberately brought back.\n\nThe best-known case is Hebrew, which for many centuries survived chiefly as a language of prayer and scholarship before being revived as an everyday tongue in the late nineteenth and early twentieth centuries. It now has millions of native speakers. For a long time this was regarded as a unique exception, the product of unusual political and historical circumstances. But later movements have shown that much smaller groups, with far fewer resources, can also reverse the decline. In New Zealand, Maori activists alarmed by the falling number of child speakers set up the first kohanga reo, or 'language nests', in 1982. These were preschools in which elders spoke only Maori to young children. In Hawaii, a similar network of schools was founded a few years later, at a time when fewer than fifty children could speak Hawaiian.\n\nWhat these projects have in common is a belief that a language lives in daily use rather than in dictionaries. Professor Aroha Tamati, who has studied the language nests for thirty years, argues that documenting a language and reviving it are quite different tasks. \"A grammar book can preserve the skeleton of a language,\" she says, \"but only a grandmother scolding a child can keep it breathing.\" This is why many programmes now concentrate on very young children and on the adults who care for them. Courses in which a learner is paired with a fluent elder for hundreds of hours of ordinary conversation have proved especially effective, particularly where only a handful of elderly speakers remain.\n\nTechnology has opened further possibilities, though its value is disputed. Recordings made by anthropologists a century ago have allowed communities to recover pronunciation and stories that no living person remembers. Smartphone keyboards, online dictionaries and social media let scattered speakers stay in touch. Dr Daniel Reyes, a computational linguist, believes that speech recognition will soon give even small languages a place in the digital world, which matters because young people judge a language partly by whether it appears on their screens. Others are cautious. Professor Tamati warns that an app can create a feeling of progress while the number of fluent speakers continues to fall.\n\nPolitical support is another deciding factor. Official recognition does not by itself create speakers, but it gives a language a presence in schools, in courts and on road signs, and it sends a message that the language is not a mark of backwardness. The sociolinguist Ingrid Aas, who compared revival efforts in northern Scandinavia, found that children were far more willing to use the Sami languages once their parents no longer felt ashamed of them. In her view, changing attitudes is harder than teaching vocabulary, and must come first. Where a language has been punished in schools within living memory, as happened to many indigenous peoples, the older generation may actively discourage children from learning it in the belief that they are protecting them.\n\nSuccess also brings awkward questions. A revived language inevitably changes. New learners tend to carry the sounds and sentence patterns of the dominant language with them, and they need thousands of new words for computers, medicine and modern life. Some elders complain that what the young speak is not the real language at all. Dr Reyes regards this as a healthy sign, pointing out that all living languages change and that only dead ones stay the same. Communities must also decide who has the authority to create new terms: a committee, the elders, or ordinary speakers.\n\nNor should the achievements be overstated. Even well-funded programmes struggle, and most endangered languages have no such support. The Maori revival, for all its fame, has not yet returned the language to everyday use in most homes. Still, the old assumption that language loss is a one-way process has been overturned. As Aas puts it, \"We used to write obituaries for languages. Now we also have to write about recoveries.\""
+}
+],
+"headings": {
+"2": [
+"i. A system that cannot take too much",
+"ii. How the tunnels are constructed",
+"iii. A technique that crossed continents",
+"iv. A community organised around water",
+"v. New interest in an ancient method",
+"vi. The high cost of digging by hand",
+"vii. Competition from a faster technology",
+"viii. Why the tunnels were made illegal"
+]
+},
+"questions": [
+{
+"num": 1,
+"passage_num": 1,
+"type": "tfng",
+"text": "Vertical farms are usually built with large windows to let in daylight.",
+"ans": "FALSE",
+"expl": "A abzasi: binolar \"windowless\", ya'ni derazasiz."
+},
+{
+"num": 2,
+"passage_num": 1,
+"type": "tfng",
+"text": "Plants in vertical farms can be grown without soil.",
+"ans": "TRUE",
+"expl": "B abzasi: \"no soil is needed\"."
+},
+{
+"num": 3,
+"passage_num": 1,
+"type": "tfng",
+"text": "Lettuce reaches harvest more quickly indoors than outdoors.",
+"ans": "TRUE",
+"expl": "B abzasi: ikki oy o'rniga to'rt haftadan kam."
+},
+{
+"num": 4,
+"passage_num": 1,
+"type": "tfng",
+"text": "Consumers will pay twice as much for salads grown without pesticides.",
+"ans": "NOT GIVEN",
+"expl": "C abzasida xaridorlarga yoqishi aytilgan, lekin narx haqida ma'lumot yo'q."
+},
+{
+"num": 5,
+"passage_num": 1,
+"type": "tfng",
+"text": "Gulf states import most of their vegetables.",
+"ans": "TRUE",
+"expl": "D abzasi: \"import the great majority of their vegetables\"."
+},
+{
+"num": 6,
+"passage_num": 1,
+"type": "form",
+"text": "LED lights are tuned to the blue and ______ wavelengths that plants use most efficiently.",
+"ans": "red",
+"expl": "B abzasi: \"red and blue wavelengths\"."
+},
+{
+"num": 7,
+"passage_num": 1,
+"type": "form",
+"text": "The moisture released by plants is collected from the ______ and reused.",
+"ans": "air",
+"expl": "C abzasi: \"captured from the air\"."
+},
+{
+"num": 8,
+"passage_num": 1,
+"type": "form",
+"text": "Produce that travels a long way often loses flavour and ______.",
+"ans": "vitamins",
+"expl": "D abzasi: \"its flavour and vitamins\"."
+},
+{
+"num": 9,
+"passage_num": 1,
+"type": "form",
+"text": "More than half of the running costs may come from lighting and ______.",
+"ans": "climate control",
+"expl": "E abzasi: \"lighting and climate control\"."
+},
+{
+"num": 10,
+"passage_num": 1,
+"type": "mcq",
+"text": "Why did several vertical farming companies go bankrupt?",
+"options": [
+"A. They could not find enough workers.",
+"B. Energy became more expensive.",
+"C. Customers stopped buying salads.",
+"D. Governments withdrew their support."
+],
+"ans": "B",
+"expl": "E abzasi: energiya narxi oshishi kompaniyalarni bankrotlikka olib kelgan."
+},
+{
+"num": 11,
+"passage_num": 1,
+"type": "mcq",
+"text": "What is Dr Holt's main point?",
+"options": [
+"A. Indoor lettuce is always worse for the climate.",
+"B. Tractors cause more pollution than power stations.",
+"C. The climate benefit depends on where the electricity comes from.",
+"D. Food should never be transported long distances."
+],
+"ans": "C",
+"expl": "E abzasi: elektr qayta tiklanmasa, ifloslanish faqat joyini o'zgartiradi."
+},
+{
+"num": 12,
+"passage_num": 1,
+"type": "mcq",
+"text": "Why are wheat and rice unsuitable for vertical farms?",
+"options": [
+"A. They need too much water.",
+"B. They grow too slowly to be harvested.",
+"C. They need a lot of light to produce a cheap product.",
+"D. They cannot be grown without soil."
+],
+"ans": "C",
+"expl": "F abzasi: ko'p yorug'lik kerak, mahsulot esa arzon."
+},
+{
+"num": 13,
+"passage_num": 1,
+"type": "mcq",
+"text": "What does Kenji Morita believe about vertical farms?",
+"options": [
+"A. They will replace most traditional farms.",
+"B. They are a useful addition for certain crops.",
+"C. They will disappear when LED prices rise.",
+"D. They are too risky for investors."
+],
+"ans": "B",
+"expl": "G abzasi: an'anaviy fermalar yonida ishlaydigan foydali vosita."
+},
+{
+"num": 14,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph B",
+"ans": "ii",
+"expl": "B abzasi tunnel qanday qazilishini tasvirlaydi."
+},
+{
+"num": 15,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph C",
+"ans": "i",
+"expl": "C abzasi: tizim suvni o'zi cheklaydi."
+},
+{
+"num": 16,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph D",
+"ans": "iii",
+"expl": "D abzasi: usul savdo yo'llari bo'ylab tarqalgan."
+},
+{
+"num": 17,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph E",
+"ans": "iv",
+"expl": "E abzasi: suv atrofidagi ijtimoiy tartib."
+},
+{
+"num": 18,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph F",
+"ans": "vii",
+"expl": "F abzasi: dizel nasoslar raqobati."
+},
+{
+"num": 19,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph G",
+"ans": "v",
+"expl": "G abzasi: qadimiy usulga yangi qiziqish."
+},
+{
+"num": 20,
+"passage_num": 2,
+"type": "summary",
+"text": "Summary: Diggers first sink a test ______ at the base of a slope. (ONE WORD)",
+"ans": "well",
+"expl": "B abzasi: \"a test well\"."
+},
+{
+"num": 21,
+"passage_num": 2,
+"type": "summary",
+"text": "Summary: Vertical shafts remove soil and also supply ______ to the workers. (ONE WORD)",
+"ans": "air",
+"expl": "B abzasi: \"to let air reach the workers\"."
+},
+{
+"num": 22,
+"passage_num": 2,
+"type": "summary",
+"text": "Summary: Because the channel is underground, little water is lost through ______. (ONE WORD)",
+"ans": "evaporation",
+"expl": "C abzasi: \"lost to evaporation\"."
+},
+{
+"num": 23,
+"passage_num": 2,
+"type": "summary",
+"text": "Summary: In villages, water rights were measured in units of ______. (ONE WORD)",
+"ans": "time",
+"expl": "E abzasi: \"units of time\"."
+},
+{
+"num": 24,
+"passage_num": 2,
+"type": "mcq",
+"text": "How did the Persian Empire encourage qanats?",
+"options": [
+"A. By sending soldiers to dig them",
+"B. By offering tax benefits",
+"C. By banning other irrigation",
+"D. By paying the guilds directly"
+],
+"ans": "B",
+"expl": "D abzasi: \"granting tax privileges\"."
+},
+{
+"num": 25,
+"passage_num": 2,
+"type": "mcq",
+"text": "How did diesel pumps damage qanats?",
+"options": [
+"A. They polluted the water.",
+"B. They broke the tunnels.",
+"C. They lowered the water table.",
+"D. They blocked the shafts."
+],
+"ans": "C",
+"expl": "F abzasi: nasoslar suv sathini tushirgan."
+},
+{
+"num": 26,
+"passage_num": 2,
+"type": "mcq",
+"text": "What is the writer's conclusion?",
+"options": [
+"A. Qanats will soon replace modern irrigation.",
+"B. Qanats offer a lesson about living within natural limits.",
+"C. Restoration projects are a waste of money.",
+"D. Governments should ban pumps."
+],
+"ans": "B",
+"expl": "G abzasi: yer beradigan suv doirasida yashash g'oyasi."
+},
+{
+"num": 27,
+"passage_num": 3,
+"type": "ynng",
+"text": "People have heard more about language loss than about language revival.",
+"ans": "YES",
+"expl": "1-abzas: qayta tiklanish haqida kamroq e'tibor berilgan."
+},
+{
+"num": 28,
+"passage_num": 3,
+"type": "ynng",
+"text": "The revival of Hebrew shows that only large groups can restore a language.",
+"ans": "NO",
+"expl": "2-abzas: kichik guruhlar ham bunga erisha olgan."
+},
+{
+"num": 29,
+"passage_num": 3,
+"type": "ynng",
+"text": "The first language nests in New Zealand were paid for by the government.",
+"ans": "NOT GIVEN",
+"expl": "Moliyalashtirish haqida ma'lumot yo'q."
+},
+{
+"num": 30,
+"passage_num": 3,
+"type": "ynng",
+"text": "Official recognition alone is enough to create new speakers.",
+"ans": "NO",
+"expl": "5-abzas: \"does not by itself create speakers\"."
+},
+{
+"num": 31,
+"passage_num": 3,
+"type": "ynng",
+"text": "Most endangered languages receive strong financial support.",
+"ans": "NO",
+"expl": "Oxirgi abzas: ko'pchiligida bunday yordam yo'q."
+},
+{
+"num": 32,
+"passage_num": 3,
+"type": "match",
+"text": "Attitudes must change before vocabulary teaching can succeed.",
+"ans": "C",
+"expl": "Aas: munosabatni o'zgartirish birinchi bo'lishi kerak.",
+"choices": [
+"A. Aroha Tamati",
+"B. Daniel Reyes",
+"C. Ingrid Aas"
+]
+},
+{
+"num": 33,
+"passage_num": 3,
+"type": "match",
+"text": "A language needs everyday conversation, not only written description.",
+"ans": "A",
+"expl": "Tamati: grammatika kitobi faqat skeletni saqlaydi.",
+"choices": [
+"A. Aroha Tamati",
+"B. Daniel Reyes",
+"C. Ingrid Aas"
+]
+},
+{
+"num": 34,
+"passage_num": 3,
+"type": "match",
+"text": "Changes in a revived language are a sign that it is alive.",
+"ans": "B",
+"expl": "Reyes: faqat o'lik tillar o'zgarmaydi.",
+"choices": [
+"A. Aroha Tamati",
+"B. Daniel Reyes",
+"C. Ingrid Aas"
+]
+},
+{
+"num": 35,
+"passage_num": 3,
+"type": "match",
+"text": "Digital tools can give a false sense of success.",
+"ans": "A",
+"expl": "Tamati: ilova taraqqiyot hissini beradi, so'zlovchilar esa kamayaveradi.",
+"choices": [
+"A. Aroha Tamati",
+"B. Daniel Reyes",
+"C. Ingrid Aas"
+]
+},
+{
+"num": 36,
+"passage_num": 3,
+"type": "match",
+"text": "Young people are influenced by whether a language appears on their screens.",
+"ans": "B",
+"expl": "Reyes: yoshlar tilni ekranda ko'rinishiga qarab baholaydi.",
+"choices": [
+"A. Aroha Tamati",
+"B. Daniel Reyes",
+"C. Ingrid Aas"
+]
+},
+{
+"num": 37,
+"passage_num": 3,
+"type": "mcq",
+"text": "Why were the first language nests created?",
+"options": [
+"A. Fewer and fewer children spoke Maori.",
+"B. Schools refused to teach English.",
+"C. Elders wanted paid employment.",
+"D. The government requested them."
+],
+"ans": "A",
+"expl": "2-abzas: bola so'zlovchilar soni kamayib ketgan."
+},
+{
+"num": 38,
+"passage_num": 3,
+"type": "mcq",
+"text": "When are learner and elder pairings most useful?",
+"options": [
+"A. When a language has many dialects",
+"B. When only a few old speakers remain",
+"C. When children already speak fluently",
+"D. When recordings are unavailable"
+],
+"ans": "B",
+"expl": "3-abzas: \"only a handful of elderly speakers remain\"."
+},
+{
+"num": 39,
+"passage_num": 3,
+"type": "mcq",
+"text": "Why might older people discourage children from learning a language?",
+"options": [
+"A. They think it is too difficult.",
+"B. They want children to protect the language.",
+"C. They were once punished for using it.",
+"D. They prefer new vocabulary."
+],
+"ans": "C",
+"expl": "5-abzas: maktabda jazolangan avlod bolalarni himoya qilmoqchi bo'ladi."
+},
+{
+"num": 40,
+"passage_num": 3,
+"type": "mcq",
+"text": "Which statement best reflects the writer's view at the end?",
+"options": [
+"A. Language revival has failed.",
+"B. Language loss can now be stopped everywhere.",
+"C. Revival is possible, but its success should not be exaggerated.",
+"D. Only political support matters."
+],
+"ans": "C",
+"expl": "Oxirgi abzas: yutuqni bo'rttirmaslik kerak, lekin jarayon bir tomonlama emas."
+}
+]
+},
+{
+"id": "ielts_read_4",
+"num": 4,
+"title": "IELTS Academic Full Test 4",
+"subtitle": "Urban bees, glass and science, attention",
+"full": true,
+"passages": [
+{
+"num": 1,
+"title": "Passage 1: Bees in the City",
+"text": "A\nOn the roofs of office blocks, hotels and museums in many European and North American cities, a quiet new industry has appeared. Urban beekeeping has grown rapidly over the past two decades, driven by public concern about the decline of pollinating insects and by the pleasure of producing something natural in the middle of a concrete landscape. Hives that were once found only in the countryside now stand beside air-conditioning units, and small jars of local honey have become a fashionable gift.\n\nB\nSurprisingly, cities can be good places for bees. A worker honeybee will fly up to three kilometres from its hive in search of food, and within that range an urban colony may find parks, private gardens, street trees and balcony plants that flower at different times from early spring to late autumn. Large farms, by contrast, often grow a single crop that blooms for a few weeks and then offers nothing. Town gardens also tend to receive fewer agricultural chemicals. As a result, honey from cities frequently contains pollen from a wider variety of plants than honey from intensively farmed areas, and some city hives produce a larger harvest than their rural equivalents.\n\nC\nThe popularity of the hobby has been helped by commercial interests. Companies have discovered that a few hives on the roof are a simple way of demonstrating concern for the environment. Beekeeping firms will install and manage the colonies, deliver the honey in branded jars and even organise visits for staff. A hive costs far less than a programme to reduce the company's energy use, and it photographs much better. Critics have started to use the term 'bee-washing' for such schemes.\n\nD\nIt is here that scientists have begun to raise objections. The insects in decline are mostly not honeybees. The honeybee is one managed species, kept by humans in much the same way as sheep or chickens, whereas around twenty thousand species of wild bee exist worldwide, along with many other pollinating flies, moths and beetles. Wild species are the ones under serious threat, and adding thousands of honeybees to a city may make their position worse. A single strong colony can contain fifty thousand workers in summer, and they compete with wild bees for the same nectar and pollen. Researchers who studied one large European city found that as the number of hives rose, the flowers available for each bee fell, and the wild species most dependent on those flowers became harder to find.\n\nE\nDisease is a further concern. Honeybees carry viruses and parasites that can pass to wild bees when the insects visit the same flower. In dense urban apiaries, where colonies stand close together and inexperienced owners may not recognise the signs of illness, infections can spread quickly. Well-meaning newcomers sometimes abandon a hive after the first difficult winter, leaving a source of disease that nobody is watching.\n\nF\nNone of this means that city beekeeping should be banned, say most ecologists, but they would like the public to rethink what 'saving the bees' involves. The most useful action, they argue, is not to add more hives but to add more food and shelter. Letting parts of a lawn grow, planting native flowers and leaving bare soil and dead wood, where many wild bees nest, cost little and help a much wider range of species. Several city councils have already reduced how often they cut grass along roads, and some now require beekeepers to register their hives, so that the total number can be matched to the flowers available.\n\nG\nDr Clara Weiss, who advises one such council, compares the situation to feeding pigeons: the action feels kind, but the result depends on what else is living there. \"A hive on a roof is not a bad thing,\" she says. \"But if you want to help pollinators, plant something first. Then, if there are enough flowers to go round, think about keeping bees.\""
+},
+{
+"num": 2,
+"title": "Passage 2: Glass and the Making of Modern Science",
+"text": "A\nHistories of science usually celebrate great thinkers and their theories. Far less is said about the humble materials that made their discoveries possible. Yet it is difficult to imagine the scientific revolution of the seventeenth century without one substance in particular. Glass allowed people to see further, to see smaller and to watch chemical changes as they happened, and its story shows how a material developed for quite different purposes can change the way humans understand the world.\n\nB\nGlass itself is ancient, but for most of its early history it was a luxury. The decisive step came around the first century BCE, when craftsmen in the eastern Mediterranean learned to blow molten glass through a hollow tube. This made vessels far quicker to produce, and the Romans spread the technique across their empire. Even so, most glass remained coloured and cloudy because of impurities in the sand. It was attractive, but no one could have used it to look at anything precisely.\n\nC\nThe turning point came in medieval Venice. In 1291, the city ordered its glassmakers to move to the island of Murano, largely because their furnaces were a fire risk in a crowded city built partly of wood. The move had an unplanned consequence: it concentrated the best craftsmen in one small place, where they could learn from and compete with one another. By the fifteenth century, they had developed a clear, colourless glass known as cristallo, which was closer to pure rock crystal than anything produced before. Venetian authorities valued the trade so much that glassmakers were forbidden to leave.\n\nD\nAt about the same time, glass acquired a new use. Spectacles appeared in northern Italy towards the end of the thirteenth century, and they extended the working lives of scholars and craftsmen whose sight had weakened with age. Demand rose sharply after the invention of printing in the fifteenth century, when far more people suddenly had a reason to read. Lens grinders multiplied across Europe, particularly in the Netherlands, and their workshops became centres of practical experiment with curved glass.\n\nE\nIt was probably in one of these workshops that someone first held two lenses in a line. In 1608 a Dutch spectacle maker applied for a patent on a device that made distant objects appear closer. Within a year, Galileo had built an improved instrument, turned it to the night sky and seen mountains on the Moon and moons around Jupiter, observations that undermined the old belief in a perfect, unchanging heaven. Later in the same century, Robert Hooke and Antonie van Leeuwenhoek used microscopes to reveal a world that nobody had suspected, from the cells of cork to living creatures in a drop of water. Neither instrument was designed by philosophers; both came out of a trade built to serve ageing eyes.\n\nF\nLenses were only part of the story. Glass is transparent, can be shaped into almost any form, and does not react with most substances, which makes it an ideal container for experiments. Chemists could now watch a liquid change colour without disturbing it. Evangelista Torricelli's barometer of 1643, a glass tube of mercury, showed that the air has weight, and glass thermometers allowed temperature to be measured and compared for the first time. The vacuum pumps and flasks of the seventeenth-century laboratory all depended on it.\n\nG\nIt would be going too far to say that glass caused modern science. China, which had advanced ceramics but little interest in clear glass, developed sophisticated astronomy and medicine by other routes. Still, the historian Alan Macfarlane and others have suggested that the absence of a strong glass tradition may have made certain kinds of observation less likely there. At the very least, the story is a useful reminder that ideas depend on tools, and that the tools which matter most may arrive from an unexpected direction."
+},
+{
+"num": 3,
+"title": "Passage 3: The Price of Constant Connection",
+"text": "In the time it takes to read this sentence, an average smartphone user may have received a notification. Most people now live with a steady stream of small demands on their attention, and the majority seem to accept this as the normal price of being connected. Researchers who study attention are less relaxed. Over the past fifteen years they have begun to measure what these constant interruptions actually cost, and although the findings are not as dramatic as newspaper headlines suggest, they are hard to ignore.\n\nThe first thing to understand is that the brain does not truly do two demanding things at once. What feels like multitasking is rapid switching, and each switch has a price. Professor Gloria Martens, who has observed office workers for many years, found that after an interruption people took on average more than twenty minutes to return to the original task, often because they had moved on to other things in between. People who were interrupted did complete their work slightly faster, she reports, but they described higher levels of stress and frustration. \"We speed up to compensate,\" she says, \"and we pay for it afterwards.\"\n\nEven when a phone is silent, it may still exert a pull. In a widely discussed experiment, students who left their phones in another room scored better on tests of memory and reasoning than those who kept them face down on the desk. The authors suggested that part of the mind is occupied in resisting the temptation to check. This idea has been influential, but it is not settled. Dr Samuel Okafor, who attempted to repeat the study with a much larger group, found a far smaller effect. He does not claim that phones are harmless, but he warns that the most striking results in psychology are often the least reliable. \"The size of an effect matters as much as its existence,\" he says.\n\nMore persuasive, perhaps, is the evidence from classrooms. Several studies have found that students who use laptops for unrelated activities during lectures remember less, and that the students sitting near them remember less too, since a bright screen is hard to ignore. Some universities have responded by banning devices from lecture halls, a decision that has been criticised as unfair to students with disabilities who rely on them. A better approach, according to the educational psychologist Dr Lin Yuhan, is to explain the evidence and let students design their own rules, because people are more likely to follow limits that they have chosen themselves.\n\nWhy is it so difficult to stop? Part of the answer lies in design. Applications are built to reward us at unpredictable moments, and unpredictable rewards are known to be particularly powerful in shaping behaviour. A person who checks a phone is rather like a gambler pulling a lever: most of the time nothing happens, but occasionally something pleasant appears. Former employees of technology companies have spoken openly about how features such as endless scrolling were tested to maximise the time users spend on a service. Yet it would be a mistake to blame design alone. Many people reach for their phones in order to escape boredom or anxiety, and the device is a symptom as much as a cause.\n\nWhat, then, can individuals do? Researchers generally agree that willpower is an unreliable strategy, and that it is easier to change the environment than to resist it. Turning off non-essential notifications, keeping the phone out of sight during focused work and setting fixed times for messages are simple measures that have been shown to reduce stress in workplace trials. Professor Martens also recommends a less obvious step: warning colleagues when you do not wish to be disturbed. Interruptions, she points out, are a social problem, and a team that agrees on quiet hours protects everyone's concentration.\n\nNone of this requires abandoning technology, and most researchers have no wish to return to a world without instant communication, which has clear benefits for family life, safety and work. The question is who controls the timing. A tool that is used when we choose is a very different thing from one that decides for us. Attention, as one researcher puts it, is the only thing we spend that we can never earn back, and it may be worth treating it with at least as much care as money."
+}
+],
+"headings": {
+"2": [
+"i. A decision about fire safety with a surprising result",
+"ii. An early material valued for beauty rather than precision",
+"iii. Instruments that came from a practical trade",
+"iv. A material perfect for the laboratory",
+"v. A growing market for lenses",
+"vi. Why glass became too expensive",
+"vii. A careful limit on the argument",
+"viii. The failure of Venetian trade"
+]
+},
+"questions": [
+{
+"num": 1,
+"passage_num": 1,
+"type": "tfng",
+"text": "Urban beekeeping has become more popular in recent decades.",
+"ans": "TRUE",
+"expl": "A abzasi: so'nggi yigirma yilda tez o'sgan."
+},
+{
+"num": 2,
+"passage_num": 1,
+"type": "tfng",
+"text": "City honey usually tastes better than honey from the countryside.",
+"ans": "NOT GIVEN",
+"expl": "B abzasida gulchang xilma-xilligi aytilgan, ta'm haqida gap yo'q."
+},
+{
+"num": 3,
+"passage_num": 1,
+"type": "tfng",
+"text": "Large farms offer food for bees throughout the year.",
+"ans": "FALSE",
+"expl": "B abzasi: bir ekin bir necha hafta gullaydi."
+},
+{
+"num": 4,
+"passage_num": 1,
+"type": "tfng",
+"text": "A hive is cheaper for a company than reducing its energy use.",
+"ans": "TRUE",
+"expl": "C abzasi: \"costs far less\"."
+},
+{
+"num": 5,
+"passage_num": 1,
+"type": "tfng",
+"text": "Honeybees are among the species most threatened with extinction.",
+"ans": "FALSE",
+"expl": "D abzasi: xavf ostida asosan yovvoyi turlar."
+},
+{
+"num": 6,
+"passage_num": 1,
+"type": "tfng",
+"text": "All new beekeepers abandon their hives within a year.",
+"ans": "FALSE",
+"expl": "E abzasida \"sometimes\" deyilgan, hammasi emas."
+},
+{
+"num": 7,
+"passage_num": 1,
+"type": "form",
+"text": "A honeybee may fly up to three ______ to find food.",
+"ans": "kilometres",
+"expl": "B abzasi: \"up to three kilometres\".",
+"alts": [
+"kilometers",
+"km"
+]
+},
+{
+"num": 8,
+"passage_num": 1,
+"type": "form",
+"text": "Critics describe some company schemes as ______.",
+"ans": "bee-washing",
+"expl": "C abzasi: \"'bee-washing'\".",
+"alts": [
+"bee washing"
+]
+},
+{
+"num": 9,
+"passage_num": 1,
+"type": "form",
+"text": "A strong colony can hold fifty thousand ______ in summer.",
+"ans": "workers",
+"expl": "D abzasi: \"fifty thousand workers\"."
+},
+{
+"num": 10,
+"passage_num": 1,
+"type": "form",
+"text": "Many wild bees nest in bare soil and dead ______.",
+"ans": "wood",
+"expl": "F abzasi: \"bare soil and dead wood\"."
+},
+{
+"num": 11,
+"passage_num": 1,
+"type": "mcq",
+"text": "Why might extra honeybees harm wild bees?",
+"options": [
+"A. They attack wild bees directly.",
+"B. They compete for the same flowers.",
+"C. They destroy nests.",
+"D. They reduce the number of parks."
+],
+"ans": "B",
+"expl": "D abzasi: bir xil nektar va gulchang uchun raqobat."
+},
+{
+"num": 12,
+"passage_num": 1,
+"type": "mcq",
+"text": "What do most ecologists recommend?",
+"options": [
+"A. Banning city beekeeping",
+"B. Doubling the number of hives",
+"C. Adding food and shelter for pollinators",
+"D. Moving hives to the countryside"
+],
+"ans": "C",
+"expl": "F abzasi: ko'proq ozuqa va boshpana qo'shish."
+},
+{
+"num": 13,
+"passage_num": 1,
+"type": "mcq",
+"text": "Why does Dr Weiss compare beekeeping to feeding pigeons?",
+"options": [
+"A. Both are expensive hobbies.",
+"B. Both feel kind, but the effect depends on the wider situation.",
+"C. Both should be illegal.",
+"D. Both attract disease to cities."
+],
+"ans": "B",
+"expl": "G abzasi: harakat yaxshi tuyuladi, natija atrofga bog'liq."
+},
+{
+"num": 14,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph B",
+"ans": "ii",
+"expl": "B abzasi: dastlab shisha chiroyli, lekin aniq emas edi."
+},
+{
+"num": 15,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph C",
+"ans": "i",
+"expl": "C abzasi: yong'in xavfi tufayli ko'chirish kutilmagan natija bergan."
+},
+{
+"num": 16,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph D",
+"ans": "v",
+"expl": "D abzasi: ko'zoynak va kitob tufayli linzaga talab oshgan."
+},
+{
+"num": 17,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph E",
+"ans": "iii",
+"expl": "E abzasi: asboblar amaliy hunardan chiqqan."
+},
+{
+"num": 18,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph F",
+"ans": "iv",
+"expl": "F abzasi: shisha laboratoriya uchun ideal."
+},
+{
+"num": 19,
+"passage_num": 2,
+"type": "heading",
+"text": "Paragraph G",
+"ans": "vii",
+"expl": "G abzasi: yozuvchi o'z da'vosini cheklaydi."
+},
+{
+"num": 20,
+"passage_num": 2,
+"type": "form",
+"text": "Roman glass was often coloured and cloudy because of ______ in the sand.",
+"ans": "impurities",
+"expl": "B abzasi: \"impurities in the sand\"."
+},
+{
+"num": 21,
+"passage_num": 2,
+"type": "form",
+"text": "The clear Venetian glass was called ______.",
+"ans": "cristallo",
+"expl": "C abzasi: \"known as cristallo\"."
+},
+{
+"num": 22,
+"passage_num": 2,
+"type": "form",
+"text": "Demand for spectacles rose after the invention of ______.",
+"ans": "printing",
+"expl": "D abzasi: \"the invention of printing\"."
+},
+{
+"num": 23,
+"passage_num": 2,
+"type": "form",
+"text": "Torricelli's barometer showed that air has ______.",
+"ans": "weight",
+"expl": "F abzasi: \"the air has weight\"."
+},
+{
+"num": 24,
+"passage_num": 2,
+"type": "tfng",
+"text": "Venetian glassmakers were allowed to work anywhere they wished.",
+"ans": "FALSE",
+"expl": "C abzasi: ketishlari taqiqlangan."
+},
+{
+"num": 25,
+"passage_num": 2,
+"type": "tfng",
+"text": "Galileo was the first person to build a telescope.",
+"ans": "FALSE",
+"expl": "E abzasi: 1608-yilda gollandiyalik usta patent so'ragan, Galileo keyin yaxshilagan."
+},
+{
+"num": 26,
+"passage_num": 2,
+"type": "tfng",
+"text": "Hooke and Leeuwenhoek worked together on the same microscope.",
+"ans": "NOT GIVEN",
+"expl": "Ularning birga ishlagani haqida ma'lumot yo'q."
+},
+{
+"num": 27,
+"passage_num": 3,
+"type": "ynng",
+"text": "Newspaper reports of the effects of interruptions are sometimes exaggerated.",
+"ans": "YES",
+"expl": "1-abzas: natijalar sarlavhalardagidek keskin emas."
+},
+{
+"num": 28,
+"passage_num": 3,
+"type": "ynng",
+"text": "Interrupted workers take longer to finish their tasks.",
+"ans": "NO",
+"expl": "2-abzas: biroz tezroq tugatgan, lekin stress ko'proq."
+},
+{
+"num": 29,
+"passage_num": 3,
+"type": "ynng",
+"text": "Banning devices from lectures has been criticised.",
+"ans": "YES",
+"expl": "4-abzas: nogironligi bo'lgan talabalarga nisbatan adolatsiz deb tanqid qilingan."
+},
+{
+"num": 30,
+"passage_num": 3,
+"type": "ynng",
+"text": "Technology companies have been fined for their use of endless scrolling.",
+"ans": "NOT GIVEN",
+"expl": "Jarima haqida ma'lumot yo'q."
+},
+{
+"num": 31,
+"passage_num": 3,
+"type": "ynng",
+"text": "Design is the only reason people check their phones so often.",
+"ans": "NO",
+"expl": "5-abzas: zerikish va tashvish ham sabab."
+},
+{
+"num": 32,
+"passage_num": 3,
+"type": "match",
+"text": "A large repeat of a famous experiment produced a much weaker result.",
+"ans": "B",
+"expl": "Okafor tajribani katta guruhda takrorlagan.",
+"choices": [
+"A. Gloria Martens",
+"B. Samuel Okafor",
+"C. Lin Yuhan"
+]
+},
+{
+"num": 33,
+"passage_num": 3,
+"type": "match",
+"text": "People work faster after interruptions and suffer for it later.",
+"ans": "A",
+"expl": "Martens: \"we pay for it afterwards\".",
+"choices": [
+"A. Gloria Martens",
+"B. Samuel Okafor",
+"C. Lin Yuhan"
+]
+},
+{
+"num": 34,
+"passage_num": 3,
+"type": "match",
+"text": "People respect limits more when they set the limits themselves.",
+"ans": "C",
+"expl": "Lin Yuhan: o'zi tanlagan cheklovlarga ko'proq amal qilinadi.",
+"choices": [
+"A. Gloria Martens",
+"B. Samuel Okafor",
+"C. Lin Yuhan"
+]
+},
+{
+"num": 35,
+"passage_num": 3,
+"type": "match",
+"text": "Colleagues should agree on times without interruptions.",
+"ans": "A",
+"expl": "Martens: jamoa tinch soatlar belgilashi kerak.",
+"choices": [
+"A. Gloria Martens",
+"B. Samuel Okafor",
+"C. Lin Yuhan"
+]
+},
+{
+"num": 36,
+"passage_num": 3,
+"type": "match",
+"text": "How large an effect is can matter as much as whether it exists.",
+"ans": "B",
+"expl": "Okafor: \"The size of an effect matters\".",
+"choices": [
+"A. Gloria Martens",
+"B. Samuel Okafor",
+"C. Lin Yuhan"
+]
+},
+{
+"num": 37,
+"passage_num": 3,
+"type": "mcq",
+"text": "What did the phone experiment suggest?",
+"options": [
+"A. Silent phones have no effect.",
+"B. Resisting a nearby phone may use mental resources.",
+"C. Phones improve memory.",
+"D. Students prefer phones face down."
+],
+"ans": "B",
+"expl": "3-abzas: aqlning bir qismi vasvasaga qarshi turish bilan band."
+},
+{
+"num": 38,
+"passage_num": 3,
+"type": "mcq",
+"text": "Why is a nearby laptop a problem in class?",
+"options": [
+"A. It is noisy.",
+"B. It distracts other students too.",
+"C. It slows the internet.",
+"D. It breaks university rules."
+],
+"ans": "B",
+"expl": "4-abzas: yonidagilar ham kamroq eslab qoladi."
+},
+{
+"num": 39,
+"passage_num": 3,
+"type": "mcq",
+"text": "Why does the writer compare a phone user to a gambler?",
+"options": [
+"A. Both spend too much money.",
+"B. Both are rewarded at unpredictable moments.",
+"C. Both are usually unhappy.",
+"D. Both act illegally."
+],
+"ans": "B",
+"expl": "5-abzas: oldindan bilib bo'lmaydigan mukofot."
+},
+{
+"num": 40,
+"passage_num": 3,
+"type": "mcq",
+"text": "What do researchers advise individuals to do?",
+"options": [
+"A. Rely on stronger willpower",
+"B. Stop using technology",
+"C. Change their environment",
+"D. Work only at night"
+],
+"ans": "C",
+"expl": "6-abzas: muhitni o'zgartirish iroda kuchidan osonroq."
+}
+]
+}
+]

@@ -9,7 +9,7 @@ from typing import Any, Optional
 
 from database import db, now_ts, shift_day, today
 from services import review, scoring, users
-from services.content import SAT_DOMAINS, content
+from services.content import DOMAIN_NAMES, SAT_DOMAINS, content
 
 TARGET_SECONDS = {"rw": 71, "m": 95}
 RUSHED_SECONDS = 15
@@ -91,11 +91,11 @@ def next_steps(domains: list[dict[str, Any]], pacing: dict[str, Any]) -> list[di
         key=lambda d: d["correct"] / d["total"],
     )
     steps = [
-        {"text": f"{d['domain']} bo'yicha 10 savollik mashq bajaring",
+        {"text": f"{DOMAIN_NAMES[d['domain']]}: 10 savollik mashq",
          "action": {"type": "practice", "section": d["section"], "domain": d["domain"]}}
         for d in weak[:2]
     ]
-    steps.append({"text": "Xatolar daftaridagi savollarni qayta ishlang", "action": {"type": "review"}})
+    steps.append({"text": "Xatolar daftarini takrorlash", "action": {"type": "review"}})
     return steps[:3]
 
 

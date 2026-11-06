@@ -14,6 +14,18 @@ SAT_DOMAINS = {
 }
 
 
+DOMAIN_NAMES = {
+    "Craft and Structure": "So'z va matn tuzilishi",
+    "Information and Ideas": "Axborot va g'oyalar",
+    "Standard English Conventions": "Grammatika qoidalari",
+    "Expression of Ideas": "Fikrni ifodalash",
+    "Algebra": "Algebra",
+    "Advanced Math": "Murakkab algebra",
+    "Problem-Solving and Data Analysis": "Ma'lumotlar tahlili",
+    "Geometry and Trigonometry": "Geometriya va trigonometriya",
+}
+
+
 def _load(name: str) -> Any:
     return json.loads((DATA_DIR / name).read_text(encoding="utf-8"))
 
