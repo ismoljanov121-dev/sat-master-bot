@@ -13,6 +13,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from zoneinfo import ZoneInfo
 
 from config import DATABASE_URL, SQLITE_PATH, TIMEZONE
@@ -177,6 +178,17 @@ _current_conn: contextvars.ContextVar[Any] = contextvars.ContextVar("db_conn", d
 _PLACEHOLDER = re.compile(r"\?")
 
 
+# Hosts such as Neon add these libpq options to their URLs. asyncpg would pass them to the server
+# as settings, and the server would refuse the connection.
+LIBPQ_ONLY_OPTIONS = {"channel_binding", "connect_timeout", "gssencmode", "pgbouncer"}
+
+
+def asyncpg_url(url: str) -> str:
+    parts = urlsplit(url)
+    query = [(key, value) for key, value in parse_qsl(parts.query) if key not in LIBPQ_ONLY_OPTIONS]
+    return urlunsplit(parts._replace(query=urlencode(query)))
+
+
 def _to_postgres(sql: str) -> str:
     counter = iter(range(1, 1000))
     return _PLACEHOLDER.sub(lambda _: f"${next(counter)}", sql)
@@ -200,7 +212,7 @@ class Database:
 
             # statement_cache_size=0 keeps the pool usable behind pgbouncer-style poolers (Neon, Supabase).
             self._pool = await asyncpg.create_pool(
-                self.url, min_size=1, max_size=5, command_timeout=30,
+                asyncpg_url(self.url), min_size=1, max_size=5, command_timeout=30,
                 statement_cache_size=0, max_inactive_connection_lifetime=240,
             )
         else:

@@ -12,7 +12,7 @@ from aiohttp import ClientSession
 
 import bot as bot_module
 from config import BOT_TOKEN
-from database import db
+from database import asyncpg_url, db
 from handlers import router
 from scheduler import setup_scheduler
 from services import alerts, centers, users
@@ -166,6 +166,15 @@ class StartupTest(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(seen["body"]["status"], "ok")
         self.assertEqual(seen["webapp"], 200)
         self.assertFalse(await db.ping())
+
+
+class ConnectionUrlTest(unittest.TestCase):
+    def test_libpq_options_are_removed_and_the_rest_kept(self):
+        url = "postgresql://user:p%40ss@host.neon.tech/db?sslmode=require&channel_binding=require"
+        self.assertEqual(asyncpg_url(url), "postgresql://user:p%40ss@host.neon.tech/db?sslmode=require")
+
+    def test_plain_urls_stay_the_same(self):
+        self.assertEqual(asyncpg_url("postgres://u:p@localhost:5432/db"), "postgres://u:p@localhost:5432/db")
 
 
 class AlertTest(unittest.IsolatedAsyncioTestCase):
