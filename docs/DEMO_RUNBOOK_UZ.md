@@ -33,11 +33,12 @@ Demo uchun ikkita telefon kerak: biri o'qituvchi, biri o'quvchi.
 ### 02:30 – 04:00 | Guruh imtihoni
 
 1. O'qituvchi telefonida: Profil, Markaz paneli, Yangi guruh imtihoni.
-2. Imtihonni tanlang. Tizim 6 belgili kod beradi.
+2. 🔒 belgili imtihonni tanlang. Tizim 6 belgili kod beradi.
 3. O'quvchi telefonida botga `/mock KOD` yozing yoki "Guruhga havola yuborish" tugmasidan foydalaning.
-4. Imtihonni boshlang.
+4. O'quvchi ism-familiyasini yozib, imtihonni boshlaydi.
+5. O'qituvchi telefonida "Yangilash" tugmasini bosing: o'quvchi "Ishlamoqda" bo'lib chiqadi.
 
-> "O'qituvchi kodni doskaga yozadi, o'quvchilar telefonida ochadi. Qog'oz kerak emas."
+> "O'qituvchi kodni doskaga yozadi, o'quvchilar telefonida ochadi. Qog'oz kerak emas. Kim ishlayotganini shu yerdan ko'rib turasiz."
 
 Vaqt kam bo'lsa, oldindan tugatilgan imtihon natijalarini oching.
 
@@ -55,6 +56,7 @@ Vaqt kam bo'lsa, oldindan tugatilgan imtihon natijalarini oching.
 
 - **Mini App ochilmasa:** `https://sat-master-bot.onrender.com/health` manzilini tekshiring. `status: ok` chiqishi kerak.
 - **Internet uzilsa:** o'quvchi tugatgan test telefonda saqlanadi va keyingi ochilishda serverga yuboriladi.
+- **Himoyalangan imtihonda modul oxirida internet uzilsa:** javoblar saqlanadi, ekranda "Qayta urinish" tugmasi chiqadi.
 - **Mini App yopilib qolsa:** tugallanmagan mock Bugun ekranida "Tugallanmagan imtihon" bo'lib chiqadi. Vaqt to'xtamaydi.
 - **AI band bo'lsa:** tekshiruv sarflanmaydi, bir ozdan keyin qayta uriniladi.
 
@@ -66,10 +68,10 @@ Vaqt kam bo'lsa, oldindan tugatilgan imtihon natijalarini oching.
 Yo'q. Ball savollarning qiyinligini hisobga olib taxminan hisoblanadi va oraliq bilan ko'rsatiladi. Savollar College Board'niki emas, bu mustaqil mashq platformasi.
 
 **"O'quvchi javoblarni ko'chira oladimi?"**
-Ha, nazorat qilinmasa bunga imkon bor. Javob kalitlari ilova ma'lumotida turadi, variantlar tartibi hamma uchun bir xil, taymer esa telefonda ishlaydi. Shuning uchun muhim imtihonlarda telefonlar xonada kuzatilishi kerak.
+🔒 belgili imtihonda javob kalitlari telefonga tushmaydi, ikkinchi modulni server tanlaydi, bir o'quvchidan bitta natija olinadi va vaqtni server hisoblaydi. Variantlar tartibi hamma uchun bir xil va o'quvchi boshqa telefonga qarashi mumkin, shuning uchun xonada kuzatuv baribir kerak. Bunday imtihon hozircha 1 ta SAT mock va 1 ta Reading. Ochiq testlarda kalitlar ilova ma'lumotida turadi.
 
 **"AI bahosiga ishonsa bo'ladimi?"**
 U mashq uchun yo'l-yo'riq beradi. Rasmiy IELTS bahosi o'rnini bosmaydi, yakuniy bahoni o'qituvchi beradi.
 
 **"Savollar qancha?"**
-753 ta SAT savoli, 5 ta to'liq mock, 4 ta Reading, 2 ta Listening testi va 46 ta Writing mavzusi. Yangi savollar qo'shib boriladi.
+967 ta SAT savoli, 5 ta to'liq mock (1 tasi himoyalangan), 4 ta Reading (1 tasi himoyalangan), 2 ta Listening testi va 46 ta Writing mavzusi. Yangi savollar qo'shib boriladi.

@@ -12,6 +12,11 @@ PROFILE_FIELDS = (
     "daily_minutes", "reminder_hour", "reminders_on", "onboarded",
 )
 FOCUS_VALUES = ("sat", "ielts", "both")
+# The Mini App can record only these, so a client cannot fill the table with made-up names.
+CLIENT_EVENTS = frozenset({
+    "app_open", "onboarding_done", "mock_started", "diagnostic_started", "ielts_started", "practice_started",
+    "review_started", "writing_opened", "share_opened", "invite_opened", "session_started",
+})
 
 
 async def get_user(user_id: int) -> dict[str, Any] | None:

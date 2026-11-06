@@ -14,7 +14,7 @@ from apscheduler.triggers.cron import CronTrigger
 from config import BOT_USERNAME, CHANNEL_ID, TIMEZONE, WEBAPP_URL
 from content_bank import IELTS_TIPS, IELTS_VOCAB_PACKS
 from database import TZ, db, now_ts, shift_day, today
-from services import plan, review, users
+from services import analytics, plan, review, users
 from services.content import content
 
 logger = logging.getLogger(__name__)
@@ -222,6 +222,29 @@ async def send_weekly_reports(bot: Bot):
         report = await plan.weekly_report(user)
         await _deliver(bot, user["id"], plan.weekly_report_text(report))
         await asyncio.sleep(SEND_DELAY_SECONDS)
+
+
+async def send_broadcast(bot: Bot, segment: str, from_chat_id: int, message_id: int) -> tuple[int, int]:
+    """Copies the admin's message to everyone in a segment. Returns how many got it, out of how many."""
+    recipients = await analytics.segment_users(segment)
+    sent = 0
+    for user_id in recipients:
+        for retry in (True, False):
+            try:
+                await bot.copy_message(chat_id=user_id, from_chat_id=from_chat_id, message_id=message_id)
+                sent += 1
+            except TelegramForbiddenError:
+                await db.execute("UPDATE users SET blocked = 1 WHERE id = ?", user_id)
+            except TelegramRetryAfter as e:
+                await asyncio.sleep(e.retry_after)
+                if retry:
+                    continue
+            except Exception as e:
+                logger.warning("Could not send a broadcast: %s", type(e).__name__)
+            break
+        await asyncio.sleep(SEND_DELAY_SECONDS)
+    logger.info("Broadcast to %s: %s of %s", segment, sent, len(recipients))
+    return sent, len(recipients)
 
 
 def setup_scheduler(bot: Bot) -> AsyncIOScheduler:

@@ -21,24 +21,27 @@
 Telegram'da tizim **IELTS & SAT Daily** nomi bilan ochiladi.
 
 1. **Adaptiv Mock Imtihonlar:**
-   - 5 ta Digital SAT mock: ikkinchi modul birinchi modul natijasiga qarab tanlanadi, mavzular rasmiy taqsimotga mos.
+   - 4 ta ochiq va markazlar uchun 1 ta himoyalangan Digital SAT mock: ikkinchi modul birinchi modul natijasiga qarab tanlanadi, mavzular rasmiy taqsimotga mos.
    - Taymer, kalkulyator, formulalar varag'i, savolni belgilash va variantni chizish.
    - IELTS Reading va Listening: 40 savollik testlar.
 
 2. **Markaz Paneli:**
    - O'qituvchi guruh imtihonini ochadi va 6 belgili kod oladi (masalan: `GKXMDY`).
-   - O'quvchilar botga `/mock KOD` yozib kiradi.
+   - O'quvchilar botga `/mock KOD` yozib kiradi va ism-familiyasini kiritadi.
+   - Bir o'quvchidan faqat birinchi natija hisoblanadi, vaqtni server hisoblaydi, kechikkan natija belgilanadi.
+   - O'qituvchi kim ishlayotganini va kim topshirganini ko'rib turadi.
+   - Himoyalangan imtihonda (1 ta SAT mock, 1 ta Reading) javob kalitlari o'quvchi telefoniga tushmaydi.
    - Natijalar jadvali, o'rtacha ball va guruhning zaif mavzulari.
 
 3. **CSV Eksport:**
    - Guruh imtihoni natijalari bir tugma bilan bot chatiga CSV fayl bo'lib keladi va Excel'da ochiladi.
 
 4. **O'quvchi Uchun Mustaqil Ish:**
-   - 753 ta SAT savoli, mavzu bo'yicha 10 savollik mashqlar va xatolar daftari.
+   - 967 ta SAT savoli, mavzu bo'yicha 10 savollik mashqlar va xatolar daftari.
    - Diagnostika, kunlik reja, eslatmalar va haftalik hisobot.
-   - IELTS Writing uchun AI tekshiruvi (taxminiy band, kuniga cheklangan).
+   - IELTS Writing uchun AI tekshiruvi (taxminiy band, kuniga cheklangan). Task 1 mavzularida grafik, jadval, jarayon yoki xarita bor.
 
-Ballar taxminiy va rasmiy natija emas. Javob kalitlari ilova ma'lumotida turadi, shuning uchun muhim imtihonlarda telefonlarni xonada kuzatish kerak.
+Ballar taxminiy va rasmiy natija emas. Ochiq testlarda javob kalitlari ilova ma'lumotida turadi, shuning uchun muhim imtihonda himoyalangan testni tanlash kerak. Himoyalangan test bir guruh uchun bir marta yaraydi, va u yerda ham xonani kuzatish kerak, chunki tizim boshqa telefon yoki kitobga qarashni to'xtata olmaydi.
 
 ---
 

@@ -92,6 +92,7 @@ async function startApp() {
   document.getElementById('app').innerHTML = loadingCards(3);
   await refreshBoot();
   flushQueue();
+  track('app_open');
 
   const tab = App.params.get('tab');
   const session = App.params.get('session');

@@ -1,8 +1,14 @@
+import json
+import sys
 import unittest
 from collections import Counter
+from pathlib import Path
 
 from services.content import SAT_DOMAINS, content
 from services.scoring import parse_number
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR / "scripts"))
 
 RANK = {"Easy": 0, "Medium": 1, "Hard": 2}
 
@@ -96,6 +102,28 @@ class MockBlueprintTest(unittest.TestCase):
                 self.assertLessEqual(share, 0.4)
 
 
+class PracticeBankTest(unittest.TestCase):
+    def test_the_file_matches_the_generator_and_every_check_passes(self):
+        import generate_math_practice
+
+        stored = json.loads((BASE_DIR / "data" / "sat_math_practice.json").read_text(encoding="utf-8"))
+        self.assertEqual(generate_math_practice.build(), stored)
+
+    def test_generated_questions_are_practice_only(self):
+        generated = [q for q in content.bank.values() if q["id"].startswith("g_")]
+        self.assertGreaterEqual(len(generated), 200)
+        for question in generated:
+            self.assertTrue(question.get("free"), question["id"])
+            self.assertNotIn(question["id"], content.mock_of)
+
+    def test_every_math_skill_of_the_two_big_domains_has_practice_questions(self):
+        practice = Counter(q["skill"] for q in content.bank.values() if q.get("free") and q["dom"] in ("Algebra", "Advanced Math"))
+        for skill in ("Linear equations in one variable", "Linear equations in two variables", "Linear functions",
+                      "Linear inequalities in one or two variables", "Systems of two linear equations in two variables",
+                      "Equivalent expressions", "Nonlinear equations and systems", "Nonlinear functions"):
+            self.assertGreaterEqual(practice[skill], 15, skill)
+
+
 class IeltsContentTest(unittest.TestCase):
     def test_tests_have_forty_numbered_questions(self):
         for test in [*content.listening.values(), *content.reading.values()]:
@@ -109,3 +137,65 @@ class IeltsContentTest(unittest.TestCase):
         self.assertEqual(len(content.writing["task1"]), 23)
         self.assertEqual(len(content.writing["task2"]), 23)
         self.assertEqual(len(content.writing_by_id), 46)
+
+
+TASK1_KINDS = {
+    "Line Graph": {"line"}, "Bar Chart": {"bar"}, "Pie Chart": {"pie"}, "Table": {"table"}, "Process": {"flow"}, "Map": {"map"},
+    "Multiple Graphs": {"bar", "line"},
+}
+
+
+class Task1VisualTest(unittest.TestCase):
+    def parts(self):
+        for prompt in content.writing["task1"]:
+            for part in prompt["visual"]["parts"]:
+                yield prompt["id"], part
+
+    def test_every_prompt_shows_the_kind_of_visual_it_names(self):
+        for prompt in content.writing["task1"]:
+            with self.subTest(prompt=prompt["id"]):
+                self.assertEqual({part["kind"] for part in prompt["visual"]["parts"]}, TASK1_KINDS[prompt["type"]])
+
+    def test_task_2_has_no_visual(self):
+        self.assertFalse(any("visual" in prompt for prompt in content.writing["task2"]))
+
+    def test_every_part_has_a_title(self):
+        for prompt_id, part in self.parts():
+            self.assertTrue(part["title"].strip(), prompt_id)
+
+    def test_series_match_their_axis(self):
+        for prompt_id, part in self.parts():
+            if part["kind"] in ("line", "bar"):
+                labels = part["x"] if part["kind"] == "line" else part["categories"]
+                for series in part["series"]:
+                    self.assertEqual(len(series["values"]), len(labels), f"{prompt_id} {series['name']}")
+                self.assertLessEqual(len(part["series"]), 5, prompt_id)
+
+    def test_pie_charts_add_up_to_one_hundred_and_keep_the_same_order(self):
+        for prompt in content.writing["task1"]:
+            pies = [part for part in prompt["visual"]["parts"] if part["kind"] == "pie"]
+            for pie in pies:
+                self.assertEqual(sum(item["value"] for item in pie["slices"]), 100, pie["title"])
+                self.assertLessEqual(len(pie["slices"]), 5, pie["title"])
+            orders = {tuple(item["name"] for item in pie["slices"]) for pie in pies}
+            self.assertLessEqual(len(orders), 2, prompt["id"])
+
+    def test_tables_are_rectangular(self):
+        for prompt_id, part in self.parts():
+            if part["kind"] == "table":
+                self.assertTrue(all(len(row) == len(part["head"]) for row in part["rows"]), prompt_id)
+
+    def test_maps_describe_their_facts_for_the_ai(self):
+        for prompt_id, part in self.parts():
+            if part["kind"] == "map":
+                self.assertGreater(len(part["facts"]), 80, prompt_id)
+                self.assertTrue(part["items"], prompt_id)
+
+    def test_key_figures_in_the_guides_match_the_data(self):
+        def pie(prompt_id, index):
+            part = content.writing_by_id[prompt_id]["visual"]["parts"][index]
+            return {item["name"]: item["value"] for item in part["slices"]}
+
+        self.assertEqual((pie("w1_03", 0)["Technology"], pie("w1_03", 1)["Technology"]), (3, 18))
+        self.assertEqual((pie("w1_12", 0)["Coal"], pie("w1_12", 1)["Coal"]), (42, 26))
+        self.assertEqual(pie("w1_19", 2)["Drip"], 22)

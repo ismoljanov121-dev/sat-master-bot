@@ -5,6 +5,9 @@ SAT mocks are assembled from data/sat_question_bank.json by the official bluepri
 routing module and two second modules. The two second modules share a medium-difficulty core, because a
 student only ever sees one of them.
 
+Center-only exams go to data/sealed_exams.json instead. That folder is not served, so their keys stay on
+the server and a group exam can run without the answers being one request away.
+
 Usage: python scripts/build_content.py
 """
 import json
@@ -16,7 +19,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / "scripts"))
 OUT_DIR = BASE_DIR / "webapp" / "data"
+SEALED_FILE = BASE_DIR / "data" / "sealed_exams.json"
 MOCK_COUNT = 5
+SEALED_MOCKS = {5}
+SEALED_READING = {4}
 
 RW = "rw"
 MATH = "m"
@@ -157,6 +163,9 @@ def build_ielts() -> dict:
     if extra_file.exists():
         reading.extend(json.loads(extra_file.read_text(encoding="utf-8")))
     writing = json.loads((BASE_DIR / "data" / "ielts_writing.json").read_text(encoding="utf-8"))
+    visuals = json.loads((BASE_DIR / "data" / "ielts_task1_visuals.json").read_text(encoding="utf-8"))
+    for prompt in writing["task1"]:
+        prompt["visual"] = visuals[prompt["id"]]
     return {"listening": listening, "reading": reading, "writing": writing}
 
 
@@ -166,27 +175,49 @@ def write_json(name: str, value) -> None:
     print(f"{name}: {path.stat().st_size // 1024} KB")
 
 
+def mock_question_ids(mock: dict) -> set[str]:
+    return {qid for part in ("rw", "math") for ids in mock[part].values() for qid in ids}
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    bank = json.loads((BASE_DIR / "data" / "sat_question_bank.json").read_text(encoding="utf-8"))
+    bank = [
+        *json.loads((BASE_DIR / "data" / "sat_question_bank.json").read_text(encoding="utf-8")),
+        *json.loads((BASE_DIR / "data" / "sat_math_practice.json").read_text(encoding="utf-8")),
+    ]
     mocks = build_mocks(bank)
-    in_mocks = {qid for mock in mocks for part in ("rw", "math") for ids in mock[part].values() for qid in ids}
+    in_mocks = {qid for mock in mocks for qid in mock_question_ids(mock)}
+    sealed_ids = {qid for mock in mocks if mock["num"] in SEALED_MOCKS for qid in mock_question_ids(mock)}
 
-    questions, notes = [], {}
+    questions, notes, sealed_questions, sealed_notes = [], {}, [], {}
     for q in bank:
-        notes[q["id"]] = {"exp": q["exp"], "strat": q["strat"]}
+        note = {"exp": q["exp"], "strat": q["strat"]}
         item = {k: v for k, v in q.items() if k not in ("exp", "strat", "mock") and v not in ("", None)}
+        if q["id"] in sealed_ids:
+            sealed_questions.append(item)
+            sealed_notes[q["id"]] = note
+            continue
         if q["id"] not in in_mocks:
             item["free"] = 1
         questions.append(item)
+        notes[q["id"]] = note
 
     write_json("sat_bank.json", questions)
     write_json("sat_notes.json", notes)
-    write_json("sat_mocks.json", mocks)
+    write_json("sat_mocks.json", [mock for mock in mocks if mock["num"] not in SEALED_MOCKS])
     ielts = build_ielts()
-    write_json("ielts.json", {"listening": ielts["listening"], "reading": ielts["reading"]})
+    write_json("ielts.json", {
+        "listening": ielts["listening"],
+        "reading": [test for test in ielts["reading"] if test["num"] not in SEALED_READING],
+    })
     write_json("ielts_writing.json", ielts["writing"])
-    print(f"{len(bank)} questions, {len(in_mocks)} used in mocks, {len(bank) - len(in_mocks)} for practice only")
+    SEALED_FILE.write_text(json.dumps({
+        "mocks": [mock for mock in mocks if mock["num"] in SEALED_MOCKS],
+        "questions": sealed_questions, "notes": sealed_notes,
+        "reading": [test for test in ielts["reading"] if test["num"] in SEALED_READING],
+    }, ensure_ascii=False, separators=(",", ":")), encoding="utf-8", newline="\n")
+    print(f"{len(bank)} questions: {len(in_mocks)} in mocks ({len(sealed_ids)} of them sealed), "
+          f"{len(bank) - len(in_mocks)} for practice only")
 
 
 if __name__ == "__main__":

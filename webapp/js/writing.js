@@ -3,6 +3,7 @@
 
 const TARGET_WORDS = { 1: 150, 2: 250 };
 const WRITING_MINUTES = { 1: 20, 2: 40 };
+const TASK1_INSTRUCTION = 'Summarise the information by selecting and reporting the main features, and make comparisons where relevant.';
 const CRITERIA_NAMES = {
   task: 'Topshiriq bajarilishi', coherence: "Izchillik va bog'liqlik", lexical: "Lug'at boyligi", grammar: 'Grammatika',
 };
@@ -63,18 +64,23 @@ views.writing = {
     return `<div class="exam"><div class="exam-top"><div class="exam-top-in">
         <button class="icon-btn" data-act="back" aria-label="Orqaga">${icon('left')}</button>
         <div class="exam-title"><span class="eyebrow">IELTS Writing Task ${task}</span><span id="w-timer"><span class="timer off">${WRITING_MINUTES[task]} daqiqa tavsiya etiladi</span></span></div>
+        ${prompt.visual ? `<button class="icon-btn" data-act="writingVisual" aria-label="Grafikni ko'rish">${icon('chart')}</button>` : ''}
         <button class="icon-btn" data-act="writingTimer" aria-label="Taymer">${icon('clock')}</button></div></div>
       <div class="exam-main"><div class="exam-grid">
         <div class="card stack sm"><span class="eyebrow">${esc(prompt.type)}</span><div class="pre">${esc(prompt.prompt)}</div>
+          ${task === 1 ? `<div class="small muted">${TASK1_INSTRUCTION}</div>` : ''}
+          ${visualHTML(prompt.visual)}
           <button class="btn sm" data-act="writingGuide" style="align-self:flex-start">Reja va iboralar</button></div>
         <textarea id="essay" class="input" rows="14" spellcheck="false" placeholder="Inshoingizni shu yerga yozing">${esc(text)}</textarea>
+        <p class="small muted">Insho tekshirish uchun AI xizmatiga yuboriladi. Unga ism, telefon raqami kabi shaxsiy ma'lumot yozmang.</p>
       </div></div>
       <div class="exam-bottom"><div class="exam-bottom-in">
         <span id="w-count">${counterHTML(wordCount(text), TARGET_WORDS[task])}</span>
         <button id="w-submit" class="btn primary" data-act="submitEssay">${icon('spark', true)}Tekshirish${remaining != null ? ` (${remaining})` : ''}</button>
       </div></div></div>`;
   },
-  mount() {
+  mount(root) {
+    mountVisual(root, writer.prompt.visual);
     const box = document.getElementById('essay');
     box.addEventListener('input', () => {
       store(draftKey(writer.id), box.value);
@@ -113,7 +119,10 @@ views.writingResult = {
 
 Object.assign(actions, {
   writingTask(el) { App.writingTask = Number(el.dataset.task); draw(); },
-  openWriting(el) { open('writing', { id: el.dataset.id }); },
+  openWriting(el) {
+    track('writing_opened', el.dataset.id);
+    open('writing', { id: el.dataset.id });
+  },
   async openSubmission(el) {
     const data = await api(`writing/${el.dataset.id}`).catch(() => null);
     if (data) open('writingResult', { data });
@@ -121,6 +130,7 @@ Object.assign(actions, {
   writingGuide() {
     sheet(`<div class="stack"><div class="h2">Reja va foydali iboralar</div><div class="pre small">${esc(writer.prompt.guide)}</div></div>`);
   },
+  writingVisual() { mountVisual(sheet(visualHTML(writer.prompt.visual)), writer.prompt.visual); },
   writingTimer() {
     if (writer.timer) return;
     const deadline = Date.now() + WRITING_MINUTES[writer.task] * 60000;

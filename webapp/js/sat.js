@@ -26,7 +26,7 @@ let mock = null;
 function saveMock() {
   if (!mock || !run) return;
   store(MOCK_SAVE_KEY, {
-    id: mock.id, stage: mock.stage, route: mock.route, modules: mock.modules, session: mock.session, deadline: run.deadline,
+    id: mock.id, stage: mock.stage, route: mock.route, modules: mock.modules, session: mock.session, sealed: mock.sealed, deadline: run.deadline,
     idx: run.idx, answers: run.answers, flags: run.flags, elim: run.elim, marks: run.marks, times: run.times, notes: mock.notes,
   });
 }
@@ -157,13 +157,14 @@ function enterStage(stage, saved) {
   const ids = mock.modules[stage];
   const last = stage === 'math_m2';
   const state = saved || { answers: mock.answers, flags: mock.flags, elim: mock.elim, marks: mock.marks, times: mock.times };
+  const moduleEnd = Date.now() + info.minutes * 60000;
   return startRun({
     mode: 'exam',
     title: `${info.section} · Modul ${info.module}`,
     ids,
     idx: saved?.idx || 0,
     answers: state.answers, flags: state.flags, elim: state.elim, marks: state.marks, times: state.times,
-    deadline: saved?.deadline || Date.now() + info.minutes * 60000,
+    deadline: saved?.deadline || (mock.examEnd ? Math.min(moduleEnd, mock.examEnd) : moduleEnd),
     tools: stage.startsWith('math') ? mathTools() : readingTools(),
     finishLabel: last ? 'Imtihonni yakunlash' : 'Modulni yakunlash',
     exitMessage: "Chiqsangiz, javoblar saqlanadi va keyinroq davom ettirasiz. Vaqt to'xtamaydi.",
@@ -187,14 +188,31 @@ function routeFor(section) {
   return correct / ids.length >= ROUTE_THRESHOLD ? 'hard' : 'easy';
 }
 
+// A sealed exam has no keys on the phone, so the server grades the first module and picks the second.
+async function serverRoute(section) {
+  const items = mock.modules[`${section}_m1`].map(id => ({ q: id, a: mock.answers[id] || '', t: mock.times[id] || 0 }));
+  const { route } = await api(`sessions/${mock.session}/route`, { method: 'POST', body: { section, items } });
+  return route;
+}
+
 function finishStage() {
   recordTime();
   stopTimer();
   Object.assign(mock, { answers: run.answers, flags: run.flags, elim: run.elim, marks: run.marks, times: run.times });
+  return advanceStage();
+}
+
+async function advanceStage() {
   const index = STAGES.indexOf(mock.stage);
   if (mock.stage.endsWith('m1')) {
     const section = mock.stage.split('_')[0];
-    mock.route[section] = routeFor(section);
+    try {
+      mock.route[section] = mock.sealed ? await serverRoute(section) : routeFor(section);
+    } catch (e) {
+      saveMock();
+      open('satRetry', {}, { replace: true });
+      return;
+    }
     mock.modules[`${section}_m2`] = mock.data[section][`m2_${mock.route[section]}`];
   }
   if (index === STAGES.length - 1) {
@@ -207,6 +225,18 @@ function finishStage() {
   saveMock();
   open('satBreak', {}, { replace: true });
 }
+
+views.satRetry = {
+  full: true,
+  render() {
+    return `<div class="page flush"><div class="break">
+      <span class="tile warn">${icon('clock')}</span>
+      <div class="h1">Aloqa yo'q</div>
+      <p class="muted">Javoblaringiz saqlangan. Keyingi modulni ochish uchun server bilan aloqa kerak.</p>
+      <button class="btn primary block lg" data-act="retryRoute">Qayta urinish</button></div></div>`;
+  },
+  onBack() {},
+};
 
 views.satBreak = {
   full: true,
@@ -256,34 +286,37 @@ async function finishMock() {
   const result = await submitAttempt(mockPayload());
   clearMock();
   const ids = STAGES.flatMap(stage => mock.modules[stage]);
-  const review = { ids, answers: { ...mock.answers } };
+  const review = mock.sealed ? null : { ids, answers: { ...mock.answers } };
   if (result) {
     App.boot && Object.assign(App.boot, { me: result.me, due: result.due });
     refreshBoot();
     open('report', { id: result.id, report: result.report, review }, { replace: true });
   } else {
-    open('report', { report: localMockReport(), review }, { replace: true });
+    open('report', { report: mock.sealed ? { kind: 'pending', title: mock.title } : localMockReport(), review }, { replace: true });
   }
   haptic('good');
   mock = null;
 }
 
-async function loadMock(mockId, session) {
-  const mocks = await loadData('sat_mocks.json');
+// A group exam comes with a ticket from the server: its time limit, and for a sealed exam the paper without keys.
+async function loadMock(mockId, session, ticket) {
   await satBank();
-  const data = mocks.find(item => item.id === mockId);
+  const paper = ticket?.exam;
+  if (paper) Object.assign(App.bank, paper.questions);
+  const data = paper ? paper.mock : (await loadData('sat_mocks.json')).find(item => item.id === mockId);
   if (!data) throw new Error(mockId);
   return {
     id: data.id, title: data.title, data, stage: 'rw_m1', session: session || null, route: { rw: null, math: null },
+    sealed: !!paper, examEnd: ticket ? Date.now() + ticket.seconds_left * 1000 : 0,
     modules: { rw_m1: data.rw.m1, rw_m2: [], math_m1: data.math.m1, math_m2: [] },
     answers: {}, flags: {}, elim: {}, marks: {}, times: {}, notes: {},
   };
 }
 
-async function startMock(mockId, session) {
+async function startMock(mockId, session, ticket) {
   document.getElementById('app').innerHTML = loadingCards(2);
   try {
-    mock = await loadMock(mockId, session);
+    mock = await loadMock(mockId, session, ticket);
   } catch (e) {
     toast("Testni yuklab bo'lmadi. Internetni tekshiring.");
     draw();
@@ -295,7 +328,26 @@ async function startMock(mockId, session) {
 }
 
 async function resumeMock(saved) {
-  mock = await loadMock(saved.id, saved.session);
+  let ticket = null;
+  try {
+    if (saved.session) ticket = await api(`sessions/${saved.session}/start`, { method: 'POST', body: {} });
+  } catch (e) {
+    if (saved.sealed) { toast("Imtihonni ochish uchun internet kerak."); return; }
+  }
+  if (ticket?.done) {
+    clearMock();
+    toast('Bu imtihon allaqachon topshirilgan.');
+    draw();
+    return;
+  }
+  try {
+    mock = await loadMock(saved.id, saved.session, ticket);
+  } catch (e) {
+    clearMock();
+    toast("Bu imtihon endi ochiq emas.");
+    draw();
+    return;
+  }
   Object.assign(mock, { route: saved.route, modules: saved.modules, notes: saved.notes || {},
     answers: saved.answers, flags: saved.flags, elim: saved.elim, marks: saved.marks, times: saved.times });
   setExamGuard(true);
@@ -314,9 +366,10 @@ async function resumeMock(saved) {
 
 Object.assign(actions, {
   nextStage() { enterStage(mock.nextStage); },
+  retryRoute() { advanceStage(); },
   startMock(el) {
     const saved = recall(MOCK_SAVE_KEY);
-    const begin = () => { clearMock(); startMock(el.dataset.id, App.session?.ref === el.dataset.id ? App.session.code : null); };
+    const begin = () => { clearMock(); startMock(el.dataset.id, null); };
     if (saved) askConfirm("Tugallanmagan imtihon bor. Yangisini boshlasangiz, u o'chadi. Davom etasizmi?", begin);
     else begin();
   },
@@ -359,18 +412,25 @@ function resumeCard() {
 
 async function satMocksTab() {
   const mocks = await loadData('sat_mocks.json');
-  let scores = {};
+  let scores = {}, seen = {};
   if (hasTelegramUser) {
-    const list = await api('attempts').catch(() => ({ attempts: [] }));
+    const [list, status] = await Promise.all([
+      api('attempts').catch(() => ({ attempts: [] })), api('mocks').catch(() => ({ seen: {} })),
+    ]);
     list.attempts.filter(a => a.kind === 'sat_mock').reverse().forEach(a => { scores[a.ref] = a.score; });
+    seen = status.seen;
   }
+  const chip = item => {
+    if (scores[item.id]) return `<span class="chip good num">${Math.round(scores[item.id])}</span>`;
+    return seen[item.id] ? `<span class="chip warn num">${seen[item.id]} ta tanish savol</span>` : '';
+  };
   const rows = mocks.map(item => `<button class="list-row" data-act="startMock" data-id="${esc(item.id)}">
       <span class="tile">${item.num}</span>
       <span class="grow"><span class="h3">${esc(item.title)}</span><br><span class="label">98 savol · 2 soat 14 daqiqa</span></span>
-      ${scores[item.id] ? `<span class="chip good num">${Math.round(scores[item.id])}</span>` : ''}
+      ${chip(item)}
       <span class="chev">${icon('right', true)}</span></button>`).join('');
   return `${resumeCard()}
-    <div class="card tight small muted">Har bir mock ikki bo'limdan iborat: Reading & Writing va Math. Ikkinchi modulning qiyinligi birinchi moduldagi natijangizga qarab tanlanadi.</div>
+    <div class="card tight small muted">Har bir mock ikki bo'limdan iborat: Reading & Writing va Math. Ikkinchi modulning qiyinligi birinchi moduldagi natijangizga qarab tanlanadi. Mashqlar navbatdagi mockka tegmaydi, shuning uchun uni toza holda topshira olasiz.</div>
     <div class="list">${rows}</div>`;
 }
 

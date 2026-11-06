@@ -1,8 +1,9 @@
-// Fails when any \( ... \) formula in the SAT bank cannot be typeset by KaTeX.
+// Fails when any \( ... \) formula in the SAT questions cannot be typeset by KaTeX.
 import { readFileSync } from 'node:fs';
 import katex from 'katex';
 
-const bank = JSON.parse(readFileSync(new URL('../data/sat_question_bank.json', import.meta.url), 'utf8'));
+const load = name => JSON.parse(readFileSync(new URL(`../data/${name}`, import.meta.url), 'utf8'));
+const bank = [...load('sat_question_bank.json'), ...load('sat_math_practice.json')];
 const FORMULA = /\\\((.+?)\\\)/gs;
 let checked = 0;
 const failures = [];

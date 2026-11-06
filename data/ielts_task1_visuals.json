@@ -1,0 +1,222 @@
+{
+  "w1_01": {"parts": [
+    {"kind": "line", "title": "Average share of electricity by source, four countries (%)", "x": [2000, 2005, 2010, 2015, 2020, 2025],
+     "series": [
+       {"name": "Hydroelectric", "values": [31, 30, 30, 29, 30, 30]},
+       {"name": "Wind", "values": [4, 6, 9, 12, 14, 16]},
+       {"name": "Solar", "values": [0.5, 1, 2, 6, 13, 24]}]},
+    {"kind": "line", "title": "Solar share of electricity by country (%)", "x": [2000, 2005, 2010, 2015, 2020, 2025],
+     "series": [
+       {"name": "Germany", "values": [0.5, 1, 2, 8, 18, 33]},
+       {"name": "Norway", "values": [1, 2, 3, 5, 6, 9]},
+       {"name": "Spain", "values": [0.3, 0.5, 2, 6, 16, 30]},
+       {"name": "Italy", "values": [0.2, 0.5, 1, 5, 12, 24]}]}
+  ]},
+  "w1_02": {"parts": [
+    {"kind": "bar", "title": "Graduates by gender in the UK, 2024 (%)", "categories": ["STEM", "Humanities", "Business", "Medicine", "Law"],
+     "series": [
+       {"name": "Male", "values": [72, 35, 51, 35, 44]},
+       {"name": "Female", "values": [28, 65, 49, 65, 56]}]}
+  ]},
+  "w1_03": {"parts": [
+    {"kind": "pie", "title": "Household expenditure in Japan, 1990",
+     "slices": [{"name": "Housing", "value": 35}, {"name": "Food", "value": 32}, {"name": "Transport", "value": 16}, {"name": "Leisure", "value": 14}, {"name": "Technology", "value": 3}]},
+    {"kind": "pie", "title": "Household expenditure in Japan, 2020",
+     "slices": [{"name": "Housing", "value": 34}, {"name": "Food", "value": 19}, {"name": "Transport", "value": 14}, {"name": "Leisure", "value": 15}, {"name": "Technology", "value": 18}]}
+  ]},
+  "w1_04": {"parts": [
+    {"kind": "flow", "title": "From underground brine to battery-grade lithium carbonate",
+     "steps": [
+       {"label": "Brine pumping", "note": "Salt water is pumped up from underground pools"},
+       {"label": "Solar evaporation ponds", "note": "Water evaporates over 12-18 months"},
+       {"label": "Chemical precipitation", "note": "Magnesium is removed"},
+       {"label": "Purification"},
+       {"label": "Crystallization", "note": "Lithium carbonate forms"},
+       {"label": "Drying"},
+       {"label": "Micronized packaging", "note": "Battery-grade product"}]}
+  ]},
+  "w1_05": {"parts": [
+    {"kind": "map", "title": "2010", "facts": "2010: a river runs along the north with a cargo wharf on its bank. Two derelict factories stand south of the wharf, with warehouses south of them. A clock tower stands in the east, with a car park to its south. A main road runs east to west, and there is waste ground in the far south.",
+     "items": [
+       {"t": "water", "points": [[0, 0], [340, 0], [340, 42], [0, 42]], "label": "River", "at": [170, 26]},
+       {"t": "area", "x": 18, "y": 46, "w": 304, "h": 16, "label": "Cargo wharf"},
+       {"t": "area", "x": 18, "y": 68, "w": 94, "h": 54, "label": "Factory|(derelict)"},
+       {"t": "area", "x": 118, "y": 68, "w": 94, "h": 54, "label": "Factory|(derelict)"},
+       {"t": "dot", "x": 268, "y": 84, "label": "Clock tower"},
+       {"t": "area", "x": 18, "y": 128, "w": 194, "h": 34, "label": "Warehouses"},
+       {"t": "area", "x": 226, "y": 112, "w": 96, "h": 50, "label": "Car park"},
+       {"t": "road", "points": [[0, 174], [340, 174]], "label": "Main road", "at": [288, 170]},
+       {"t": "area", "x": 18, "y": 186, "w": 304, "h": 26, "label": "Waste ground"}]},
+    {"kind": "map", "title": "Present day", "facts": "Present day: a public marina has been built on the river in the north-east, and a pedestrian promenade has replaced the cargo wharf. Eco-apartments stand on the sites of the factories and the warehouses. The clock tower is unchanged. A light rail station has replaced the car park, the main road remains, and a light rail line has replaced the waste ground.",
+     "items": [
+       {"t": "water", "points": [[0, 0], [340, 0], [340, 42], [0, 42]], "label": "River", "at": [90, 26]},
+       {"t": "area", "x": 196, "y": 8, "w": 126, "h": 34, "label": "Public marina", "tone": "new"},
+       {"t": "area", "x": 18, "y": 46, "w": 304, "h": 16, "label": "Pedestrian promenade", "tone": "green"},
+       {"t": "area", "x": 18, "y": 68, "w": 194, "h": 54, "label": "Eco-apartments", "tone": "new"},
+       {"t": "dot", "x": 268, "y": 84, "label": "Clock tower"},
+       {"t": "area", "x": 18, "y": 128, "w": 194, "h": 34, "label": "Eco-apartments", "tone": "new"},
+       {"t": "area", "x": 226, "y": 112, "w": 96, "h": 50, "label": "Light rail|station", "tone": "new"},
+       {"t": "road", "points": [[0, 174], [340, 174]], "label": "Main road", "at": [288, 170]},
+       {"t": "rail", "points": [[0, 198], [340, 198]], "label": "Light rail line", "at": [170, 192]}]}
+  ]},
+  "w1_06": {"parts": [
+    {"kind": "table", "title": "Public transport in five capital cities, 2023", "head": ["City", "On-time services (%)", "Daily passengers (millions)", "Monthly pass (euros)"],
+     "rows": [["Vienna", "96.4", "2.6", "33"], ["Prague", "94.8", "1.9", "38"], ["Berlin", "89.2", "2.9", "63"], ["Paris", "86.5", "3.7", "86"], ["London", "84.1", "4.1", "178"]]}
+  ]},
+  "w1_07": {"parts": [
+    {"kind": "bar", "title": "Share of world coffee exports by country, 2025 (%)", "categories": ["Brazil", "Vietnam", "Colombia", "Indonesia", "Ethiopia"],
+     "series": [{"name": "Exports", "values": [41, 18, 9, 7, 5]}]},
+    {"kind": "line", "title": "Coffee consumption per person (kg per year)", "x": [2015, 2017, 2019, 2021, 2023, 2025],
+     "series": [
+       {"name": "Finland", "values": [11.6, 11.7, 11.8, 11.9, 12, 12]},
+       {"name": "Norway", "values": [11.1, 11.3, 11.5, 11.7, 11.9, 12]},
+       {"name": "Germany", "values": [5.2, 5.4, 5.5, 5.7, 5.8, 6]},
+       {"name": "USA", "values": [4.2, 4.4, 4.5, 4.7, 4.9, 5.1]}]}
+  ]},
+  "w1_08": {"parts": [
+    {"kind": "flow", "title": "Processing green and black tea",
+     "steps": [{"label": "Plucking", "note": "Leaves are picked by hand"}, {"label": "Withering", "note": "Leaves soften"}],
+     "branches": [
+       {"name": "Green tea", "steps": [{"label": "Steaming", "note": "Stops oxidation"}, {"label": "Rolling"}, {"label": "Roasting", "note": "Rotary kilns"}]},
+       {"name": "Black tea", "steps": [{"label": "Bruising", "note": "Cells are broken"}, {"label": "Full oxidation", "note": "Enzymes darken the leaf"}, {"label": "Firing", "note": "Rotary kilns"}]}],
+     "after": [{"label": "Sorting"}, {"label": "Vacuum-sealed packaging"}]}
+  ]},
+  "w1_09": {"parts": [
+    {"kind": "bar", "title": "Employees working remotely by sector (%)", "categories": ["IT", "Finance", "Education", "Retail", "Healthcare", "Manufacturing"],
+     "series": [
+       {"name": "Before", "values": [24, 18, 9, 5, 6, 4]},
+       {"name": "During", "values": [88, 88, 70, 28, 22, 18]},
+       {"name": "After", "values": [65, 65, 25, 12, 10, 8]}]}
+  ]},
+  "w1_10": {"parts": [
+    {"kind": "line", "title": "Atmospheric CO2 concentration (ppm)", "x": [1950, 1965, 1980, 1995, 2010, 2025], "min": 300,
+     "series": [{"name": "CO2", "values": [310, 320, 339, 361, 390, 422]}]},
+    {"kind": "line", "title": "Global temperature above pre-industrial average (°C)", "x": [1950, 1965, 1980, 1995, 2010, 2025],
+     "series": [{"name": "Temperature", "values": [0.2, 0.25, 0.45, 0.7, 0.95, 1.3]}]}
+  ]},
+  "w1_11": {"parts": [
+    {"kind": "map", "title": "Two proposed high-speed rail routes", "facts": "Metropolis A lies inland in the west and Port B on the coast in the east. A protected wetland reserve lies between them. Route Alpha runs straight from A to B for 120 km and passes through the reserve in tunnels. Route Beta is 160 km long, 40 km longer, and curves south along the existing highway to avoid the reserve.",
+     "height": 236,
+     "items": [
+       {"t": "water", "points": [[304, 0], [340, 0], [340, 236], [304, 236]], "label": "Sea", "at": [322, 30]},
+       {"t": "area", "x": 12, "y": 84, "w": 78, "h": 44, "label": "Metropolis A"},
+       {"t": "area", "x": 238, "y": 84, "w": 62, "h": 44, "label": "Port B"},
+       {"t": "area", "x": 122, "y": 40, "w": 86, "h": 112, "label": "", "tone": "green"},
+       {"t": "text", "x": 165, "y": 62, "label": "Protected|wetland reserve"},
+       {"t": "road", "points": [[90, 118], [122, 180], [208, 180], [238, 118]], "label": "", "thin": true},
+       {"t": "text", "x": 165, "y": 226, "label": "Existing highway (grey), Route Beta 160 km (blue)"},
+       {"t": "route", "points": [[90, 106], [122, 106]], "tone": "alpha"},
+       {"t": "route", "points": [[122, 106], [208, 106]], "tone": "alpha", "tunnel": true},
+       {"t": "route", "points": [[208, 106], [238, 106]], "tone": "alpha"},
+       {"t": "text", "x": 165, "y": 124, "label": "Tunnels"},
+       {"t": "text", "x": 165, "y": 98, "label": "Route Alpha, 120 km"},
+       {"t": "route", "points": [[90, 124], [122, 192], [208, 192], [238, 124]], "tone": "beta"}]}
+  ]},
+  "w1_12": {"parts": [
+    {"kind": "pie", "title": "Fuels for power generation in South Korea, 2010",
+     "slices": [{"name": "Coal", "value": 42}, {"name": "Nuclear", "value": 29}, {"name": "LNG", "value": 22}, {"name": "Solar and wind", "value": 2}, {"name": "Oil and other", "value": 5}]},
+    {"kind": "pie", "title": "Fuels for power generation in South Korea, 2024",
+     "slices": [{"name": "Coal", "value": 26}, {"name": "Nuclear", "value": 29}, {"name": "LNG", "value": 24}, {"name": "Solar and wind", "value": 19}, {"name": "Oil and other", "value": 2}]}
+  ]},
+  "w1_13": {"parts": [
+    {"kind": "table", "title": "Results of four high school programmes", "head": ["Programme", "Retention (%)", "University entry (%)", "Median score (/100)", "Awards (%)"],
+     "rows": [["IB Diploma", "88", "92", "78", "31"], ["A-Levels", "90", "86", "74", "22"], ["AP", "91", "84", "72", "19"], ["National Diploma", "96", "61", "63", "8"]]}
+  ]},
+  "w1_14": {"parts": [
+    {"kind": "line", "title": "Population living in urban areas (%)", "x": [1970, 1985, 2000, 2015, 2030],
+     "series": [
+       {"name": "Latin America", "values": [60, 68, 75, 80, 84]},
+       {"name": "East Asia", "values": [20, 30, 42, 57, 68]},
+       {"name": "Central Asia", "values": [38, 41, 43, 46, 52]},
+       {"name": "Sub-Saharan Africa", "values": [18, 24, 31, 38, 46]},
+       {"name": "South Asia", "values": [19, 24, 29, 34, 40]}]}
+  ]},
+  "w1_15": {"parts": [
+    {"kind": "flow", "title": "From municipal wastewater to drinking water",
+     "steps": [
+       {"label": "Bar screens", "note": "Large solids are removed"},
+       {"label": "Primary clarifier", "note": "Sludge settles at the bottom"},
+       {"label": "Bioreactors", "note": "Microbes digest organic matter"},
+       {"label": "Microfiltration", "note": "Fine particles are removed"},
+       {"label": "Reverse osmosis", "note": "High-pressure membranes"},
+       {"label": "UV disinfection"},
+       {"label": "Drinking water reservoir"}]}
+  ]},
+  "w1_16": {"parts": [
+    {"kind": "bar", "title": "Teenagers' daily screen time by device, 2024 (minutes)", "categories": ["North America", "Europe", "Asia", "South America"],
+     "series": [
+       {"name": "Smartphones", "values": [275, 262, 268, 281]},
+       {"name": "Consoles", "values": [88, 61, 42, 49]},
+       {"name": "Tablets", "values": [34, 38, 46, 29]},
+       {"name": "Computers", "values": [52, 57, 94, 41]}]}
+  ]},
+  "w1_17": {"parts": [
+    {"kind": "map", "title": "Before the scheme", "facts": "Before: a river runs west to east through the town and into the sea on the east side. A sandy beach lies between the town and the sea, on both sides of the river mouth. Damaged wooden groynes stick out from the beach into the sea. The river mouth is open.",
+     "items": [
+       {"t": "water", "points": [[236, 0], [340, 0], [340, 220], [236, 220]], "label": "Sea", "at": [306, 26]},
+       {"t": "water", "points": [[0, 98], [236, 98], [236, 122], [0, 122]], "label": "River", "at": [58, 114]},
+       {"t": "area", "x": 14, "y": 14, "w": 150, "h": 72, "label": "Town"},
+       {"t": "area", "x": 14, "y": 134, "w": 150, "h": 72, "label": "Town"},
+       {"t": "area", "x": 176, "y": 14, "w": 56, "h": 72, "label": "Beach", "tone": "sand"},
+       {"t": "area", "x": 176, "y": 134, "w": 56, "h": 72, "label": "Beach", "tone": "sand"},
+       {"t": "groyne", "points": [[232, 26], [258, 26]]}, {"t": "groyne", "points": [[232, 50], [258, 50]]}, {"t": "groyne", "points": [[232, 74], [258, 74]]},
+       {"t": "groyne", "points": [[232, 146], [258, 146]]}, {"t": "groyne", "points": [[232, 170], [258, 170]]}, {"t": "groyne", "points": [[232, 194], [258, 194]]},
+       {"t": "text", "x": 300, "y": 46, "label": "Damaged|wooden|groynes"},
+       {"t": "text", "x": 300, "y": 110, "label": "Open river|mouth"}]},
+    {"kind": "map", "title": "After the scheme", "facts": "After: the wooden groynes are gone and concrete revetments run along the whole shoreline on both sides of the river mouth. Retractable tidal gates now cross the river mouth. Salt marsh buffer zones have been planted where the beach used to be, between the town and the revetments.",
+     "items": [
+       {"t": "water", "points": [[236, 0], [340, 0], [340, 220], [236, 220]], "label": "Sea", "at": [306, 26]},
+       {"t": "water", "points": [[0, 98], [236, 98], [236, 122], [0, 122]], "label": "River", "at": [58, 114]},
+       {"t": "area", "x": 14, "y": 14, "w": 150, "h": 72, "label": "Town"},
+       {"t": "area", "x": 14, "y": 134, "w": 150, "h": 72, "label": "Town"},
+       {"t": "area", "x": 176, "y": 14, "w": 50, "h": 72, "label": "Salt|marsh", "tone": "green"},
+       {"t": "area", "x": 176, "y": 134, "w": 50, "h": 72, "label": "Salt|marsh", "tone": "green"},
+       {"t": "wall", "points": [[232, 10], [232, 94]]}, {"t": "wall", "points": [[232, 126], [232, 210]]},
+       {"t": "gate", "points": [[232, 96], [232, 124]]},
+       {"t": "text", "x": 292, "y": 60, "label": "Concrete|revetment"},
+       {"t": "text", "x": 292, "y": 106, "label": "Retractable|tidal gates"}]}
+  ]},
+  "w1_18": {"parts": [
+    {"kind": "line", "title": "Freight cost per kilogram (US dollars)", "x": [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+     "series": [
+       {"name": "Air cargo", "values": [2.4, 2.3, 3.9, 6.2, 3.2, 2.9, 2.8]},
+       {"name": "Ocean", "values": [0.5, 0.5, 0.8, 5, 3.1, 0.7, 0.6]}]}
+  ]},
+  "w1_19": {"parts": [
+    {"kind": "pie", "title": "Arable land use in Uzbekistan, 2024",
+     "slices": [{"name": "Wheat", "value": 38}, {"name": "Cotton", "value": 34}, {"name": "Orchards", "value": 15}, {"name": "Forage crops", "value": 13}]},
+    {"kind": "pie", "title": "Irrigation methods, 2015",
+     "slices": [{"name": "Furrow", "value": 86}, {"name": "Drip", "value": 5}, {"name": "Sprinkler", "value": 9}]},
+    {"kind": "pie", "title": "Irrigation methods, 2024",
+     "slices": [{"name": "Furrow", "value": 66}, {"name": "Drip", "value": 22}, {"name": "Sprinkler", "value": 12}]}
+  ]},
+  "w1_20": {"parts": [
+    {"kind": "flow", "title": "How glass bottles are recycled", "loop": "Bottles go back to consumers, and the cycle starts again",
+     "steps": [
+       {"label": "Return bins", "note": "Consumers bring used bottles"},
+       {"label": "Colour sorting", "note": "Clear, amber and green"},
+       {"label": "Crushing", "note": "Glass becomes small pieces called cullet"},
+       {"label": "Furnace melting", "note": "1500°C"},
+       {"label": "Mould blowing", "note": "New bottles take shape"},
+       {"label": "Cooling"},
+       {"label": "Distribution", "note": "To shops and consumers"}]}
+  ]},
+  "w1_21": {"parts": [
+    {"kind": "table", "title": "Electric vehicles in five countries", "head": ["Country", "EV share (%)", "Chargers per 100 km", "Total fast chargers", "Subsidy (USD per car)"],
+     "rows": [["Norway", "88", "34", "9,800", "9,500"], ["China", "38", "28", "1,250,000", "4,100"], ["Germany", "19", "13", "31,000", "3,200"], ["USA", "10", "6", "46,000", "7,500"], ["Japan", "3", "8", "10,500", "5,700"]]}
+  ]},
+  "w1_22": {"parts": [
+    {"kind": "line", "title": "Internet users by age group in the UK (%)", "x": [2010, 2015, 2020, 2025],
+     "series": [
+       {"name": "18-25", "values": [78, 88, 95, 99]},
+       {"name": "26-50", "values": [55, 68, 80, 88]},
+       {"name": "51+", "values": [22, 38, 54, 68]}]}
+  ]},
+  "w1_23": {"parts": [
+    {"kind": "bar", "title": "Renewable electricity by source, 2024 (thousand GWh)", "stacked": true, "categories": ["Germany", "UK", "Spain", "Sweden", "Norway"],
+     "series": [
+       {"name": "Wind and solar", "values": [190, 104, 78, 26, 4]},
+       {"name": "Hydro", "values": [18, 6, 24, 66, 78]},
+       {"name": "Other", "values": [37, 25, 8, 6, 0]}]}
+  ]}
+}

@@ -13,7 +13,7 @@ from aiogram.types import BufferedInputFile
 from aiohttp import web
 
 import config
-from services import attempts, cards, centers, plan, review, users, writing_ai
+from services import attempts, cards, centers, plan, review, sessions, users, writing_ai
 from services.auth_service import validate_telegram_init_data
 from services.content import SAT_DOMAINS, content
 
@@ -63,6 +63,8 @@ async def api_middleware(request: web.Request, handler):
         return await handler(request)
     except attempts.AttemptError as e:
         return fail(str(e))
+    except sessions.SessionError as e:
+        return fail(e.code, e.status)
     except web.HTTPException:
         raise
     except Exception:
@@ -126,12 +128,17 @@ async def update_profile(request: web.Request) -> web.Response:
     return ok({"me": public_user(user), "plan": await plan.today_plan(user)})
 
 
-async def _session_code(body: dict[str, Any]) -> Optional[str]:
+async def _exam_session(user_id: int, kind: str, body: dict[str, Any]) -> Optional[dict[str, Any]]:
+    """The group exam this attempt belongs to. A student who started in time may finish after it closes."""
     code = body.get("session")
     if not isinstance(code, str) or not code:
         return None
     session = await centers.get_session(code)
-    return session["code"] if session and session["status"] == "open" else None
+    if session is None or session["kind"] != kind or session["ref"] != str(body.get("ref")):
+        return None
+    if session["status"] != "open" and await sessions.get_entry(session["code"], user_id) is None:
+        return None
+    return session
 
 
 async def _notify_referrer(request: web.Request, referrer: Optional[int]) -> None:
@@ -152,11 +159,11 @@ async def submit_attempt(request: web.Request) -> web.Response:
     body = await read_json(request)
     kind = body.get("kind")
     if kind == "sat_mock":
-        result = await attempts.submit_sat_mock(user["id"], body, await _session_code(body))
+        result = await attempts.submit_sat_mock(user["id"], body, await _exam_session(user["id"], kind, body))
     elif kind == "practice":
         result = await attempts.submit_practice(user["id"], body)
     elif kind in ("ielts_reading", "ielts_listening"):
-        result = await attempts.submit_ielts(user["id"], body, await _session_code(body))
+        result = await attempts.submit_ielts(user["id"], body, await _exam_session(user["id"], kind, body))
     else:
         return fail("unknown_kind")
     await _notify_referrer(request, result.pop("referrer"))
@@ -173,6 +180,19 @@ async def list_attempts(request: web.Request) -> web.Response:
 async def get_attempt(request: web.Request) -> web.Response:
     found = await attempts.get_attempt(request["user"]["id"], request.match_info["attempt_id"])
     return ok(found) if found else fail("not_found", 404)
+
+
+@routes.get("/api/v1/attempts/{attempt_id}/review")
+async def attempt_review(request: web.Request) -> web.Response:
+    found = await attempts.get_attempt(request["user"]["id"], request.match_info["attempt_id"])
+    if found is None:
+        return fail("not_found", 404)
+    return fail("review_locked", 403) if found["locked"] else ok(attempts.review_pack(found))
+
+
+@routes.get("/api/v1/mocks")
+async def mock_status(request: web.Request) -> web.Response:
+    return ok({"seen": await attempts.mock_exposure(request["user"]["id"])})
 
 
 @routes.get("/api/v1/practice")
@@ -214,7 +234,7 @@ async def evaluate_writing(request: web.Request) -> web.Response:
     task = 1 if prompt["id"].startswith("w1") else 2
     minutes = body.get("minutes") if isinstance(body.get("minutes"), int) else 0
     try:
-        result = await writing_ai.evaluate(user, task, prompt["prompt"], prompt["id"], body["text"], minutes)
+        result = await writing_ai.evaluate(user, task, prompt["prompt"], prompt["id"], body["text"], minutes, prompt.get("visual"))
     except writing_ai.WritingError as e:
         return fail(e.code, 429 if e.code in ("limit_reached", "ai_busy") else 400)
     await users.mark_active(user["id"])
@@ -236,7 +256,10 @@ async def writing_detail(request: web.Request) -> web.Response:
 
 def _session_info(session: dict[str, Any]) -> dict[str, Any]:
     keys = ("code", "title", "kind", "ref", "status", "created_at")
-    return {key: session[key] for key in keys}
+    return {
+        **{key: session[key] for key in keys}, "secure": sessions.is_sealed(session["kind"], session["ref"]),
+        "minutes": sessions.EXAM_SECONDS[session["kind"]] // 60,
+    }
 
 
 @routes.post("/api/v1/sessions/join")
@@ -245,8 +268,52 @@ async def join_session(request: web.Request) -> web.Response:
     code = body.get("code")
     if not isinstance(code, str) or not code.strip():
         return fail("bad_request")
-    session = await centers.join_session(request["user"]["id"], code)
-    return ok({"session": _session_info(session)}) if session else fail("session_not_found", 404)
+    user_id = request["user"]["id"]
+    session = await centers.get_session(code)
+    entry = await sessions.get_entry(session["code"], user_id) if session else None
+    if entry is None and await centers.join_session(user_id, code) is None:
+        return fail("session_not_found", 404)
+    return ok({
+        "session": _session_info(session), "name": await sessions.last_name(user_id),
+        "started": entry is not None, "done": entry["attempt_id"] if entry else None,
+    })
+
+
+async def _session_or_404(code: str) -> dict[str, Any]:
+    session = await centers.get_session(code)
+    if session is None:
+        raise sessions.SessionError("session_not_found", 404)
+    return session
+
+
+@routes.post("/api/v1/sessions/{code}/start")
+async def start_session(request: web.Request) -> web.Response:
+    session = await _session_or_404(request.match_info["code"])
+    body = await read_json(request)
+    entry = await sessions.start(session, request["user"]["id"], body.get("name"))
+    if entry["attempt_id"]:
+        return ok({"done": entry["attempt_id"]})
+    return ok({"seconds_left": sessions.seconds_left(entry), "exam": sessions.sealed_paper(session)})
+
+
+@routes.post("/api/v1/sessions/{code}/route")
+async def route_session(request: web.Request) -> web.Response:
+    """Picks the second module of a sealed mock. The phone has no keys, so it cannot do this itself."""
+    session = await _session_or_404(request.match_info["code"])
+    body = await read_json(request)
+    section = body.get("section")
+    entry = await sessions.get_entry(session["code"], request["user"]["id"])
+    if entry is None or not sessions.is_sealed(session["kind"], session["ref"]) or section not in ("rw", "math"):
+        return fail("bad_request")
+    stored = json.loads(entry["state"]).get("route", {}).get(section)
+    if stored:
+        return ok({"route": stored})
+    sent = {item.get("q"): item for item in body.get("items", []) if isinstance(item, dict)}
+    first_module = content.mocks[session["ref"]][section]["m1"]
+    items = {qid: {"q": qid, "a": sent[qid].get("a"), "t": sent[qid].get("t")} for qid in first_module if qid in sent}
+    route = attempts.module_route(session["ref"], section, items)
+    await sessions.lock_module(entry, section, route, items)
+    return ok({"route": route})
 
 
 async def _staff_or_403(request: web.Request) -> Optional[web.Response]:
@@ -351,6 +418,6 @@ async def share_result(request: web.Request) -> web.Response:
 async def record_event(request: web.Request) -> web.Response:
     body = await read_json(request)
     name = body.get("name")
-    if isinstance(name, str) and name:
+    if isinstance(name, str) and name in users.CLIENT_EVENTS:
         await users.record_event(request["user"]["id"], name, str(body.get("meta") or ""))
     return ok()

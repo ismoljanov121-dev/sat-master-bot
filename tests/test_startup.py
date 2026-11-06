@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, patch
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.session.base import BaseSession
-from aiogram.methods import AnswerCallbackQuery, EditMessageText, GetChatMember, SendMessage
+from aiogram.methods import AnswerCallbackQuery, CopyMessage, EditMessageText, GetChatMember, SendMessage
 from aiogram.types import CallbackQuery, Chat, ChatMemberMember, Message, Update, User
 from aiohttp import ClientSession
 
@@ -121,6 +121,31 @@ class RoutingTest(RouterTestCase):
         replies = await self.send(text, chat_type="supergroup")
         self.assertEqual(len(replies), 1)
         self.assertEqual(self.session.requests[0].chat_id, ADMIN)
+
+    async def test_broadcast_runs_through_the_router_only_after_confirmation(self):
+        await users.touch_user({"id": 7, "first_name": "Ali"}, bot_started=True)
+        update = self.message("/broadcast hammasi", user_id=ADMIN)
+        prepared = Message(message_id=41, date=datetime.now(timezone.utc), chat=Chat(id=ADMIN, type="private"), text="Yangilik")
+        update = update.model_copy(update={"message": update.message.model_copy(update={"reply_to_message": prepared})})
+        await self.dp.feed_update(self.bot, update)
+        self.assertFalse([request for request in self.session.requests if isinstance(request, CopyMessage)])
+
+        self.update_id += 1
+        source = Message(message_id=99, date=datetime.now(timezone.utc), chat=Chat(id=ADMIN, type="private"), text="x")
+        await self.dp.feed_update(self.bot, Update(update_id=self.update_id, callback_query=CallbackQuery(
+            id="2", from_user=User(id=ADMIN, is_bot=False, first_name="Admin"), chat_instance="c", data="bc:hammasi:41", message=source,
+        )))
+        copies = [request for request in self.session.requests if isinstance(request, CopyMessage)]
+        self.assertEqual([(copy.chat_id, copy.message_id) for copy in copies], [(7, 41)])
+
+    async def test_admin_report_button(self):
+        self.update_id += 1
+        source = Message(message_id=99, date=datetime.now(timezone.utc), chat=Chat(id=ADMIN, type="private"), text="x")
+        await self.dp.feed_update(self.bot, Update(update_id=self.update_id, callback_query=CallbackQuery(
+            id="3", from_user=User(id=ADMIN, is_bot=False, first_name="Admin"), chat_instance="c", data="adm:report", message=source,
+        )))
+        texts = [request.text for request in self.session.requests if isinstance(request, SendMessage)]
+        self.assertIn("Yangi", texts[0])
 
     async def test_channel_check_button(self):
         self.update_id += 1

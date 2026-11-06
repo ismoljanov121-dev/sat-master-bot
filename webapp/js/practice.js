@@ -12,7 +12,7 @@ function randomIds(filter, count) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  return pool.slice(0, count).map(q => q.id);
+  return pool.sort((a, b) => (b.free || 0) - (a.free || 0)).slice(0, count).map(q => q.id);
 }
 
 function practiceItems() {
@@ -58,6 +58,7 @@ function mathToolsFor(ids) {
 }
 
 async function startPractice({ section, domain, difficulty }) {
+  track('practice_started', domain || 'mixed');
   await satBank();
   let ids;
   if (hasTelegramUser) {
@@ -76,6 +77,7 @@ async function startPractice({ section, domain, difficulty }) {
 async function startReview() {
   const notebook = await api('notebook').catch(() => null);
   if (!notebook || !notebook.due.length) { toast("Bugun takrorlanadigan savol yo'q."); return; }
+  track('review_started');
   startSet('review', notebook.due.slice(0, 10), 'Xatolarni takrorlash', '');
 }
 

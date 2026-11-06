@@ -22,6 +22,13 @@ function stepButtons(steps) {
     <span class="grow h3">${esc(step.text)}</span><span class="chev">${icon('right', true)}</span></button>`).join('');
 }
 
+function exposureNote(exposure) {
+  if (!exposure?.seen) return '';
+  return exposure.clean
+    ? `<div class="card tight small">Bu mockdagi ${exposure.seen} ta savolni oldin ko'rgansiz. Ular ballga qo'shilmadi, shuning uchun oraliq kengroq.</div>`
+    : `<div class="card tight small"><b>Ball haqiqiydan yuqori chiqishi mumkin.</b> Bu mockdagi ${exposure.seen} ta savolni oldin ko'rgansiz. Aniq natija uchun hali ko'rmagan mockni ishlang.</div>`;
+}
+
 function satReportBody(report) {
   const delta = report.previous != null ? report.score - report.previous : null;
   const sections = Object.entries(report.sections).map(([key, part]) => `<div class="card tight stat">
@@ -36,6 +43,7 @@ function satReportBody(report) {
       ${report.low ? `<div class="muted num">Taxminiy oraliq: ${report.low} – ${report.high}</div>` : ''}
       ${delta != null ? `<div style="margin-top:8px"><span class="chip ${delta >= 0 ? 'good' : 'bad'} num">${delta >= 0 ? '+' : ''}${Math.round(delta)} oldingi mockka nisbatan</span></div>` : ''}
     </div>
+    ${exposureNote(report.exposure)}
     <div class="grid2">${sections}</div>
     ${report.domains?.length ? `<div class="section-title">Mavzular bo'yicha</div><div class="card">${domainBars(report.domains)}</div>` : ''}
     ${levels.length ? `<div class="section-title">Qiyinlik bo'yicha</div><div class="grid3">${levels.map(([name, part]) => `<div class="card tight stat">
@@ -52,15 +60,24 @@ function practiceReportBody(report) {
     ${report.domains?.length ? `<div class="section-title">Mavzular bo'yicha</div><div class="card">${domainBars(report.domains)}</div>` : ''}`;
 }
 
+function pendingReportBody(report) {
+  return `<div class="card score-hero"><div class="eyebrow">${esc(report.title)}</div>
+    <div class="h2" style="margin-top:8px">Javoblaringiz saqlandi</div>
+    <p class="small muted" style="margin-top:6px">Ball serverda hisoblanadi. Internet tiklangach, natija Natijalar bo'limida chiqadi.</p></div>`;
+}
+
 views.report = {
   full: true,
   render({ id, report, review }) {
     App.reportSteps = report.steps || [];
-    const body = report.kind === 'sat_mock' ? satReportBody(report) : practiceReportBody(report);
+    const body = report.kind === 'pending' ? pendingReportBody(report)
+      : report.kind === 'sat_mock' ? satReportBody(report) : practiceReportBody(report);
     const offline = !report.offline ? '' : `<div class="card tight small">${hasTelegramUser
       ? "Internet yo'q, shuning uchun bu taxminiy hisob. Natija ulanish tiklanganda saqlanadi."
       : "Natija saqlanmadi. Natijalaringiz saqlanishi uchun testni Telegram ichida oching."}</div>`;
-    return `<div class="page flush stack">${offline}${body}
+    const locked = report.sealed && !review
+      ? `<div class="card tight small">Javoblar tahlili imtihon yopilgach Natijalar bo'limida ochiladi.</div>` : '';
+    return `<div class="page flush stack">${offline}${body}${locked}
       ${App.reportSteps.length ? `<div class="section-title">Keyingi qadamlar</div><div class="list">${stepButtons(App.reportSteps)}</div>` : ''}
       <div class="grid2">
         ${review ? `<button class="btn soft" data-act="reviewAnswers">${icon('eye', true)}Tahlil</button>` : ''}
@@ -72,10 +89,20 @@ views.report = {
   onBack() { actions.reportDone(); },
 };
 
+function hasKey(question) { return !!question && (question.cor != null || question.ans != null); }
+
 async function reviewAnswers(review) {
   document.getElementById('app').innerHTML = loadingCards(2);
   await Promise.all([satBank(), loadNotes()]);
-  const ids = review.ids.filter(id => App.bank[id]);
+  if (review.attempt && !review.ids.every(id => hasKey(App.bank[id]))) {
+    const pack = await api(`attempts/${review.attempt}/review`).catch(() => null);
+    if (pack) {
+      Object.assign(App.bank, pack.questions);
+      Object.assign(App.notes, pack.notes);
+    }
+  }
+  const ids = review.ids.filter(id => hasKey(App.bank[id]));
+  if (!ids.length) { toast("Tahlilni ochib bo'lmadi."); draw(); return; }
   startRun({ mode: 'review', title: 'Tahlil', subtitle: `${ids.length} savol`, ids, answers: review.answers, onFinish: leaveView });
 }
 
@@ -146,6 +173,7 @@ views.results = {
 async function shareAttempt(id) {
   const share = await api('share', { method: 'POST', body: { attempt: id } }).catch(() => null);
   if (!share) { toast("Ulashib bo'lmadi."); return; }
+  track('share_opened');
   const story = tgAtLeast('7.8') && ['android', 'ios'].includes(tg.platform);
   sheet(`<div class="stack"><div class="h2">Natijani ulashish</div>
     <p class="small muted">Do'stingiz havola orqali kelib mashq boshlasa, sizga qo'shimcha AI tekshiruvi beriladi.</p>
@@ -178,6 +206,7 @@ Object.assign(actions, {
       return;
     }
     const answers = Object.fromEntries(data.answers.map(row => [row.question_id, row.chosen]));
-    open('report', { id: data.id, report: data.report, review: { ids: data.answers.map(row => row.question_id), answers } });
+    const review = data.locked ? null : { attempt: data.id, ids: data.answers.map(row => row.question_id), answers };
+    open('report', { id: data.id, report: data.report, review });
   },
 });

@@ -1,0 +1,3954 @@
+[
+ {
+  "id": "g_two_step_equation_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(2x+15=29\\)?",
+  "mock": false,
+  "opts": [
+   "7",
+   "22",
+   "14",
+   "\\(-\\frac{1}{2}\\)"
+  ],
+  "cor": "A",
+  "exp": "Ikkala tomondan 15 ni ayiramiz: \\(2x=14\\). Keyin 2 ga bo'lamiz: \\(x=7\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(2\\cdot 7+15=29\\)."
+ },
+ {
+  "id": "g_two_step_equation_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(7x+17=73\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{90}{7}\\)",
+   "8",
+   "56",
+   "\\(-\\frac{46}{7}\\)"
+  ],
+  "cor": "B",
+  "exp": "Ikkala tomondan 17 ni ayiramiz: \\(7x=56\\). Keyin 7 ga bo'lamiz: \\(x=8\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(7\\cdot 8+17=73\\)."
+ },
+ {
+  "id": "g_two_step_equation_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(5x+4=34\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{38}{5}\\)",
+   "30",
+   "6",
+   "\\(\\frac{14}{5}\\)"
+  ],
+  "cor": "C",
+  "exp": "Ikkala tomondan 4 ni ayiramiz: \\(5x=30\\). Keyin 5 ga bo'lamiz: \\(x=6\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(5\\cdot 6+4=34\\)."
+ },
+ {
+  "id": "g_two_step_equation_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(6x+16=46\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{31}{3}\\)",
+   "30",
+   "\\(-\\frac{25}{3}\\)",
+   "5"
+  ],
+  "cor": "D",
+  "exp": "Ikkala tomondan 16 ni ayiramiz: \\(6x=30\\). Keyin 6 ga bo'lamiz: \\(x=5\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(6\\cdot 5+16=46\\)."
+ },
+ {
+  "id": "g_two_step_equation_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(4x+19=27\\)?",
+  "mock": false,
+  "opts": [
+   "2",
+   "\\(\\frac{23}{2}\\)",
+   "8",
+   "\\(-\\frac{49}{4}\\)"
+  ],
+  "cor": "A",
+  "exp": "Ikkala tomondan 19 ni ayiramiz: \\(4x=8\\). Keyin 4 ga bo'lamiz: \\(x=2\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(4\\cdot 2+19=27\\)."
+ },
+ {
+  "id": "g_two_step_equation_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(3x+12=42\\)?",
+  "mock": false,
+  "opts": [
+   "18",
+   "10",
+   "30",
+   "2"
+  ],
+  "cor": "B",
+  "exp": "Ikkala tomondan 12 ni ayiramiz: \\(3x=30\\). Keyin 3 ga bo'lamiz: \\(x=10\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(3\\cdot 10+12=42\\)."
+ },
+ {
+  "id": "g_two_step_equation_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(8x+19=115\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{67}{4}\\)",
+   "96",
+   "12",
+   "\\(-\\frac{37}{8}\\)"
+  ],
+  "cor": "C",
+  "exp": "Ikkala tomondan 19 ni ayiramiz: \\(8x=96\\). Keyin 8 ga bo'lamiz: \\(x=12\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(8\\cdot 12+19=115\\)."
+ },
+ {
+  "id": "g_two_step_equation_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the value of \\(x\\) if \\(4x+10=18\\)?",
+  "mock": false,
+  "opts": [
+   "7",
+   "8",
+   "\\(-\\frac{11}{2}\\)",
+   "2"
+  ],
+  "cor": "D",
+  "exp": "Ikkala tomondan 10 ni ayiramiz: \\(4x=8\\). Keyin 4 ga bo'lamiz: \\(x=2\\).",
+  "strat": "Javobni tenglamaga qo'yib tekshiring: \\(4\\cdot 2+10=18\\)."
+ },
+ {
+  "id": "g_distribute_equation_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(6(x+6)=4x+26\\)?",
+  "mock": false,
+  "ans": [
+   "-5"
+  ],
+  "exp": "Qavsni ochamiz: \\(6x+36=4x+26\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(2x=-10\\). Demak, \\(x=-5\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(7(x+5)=6x+39\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Qavsni ochamiz: \\(7x+35=6x+39\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(x=4\\). Demak, \\(x=4\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(2(x+8)=4x+22\\)?",
+  "mock": false,
+  "ans": [
+   "-3"
+  ],
+  "exp": "Qavsni ochamiz: \\(2x+16=4x+22\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(-2x=6\\). Demak, \\(x=-3\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(4(x+6)=5x+30\\)?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Qavsni ochamiz: \\(4x+24=5x+30\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(-x=6\\). Demak, \\(x=-6\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(5(x+5)=6x+19\\)?",
+  "mock": false,
+  "ans": [
+   "6"
+  ],
+  "exp": "Qavsni ochamiz: \\(5x+25=6x+19\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(-x=-6\\). Demak, \\(x=6\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(6(x+6)=2x+44\\)?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "Qavsni ochamiz: \\(6x+36=2x+44\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(4x=8\\). Demak, \\(x=2\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(7(x+4)=4x+10\\)?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Qavsni ochamiz: \\(7x+28=4x+10\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(3x=-18\\). Demak, \\(x=-6\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_distribute_equation_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) is the solution to the equation \\(7(x+4)=5x+16\\)?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Qavsni ochamiz: \\(7x+28=5x+16\\). \\(x\\) li hadlarni bir tomonga, sonlarni ikkinchi tomonga o'tkazamiz: \\(2x=-12\\). Demak, \\(x=-6\\).",
+  "strat": "Qavs oldidagi son qavs ichidagi har bir hadga ko'paytiriladi. Ikkinchi hadni unutish eng ko'p uchraydigan xato."
+ },
+ {
+  "id": "g_scaled_expression_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(8x+32=28\\), what is the value of \\(2x+8\\)?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(4(2x+8)=28\\). Ikkala tomonni 4 ga bo'lsak, \\(2x+8=7\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_scaled_expression_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(12x+12=32\\), what is the value of \\(3x+3\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(4(3x+3)=32\\). Ikkala tomonni 4 ga bo'lsak, \\(3x+3=8\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_scaled_expression_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(6x+24=45\\), what is the value of \\(2x+8\\)?",
+  "mock": false,
+  "ans": [
+   "15"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(3(2x+8)=45\\). Ikkala tomonni 3 ga bo'lsak, \\(2x+8=15\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_scaled_expression_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(18x+36=78\\), what is the value of \\(3x+6\\)?",
+  "mock": false,
+  "ans": [
+   "13"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(6(3x+6)=78\\). Ikkala tomonni 6 ga bo'lsak, \\(3x+6=13\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_scaled_expression_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(24x+30=54\\), what is the value of \\(4x+5\\)?",
+  "mock": false,
+  "ans": [
+   "9"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(6(4x+5)=54\\). Ikkala tomonni 6 ga bo'lsak, \\(4x+5=9\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_scaled_expression_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "If \\(16x+16=56\\), what is the value of \\(4x+4\\)?",
+  "mock": false,
+  "ans": [
+   "14"
+  ],
+  "exp": "Chap tomonni ko'paytuvchiga ajratamiz: \\(4(4x+4)=56\\). Ikkala tomonni 4 ga bo'lsak, \\(4x+4=14\\).",
+  "strat": "SAT tuzog'i: savol \\(x\\) ni emas, butun ifodani so'ragan. \\(x\\) ni topish shart emas."
+ },
+ {
+  "id": "g_fraction_equation_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{4}+5=\\frac{x}{6}+8\\)?",
+  "mock": false,
+  "ans": [
+   "36"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 12 ga ko'paytiramiz: \\(3x+60=2x+96\\). Hadlarni jamlaymiz: \\(x=36\\), demak \\(x=36\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fraction_equation_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{2}+8=\\frac{x}{3}+4\\)?",
+  "mock": false,
+  "ans": [
+   "-24"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 6 ga ko'paytiramiz: \\(3x+48=2x+24\\). Hadlarni jamlaymiz: \\(x=-24\\), demak \\(x=-24\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fraction_equation_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{2}+1=\\frac{x}{3}+7\\)?",
+  "mock": false,
+  "ans": [
+   "36"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 6 ga ko'paytiramiz: \\(3x+6=2x+42\\). Hadlarni jamlaymiz: \\(x=36\\), demak \\(x=36\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fraction_equation_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{4}+3=\\frac{x}{2}+9\\)?",
+  "mock": false,
+  "ans": [
+   "-24"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 4 ga ko'paytiramiz: \\(x+12=2x+36\\). Hadlarni jamlaymiz: \\(-x=24\\), demak \\(x=-24\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fraction_equation_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{4}+7=\\frac{x}{2}+9\\)?",
+  "mock": false,
+  "ans": [
+   "-8"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 4 ga ko'paytiramiz: \\(x+28=2x+36\\). Hadlarni jamlaymiz: \\(-x=8\\), demak \\(x=-8\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fraction_equation_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "What value of \\(x\\) satisfies the equation \\(\\frac{x}{6}+9=\\frac{x}{3}+10\\)?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Maxrajlardan qutulish uchun ikkala tomonni 6 ga ko'paytiramiz: \\(x+54=2x+60\\). Hadlarni jamlaymiz: \\(-x=6\\), demak \\(x=-6\\).",
+  "strat": "Kasrli tenglamada avval maxrajlarning eng kichik umumiy karralisiga ko'paytiring, shunda oddiy chiziqli tenglama qoladi."
+ },
+ {
+  "id": "g_fee_plus_rate_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A bike rental costs $15 plus $12 per hour. A customer paid $135. For how many hours was the bike rented?",
+  "mock": false,
+  "ans": [
+   "10"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(15+12n=135\\). Bundan \\(12n=120\\), demak \\(n=10\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A gym charges a one-time fee of $23 and $7 per month. A member has paid $44 in all. How many months of membership has the member paid for?",
+  "mock": false,
+  "ans": [
+   "3"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(23+7n=44\\). Bundan \\(7n=21\\), demak \\(n=3\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A taxi ride costs $22 plus $2 per kilometer. One ride cost $44. How many kilometers long was the ride?",
+  "mock": false,
+  "ans": [
+   "11"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(22+2n=44\\). Bundan \\(2n=22\\), demak \\(n=11\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A gym charges a one-time fee of $22 and $8 per month. A member has paid $78 in all. How many months of membership has the member paid for?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(22+8n=78\\). Bundan \\(8n=56\\), demak \\(n=7\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A gym charges a one-time fee of $23 and $6 per month. A member has paid $83 in all. How many months of membership has the member paid for?",
+  "mock": false,
+  "ans": [
+   "10"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(23+6n=83\\). Bundan \\(6n=60\\), demak \\(n=10\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A courier charges $8 per order plus $6 per kilogram. One order cost $92. How many kilograms did the order weigh?",
+  "mock": false,
+  "ans": [
+   "14"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(8+6n=92\\). Bundan \\(6n=84\\), demak \\(n=14\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A gym charges a one-time fee of $21 and $4 per month. A member has paid $41 in all. How many months of membership has the member paid for?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(21+4n=41\\). Bundan \\(4n=20\\), demak \\(n=5\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_fee_plus_rate_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in one variable",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "A bike rental costs $4 plus $10 per hour. A customer paid $44. For how many hours was the bike rented?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Noma'lumni \\(n\\) deb olamiz: \\(4+10n=44\\). Bundan \\(10n=40\\), demak \\(n=4\\).",
+  "strat": "Bir martalik to'lov bir marta qo'shiladi, takrorlanadigan to'lov esa \\(n\\) ga ko'paytiriladi."
+ },
+ {
+  "id": "g_which_equation_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, notebooks cost $4 each and pens cost $2 each. A customer spent exactly $42 on \\(x\\) notebooks and \\(y\\) pens. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(4x+2y=42\\)",
+   "\\(2x+4y=42\\)",
+   "\\(4x-2y=42\\)",
+   "\\(6(x+y)=42\\)"
+  ],
+  "cor": "A",
+  "exp": "\\(x\\) ta daftar \\(4x\\) dollar, \\(y\\) ta ruchka \\(2y\\) dollar turadi. Ularning yig'indisi 42 dollar: \\(4x+2y=42\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, small boxes cost $8 each and large boxes cost $5 each. A customer spent exactly $118 on \\(x\\) small boxes and \\(y\\) large boxes. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(5x+8y=118\\)",
+   "\\(8x+5y=118\\)",
+   "\\(8x-5y=118\\)",
+   "\\(13(x+y)=118\\)"
+  ],
+  "cor": "B",
+  "exp": "\\(x\\) ta kichik quti \\(8x\\) dollar, \\(y\\) ta katta quti \\(5y\\) dollar turadi. Ularning yig'indisi 118 dollar: \\(8x+5y=118\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, adult tickets cost $9 each and child tickets cost $10 each. A customer spent exactly $138 on \\(x\\) adult tickets and \\(y\\) child tickets. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(10x+9y=138\\)",
+   "\\(9x-10y=138\\)",
+   "\\(9x+10y=138\\)",
+   "\\(19(x+y)=138\\)"
+  ],
+  "cor": "C",
+  "exp": "\\(x\\) ta katta chipta \\(9x\\) dollar, \\(y\\) ta bolalar chiptasi \\(10y\\) dollar turadi. Ularning yig'indisi 138 dollar: \\(9x+10y=138\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, small boxes cost $3 each and large boxes cost $2 each. A customer spent exactly $21 on \\(x\\) small boxes and \\(y\\) large boxes. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(2x+3y=21\\)",
+   "\\(3x-2y=21\\)",
+   "\\(5(x+y)=21\\)",
+   "\\(3x+2y=21\\)"
+  ],
+  "cor": "D",
+  "exp": "\\(x\\) ta kichik quti \\(3x\\) dollar, \\(y\\) ta katta quti \\(2y\\) dollar turadi. Ularning yig'indisi 21 dollar: \\(3x+2y=21\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, notebooks cost $12 each and pens cost $3 each. A customer spent exactly $108 on \\(x\\) notebooks and \\(y\\) pens. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(12x+3y=108\\)",
+   "\\(3x+12y=108\\)",
+   "\\(12x-3y=108\\)",
+   "\\(15(x+y)=108\\)"
+  ],
+  "cor": "A",
+  "exp": "\\(x\\) ta daftar \\(12x\\) dollar, \\(y\\) ta ruchka \\(3y\\) dollar turadi. Ularning yig'indisi 108 dollar: \\(12x+3y=108\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, small boxes cost $6 each and large boxes cost $3 each. A customer spent exactly $69 on \\(x\\) small boxes and \\(y\\) large boxes. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(3x+6y=69\\)",
+   "\\(6x+3y=69\\)",
+   "\\(6x-3y=69\\)",
+   "\\(9(x+y)=69\\)"
+  ],
+  "cor": "B",
+  "exp": "\\(x\\) ta kichik quti \\(6x\\) dollar, \\(y\\) ta katta quti \\(3y\\) dollar turadi. Ularning yig'indisi 69 dollar: \\(6x+3y=69\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, notebooks cost $11 each and pens cost $4 each. A customer spent exactly $81 on \\(x\\) notebooks and \\(y\\) pens. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(4x+11y=81\\)",
+   "\\(11x-4y=81\\)",
+   "\\(11x+4y=81\\)",
+   "\\(15(x+y)=81\\)"
+  ],
+  "cor": "C",
+  "exp": "\\(x\\) ta daftar \\(11x\\) dollar, \\(y\\) ta ruchka \\(4y\\) dollar turadi. Ularning yig'indisi 81 dollar: \\(11x+4y=81\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_which_equation_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "At a store, apples cost $4 each and pears cost $12 each. A customer spent exactly $152 on \\(x\\) apples and \\(y\\) pears. Which equation represents this situation?",
+  "mock": false,
+  "opts": [
+   "\\(12x+4y=152\\)",
+   "\\(4x-12y=152\\)",
+   "\\(16(x+y)=152\\)",
+   "\\(4x+12y=152\\)"
+  ],
+  "cor": "D",
+  "exp": "\\(x\\) ta olma \\(4x\\) dollar, \\(y\\) ta nok \\(12y\\) dollar turadi. Ularning yig'indisi 152 dollar: \\(4x+12y=152\\).",
+  "strat": "Har bir narxni o'z miqdoriga ko'paytiring. Harflar va narxlar joyini almashtirib yubormang."
+ },
+ {
+  "id": "g_slope_of_standard_form_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(8x+3y=7\\)?",
+  "mock": false,
+  "opts": [
+   "\\(-\\frac{8}{3}\\)",
+   "\\(\\frac{8}{3}\\)",
+   "\\(-\\frac{3}{8}\\)",
+   "\\(\\frac{3}{8}\\)"
+  ],
+  "cor": "A",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{8}{3}x+\\frac{7}{3}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{8}{3}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_slope_of_standard_form_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(5x+4y=14\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{5}{4}\\)",
+   "\\(-\\frac{5}{4}\\)",
+   "\\(-\\frac{4}{5}\\)",
+   "\\(\\frac{4}{5}\\)"
+  ],
+  "cor": "B",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{5}{4}x+\\frac{7}{2}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{5}{4}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_slope_of_standard_form_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(8x+5y=28\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{8}{5}\\)",
+   "\\(-\\frac{5}{8}\\)",
+   "\\(-\\frac{8}{5}\\)",
+   "\\(\\frac{5}{8}\\)"
+  ],
+  "cor": "C",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{8}{5}x+\\frac{28}{5}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{8}{5}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_slope_of_standard_form_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(2x+9y=10\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{2}{9}\\)",
+   "\\(-\\frac{9}{2}\\)",
+   "\\(\\frac{9}{2}\\)",
+   "\\(-\\frac{2}{9}\\)"
+  ],
+  "cor": "D",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{2}{9}x+\\frac{10}{9}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{2}{9}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_slope_of_standard_form_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(3x+5y=4\\)?",
+  "mock": false,
+  "opts": [
+   "\\(-\\frac{3}{5}\\)",
+   "\\(\\frac{3}{5}\\)",
+   "\\(-\\frac{5}{3}\\)",
+   "\\(\\frac{5}{3}\\)"
+  ],
+  "cor": "A",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{3}{5}x+\\frac{4}{5}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{3}{5}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_slope_of_standard_form_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "What is the slope of the line with equation \\(3x+4y=7\\)?",
+  "mock": false,
+  "opts": [
+   "\\(\\frac{3}{4}\\)",
+   "\\(-\\frac{3}{4}\\)",
+   "\\(-\\frac{4}{3}\\)",
+   "\\(\\frac{4}{3}\\)"
+  ],
+  "cor": "B",
+  "exp": "Tenglamani \\(y\\) ga nisbatan yechamiz: \\(y=-\\frac{3}{4}x+\\frac{7}{4}\\). Qiyalik \\(x\\) oldidagi son, ya'ni \\(-\\frac{3}{4}\\).",
+  "strat": "Tez usul: \\(ax+by=c\\) chizig'ining qiyaligi \\(-a/b\\). Minus belgisini unutmang."
+ },
+ {
+  "id": "g_coefficient_from_point_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(2x+ky=-14\\) passes through the point \\((-1,-3)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(2(-1)+k(-3)=-14\\). Bundan \\(-3k=-12\\), demak \\(k=4\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_coefficient_from_point_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(5x+ky=-19\\) passes through the point \\((-3,2)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "-2"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(5(-3)+k(2)=-19\\). Bundan \\(2k=-4\\), demak \\(k=-2\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_coefficient_from_point_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(6x+ky=56\\) passes through the point \\((6,-4)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "-5"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(6(6)+k(-4)=56\\). Bundan \\(-4k=20\\), demak \\(k=-5\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_coefficient_from_point_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(7x+ky=19\\) passes through the point \\((5,4)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "-4"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(7(5)+k(4)=19\\). Bundan \\(4k=-16\\), demak \\(k=-4\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_coefficient_from_point_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(6x+ky=3\\) passes through the point \\((4,-3)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(6(4)+k(-3)=3\\). Bundan \\(-3k=-21\\), demak \\(k=7\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_coefficient_from_point_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the \\(xy\\)-plane, the graph of \\(5x+ky=-15\\) passes through the point \\((-1,5)\\), where \\(k\\) is a constant. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "-2"
+  ],
+  "exp": "Nuqta chiziqda yotsa, uning koordinatalari tenglamani qanoatlantiradi: \\(5(-1)+k(5)=-15\\). Bundan \\(5k=-10\\), demak \\(k=-2\\).",
+  "strat": "Grafikdagi nuqta haqida gap ketsa, koordinatalarni tenglamaga qo'yish birinchi qadam bo'ladi."
+ },
+ {
+  "id": "g_function_value_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=7x+11\\). What is the value of \\(f(8)\\)?",
+  "mock": false,
+  "ans": [
+   "67"
+  ],
+  "exp": "\\(x\\) o'rniga 8 ni qo'yamiz: \\(f(8)=7(8)+11=67\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_value_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=4x-5\\). What is the value of \\(f(8)\\)?",
+  "mock": false,
+  "ans": [
+   "27"
+  ],
+  "exp": "\\(x\\) o'rniga 8 ni qo'yamiz: \\(f(8)=4(8)-5=27\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_value_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=3x+10\\). What is the value of \\(f(-3)\\)?",
+  "mock": false,
+  "ans": [
+   "1"
+  ],
+  "exp": "\\(x\\) o'rniga -3 ni qo'yamiz: \\(f(-3)=3(-3)+10=1\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_value_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=8x+3\\). What is the value of \\(f(7)\\)?",
+  "mock": false,
+  "ans": [
+   "59"
+  ],
+  "exp": "\\(x\\) o'rniga 7 ni qo'yamiz: \\(f(7)=8(7)+3=59\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_value_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=3x-6\\). What is the value of \\(f(-1)\\)?",
+  "mock": false,
+  "ans": [
+   "-9"
+  ],
+  "exp": "\\(x\\) o'rniga -1 ni qo'yamiz: \\(f(-1)=3(-1)-6=-9\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_value_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=3x-4\\). What is the value of \\(f(2)\\)?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "\\(x\\) o'rniga 2 ni qo'yamiz: \\(f(2)=3(2)-4=2\\).",
+  "strat": "Funksiya qiymati so'ralganda, qavs ichidagi sonni har bir x o'rniga qo'ying."
+ },
+ {
+  "id": "g_function_input_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=5x-5\\). For what value of \\(x\\) is \\(f(x)=35\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Tenglama tuzamiz: \\(5x-5=35\\). Bundan \\(5x=40\\), demak \\(x=8\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_input_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=-5x-8\\). For what value of \\(x\\) is \\(f(x)=-48\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Tenglama tuzamiz: \\(-5x-8=-48\\). Bundan \\(-5x=-40\\), demak \\(x=8\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_input_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=6x+10\\). For what value of \\(x\\) is \\(f(x)=34\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Tenglama tuzamiz: \\(6x+10=34\\). Bundan \\(6x=24\\), demak \\(x=4\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_input_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=-5x+5\\). For what value of \\(x\\) is \\(f(x)=35\\)?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Tenglama tuzamiz: \\(-5x+5=35\\). Bundan \\(-5x=30\\), demak \\(x=-6\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_input_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=-4x-1\\). For what value of \\(x\\) is \\(f(x)=-33\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Tenglama tuzamiz: \\(-4x-1=-33\\). Bundan \\(-4x=-32\\), demak \\(x=8\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_input_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=2x-5\\). For what value of \\(x\\) is \\(f(x)=13\\)?",
+  "mock": false,
+  "ans": [
+   "9"
+  ],
+  "exp": "Tenglama tuzamiz: \\(2x-5=13\\). Bundan \\(2x=18\\), demak \\(x=9\\).",
+  "strat": "\\(f(x)\\) berilganda, u \\(x\\) ning o'zi emas. Qiymatni funksiyaga tenglab, \\(x\\) ni toping."
+ },
+ {
+  "id": "g_function_from_table_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=4x+9\\)",
+   "\\(f(x)=-4x-9\\)",
+   "\\(f(x)=-4x+9\\)",
+   "\\(f(x)=-4x+5\\)"
+  ],
+  "cor": "C",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "2",
+     "1"
+    ],
+    [
+     "3",
+     "-3"
+    ],
+    [
+     "7",
+     "-19"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-4}{1}=-4\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-4x+9\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=-2x+3\\)",
+   "\\(f(x)=2x-3\\)",
+   "\\(f(x)=2x+5\\)",
+   "\\(f(x)=2x+3\\)"
+  ],
+  "cor": "D",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "1",
+     "5"
+    ],
+    [
+     "3",
+     "9"
+    ],
+    [
+     "5",
+     "13"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{4}{2}=2\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=2x+3\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=-3x+9\\)",
+   "\\(f(x)=3x+9\\)",
+   "\\(f(x)=-3x-9\\)",
+   "\\(f(x)=-3x+6\\)"
+  ],
+  "cor": "A",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "1",
+     "6"
+    ],
+    [
+     "2",
+     "3"
+    ],
+    [
+     "6",
+     "-9"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-3}{1}=-3\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-3x+9\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=2x+3\\)",
+   "\\(f(x)=-2x+3\\)",
+   "\\(f(x)=-2x-3\\)",
+   "\\(f(x)=-2x+1\\)"
+  ],
+  "cor": "B",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "0",
+     "3"
+    ],
+    [
+     "2",
+     "-1"
+    ],
+    [
+     "6",
+     "-9"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-4}{2}=-2\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-2x+3\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=2x-5\\)",
+   "\\(f(x)=-2x+5\\)",
+   "\\(f(x)=-2x-5\\)",
+   "\\(f(x)=-2x-7\\)"
+  ],
+  "cor": "C",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "-2",
+     "-1"
+    ],
+    [
+     "4",
+     "-13"
+    ],
+    [
+     "6",
+     "-17"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-12}{6}=-2\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-2x-5\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=-3x-1\\)",
+   "\\(f(x)=3x+1\\)",
+   "\\(f(x)=3x+2\\)",
+   "\\(f(x)=3x-1\\)"
+  ],
+  "cor": "D",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "-1",
+     "-4"
+    ],
+    [
+     "3",
+     "8"
+    ],
+    [
+     "7",
+     "20"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{12}{4}=3\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=3x-1\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=-3x-1\\)",
+   "\\(f(x)=3x-1\\)",
+   "\\(f(x)=-3x+1\\)",
+   "\\(f(x)=-3x-4\\)"
+  ],
+  "cor": "A",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "2",
+     "-7"
+    ],
+    [
+     "3",
+     "-10"
+    ],
+    [
+     "4",
+     "-13"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-3}{1}=-3\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-3x-1\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_function_from_table_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "The table shows some values of the linear function \\(f\\). Which equation defines \\(f\\)?",
+  "mock": false,
+  "opts": [
+   "\\(f(x)=4x-6\\)",
+   "\\(f(x)=-4x-6\\)",
+   "\\(f(x)=-4x+6\\)",
+   "\\(f(x)=-4x-10\\)"
+  ],
+  "cor": "B",
+  "fig": {
+   "t": "table",
+   "head": [
+    "x",
+    "f(x)"
+   ],
+   "rows": [
+    [
+     "-1",
+     "-2"
+    ],
+    [
+     "4",
+     "-22"
+    ],
+    [
+     "7",
+     "-34"
+    ]
+   ]
+  },
+  "exp": "Ikki nuqtadan qiyalikni topamiz: \\(\\frac{-20}{5}=-4\\). Keyin bitta nuqtani qo'yib, ozod hadni aniqlaymiz: \\(f(x)=-4x-6\\).",
+  "strat": "Variantlarni tekshirishning eng tez yo'li: jadvaldagi ikki qatorni variantga qo'yib ko'ring."
+ },
+ {
+  "id": "g_intercept_from_points_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((-3,-5)\\) and \\((7,45)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "10"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{45-(-5)}{7-(-3)}=5\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(-5=5(-3)+b\\), demak \\(b=10\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_intercept_from_points_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((6,-9)\\) and \\((1,1)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "3"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{1-(-9)}{1-(6)}=-2\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(-9=-2(6)+b\\), demak \\(b=3\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_intercept_from_points_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((4,6)\\) and \\((1,-3)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{-3-(6)}{1-(4)}=3\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(6=3(4)+b\\), demak \\(b=-6\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_intercept_from_points_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((3,11)\\) and \\((2,7)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "-1"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{7-(11)}{2-(3)}=4\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(11=4(3)+b\\), demak \\(b=-1\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_intercept_from_points_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((3,17)\\) and \\((4,22)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{22-(17)}{4-(3)}=5\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(17=5(3)+b\\), demak \\(b=2\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_intercept_from_points_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "A line in the \\(xy\\)-plane passes through the points \\((-3,3)\\) and \\((6,-24)\\). What is the \\(y\\)-coordinate of the \\(y\\)-intercept of the line?",
+  "mock": false,
+  "ans": [
+   "-6"
+  ],
+  "exp": "Avval qiyalikni topamiz: \\(m=\\frac{-24-(3)}{6-(-3)}=-3\\). Keyin bitta nuqtani \\(y=mx+b\\) ga qo'yamiz: \\(3=-3(-3)+b\\), demak \\(b=-6\\).",
+  "strat": "\\(y\\)-kesishish chiziqning \\(x=0\\) dagi qiymati. Qiyalik topilgach, bitta nuqta yetarli."
+ },
+ {
+  "id": "g_draining_tank_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 400 liters of water. Water drains from the tank at a constant rate of 9 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=9t+400\\)",
+   "\\(V(t)=-400t+9\\)",
+   "\\(V(t)=-9t+400\\)",
+   "\\(V(t)=400t+9\\)"
+  ],
+  "cor": "C",
+  "exp": "Boshlang'ich hajm 400 litr. Har daqiqada 9 litr kamayadi, shuning uchun \\(V(t)=400-9t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_draining_tank_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 120 liters of water. Water drains from the tank at a constant rate of 9 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=9t+120\\)",
+   "\\(V(t)=-120t+9\\)",
+   "\\(V(t)=120t+9\\)",
+   "\\(V(t)=-9t+120\\)"
+  ],
+  "cor": "D",
+  "exp": "Boshlang'ich hajm 120 litr. Har daqiqada 9 litr kamayadi, shuning uchun \\(V(t)=120-9t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_draining_tank_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 280 liters of water. Water drains from the tank at a constant rate of 8 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=-8t+280\\)",
+   "\\(V(t)=8t+280\\)",
+   "\\(V(t)=-280t+8\\)",
+   "\\(V(t)=280t+8\\)"
+  ],
+  "cor": "A",
+  "exp": "Boshlang'ich hajm 280 litr. Har daqiqada 8 litr kamayadi, shuning uchun \\(V(t)=280-8t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_draining_tank_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 270 liters of water. Water drains from the tank at a constant rate of 5 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=5t+270\\)",
+   "\\(V(t)=-5t+270\\)",
+   "\\(V(t)=-270t+5\\)",
+   "\\(V(t)=270t+5\\)"
+  ],
+  "cor": "B",
+  "exp": "Boshlang'ich hajm 270 litr. Har daqiqada 5 litr kamayadi, shuning uchun \\(V(t)=270-5t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_draining_tank_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 310 liters of water. Water drains from the tank at a constant rate of 3 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=3t+310\\)",
+   "\\(V(t)=-310t+3\\)",
+   "\\(V(t)=-3t+310\\)",
+   "\\(V(t)=310t+3\\)"
+  ],
+  "cor": "C",
+  "exp": "Boshlang'ich hajm 310 litr. Har daqiqada 3 litr kamayadi, shuning uchun \\(V(t)=310-3t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_draining_tank_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A tank holds 130 liters of water. Water drains from the tank at a constant rate of 5 liters per minute. Which function gives the volume \\(V(t)\\), in liters, after \\(t\\) minutes?",
+  "mock": false,
+  "opts": [
+   "\\(V(t)=5t+130\\)",
+   "\\(V(t)=-130t+5\\)",
+   "\\(V(t)=130t+5\\)",
+   "\\(V(t)=-5t+130\\)"
+  ],
+  "cor": "D",
+  "exp": "Boshlang'ich hajm 130 litr. Har daqiqada 5 litr kamayadi, shuning uchun \\(V(t)=130-5t\\).",
+  "strat": "Boshlang'ich qiymat ozod had bo'ladi. Kamayish bo'lsa, \\(t\\) oldida minus turadi."
+ },
+ {
+  "id": "g_flip_inequality_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(7-6x\\ge 13\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\le -1\\)",
+   "\\(x\\ge -1\\)",
+   "\\(x> -1\\)",
+   "\\(x\\ge 1\\)"
+  ],
+  "cor": "A",
+  "exp": "Ikkala tomondan 7 ni ayiramiz: \\(-6x\\ge 6\\). Manfiy \\(-6\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -1\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(22-4x\\ge 30\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge -2\\)",
+   "\\(x\\le -2\\)",
+   "\\(x> -2\\)",
+   "\\(x\\ge 2\\)"
+  ],
+  "cor": "B",
+  "exp": "Ikkala tomondan 22 ni ayiramiz: \\(-4x\\ge 8\\). Manfiy \\(-4\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -2\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(21-2x\\ge 13\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge 4\\)",
+   "\\(x> 4\\)",
+   "\\(x\\le 4\\)",
+   "\\(x\\ge -4\\)"
+  ],
+  "cor": "C",
+  "exp": "Ikkala tomondan 21 ni ayiramiz: \\(-2x\\ge -8\\). Manfiy \\(-2\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le 4\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(28-4x\\ge 40\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge -3\\)",
+   "\\(x> -3\\)",
+   "\\(x\\ge 3\\)",
+   "\\(x\\le -3\\)"
+  ],
+  "cor": "D",
+  "exp": "Ikkala tomondan 28 ni ayiramiz: \\(-4x\\ge 12\\). Manfiy \\(-4\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -3\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(30-3x\\ge 39\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\le -3\\)",
+   "\\(x\\ge -3\\)",
+   "\\(x> -3\\)",
+   "\\(x\\ge 3\\)"
+  ],
+  "cor": "A",
+  "exp": "Ikkala tomondan 30 ni ayiramiz: \\(-3x\\ge 9\\). Manfiy \\(-3\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -3\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(24-7x\\ge 59\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge -5\\)",
+   "\\(x\\le -5\\)",
+   "\\(x> -5\\)",
+   "\\(x\\ge 5\\)"
+  ],
+  "cor": "B",
+  "exp": "Ikkala tomondan 24 ni ayiramiz: \\(-7x\\ge 35\\). Manfiy \\(-7\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -5\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(16-7x\\ge 30\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge -2\\)",
+   "\\(x> -2\\)",
+   "\\(x\\le -2\\)",
+   "\\(x\\ge 2\\)"
+  ],
+  "cor": "C",
+  "exp": "Ikkala tomondan 16 ni ayiramiz: \\(-7x\\ge 14\\). Manfiy \\(-7\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le -2\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_flip_inequality_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is the solution to the inequality \\(30-2x\\ge 14\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x\\ge 8\\)",
+   "\\(x> 8\\)",
+   "\\(x\\ge -8\\)",
+   "\\(x\\le 8\\)"
+  ],
+  "cor": "D",
+  "exp": "Ikkala tomondan 30 ni ayiramiz: \\(-2x\\ge -16\\). Manfiy \\(-2\\) ga bo'lganda tengsizlik belgisi teskari aylanadi: \\(x\\le 8\\).",
+  "strat": "Tengsizlikni manfiy songa ko'paytirsangiz yoki bo'lsangiz, belgi albatta teskari bo'ladi."
+ },
+ {
+  "id": "g_capacity_limit_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A student has 86 dollars. After paying a 40-dollar entry fee, the student buys tickets that cost 8 dollars each. What is the greatest number of tickets the student can buy?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(40+8n\\le 86\\). Bundan \\(n\\le \\frac{23}{4}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 5.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_capacity_limit_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "An elevator can carry at most 375 kilograms. A worker who weighs 97 kilograms rides with boxes that weigh 15 kilograms each. What is the greatest number of boxes the worker can take in one trip?",
+  "mock": false,
+  "ans": [
+   "18"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(97+15n\\le 375\\). Bundan \\(n\\le \\frac{278}{15}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 18.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_capacity_limit_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A student has 158 dollars. After paying a 72-dollar entry fee, the student buys tickets that cost 14 dollars each. What is the greatest number of tickets the student can buy?",
+  "mock": false,
+  "ans": [
+   "6"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(72+14n\\le 158\\). Bundan \\(n\\le \\frac{43}{7}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 6.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_capacity_limit_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "An elevator can carry at most 406 kilograms. A worker who weighs 103 kilograms rides with boxes that weigh 20 kilograms each. What is the greatest number of boxes the worker can take in one trip?",
+  "mock": false,
+  "ans": [
+   "15"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(103+20n\\le 406\\). Bundan \\(n\\le \\frac{303}{20}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 15.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_capacity_limit_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "An elevator can carry at most 115 kilograms. A worker who weighs 44 kilograms rides with boxes that weigh 9 kilograms each. What is the greatest number of boxes the worker can take in one trip?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(44+9n\\le 115\\). Bundan \\(n\\le \\frac{71}{9}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 7.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_capacity_limit_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "An elevator can carry at most 169 kilograms. A worker who weighs 100 kilograms rides with boxes that weigh 9 kilograms each. What is the greatest number of boxes the worker can take in one trip?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "Tengsizlik tuzamiz: \\(100+9n\\le 169\\). Bundan \\(n\\le \\frac{23}{3}\\). \\(n\\) butun son bo'lishi kerak, shuning uchun eng kattasi 7.",
+  "strat": "Bo'lish natijasi kasr chiqsa, narsalar soni uchun pastga yaxlitlanadi, chunki chegaradan oshib bo'lmaydi."
+ },
+ {
+  "id": "g_at_least_model_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 32 points and earns 3 more points for each task completed. The student needs at least 78 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(32+3x\\ge 78\\)",
+   "\\(32+3x\\le 78\\)",
+   "\\(32x+3\\ge 78\\)",
+   "\\(3x\\ge 78+32\\)"
+  ],
+  "cor": "A",
+  "exp": "Boshlang'ich ball 32, \\(x\\) ta vazifadan keyin \\(32+3x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(32+3x\\ge 78\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_at_least_model_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 28 points and earns 8 more points for each task completed. The student needs at least 61 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(28+8x\\le 61\\)",
+   "\\(28+8x\\ge 61\\)",
+   "\\(28x+8\\ge 61\\)",
+   "\\(8x\\ge 61+28\\)"
+  ],
+  "cor": "B",
+  "exp": "Boshlang'ich ball 28, \\(x\\) ta vazifadan keyin \\(28+8x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(28+8x\\ge 61\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_at_least_model_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 32 points and earns 5 more points for each task completed. The student needs at least 82 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(32+5x\\le 82\\)",
+   "\\(32x+5\\ge 82\\)",
+   "\\(32+5x\\ge 82\\)",
+   "\\(5x\\ge 82+32\\)"
+  ],
+  "cor": "C",
+  "exp": "Boshlang'ich ball 32, \\(x\\) ta vazifadan keyin \\(32+5x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(32+5x\\ge 82\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_at_least_model_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 28 points and earns 9 more points for each task completed. The student needs at least 80 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(28+9x\\le 80\\)",
+   "\\(28x+9\\ge 80\\)",
+   "\\(9x\\ge 80+28\\)",
+   "\\(28+9x\\ge 80\\)"
+  ],
+  "cor": "D",
+  "exp": "Boshlang'ich ball 28, \\(x\\) ta vazifadan keyin \\(28+9x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(28+9x\\ge 80\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_at_least_model_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 13 points and earns 9 more points for each task completed. The student needs at least 106 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(13+9x\\ge 106\\)",
+   "\\(13+9x\\le 106\\)",
+   "\\(13x+9\\ge 106\\)",
+   "\\(9x\\ge 106+13\\)"
+  ],
+  "cor": "A",
+  "exp": "Boshlang'ich ball 13, \\(x\\) ta vazifadan keyin \\(13+9x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(13+9x\\ge 106\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_at_least_model_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Linear inequalities in one or two variables",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A student has 20 points and earns 9 more points for each task completed. The student needs at least 102 points to pass. Which inequality shows the number of tasks, \\(x\\), the student must complete?",
+  "mock": false,
+  "opts": [
+   "\\(20+9x\\le 102\\)",
+   "\\(20+9x\\ge 102\\)",
+   "\\(20x+9\\ge 102\\)",
+   "\\(9x\\ge 102+20\\)"
+  ],
+  "cor": "B",
+  "exp": "Boshlang'ich ball 20, \\(x\\) ta vazifadan keyin \\(20+9x\\) ball bo'ladi. \"At least\" iborasi \"kamida\" degani, shuning uchun \\(20+9x\\ge 102\\).",
+  "strat": "\"At least\" belgisi \\(\\ge\\), \"at most\" belgisi \\(\\le\\). Bu ikkisini adashtirmang."
+ },
+ {
+  "id": "g_sum_and_difference_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=33\\)\n\\(x-y=7\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "20"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=40\\). Demak \\(x=20\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_sum_and_difference_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=27\\)\n\\(x-y=11\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "19"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=38\\). Demak \\(x=19\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_sum_and_difference_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=23\\)\n\\(x-y=5\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "14"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=28\\). Demak \\(x=14\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_sum_and_difference_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=16\\)\n\\(x-y=12\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "14"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=28\\). Demak \\(x=14\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_sum_and_difference_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=10\\)\n\\(x-y=0\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=10\\). Demak \\(x=5\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_sum_and_difference_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Easy",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has solution \\((x,y)\\).\n\\(x+y=36\\)\n\\(x-y=18\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "27"
+  ],
+  "exp": "Tenglamalarni qo'shamiz, \\(y\\) qisqaradi: \\(2x=54\\). Demak \\(x=27\\).",
+  "strat": "Bir xil koeffitsiyent qarama-qarshi ishorada tursa, tenglamalarni qo'shish eng tez yo'l."
+ },
+ {
+  "id": "g_elimination_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(3x+2y=-17\\)\n\\(3x-5y=-10\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "-5"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(15x+10y=-85\\) va \\(6x-10y=-20\\). Qo'shsak: \\(21x=-105\\), demak \\(x=-5\\). Birinchi tenglamaga qo'yib, \\(y=-1\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(5x+6y=82\\)\n\\(2x-5y=-19\\)\nWhat is the value of \\(y\\)?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(25x+30y=410\\) va \\(12x-30y=-114\\). Qo'shsak: \\(37x=296\\), demak \\(x=8\\). Birinchi tenglamaga qo'yib, \\(y=7\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(2x+3y=1\\)\n\\(4x-3y=29\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(6x+9y=3\\) va \\(12x-9y=87\\). Qo'shsak: \\(18x=90\\), demak \\(x=5\\). Birinchi tenglamaga qo'yib, \\(y=-3\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(3x+2y=29\\)\n\\(6x-4y=2\\)\nWhat is the value of \\(y\\)?",
+  "mock": false,
+  "ans": [
+   "7"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(12x+8y=116\\) va \\(12x-8y=4\\). Qo'shsak: \\(24x=120\\), demak \\(x=5\\). Birinchi tenglamaga qo'yib, \\(y=7\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(5x+4y=14\\)\n\\(5x-2y=8\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(10x+8y=28\\) va \\(20x-8y=32\\). Qo'shsak: \\(30x=60\\), demak \\(x=2\\). Birinchi tenglamaga qo'yib, \\(y=1\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(4x+2y=-18\\)\n\\(2x-6y=-16\\)\nWhat is the value of \\(y\\)?",
+  "mock": false,
+  "ans": [
+   "1"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(24x+12y=-108\\) va \\(4x-12y=-32\\). Qo'shsak: \\(28x=-140\\), demak \\(x=-5\\). Birinchi tenglamaga qo'yib, \\(y=1\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_07",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(6x+3y=57\\)\n\\(5x-3y=31\\)\nWhat is the value of \\(y\\)?",
+  "mock": false,
+  "ans": [
+   "3"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(18x+9y=171\\) va \\(15x-9y=93\\). Qo'shsak: \\(33x=264\\), demak \\(x=8\\). Birinchi tenglamaga qo'yib, \\(y=3\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_elimination_08",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The solution to the system of equations below is \\((x,y)\\).\n\\(x+y=-4\\)\n\\(x-y=-6\\)\nWhat is the value of \\(x\\)?",
+  "mock": false,
+  "ans": [
+   "-5"
+  ],
+  "exp": "\\(y\\) ni yo'qotish uchun tenglamalarni mos sonlarga ko'paytiramiz: \\(x+y=-4\\) va \\(x-y=-6\\). Qo'shsak: \\(2x=-10\\), demak \\(x=-5\\). Birinchi tenglamaga qo'yib, \\(y=1\\) ni topamiz.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting, chiziqlar kesishgan nuqta sistemaning yechimi."
+ },
+ {
+  "id": "g_ticket_system_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 57 tickets for a total of $820. Adult tickets cost $15 each and student tickets cost $14 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "22"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=57\\) va \\(15a+14s=820\\). \\(s=57-a\\) ni qo'yamiz: \\(15a+14(57-a)=820\\). Bundan \\(1a=22\\), demak \\(a=22\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_ticket_system_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 46 tickets for a total of $564. Adult tickets cost $13 each and student tickets cost $12 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=46\\) va \\(13a+12s=564\\). \\(s=46-a\\) ni qo'yamiz: \\(13a+12(46-a)=564\\). Bundan \\(1a=12\\), demak \\(a=12\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_ticket_system_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 23 tickets for a total of $200. Adult tickets cost $10 each and student tickets cost $8 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=23\\) va \\(10a+8s=200\\). \\(s=23-a\\) ni qo'yamiz: \\(10a+8(23-a)=200\\). Bundan \\(2a=16\\), demak \\(a=8\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_ticket_system_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 50 tickets for a total of $275. Adult tickets cost $9 each and student tickets cost $4 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "15"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=50\\) va \\(9a+4s=275\\). \\(s=50-a\\) ni qo'yamiz: \\(9a+4(50-a)=275\\). Bundan \\(5a=75\\), demak \\(a=15\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_ticket_system_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 40 tickets for a total of $425. Adult tickets cost $13 each and student tickets cost $8 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "21"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=40\\) va \\(13a+8s=425\\). \\(s=40-a\\) ni qo'yamiz: \\(13a+8(40-a)=425\\). Bundan \\(5a=105\\), demak \\(a=21\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_ticket_system_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "A theater sold 42 tickets for a total of $410. Adult tickets cost $15 each and student tickets cost $4 each. How many adult tickets were sold?",
+  "mock": false,
+  "ans": [
+   "22"
+  ],
+  "exp": "Katta chiptalar \\(a\\), talaba chiptalari \\(s\\) bo'lsin: \\(a+s=42\\) va \\(15a+4s=410\\). \\(s=42-a\\) ni qo'yamiz: \\(15a+4(42-a)=410\\). Bundan \\(11a=242\\), demak \\(a=22\\).",
+  "strat": "Soni va puli berilgan masalada ikki tenglama tuziladi: biri chiptalar soni, ikkinchisi umumiy pul uchun."
+ },
+ {
+  "id": "g_no_solution_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(2x+6y=6\\)\n\\(kx+24y=30\\)",
+  "mock": false,
+  "opts": [
+   "10",
+   "2",
+   "8",
+   "7"
+  ],
+  "cor": "C",
+  "exp": "Birinchi tenglamani 4 ga ko'paytiramiz: \\(8x+24y=24\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=8\\). O'ng tomonlar 24 va 30 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_no_solution_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(4x+5y=13\\)\n\\(kx+10y=28\\)",
+  "mock": false,
+  "opts": [
+   "12",
+   "4",
+   "7",
+   "8"
+  ],
+  "cor": "D",
+  "exp": "Birinchi tenglamani 2 ga ko'paytiramiz: \\(8x+10y=26\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=8\\). O'ng tomonlar 26 va 28 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_no_solution_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(2x+7y=16\\)\n\\(kx+14y=30\\)",
+  "mock": false,
+  "opts": [
+   "4",
+   "6",
+   "2",
+   "3"
+  ],
+  "cor": "A",
+  "exp": "Birinchi tenglamani 2 ga ko'paytiramiz: \\(4x+14y=32\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=4\\). O'ng tomonlar 32 va 30 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_no_solution_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(5x+5y=10\\)\n\\(kx+15y=36\\)",
+  "mock": false,
+  "opts": [
+   "20",
+   "15",
+   "5",
+   "14"
+  ],
+  "cor": "B",
+  "exp": "Birinchi tenglamani 3 ga ko'paytiramiz: \\(15x+15y=30\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=15\\). O'ng tomonlar 30 va 36 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_no_solution_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(5x+5y=14\\)\n\\(kx+15y=40\\)",
+  "mock": false,
+  "opts": [
+   "20",
+   "5",
+   "15",
+   "14"
+  ],
+  "cor": "C",
+  "exp": "Birinchi tenglamani 3 ga ko'paytiramiz: \\(15x+15y=42\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=15\\). O'ng tomonlar 42 va 40 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_no_solution_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "mcq",
+  "pas": "",
+  "q": "In the system of equations below, \\(k\\) is a constant. For what value of \\(k\\) does the system have no solution?\n\\(6x+3y=12\\)\n\\(kx+6y=28\\)",
+  "mock": false,
+  "opts": [
+   "18",
+   "6",
+   "11",
+   "12"
+  ],
+  "cor": "D",
+  "exp": "Birinchi tenglamani 2 ga ko'paytiramiz: \\(12x+6y=24\\). Chiziqlar parallel bo'lishi uchun \\(x\\) oldidagi sonlar ham teng bo'lishi kerak: \\(k=12\\). O'ng tomonlar 24 va 28 har xil, shuning uchun yechim yo'q.",
+  "strat": "Yechim yo'q degani chiziqlar parallel: koeffitsiyentlar nisbati teng, ozod hadlar nisbati esa boshqacha."
+ },
+ {
+  "id": "g_infinite_solutions_01",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(6x+4y=5\\)\n\\(12x+8y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "10"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 2 marta katta. Cheksiz ko'p yechim uchun ozod had ham 2 marta katta bo'lishi kerak: \\(k=2(5)=10\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_infinite_solutions_02",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(7x+6y=10\\)\n\\(28x+24y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "40"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 4 marta katta. Cheksiz ko'p yechim uchun ozod had ham 4 marta katta bo'lishi kerak: \\(k=4(10)=40\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_infinite_solutions_03",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(5x+5y=4\\)\n\\(20x+20y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "16"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 4 marta katta. Cheksiz ko'p yechim uchun ozod had ham 4 marta katta bo'lishi kerak: \\(k=4(4)=16\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_infinite_solutions_04",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(5x+2y=11\\)\n\\(15x+6y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "33"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 3 marta katta. Cheksiz ko'p yechim uchun ozod had ham 3 marta katta bo'lishi kerak: \\(k=3(11)=33\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_infinite_solutions_05",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(6x+5y=9\\)\n\\(12x+10y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "18"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 2 marta katta. Cheksiz ko'p yechim uchun ozod had ham 2 marta katta bo'lishi kerak: \\(k=2(9)=18\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_infinite_solutions_06",
+  "sec": "m",
+  "dom": "Algebra",
+  "skill": "Systems of two linear equations in two variables",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The system of equations below has infinitely many solutions, where \\(k\\) is a constant.\n\\(4x+4y=7\\)\n\\(16x+16y=k\\)\nWhat is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "28"
+  ],
+  "exp": "Ikkinchi tenglamaning koeffitsiyentlari birinchisidan 4 marta katta. Cheksiz ko'p yechim uchun ozod had ham 4 marta katta bo'lishi kerak: \\(k=4(7)=28\\).",
+  "strat": "Cheksiz ko'p yechim degani ikki tenglama aslida bitta chiziq. Bittasini songa ko'paytirsangiz, ikkinchisi chiqadi."
+ },
+ {
+  "id": "g_expand_product_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-5)(x-6)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}-11x+30\\)",
+   "\\(x^{2}+30x-11\\)",
+   "\\(x^{2}+30\\)",
+   "\\(x^{2}-11x-30\\)"
+  ],
+  "cor": "A",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-6x-5x+30\\). O'xshash hadlarni jamlasak: \\(x^{2}-11x+30\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-7)(x-2)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}+14x-9\\)",
+   "\\(x^{2}-9x+14\\)",
+   "\\(x^{2}+14\\)",
+   "\\(x^{2}-9x-14\\)"
+  ],
+  "cor": "B",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-2x-7x+14\\). O'xshash hadlarni jamlasak: \\(x^{2}-9x+14\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x+3)(x-2)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}-6x+1\\)",
+   "\\(x^{2}-6\\)",
+   "\\(x^{2}+x-6\\)",
+   "\\(x^{2}+x+6\\)"
+  ],
+  "cor": "C",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-2x+3x-6\\). O'xshash hadlarni jamlasak: \\(x^{2}+x-6\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x+5)(x+2)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}+10x+7\\)",
+   "\\(x^{2}+10\\)",
+   "\\(x^{2}+7x-10\\)",
+   "\\(x^{2}+7x+10\\)"
+  ],
+  "cor": "D",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}+2x+5x+10\\). O'xshash hadlarni jamlasak: \\(x^{2}+7x+10\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-5)(x+2)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}-3x-10\\)",
+   "\\(x^{2}-10x-3\\)",
+   "\\(x^{2}-10\\)",
+   "\\(x^{2}-3x+10\\)"
+  ],
+  "cor": "A",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}+2x-5x-10\\). O'xshash hadlarni jamlasak: \\(x^{2}-3x-10\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-4)(x-3)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}+12x-7\\)",
+   "\\(x^{2}-7x+12\\)",
+   "\\(x^{2}+12\\)",
+   "\\(x^{2}-7x-12\\)"
+  ],
+  "cor": "B",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-3x-4x+12\\). O'xshash hadlarni jamlasak: \\(x^{2}-7x+12\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_07",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-4)(x-6)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}+24x-10\\)",
+   "\\(x^{2}+24\\)",
+   "\\(x^{2}-10x+24\\)",
+   "\\(x^{2}-10x-24\\)"
+  ],
+  "cor": "C",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-6x-4x+24\\). O'xshash hadlarni jamlasak: \\(x^{2}-10x+24\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_expand_product_08",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Easy",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((x-3)(x-6)\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}+18x-9\\)",
+   "\\(x^{2}+18\\)",
+   "\\(x^{2}-9x-18\\)",
+   "\\(x^{2}-9x+18\\)"
+  ],
+  "cor": "D",
+  "exp": "Har bir hadni har biriga ko'paytiramiz: \\(x^{2}-6x-3x+18\\). O'xshash hadlarni jamlasak: \\(x^{2}-9x+18\\).",
+  "strat": "Tekshirish: \\(x=1\\) ni berilgan ifodaga va variantga qo'yib solishtiring."
+ },
+ {
+  "id": "g_factor_quadratic_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}-6x-16\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x+2)(x-8)\\)",
+   "\\((x-2)(x+8)\\)",
+   "\\((x+2)(x+8)\\)",
+   "\\((x-2)(x-8)\\)"
+  ],
+  "cor": "A",
+  "exp": "Ko'paytmasi -16 va yig'indisi -6 bo'lgan ikki son kerak. Bu sonlar 2 va -8, shuning uchun javob \\((x+2)(x-8)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}+2x-24\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x+4)(x-6)\\)",
+   "\\((x-4)(x+6)\\)",
+   "\\((x-4)(x-6)\\)",
+   "\\((x+4)(x+6)\\)"
+  ],
+  "cor": "B",
+  "exp": "Ko'paytmasi -24 va yig'indisi 2 bo'lgan ikki son kerak. Bu sonlar -4 va 6, shuning uchun javob \\((x-4)(x+6)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}-7x+12\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x+4)(x+3)\\)",
+   "\\((x-4)(x+3)\\)",
+   "\\((x-4)(x-3)\\)",
+   "\\((x+4)(x-3)\\)"
+  ],
+  "cor": "C",
+  "exp": "Ko'paytmasi 12 va yig'indisi -7 bo'lgan ikki son kerak. Bu sonlar -4 va -3, shuning uchun javob \\((x-4)(x-3)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}+3x-10\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x-5)(x+2)\\)",
+   "\\((x+5)(x+2)\\)",
+   "\\((x-5)(x-2)\\)",
+   "\\((x+5)(x-2)\\)"
+  ],
+  "cor": "D",
+  "exp": "Ko'paytmasi -10 va yig'indisi 3 bo'lgan ikki son kerak. Bu sonlar 5 va -2, shuning uchun javob \\((x+5)(x-2)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}+4x-21\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x-3)(x+7)\\)",
+   "\\((x+3)(x-7)\\)",
+   "\\((x-3)(x-7)\\)",
+   "\\((x+3)(x+7)\\)"
+  ],
+  "cor": "A",
+  "exp": "Ko'paytmasi -21 va yig'indisi 4 bo'lgan ikki son kerak. Bu sonlar -3 va 7, shuning uchun javob \\((x-3)(x+7)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}-3x-18\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x-3)(x+6)\\)",
+   "\\((x+3)(x-6)\\)",
+   "\\((x+3)(x+6)\\)",
+   "\\((x-3)(x-6)\\)"
+  ],
+  "cor": "B",
+  "exp": "Ko'paytmasi -18 va yig'indisi -3 bo'lgan ikki son kerak. Bu sonlar 3 va -6, shuning uchun javob \\((x+3)(x-6)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_07",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}-10x+24\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x+6)(x+4)\\)",
+   "\\((x-6)(x+4)\\)",
+   "\\((x-6)(x-4)\\)",
+   "\\((x+6)(x-4)\\)"
+  ],
+  "cor": "C",
+  "exp": "Ko'paytmasi 24 va yig'indisi -10 bo'lgan ikki son kerak. Bu sonlar -6 va -4, shuning uchun javob \\((x-6)(x-4)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_factor_quadratic_08",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which of the following is equivalent to \\(x^{2}-4x-32\\)?",
+  "mock": false,
+  "opts": [
+   "\\((x-4)(x+8)\\)",
+   "\\((x+4)(x+8)\\)",
+   "\\((x-4)(x-8)\\)",
+   "\\((x+4)(x-8)\\)"
+  ],
+  "cor": "D",
+  "exp": "Ko'paytmasi -32 va yig'indisi -4 bo'lgan ikki son kerak. Bu sonlar 4 va -8, shuning uchun javob \\((x+4)(x-8)\\).",
+  "strat": "Variantlarda ishoralar aralashgan bo'ladi. Ko'paytmaning ishorasiga qarab, juftlikni tez tanlang."
+ },
+ {
+  "id": "g_square_binomial_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((2x-5)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(4x^{2}-20x+25\\)",
+   "\\(4x^{2}+25\\)",
+   "\\(4x^{2}-10x+25\\)",
+   "\\(2x^{2}-20x+25\\)"
+  ],
+  "cor": "A",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((2x)^{2}+2(2x)(-5)+(-5)^{2}\\), ya'ni \\(4x^{2}-20x+25\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_square_binomial_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((2x-7)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(4x^{2}+49\\)",
+   "\\(4x^{2}-28x+49\\)",
+   "\\(4x^{2}-14x+49\\)",
+   "\\(2x^{2}-28x+49\\)"
+  ],
+  "cor": "B",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((2x)^{2}+2(2x)(-7)+(-7)^{2}\\), ya'ni \\(4x^{2}-28x+49\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_square_binomial_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((4x+5)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(16x^{2}+25\\)",
+   "\\(16x^{2}+20x+25\\)",
+   "\\(16x^{2}+40x+25\\)",
+   "\\(4x^{2}+40x+25\\)"
+  ],
+  "cor": "C",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((4x)^{2}+2(4x)(5)+(5)^{2}\\), ya'ni \\(16x^{2}+40x+25\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_square_binomial_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((2x-2)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(4x^{2}+4\\)",
+   "\\(4x^{2}-4x+4\\)",
+   "\\(2x^{2}-8x+4\\)",
+   "\\(4x^{2}-8x+4\\)"
+  ],
+  "cor": "D",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((2x)^{2}+2(2x)(-2)+(-2)^{2}\\), ya'ni \\(4x^{2}-8x+4\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_square_binomial_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((3x-7)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(9x^{2}-42x+49\\)",
+   "\\(9x^{2}+49\\)",
+   "\\(9x^{2}-21x+49\\)",
+   "\\(3x^{2}-42x+49\\)"
+  ],
+  "cor": "A",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((3x)^{2}+2(3x)(-7)+(-7)^{2}\\), ya'ni \\(9x^{2}-42x+49\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_square_binomial_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "Which expression is equivalent to \\((3x+4)^{2}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(9x^{2}+16\\)",
+   "\\(9x^{2}+24x+16\\)",
+   "\\(9x^{2}+12x+16\\)",
+   "\\(3x^{2}+24x+16\\)"
+  ],
+  "cor": "B",
+  "exp": "Kvadrat formulasi: \\((p+q)^{2}=p^{2}+2pq+q^{2}\\). Bu yerda \\((3x)^{2}+2(3x)(4)+(4)^{2}\\), ya'ni \\(9x^{2}+24x+16\\).",
+  "strat": "Eng ko'p xato o'rtadagi \\(2pq\\) hadni tashlab ketish. Uni albatta yozing."
+ },
+ {
+  "id": "g_exponent_rules_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{2}\\cdot x^{7}}{x^{3}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{11}\\)",
+   "\\(x^{12}\\)",
+   "\\(x^{6}\\)",
+   "\\(x^{17}\\)"
+  ],
+  "cor": "C",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{2+7-3}=x^{6}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_exponent_rules_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{9}\\cdot x^{7}}{x^{6}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{57}\\)",
+   "\\(x^{22}\\)",
+   "\\(x^{69}\\)",
+   "\\(x^{10}\\)"
+  ],
+  "cor": "D",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{9+7-6}=x^{10}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_exponent_rules_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{4}\\cdot x^{4}}{x^{6}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{2}\\)",
+   "\\(x^{10}\\)",
+   "\\(x^{14}\\)",
+   "\\(x^{22}\\)"
+  ],
+  "cor": "A",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{4+4-6}=x^{2}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_exponent_rules_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{4}\\cdot x^{9}}{x^{4}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{32}\\)",
+   "\\(x^{9}\\)",
+   "\\(x^{17}\\)",
+   "\\(x^{40}\\)"
+  ],
+  "cor": "B",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{4+9-4}=x^{9}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_exponent_rules_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{5}\\cdot x^{3}}{x^{4}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{11}\\)",
+   "\\(x^{12}\\)",
+   "\\(x^{4}\\)",
+   "\\(x^{19}\\)"
+  ],
+  "cor": "C",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{5+3-4}=x^{4}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_exponent_rules_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Equivalent expressions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "For \\(x>0\\), which expression is equivalent to \\(\\frac{x^{8}\\cdot x^{9}}{x^{5}}\\)?",
+  "mock": false,
+  "opts": [
+   "\\(x^{67}\\)",
+   "\\(x^{22}\\)",
+   "\\(x^{77}\\)",
+   "\\(x^{12}\\)"
+  ],
+  "cor": "D",
+  "exp": "Asoslari bir xil darajalarni ko'paytirganda daraja ko'rsatkichlari qo'shiladi, bo'lganda ayiriladi: \\(x^{8+9-5}=x^{12}\\).",
+  "strat": "Ko'paytirishda qo'shing, bo'lishda ayiring. Ko'rsatkichlarni ko'paytirish faqat darajaning darajasida bo'ladi."
+ },
+ {
+  "id": "g_positive_root_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}+4x-5=0\\)?",
+  "mock": false,
+  "ans": [
+   "1"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-1)(x+5)=0\\). Yechimlar \\(x=1\\) va \\(x=-5\\). Musbati 1.",
+  "strat": "Desmos usuli: \\(y=x^{2}+4x-5\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}+11x-12=0\\)?",
+  "mock": false,
+  "ans": [
+   "1"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-1)(x+12)=0\\). Yechimlar \\(x=1\\) va \\(x=-12\\). Musbati 1.",
+  "strat": "Desmos usuli: \\(y=x^{2}+11x-12\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}-4x-32=0\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-8)(x+4)=0\\). Yechimlar \\(x=8\\) va \\(x=-4\\). Musbati 8.",
+  "strat": "Desmos usuli: \\(y=x^{2}-4x-32\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}+4x-45=0\\)?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-5)(x+9)=0\\). Yechimlar \\(x=5\\) va \\(x=-9\\). Musbati 5.",
+  "strat": "Desmos usuli: \\(y=x^{2}+4x-45\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}+6x-55=0\\)?",
+  "mock": false,
+  "ans": [
+   "5"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-5)(x+11)=0\\). Yechimlar \\(x=5\\) va \\(x=-11\\). Musbati 5.",
+  "strat": "Desmos usuli: \\(y=x^{2}+6x-55\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}+5x-14=0\\)?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-2)(x+7)=0\\). Yechimlar \\(x=2\\) va \\(x=-7\\). Musbati 2.",
+  "strat": "Desmos usuli: \\(y=x^{2}+5x-14\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_07",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}-2x-120=0\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-12)(x+10)=0\\). Yechimlar \\(x=12\\) va \\(x=-10\\). Musbati 12.",
+  "strat": "Desmos usuli: \\(y=x^{2}-2x-120\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_positive_root_08",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "What is the positive solution to the equation \\(x^{2}-6x-72=0\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Ko'paytuvchilarga ajratamiz: \\((x-12)(x+6)=0\\). Yechimlar \\(x=12\\) va \\(x=-6\\). Musbati 12.",
+  "strat": "Desmos usuli: \\(y=x^{2}-6x-72\\) ni kiriting va grafik \\(x\\) o'qini kesgan musbat nuqtani o'qing."
+ },
+ {
+  "id": "g_one_solution_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(2x^{2}+kx+18=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(2)(18)=0\\), ya'ni \\(k^{2}=144\\). \\(k\\) musbat, demak \\(k=12\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(x^{2}+kx+36=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(1)(36)=0\\), ya'ni \\(k^{2}=144\\). \\(k\\) musbat, demak \\(k=12\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(x^{2}+kx+16=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(1)(16)=0\\), ya'ni \\(k^{2}=64\\). \\(k\\) musbat, demak \\(k=8\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(3x^{2}+kx+12=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(3)(12)=0\\), ya'ni \\(k^{2}=144\\). \\(k\\) musbat, demak \\(k=12\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(4x^{2}+kx+9=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "12"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(4)(9)=0\\), ya'ni \\(k^{2}=144\\). \\(k\\) musbat, demak \\(k=12\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(5x^{2}+kx+20=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "20"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(5)(20)=0\\), ya'ni \\(k^{2}=400\\). \\(k\\) musbat, demak \\(k=20\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_07",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(3x^{2}+kx+27=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "18"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(3)(27)=0\\), ya'ni \\(k^{2}=324\\). \\(k\\) musbat, demak \\(k=18\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_one_solution_08",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "In the equation \\(2x^{2}+kx+8=0\\), \\(k\\) is a positive constant. The equation has exactly one real solution. What is the value of \\(k\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "Yagona yechim uchun diskriminant nol bo'ladi: \\(k^{2}-4(2)(8)=0\\), ya'ni \\(k^{2}=64\\). \\(k\\) musbat, demak \\(k=8\\).",
+  "strat": "\"Exactly one solution\" iborasini ko'rsangiz, darhol diskriminantni nolga tenglang."
+ },
+ {
+  "id": "g_line_meets_parabola_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+3x-10\\)\n\\(y=-3x+6\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+3x-10=-3x+6\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+6x-16=0\\). Bu \\((x-2)(x+8)=0\\) bo'ladi, musbat yechim 2.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_line_meets_parabola_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+7x-24\\)\n\\(y=3x+8\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+7x-24=3x+8\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+4x-32=0\\). Bu \\((x-4)(x+8)=0\\) bo'ladi, musbat yechim 4.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_line_meets_parabola_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+7x-60\\)\n\\(y=4x-6\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "6"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+7x-60=4x-6\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+3x-54=0\\). Bu \\((x-6)(x+9)=0\\) bo'ladi, musbat yechim 6.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_line_meets_parabola_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+6x-6\\)\n\\(y=2x+6\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "2"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+6x-6=2x+6\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+4x-12=0\\). Bu \\((x-2)(x+6)=0\\) bo'ladi, musbat yechim 2.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_line_meets_parabola_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+2x-25\\)\n\\(y=x-5\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+2x-25=x-5\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+x-20=0\\). Bu \\((x-4)(x+5)=0\\) bo'ladi, musbat yechim 4.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_line_meets_parabola_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear equations and systems",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The graphs of the equations below intersect at two points in the \\(xy\\)-plane.\n\\(y=x^{2}+3x-34\\)\n\\(y=2x+8\\)\nWhat is the positive \\(x\\)-coordinate of an intersection point?",
+  "mock": false,
+  "ans": [
+   "6"
+  ],
+  "exp": "Kesishish nuqtasida \\(y\\) qiymatlari teng: \\(x^{2}+3x-34=2x+8\\). Hammasini bir tomonga o'tkazamiz: \\(x^{2}+x-42=0\\). Bu \\((x-6)(x+7)=0\\) bo'ladi, musbat yechim 6.",
+  "strat": "Desmos usuli: ikkala tenglamani kiriting va kesishish nuqtalarini bosing."
+ },
+ {
+  "id": "g_exponential_value_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=100(2)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(2)\\)?",
+  "mock": false,
+  "ans": [
+   "400"
+  ],
+  "exp": "\\(t\\) o'rniga 2 ni qo'yamiz: \\(A(2)=100(2)^{2}=100\\cdot 4=400\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_exponential_value_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=500(3)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(2)\\)?",
+  "mock": false,
+  "ans": [
+   "4500"
+  ],
+  "exp": "\\(t\\) o'rniga 2 ni qo'yamiz: \\(A(2)=500(3)^{2}=500\\cdot 9=4500\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_exponential_value_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=250(3)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(2)\\)?",
+  "mock": false,
+  "ans": [
+   "2250"
+  ],
+  "exp": "\\(t\\) o'rniga 2 ni qo'yamiz: \\(A(2)=250(3)^{2}=250\\cdot 9=2250\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_exponential_value_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=50(2)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(3)\\)?",
+  "mock": false,
+  "ans": [
+   "400"
+  ],
+  "exp": "\\(t\\) o'rniga 3 ni qo'yamiz: \\(A(3)=50(2)^{3}=50\\cdot 8=400\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_exponential_value_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=100(3)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(2)\\)?",
+  "mock": false,
+  "ans": [
+   "900"
+  ],
+  "exp": "\\(t\\) o'rniga 2 ni qo'yamiz: \\(A(2)=100(3)^{2}=100\\cdot 9=900\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_exponential_value_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(A(t)=120(3)^{t}\\) gives the size of a population after \\(t\\) years. What is the value of \\(A(5)\\)?",
+  "mock": false,
+  "ans": [
+   "29160"
+  ],
+  "exp": "\\(t\\) o'rniga 5 ni qo'yamiz: \\(A(5)=120(3)^{5}=120\\cdot 243=29160\\).",
+  "strat": "Avval darajani hisoblang, keyin boshlang'ich qiymatga ko'paytiring."
+ },
+ {
+  "id": "g_doubling_model_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 400 bacteria, and the number of bacteria doubles every 6 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=400(2)^{t/6}\\)",
+   "\\(f(t)=400(2)^{6t}\\)",
+   "\\(f(t)=2(400)^{t/6}\\)",
+   "\\(f(t)=400(\\frac{1}{2})^{t/6}\\)"
+  ],
+  "cor": "A",
+  "exp": "Boshlang'ich qiymat 400. 6 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/6\\) bo'ladi: \\(f(t)=400(2)^{t/6}\\).",
+  "strat": "Tekshirish: \\(t=6\\) bo'lganda natija 800 chiqishi kerak."
+ },
+ {
+  "id": "g_doubling_model_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 150 bacteria, and the number of bacteria doubles every 4 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=150(2)^{4t}\\)",
+   "\\(f(t)=150(2)^{t/4}\\)",
+   "\\(f(t)=2(150)^{t/4}\\)",
+   "\\(f(t)=150(\\frac{1}{2})^{t/4}\\)"
+  ],
+  "cor": "B",
+  "exp": "Boshlang'ich qiymat 150. 4 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/4\\) bo'ladi: \\(f(t)=150(2)^{t/4}\\).",
+  "strat": "Tekshirish: \\(t=4\\) bo'lganda natija 300 chiqishi kerak."
+ },
+ {
+  "id": "g_doubling_model_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 400 bacteria, and the number of bacteria doubles every 7 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=400(2)^{7t}\\)",
+   "\\(f(t)=2(400)^{t/7}\\)",
+   "\\(f(t)=400(2)^{t/7}\\)",
+   "\\(f(t)=400(\\frac{1}{2})^{t/7}\\)"
+  ],
+  "cor": "C",
+  "exp": "Boshlang'ich qiymat 400. 7 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/7\\) bo'ladi: \\(f(t)=400(2)^{t/7}\\).",
+  "strat": "Tekshirish: \\(t=7\\) bo'lganda natija 800 chiqishi kerak."
+ },
+ {
+  "id": "g_doubling_model_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 500 bacteria, and the number of bacteria doubles every 7 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=500(2)^{7t}\\)",
+   "\\(f(t)=2(500)^{t/7}\\)",
+   "\\(f(t)=500(\\frac{1}{2})^{t/7}\\)",
+   "\\(f(t)=500(2)^{t/7}\\)"
+  ],
+  "cor": "D",
+  "exp": "Boshlang'ich qiymat 500. 7 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/7\\) bo'ladi: \\(f(t)=500(2)^{t/7}\\).",
+  "strat": "Tekshirish: \\(t=7\\) bo'lganda natija 1000 chiqishi kerak."
+ },
+ {
+  "id": "g_doubling_model_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 100 bacteria, and the number of bacteria doubles every 3 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=100(2)^{t/3}\\)",
+   "\\(f(t)=100(2)^{3t}\\)",
+   "\\(f(t)=2(100)^{t/3}\\)",
+   "\\(f(t)=100(\\frac{1}{2})^{t/3}\\)"
+  ],
+  "cor": "A",
+  "exp": "Boshlang'ich qiymat 100. 3 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/3\\) bo'ladi: \\(f(t)=100(2)^{t/3}\\).",
+  "strat": "Tekshirish: \\(t=3\\) bo'lganda natija 200 chiqishi kerak."
+ },
+ {
+  "id": "g_doubling_model_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "mcq",
+  "pas": "",
+  "q": "A culture starts with 400 bacteria, and the number of bacteria doubles every 2 hours. Which function gives the number of bacteria after \\(t\\) hours?",
+  "mock": false,
+  "opts": [
+   "\\(f(t)=400(2)^{2t}\\)",
+   "\\(f(t)=400(2)^{t/2}\\)",
+   "\\(f(t)=2(400)^{t/2}\\)",
+   "\\(f(t)=400(\\frac{1}{2})^{t/2}\\)"
+  ],
+  "cor": "B",
+  "exp": "Boshlang'ich qiymat 400. 2 soatda bir marta 2 ga ko'payadi, shuning uchun daraja \\(t/2\\) bo'ladi: \\(f(t)=400(2)^{t/2}\\).",
+  "strat": "Tekshirish: \\(t=2\\) bo'lganda natija 800 chiqishi kerak."
+ },
+ {
+  "id": "g_minimum_value_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}-4x+28\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "24"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x-2)^{2}+24\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 24.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_minimum_value_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}+8x+20\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x+4)^{2}+4\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 4.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_minimum_value_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}+8x+24\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "8"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x+4)^{2}+8\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 8.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_minimum_value_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}+6x+15\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "6"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x+3)^{2}+6\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 6.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_minimum_value_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}-8x+27\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "11"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x-4)^{2}+11\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 11.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_minimum_value_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Medium",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=x^{2}+4x+27\\). What is the minimum value of \\(f(x)\\)?",
+  "mock": false,
+  "ans": [
+   "23"
+  ],
+  "exp": "To'la kvadrat ajratamiz: \\(f(x)=(x+2)^{2}+23\\). Kvadrat eng kamida 0 bo'ladi, shuning uchun eng kichik qiymat 23.",
+  "strat": "Desmos usuli: funksiyani kiriting va parabolaning eng pastki nuqtasini bosing. Javob uning y koordinatasi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_01",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x-3)^{2}+3\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((4,0)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "-3"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(0=a(4-3)^{2}+3\\). Bundan \\(1a=-3\\), demak \\(a=-3\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_02",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x+2)^{2}+8\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((-5,-10)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "-2"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(-10=a(-5+2)^{2}+8\\). Bundan \\(9a=-18\\), demak \\(a=-2\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_03",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x+0)^{2}+5\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((2,21)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(21=a(2+0)^{2}+5\\). Bundan \\(4a=16\\), demak \\(a=4\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_04",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x-1)^{2}+8\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((2,5)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "-3"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(5=a(2-1)^{2}+8\\). Bundan \\(1a=-3\\), demak \\(a=-3\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_05",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x+4)^{2}-2\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((-3,2)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "4"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(2=a(-3+4)^{2}-2\\). Bundan \\(1a=4\\), demak \\(a=4\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ },
+ {
+  "id": "g_vertex_form_coefficient_06",
+  "sec": "m",
+  "dom": "Advanced Math",
+  "skill": "Nonlinear functions",
+  "dif": "Hard",
+  "type": "spr",
+  "pas": "",
+  "q": "The function \\(f\\) is defined by \\(f(x)=a(x+0)^{2}+3\\), where \\(a\\) is a constant. The graph of \\(f\\) passes through the point \\((-3,-24)\\). What is the value of \\(a\\)?",
+  "mock": false,
+  "ans": [
+   "-3"
+  ],
+  "exp": "Nuqtani funksiyaga qo'yamiz: \\(-24=a(-3+0)^{2}+3\\). Bundan \\(9a=-27\\), demak \\(a=-3\\).",
+  "strat": "Cho'qqi ko'rinishida faqat bitta noma'lum qolganda, grafikdagi bitta nuqta uni topishga yetadi."
+ }
+]

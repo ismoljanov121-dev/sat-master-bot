@@ -18,7 +18,7 @@ from config import ADMIN_IDS, BOT_TOKEN, PORT, SENTRY_DSN
 from database import db
 from handlers import router
 from scheduler import setup_scheduler
-from services import alerts, cards
+from services import alerts, cards, review
 
 # String keys are fine for this small app, and the warning would only fill the logs.
 warnings.filterwarnings("ignore", category=web.NotAppKeyWarning)
@@ -164,6 +164,7 @@ async def main():
         sentry_sdk.init(dsn=SENTRY_DSN, release=VERSION)
 
     await db.connect()
+    await review.forget_sealed_questions()
     if db.kind == "sqlite":
         logger.warning("DATABASE_URL is not set: progress is stored in a local file and is lost on each deploy.")
 

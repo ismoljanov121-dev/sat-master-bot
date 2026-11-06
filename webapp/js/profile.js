@@ -127,16 +127,24 @@ views.centerSession = {
     const data = await api(`teacher/sessions/${code}`).catch(() => null);
     if (!data) return `<div class="page flush"><div class="card empty">Topilmadi.</div></div>`;
     const { session } = data;
-    const rows = data.students.map((student, index) => `<tr><td class="num">${index + 1}</td><td>${esc(student.name)}</td>
-      <td class="num">${student.score == null ? '—' : Math.round(student.score * 10) / 10}</td><td class="num">${student.correct}/${student.total}</td><td class="num">${student.minutes}</td></tr>`).join('');
+    const status = student => (student.late ? ' <span class="chip warn">kech</span>' : '')
+      + (student.seen ? ` <span class="chip">${student.seen} tanish</span>` : '');
+    const rows = data.students.map((student, index) => (student.active
+      ? `<tr><td class="num">${index + 1}</td><td>${esc(student.name)}</td><td colspan="2"><span class="chip accent">Ishlamoqda</span></td><td class="num">${student.minutes}</td></tr>`
+      : `<tr><td class="num">${index + 1}</td><td>${esc(student.name)}${status(student)}</td>
+      <td class="num">${student.score == null ? '—' : Math.round(student.score * 10) / 10}</td><td class="num">${student.correct}/${student.total}</td><td class="num">${student.minutes}</td></tr>`)).join('');
     const topics = data.topics.slice(0, 4).map(item => `<div class="domain"><div class="between"><span class="h3">${esc(DOMAIN_NAMES[item.domain] || item.domain)}</span>
       <span class="small muted num">${percent(item)}%</span></div><div class="bar ${accuracyTone(percent(item))}"><i style="width:${percent(item)}%"></i></div></div>`).join('');
     const open = session.status === 'open';
     return `<div class="page flush stack"><div class="h2">${esc(session.title)}</div>
       <div class="code-display">${session.code}</div>
       <div class="between"><span class="small muted">O'quvchilar botga <b>/mock ${session.code}</b> deb yozadi</span>${statusLabel(session)}</div>
-      <div class="grid2"><div class="card tight stat"><div class="label">Topshirganlar</div><div class="v">${data.count}</div></div>
-        <div class="card tight stat"><div class="label">O'rtacha ball</div><div class="v">${data.average ?? '—'}</div></div></div>
+      ${session.secure ? `<div class="card tight small row">${icon('key', true)}<span>Himoyalangan imtihon: javob kalitlari faqat serverda turadi.</span></div>`
+        : `<div class="card tight small">Ochiq test: javob kalitlari ilova ma'lumotida turadi, shuning uchun telefonlarni kuzating.</div>`}
+      <div class="grid3"><div class="card tight stat"><div class="label">Ishlamoqda</div><div class="v">${data.active}</div></div>
+        <div class="card tight stat"><div class="label">Topshirgan</div><div class="v">${data.count}</div></div>
+        <div class="card tight stat"><div class="label">O'rtacha</div><div class="v">${data.average ?? '—'}</div></div></div>
+      <button class="btn block" data-act="refreshView">${icon('repeat', true)}Yangilash</button>
       ${topics ? `<div class="section-title">Guruhning zaif mavzulari</div><div class="card">${topics}</div>` : ''}
       <div class="section-title">Natijalar</div>
       ${rows ? `<div class="card table-wrap"><table class="data"><thead><tr><th>#</th><th>O'quvchi</th><th>Ball</th><th>To'g'ri</th><th>Daqiqa</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="card empty">Hali natija yo\'q.</div>'}
@@ -148,22 +156,38 @@ views.centerSession = {
 
 async function joinByCode(code) {
   try {
-    const { session } = await api('sessions/join', { method: 'POST', body: { code } });
-    App.session = session;
+    const joined = await api('sessions/join', { method: 'POST', body: { code } });
+    App.session = joined.session;
     closeSheet();
-    open('sessionStart', { session }, { reset: true });
+    open('sessionStart', joined, { reset: true });
   } catch (e) {
     toast(e.status === 404 ? "Kod topilmadi yoki imtihon yopilgan." : "Ulanib bo'lmadi.");
   }
 }
 
+function examLength(minutes) {
+  const hours = Math.floor(minutes / 60), rest = minutes % 60;
+  return [hours ? `${hours} soat` : '', rest ? `${rest} daqiqa` : ''].filter(Boolean).join(' ');
+}
+
 views.sessionStart = {
   full: true,
-  render({ session }) {
+  render({ session, name, started, done }) {
+    if (done) {
+      return `<div class="page flush"><div class="break">
+        <span class="tile good">${icon('check')}</span><div class="h1">${esc(session.title)}</div>
+        <p class="muted">Siz bu imtihonni topshirgansiz. Har bir o'quvchi uchun bitta natija hisoblanadi.</p>
+        <button class="btn primary block lg" data-act="openAttempt" data-id="${esc(done)}">Natijani ko'rish</button>
+        <button class="btn block" data-act="tab" data-tab="home">Bosh sahifa</button></div></div>`;
+    }
+    const nameField = started ? '' : `<div class="field" style="width:100%;text-align:left"><span class="h3">Ism va familiyangiz</span>
+      <input id="session-name" class="input" maxlength="80" autocomplete="name" value="${esc(name || '')}" placeholder="Masalan: Aziza Karimova">
+      <span class="label">O'qituvchingiz natijani shu ism bilan ko'radi.</span></div>`;
     return `<div class="page flush"><div class="break">
       <span class="tile">${icon('school')}</span><div class="h1">${esc(session.title)}</div>
-      <p class="muted">Guruh imtihoni. Natijangiz o'qituvchingizga ko'rinadi.</p>
-      <button class="btn primary block lg" data-act="beginSession">Imtihonni boshlash</button>
+      <p class="muted">Guruh imtihoni: ${examLength(session.minutes)}. Boshlagandan keyin vaqt to'xtamaydi va faqat bitta urinish hisoblanadi.</p>
+      ${nameField}
+      <button class="btn primary block lg" data-act="beginSession">${started ? 'Davom ettirish' : 'Imtihonni boshlash'}</button>
       <button class="btn block" data-act="tab" data-tab="home">Keyinroq</button></div></div>`;
   },
 };
@@ -177,6 +201,7 @@ Object.assign(actions, {
     if (!hasTelegramUser) { open('home', {}, { reset: true }); return; }
     try {
       await api('profile', { method: 'POST', body });
+      if (!App.boot?.me.onboarded) track('onboarding_done', body.focus);
       await refreshBoot();
       haptic('good');
       if (stack.length > 1) leaveView();
@@ -191,7 +216,10 @@ Object.assign(actions, {
     App.boot.me.reminders_on = value;
     await api('profile', { method: 'POST', body: { reminders_on: value } }).catch(() => toast("Saqlab bo'lmadi."));
   },
-  inviteFriend(el) { shareLink(el.dataset.link, "Men bu yerda SAT va IELTS'ga bepul tayyorlanyapman. Sen ham qo'shil!"); },
+  inviteFriend(el) {
+    track('invite_opened');
+    shareLink(el.dataset.link, "Men bu yerda SAT va IELTS'ga bepul tayyorlanyapman. Sen ham qo'shil!");
+  },
   enterCode() {
     sheet(`<div class="stack"><div class="h2">Imtihon kodi</div>
       <input id="code-input" class="input code" maxlength="6" autocomplete="off" autocapitalize="characters" placeholder="ABC123">
@@ -202,15 +230,43 @@ Object.assign(actions, {
     const code = document.getElementById('code-input').value.trim();
     if (code) joinByCode(code);
   },
-  beginSession() {
+  async beginSession(el) {
     const session = App.session;
-    if (session.kind === 'sat_mock') startMock(session.ref, session.code);
-    else startIelts(session.kind.replace('ielts_', ''), session.ref, session.code);
+    const input = document.getElementById('session-name');
+    if (input && input.value.trim().length < 3) {
+      toast("Ism va familiyangizni to'liq yozing.");
+      input.focus();
+      return;
+    }
+    const saved = recall(MOCK_SAVE_KEY);
+    if (!input && saved?.session === session.code) { resumeMock(saved); return; }
+    el.disabled = true;
+    let ticket;
+    try {
+      ticket = await api(`sessions/${session.code}/start`, { method: 'POST', body: { name: input ? input.value : '' } });
+    } catch (e) {
+      el.disabled = false;
+      toast(e.status === 404 ? 'Bu imtihon yopilgan.' : "Ulanib bo'lmadi. Internetni tekshiring.");
+      return;
+    }
+    if (ticket.done) {
+      open('sessionStart', { session, done: ticket.done }, { replace: true });
+      return;
+    }
+    track('session_started', session.kind);
+    if (session.kind === 'sat_mock') {
+      clearMock();
+      startMock(session.ref, session.code, ticket);
+    } else {
+      startIelts(session.kind.replace('ielts_', ''), session.ref, session.code, ticket);
+    }
   },
+  refreshView() { draw(); },
   newSession() {
-    const options = App.teacher.catalog.map(item => `<option value="${esc(item.kind)}|${esc(item.ref)}">${esc(item.title)}</option>`).join('');
+    const options = App.teacher.catalog.map(item => `<option value="${esc(item.kind)}|${esc(item.ref)}">${item.secure ? '🔒 ' : ''}${esc(item.title)}</option>`).join('');
     sheet(`<div class="stack"><div class="h2">Yangi guruh imtihoni</div>
-      <div class="field"><span class="label">Imtihon</span><select id="session-exam" class="input">${options}</select></div>
+      <div class="field"><span class="label">Imtihon</span><select id="session-exam" class="input">${options}</select>
+        <span class="label">🔒 belgili imtihonlarning javob kalitlari faqat serverda turadi. Ular bir marta ishlatishga mo'ljallangan.</span></div>
       <div class="field"><span class="label">Nomi (ixtiyoriy)</span><input id="session-title" class="input" maxlength="80" placeholder="Masalan: 11-A guruh, 1-mock"></div>
       <button class="btn primary block lg" data-act="createSession">Yaratish</button></div>`);
   },

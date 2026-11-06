@@ -136,17 +136,19 @@ async function satBank() {
   return App.bank;
 }
 
-// Finished tests survive a lost connection: they wait here and go out on the next launch.
+// Finished tests survive a lost connection or a server restart: they wait here and go out on the next launch.
 const QUEUE_KEY = 'pending_attempts';
+function canRetry(e) { return e.code === 'network' || e.status === 401 || e.status >= 500; }
+
 async function submitAttempt(body) {
   try {
     return await api('attempts', { method: 'POST', body });
   } catch (e) {
-    if (e.code === 'network' || e.status === 401) {
+    if (canRetry(e)) {
       store(QUEUE_KEY, [...(recall(QUEUE_KEY) || []), body]);
-      toast(e.code === 'network'
-        ? "Internet yo'q. Natija saqlab qo'yildi va keyinroq yuboriladi."
-        : "Sessiya eskirdi. Natija saqlandi, Mini App'ni qayta oching.");
+      toast(e.status === 401
+        ? "Sessiya eskirdi. Natija saqlandi, Mini App'ni qayta oching."
+        : "Aloqa yo'q. Natija saqlab qo'yildi va keyinroq yuboriladi.");
     }
     return null;
   }
@@ -158,7 +160,7 @@ async function flushQueue() {
   const remaining = [];
   for (const body of pending) {
     try { await api('attempts', { method: 'POST', body }); }
-    catch (e) { if (e.code === 'network' || e.status === 401) remaining.push(body); }
+    catch (e) { if (canRetry(e)) remaining.push(body); }
   }
   store(QUEUE_KEY, remaining.length ? remaining : undefined);
 }

@@ -8,13 +8,15 @@ from collections import defaultdict
 from typing import Any, Optional
 
 from database import db, now_ts, shift_day, today
-from services import review, scoring, users
+from services import review, scoring, sessions, users
 from services.content import DOMAIN_NAMES, SAT_DOMAINS, content
 
 TARGET_SECONDS = {"rw": 71, "m": 95}
 RUSHED_SECONDS = 15
 MAX_ITEM_SECONDS = 3600
 MAX_PRACTICE_ITEMS = 60
+# Below this share of new questions a section cannot give a clean estimate, so all answers count and the report warns.
+MIN_FRESH_SHARE = 0.5
 SECTION_NAMES = {"rw": "Reading & Writing", "m": "Math"}
 IELTS_TYPE_NAMES = {
     "tfng": "True / False / Not Given", "ynng": "Yes / No / Not Given", "mcq": "Multiple choice",
@@ -24,6 +26,10 @@ IELTS_TYPE_NAMES = {
 
 class AttemptError(ValueError):
     pass
+
+
+class AlreadyFinished(Exception):
+    """Another submit of the same group exam was stored first."""
 
 
 def _clean_answer(value: Any) -> str:
@@ -108,11 +114,12 @@ async def _previous_score(user_id: int, kind: str) -> Optional[float]:
 async def _store(
     user_id: int, kind: str, ref: str, title: str, rows: list[dict[str, Any]], report: dict[str, Any], *,
     correct: int, total: int, score: Optional[float] = None, low: Optional[float] = None,
-    high: Optional[float] = None, duration_s: int = 0, session_code: Optional[str] = None,
+    high: Optional[float] = None, duration_s: int = 0, session: Optional[dict[str, Any]] = None,
     review_mode: bool = False,
 ) -> tuple[str, Optional[int]]:
     attempt_id = uuid.uuid4().hex
     now, day = now_ts(), today()
+    session_code = session["code"] if session else None
     async with db.transaction():
         await db.execute(
             """INSERT INTO attempts (id, user_id, kind, ref, title, session_code, correct, total, score, score_low,
@@ -129,7 +136,10 @@ async def _store(
             [(attempt_id, user_id, row["question_id"], row["section"], row["domain"], row["skill"], row["difficulty"],
               row["module"], row["chosen"], int(row["correct"]), row["time_s"], now) for row in rows],
         )
-        sat_rows = [row for row in rows if row["question_id"] in content.bank]
+        if session and not await sessions.claim(session, user_id, attempt_id):
+            raise AlreadyFinished
+        # Sealed questions stay out of the notebook, because their keys never reach the phone.
+        sat_rows = [row for row in rows if row["question_id"] in content.bank and row["question_id"] not in content.sealed_questions]
         # An unanswered mock question is not a mistake to study. In review, every answer counts.
         await review.apply_results(user_id, [
             (row["question_id"], row["correct"], row["chosen"])
@@ -139,22 +149,73 @@ async def _store(
     return attempt_id, rewarded_referrer
 
 
-async def submit_sat_mock(user_id: int, payload: dict[str, Any], session_code: Optional[str]) -> dict[str, Any]:
+async def seen_questions(user_id: int) -> set[str]:
+    rows = await db.fetch("SELECT DISTINCT question_id FROM answers WHERE user_id = ? AND section IN ('rw', 'm')", user_id)
+    return {row["question_id"] for row in rows}
+
+
+async def mock_exposure(user_id: int) -> dict[str, int]:
+    """How many questions of each open mock the student has already met."""
+    seen = await seen_questions(user_id)
+    return {mock["id"]: len(content.mock_questions[mock["id"]] & seen) for mock in content.public_mocks()}
+
+
+def section_estimate(part: list[dict[str, Any]], seen: set[str]) -> tuple[dict[str, int], bool]:
+    """Scores a section on the questions the student meets for the first time, when enough of them are left."""
+    fresh = [row for row in part if row["question_id"] not in seen]
+    clean = len(fresh) >= len(part) * MIN_FRESH_SHARE
+    basis = fresh if clean else part
+    return scoring.section_score([(row["difficulty"], row["type"], row["correct"]) for row in basis]), clean
+
+
+def module_route(mock_id: str, key: str, items: dict[str, dict[str, Any]]) -> str:
+    """The second module a student's first module earned. The server decides this, whatever the client sent."""
+    ids = content.mocks[mock_id][key]["m1"]
+    correct = 0
+    for question_id in ids:
+        chosen = _clean_answer(items.get(question_id, {}).get("a"))
+        correct += bool(chosen) and scoring.sat_answer_correct(content.bank[question_id], chosen)
+    return scoring.route_for(correct, len(ids))
+
+
+async def finished_result(session: Optional[dict[str, Any]], user_id: int) -> Optional[dict[str, Any]]:
+    """A group exam counts once. A repeated submit, such as a retry after a lost connection, gets the first result."""
+    entry = await sessions.get_entry(session["code"], user_id) if session else None
+    if entry is None or not entry["attempt_id"]:
+        return None
+    row = await db.fetchrow("SELECT report FROM attempts WHERE id = ?", entry["attempt_id"])
+    return {"id": entry["attempt_id"], "report": json.loads(row["report"]), "referrer": None, "repeat": True}
+
+
+async def submit_sat_mock(user_id: int, payload: dict[str, Any], session: Optional[dict[str, Any]]) -> dict[str, Any]:
     mock_id = payload.get("ref")
     route = payload.get("route") or {}
     if mock_id not in content.mocks or route.get("rw") not in ("easy", "hard") or route.get("math") not in ("easy", "hard"):
         raise AttemptError("unknown_mock")
+    if mock_id in content.sealed_mocks and session is None:
+        raise AttemptError("unknown_mock")
+    finished = await finished_result(session, user_id)
+    if finished:
+        return finished
 
     items = {item.get("q"): item for item in payload.get("items", []) if isinstance(item, dict)}
+    entry = await sessions.get_entry(session["code"], user_id) if session else None
+    state = json.loads(entry["state"]) if entry else {}
+    items.update(state.get("answers", {}))
+    locked = state.get("route", {})
+    route = {key: locked.get(key) or module_route(mock_id, key, items) for key in ("rw", "math")}
     rows = []
     for module, ids in content.mock_modules(mock_id, route).items():
         for question_id in ids:
             rows.append(_question_row(content.bank[question_id], module, items.get(question_id, {})))
 
+    seen = await seen_questions(user_id)
     sections = {}
+    clean = True
     for key, section in (("rw", "rw"), ("math", "m")):
         part = [row for row in rows if row["section"] == section]
-        estimate = scoring.section_score([(row["difficulty"], row["type"], row["correct"]) for row in part])
+        estimate, section_clean = section_estimate(part, seen)
+        clean = clean and section_clean
         sections[key] = {
             **estimate, "correct": sum(row["correct"] for row in part), "total": len(part), "route": route[key],
         }
@@ -169,13 +230,17 @@ async def submit_sat_mock(user_id: int, payload: dict[str, Any], session_code: O
     report = {
         "kind": "sat_mock", "title": title, **total, "sections": sections, "domains": domains,
         "difficulty": difficulty, "pacing": pacing, "steps": next_steps(domains, pacing),
-        "previous": previous, "ref": mock_id, "route": route,
+        "previous": previous, "ref": mock_id, "route": route, "sealed": mock_id in content.sealed_mocks,
+        "exposure": {"seen": sum(row["question_id"] in seen for row in rows), "total": len(rows), "clean": clean},
     }
-    attempt_id, referrer = await _store(
-        user_id, "sat_mock", mock_id, title, rows, report, correct=correct, total=len(rows),
-        score=total["score"], low=total["low"], high=total["high"],
-        duration_s=sum(row["time_s"] for row in rows), session_code=session_code,
-    )
+    try:
+        attempt_id, referrer = await _store(
+            user_id, "sat_mock", mock_id, title, rows, report, correct=correct, total=len(rows),
+            score=total["score"], low=total["low"], high=total["high"],
+            duration_s=sum(row["time_s"] for row in rows), session=session,
+        )
+    except AlreadyFinished:
+        return await finished_result(session, user_id)
     return {"id": attempt_id, "report": report, "referrer": referrer}
 
 
@@ -205,14 +270,17 @@ async def submit_practice(user_id: int, payload: dict[str, Any]) -> dict[str, An
     return {"id": attempt_id, "report": report, "referrer": referrer}
 
 
-async def submit_ielts(user_id: int, payload: dict[str, Any], session_code: Optional[str]) -> dict[str, Any]:
+async def submit_ielts(user_id: int, payload: dict[str, Any], session: Optional[dict[str, Any]]) -> dict[str, Any]:
     kind = payload.get("kind")
     tests, table = (
         (content.reading, scoring.READING_BANDS) if kind == "ielts_reading" else (content.listening, scoring.LISTENING_BANDS)
     )
     test = tests.get(payload.get("ref"))
-    if test is None:
+    if test is None or (sessions.is_sealed(kind, test["num"]) and session is None):
         raise AttemptError("unknown_test")
+    finished = await finished_result(session, user_id)
+    if finished:
+        return finished
     answers = payload.get("answers") if isinstance(payload.get("answers"), dict) else {}
     section = "ielts_r" if kind == "ielts_reading" else "ielts_l"
 
@@ -236,11 +304,14 @@ async def submit_ielts(user_id: int, payload: dict[str, Any], session_code: Opti
         "types": by_type, "previous": previous, "ref": test["num"],
         "wrong": [question["num"] for question, row in zip(test["questions"], rows) if not row["correct"]],
     }
-    attempt_id, referrer = await _store(
-        user_id, kind, str(test["num"]), test["title"], rows, report, correct=correct, total=len(rows),
-        score=band, duration_s=_clean_seconds(payload.get("duration_s")) if payload.get("duration_s") else 0,
-        session_code=session_code,
-    )
+    try:
+        attempt_id, referrer = await _store(
+            user_id, kind, str(test["num"]), test["title"], rows, report, correct=correct, total=len(rows),
+            score=band, duration_s=_clean_seconds(payload.get("duration_s")) if payload.get("duration_s") else 0,
+            session=session,
+        )
+    except AlreadyFinished:
+        return await finished_result(session, user_id)
     return {"id": attempt_id, "report": report, "referrer": referrer}
 
 
@@ -266,7 +337,20 @@ async def get_attempt(user_id: int, attempt_id: str) -> Optional[dict[str, Any]]
     answers = await db.fetch(
         "SELECT question_id, module, chosen, is_correct, time_s FROM answers WHERE attempt_id = ?", attempt_id
     )
-    return {**_public_attempt(row), "report": json.loads(row["report"]), "answers": answers}
+    return {**_public_attempt(row), "report": json.loads(row["report"]), "answers": answers, "locked": await _review_locked(row)}
+
+
+async def _review_locked(row: dict[str, Any]) -> bool:
+    """Answers to a sealed exam stay hidden while other students may still be taking it."""
+    if not row["session_code"] or not sessions.is_sealed(row["kind"], row["ref"]):
+        return False
+    return await db.fetchval("SELECT status FROM exam_sessions WHERE code = ?", row["session_code"]) == "open"
+
+
+def review_pack(attempt: dict[str, Any]) -> dict[str, Any]:
+    """Questions and explanations of a sealed attempt, which the public data files do not contain."""
+    ids = [row["question_id"] for row in attempt["answers"] if row["question_id"] in content.sealed_questions]
+    return {"questions": {qid: content.bank[qid] for qid in ids}, "notes": {qid: content.notes[qid] for qid in ids}}
 
 
 async def mastery(user_id: int, recent: int = 400) -> list[dict[str, Any]]:

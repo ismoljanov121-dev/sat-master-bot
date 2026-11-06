@@ -172,6 +172,19 @@ SCHEMA = [
         closed_at BIGINT
     )""",
     "CREATE INDEX IF NOT EXISTS idx_sessions_center ON exam_sessions (center_id, created_at)",
+    """CREATE TABLE IF NOT EXISTS session_entries (
+        code TEXT NOT NULL,
+        user_id BIGINT NOT NULL,
+        full_name TEXT NOT NULL DEFAULT '',
+        started_at BIGINT NOT NULL,
+        deadline_at BIGINT NOT NULL,
+        state TEXT NOT NULL DEFAULT '{}',
+        attempt_id TEXT,
+        finished_at BIGINT,
+        late BIGINT NOT NULL DEFAULT 0,
+        PRIMARY KEY (code, user_id)
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_session_entries_user ON session_entries (user_id, started_at)",
 ]
 
 _current_conn: contextvars.ContextVar[Any] = contextvars.ContextVar("db_conn", default=None)

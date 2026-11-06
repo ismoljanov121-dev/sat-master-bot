@@ -4,15 +4,15 @@
    "id": "w1_01",
    "type": "Line Graph",
    "title": "Line Graph: Renewable Energy Production (2000–2025)",
-   "prompt": "The line graph below illustrates the percentage of total electricity generated from renewable sources (solar, wind, hydroelectric) in four European countries between 2000 and 2025.",
-   "guide": "Asosiy jihatlar: Hydroelectric remained steady around 30%; solar experienced exponential growth after 2012; Germany overtook Norway in solar generation; wind power grew four-fold.\n\nUmumiy xulosa: Overall, all four nations saw an upward trajectory in renewable adoption, with solar power recording the most dramatic acceleration.\n\nTuzilma: Paragraph 1: Paraphrase prompt; Paragraph 2: Overview of major trends; Paragraph 3: Detailed comparison of Solar and Wind; Paragraph 4: Detailed comparison of Hydro and Biomass.\n\nFoydali iboralar: exponential surge, plateaued steadily, experienced a fivefold increase, outstripped, underwent a modest oscillation"
+   "prompt": "The two line graphs below show the average share of electricity generated from hydroelectric, wind and solar sources in four European countries, and the solar share in each country, between 2000 and 2025.",
+   "guide": "Asosiy jihatlar: Hydroelectric remained steady around 30%; solar experienced exponential growth after 2012; Germany overtook Norway in solar generation; wind power grew four-fold.\n\nUmumiy xulosa: Overall, all four nations saw an upward trajectory in renewable adoption, with solar power recording the most dramatic acceleration.\n\nTuzilma: Paragraph 1: Paraphrase prompt; Paragraph 2: Overview of major trends; Paragraph 3: Hydro, wind and solar averages; Paragraph 4: Solar by country, including Germany overtaking Norway.\n\nFoydali iboralar: exponential surge, plateaued steadily, experienced a fivefold increase, outstripped, underwent a modest oscillation"
   },
   {
    "id": "w1_02",
    "type": "Bar Chart",
    "title": "Bar Chart: University Graduation Rates by Field and Gender",
    "prompt": "The bar chart compares the proportion of male and female graduates across five academic disciplines (STEM, Humanities, Business, Medicine, Law) in the UK in 2024.",
-   "guide": "Asosiy jihatlar: Males dominated Engineering and Computer Science (72% vs 28%); females significantly outnumbered males in Medicine and Humanities (65% vs 35%); Business achieved near gender parity.\n\nUmumiy xulosa: Overall, noticeable gender disparities persisted in technical STEM disciplines and health sciences, whereas commerce maintained an equitable split.\n\nTuzilma: Intro + Overview (2 main contrasting fields) + Body 1 (STEM & Medicine) + Body 2 (Business & Humanities).\n\nFoydali iboralar: marked discrepancy, near gender parity, significantly outstripped, stark gender gap, marginal difference"
+   "guide": "Asosiy jihatlar: Males dominated STEM (72% vs 28%); females significantly outnumbered males in Medicine and Humanities (65% vs 35%); Business achieved near gender parity.\n\nUmumiy xulosa: Overall, noticeable gender disparities persisted in technical STEM disciplines and health sciences, whereas commerce maintained an equitable split.\n\nTuzilma: Intro + Overview (2 main contrasting fields) + Body 1 (STEM & Medicine) + Body 2 (Business & Humanities).\n\nFoydali iboralar: marked discrepancy, near gender parity, significantly outstripped, stark gender gap, marginal difference"
   },
   {
    "id": "w1_03",
@@ -40,7 +40,7 @@
    "type": "Table",
    "title": "Table: Public Transport Punctuality Across 5 European Metropolises",
    "prompt": "The table provides data on on-time performance, passenger volume, and ticket affordability across five capital cities in 2023.",
-   "guide": "Asosiy jihatlar: Vienna scored highest punctuality (96.4%) with lowest ticket cost; London carried highest volume (4.1M daily) with lowest punctuality (84.1%).\n\nUmumiy xulosa: Overall, smaller integrated transit networks exhibited superior reliability and cost-effectiveness compared to sprawling megacities.\n\nTuzilma: Intro + Overview + Body 1 (Vienna & Zurich excellence) + Body 2 (London, Paris, Berlin comparison).\n\nFoydali iboralar: punctuality metric, eclipsed all competitors, lagged behind, inversely proportional, daily passenger footfall"
+   "guide": "Asosiy jihatlar: Vienna scored highest punctuality (96.4%) with lowest ticket cost; London carried highest volume (4.1M daily) with lowest punctuality (84.1%).\n\nUmumiy xulosa: Overall, smaller integrated transit networks exhibited superior reliability and cost-effectiveness compared to sprawling megacities.\n\nTuzilma: Intro + Overview + Body 1 (Vienna & Prague excellence) + Body 2 (London, Paris, Berlin comparison).\n\nFoydali iboralar: punctuality metric, eclipsed all competitors, lagged behind, inversely proportional, daily passenger footfall"
   },
   {
    "id": "w1_07",
@@ -67,7 +67,7 @@
    "id": "w1_10",
    "type": "Line Graph",
    "title": "Line Graph: Atmospheric CO2 Levels and Global Temperature Anomalies",
-   "prompt": "The line graph traces atmospheric carbon dioxide concentrations (ppm) against global mean temperature deviations from 1950 to 2025.",
+   "prompt": "The two line graphs trace atmospheric carbon dioxide concentrations (ppm) and global mean temperature deviations from 1950 to 2025.",
    "guide": "Asosiy jihatlar: CO2 rose steadily from 310 ppm to 422 ppm; temperature anomaly tracked CO2 closely, breaking +1.2°C above pre-industrial averages by 2024.\n\nUmumiy xulosa: Overall, both metrics exhibited unbroken compounding upward momentum, displaying a stark positive correlation over the 75-year timeframe.\n\nTuzilma: Intro + Overview + Body 1 (CO2 atmospheric accumulation) + Body 2 (Temperature anomaly curve and correlation).\n\nFoydali iboralar: inexorable upward march, striking positive correlation, breached the threshold, compounding escalation"
   },
   {
@@ -88,14 +88,14 @@
    "id": "w1_13",
    "type": "Table",
    "title": "Table: Academic Performance Metrics Across 4 High School Curricula",
-   "prompt": "The table compares student retention, university matriculation, and median exam scores for IB Diploma, A-Levels, AP, and National High School Diploma.",
-   "guide": "Asosiy jihatlar: IB students achieved highest university matriculation (92%) and scholarship awards; National diploma had highest graduation rate but lower foreign admissions.\n\nUmumiy xulosa: Overall, internationally recognized holistic programs outperformed national baselines in competitive tertiary admissions.\n\nTuzilma: Intro + Overview + Body 1 (IB & A-Levels comparison) + Body 2 (AP & National diploma metrics).\n\nFoydali iboralar: tertiary matriculation, outperformed domestic baselines, commanded the highest rate, marginal variance"
+   "prompt": "The table compares student retention, university matriculation, median exam scores and scholarship awards for IB Diploma, A-Levels, AP, and National High School Diploma.",
+   "guide": "Asosiy jihatlar: IB students achieved highest university matriculation (92%) and scholarship awards; National diploma had the highest retention (96%) but the lowest university entry (61%).\n\nUmumiy xulosa: Overall, internationally recognized holistic programs outperformed national baselines in competitive tertiary admissions.\n\nTuzilma: Intro + Overview + Body 1 (IB & A-Levels comparison) + Body 2 (AP & National diploma metrics).\n\nFoydali iboralar: tertiary matriculation, outperformed domestic baselines, commanded the highest rate, marginal variance"
   },
   {
    "id": "w1_14",
    "type": "Line Graph",
    "title": "Line Graph: Urbanization Rates in 5 Developing Regions (1970–2030)",
-   "prompt": "The graph depicts the proportion of the population residing in urban agglomerations across East Asia, South Asia, Latin America, Sub-Saharan Africa, and Central Asia.",
+   "prompt": "The graph depicts the proportion of the population residing in urban agglomerations across East Asia, South Asia, Latin America, Sub-Saharan Africa, and Central Asia between 1970 and 2030 (projected).",
    "guide": "Asosiy jihatlar: Latin America was already 60% urban in 1970 reaching 84%; East Asia witnessed the fastest steep rise (20% to 68%); South Asia grew steadily to 40%.\n\nUmumiy xulosa: Overall, all developing regions experienced irreversible urbanization, though initial baselines and rates of velocity varied markedly.\n\nTuzilma: Intro + Overview + Body 1 (Fast movers: East Asia & Latin America) + Body 2 (Slower trajectories: South Asia & Africa).\n\nFoydali iboralar: unprecedented rural-to-urban migration, steepest trajectory, urban agglomerations, widening disparity"
   },
   {
@@ -110,7 +110,7 @@
    "type": "Bar Chart",
    "title": "Bar Chart: Average Daily Screen Time Among Adolescents by Device",
    "prompt": "The bar chart compares daily minutes spent by teenagers on smartphones, gaming consoles, tablets, and computers across four continents in 2024.",
-   "guide": "Asosiy jihatlar: Smartphones absorbed over 260 mins/day globally; North America had highest console gaming; Asia led in educational computer usage.\n\nUmumiy xulosa: Overall, smartphones proved the overwhelmingly ubiquitous screen medium across all territories, eclipsing legacy televisions and desktop computers.\n\nTuzilma: Intro + Overview + Body 1 (Smartphones dominance) + Body 2 (Consoles and PC comparisons).\n\nFoydali iboralar: ubiquitous personal screen, dwarfed rival media, consumed an average of, divergent regional preferences"
+   "guide": "Asosiy jihatlar: Smartphones absorbed over 260 mins/day globally; North America had highest console gaming; Asia led in educational computer usage.\n\nUmumiy xulosa: Overall, smartphones proved the overwhelmingly ubiquitous screen medium across all territories, eclipsing consoles, tablets and computers.\n\nTuzilma: Intro + Overview + Body 1 (Smartphones dominance) + Body 2 (Consoles and PC comparisons).\n\nFoydali iboralar: ubiquitous personal screen, dwarfed rival media, consumed an average of, divergent regional preferences"
   },
   {
    "id": "w1_17",
@@ -124,13 +124,13 @@
    "type": "Line Graph",
    "title": "Line Graph: Average Global Air Cargo Tariffs vs Marine Freight Rates",
    "prompt": "The line graph traces shipping costs per kilogram for air freight versus forty-foot ocean shipping containers between 2018 and 2024.",
-   "guide": "Asosiy jihatlar: Ocean container spot rates spiked tenfold in 2021 during supply chain shocks; air cargo remained roughly 4-5x more expensive per kg but stabilized much faster.\n\nUmumiy xulosa: Overall, ocean freight witnessed severe volatility during global trade disruptions, whereas air freight sustained premium, predictable pricing.\n\nTuzilma: Intro + Overview + Body 1 (Ocean freight spike & collapse) + Body 2 (Air cargo premium stability).\n\nFoydali iboralar: supply chain disruption, exponential spot rate volatility, stabilized at a plateau, commanded a significant premium"
+   "guide": "Asosiy jihatlar: Ocean container rates spiked tenfold in 2021 during supply chain shocks; in normal years air cargo was roughly 4-5x more expensive per kg, and it stabilized much faster.\n\nUmumiy xulosa: Overall, ocean freight witnessed severe volatility during global trade disruptions, whereas air freight sustained premium, predictable pricing.\n\nTuzilma: Intro + Overview + Body 1 (Ocean freight spike & collapse) + Body 2 (Air cargo premium stability).\n\nFoydali iboralar: supply chain disruption, exponential spot rate volatility, stabilized at a plateau, commanded a significant premium"
   },
   {
    "id": "w1_19",
    "type": "Pie Chart",
    "title": "Pie Charts: Agricultural Land Use and Irrigation Types in Central Asia",
-   "prompt": "The charts display the distribution of arable land dedicated to cotton, wheat, orchards, and forage crops, alongside irrigation techniques in Uzbekistan.",
+   "prompt": "The charts display the distribution of arable land dedicated to cotton, wheat, orchards, and forage crops in 2024, alongside irrigation techniques in 2015 and 2024, in Uzbekistan.",
    "guide": "Asosiy jihatlar: Wheat and cotton dominated acreage (38% and 34%); drip irrigation expanded rapidly to 22%, reducing furrow flooding.\n\nUmumiy xulosa: Overall, staple grains and cash crops occupied the majority of farmland, accompanied by an aggressive modernization of water-saving drip systems.\n\nTuzilma: Intro + Overview + Body 1 (Crop land distribution) + Body 2 (Irrigation technology breakdown).\n\nFoydali iboralar: dedicated arable acreage, furrow irrigation dominance, water-efficient drip mechanisms, cash crop allocation"
   },
   {
@@ -144,7 +144,7 @@
    "id": "w1_21",
    "type": "Table",
    "title": "Table: Global Electric Vehicle Sales and Charging Infrastructure Growth",
-   "prompt": "The table compares EV market share, public fast chargers per 100km, and governmental consumer subsidies across Norway, China, USA, Germany, and Japan.",
+   "prompt": "The table compares EV market share, public fast chargers per 100km, the total number of fast chargers, and governmental consumer subsidies across Norway, China, Germany, USA, and Japan.",
    "guide": "Asosiy jihatlar: Norway held 88% EV market share; China installed highest absolute volume of fast chargers (over 1.2M); Japan lagged in battery EV uptake.\n\nUmumiy xulosa: Overall, Scandinavian tax exemptions and Chinese infrastructure investment spurred unprecedented EV saturation compared to other automotive giants.\n\nTuzilma: Intro + Overview + Body 1 (Norway & China leadership) + Body 2 (Germany, USA, and Japan adoption).\n\nFoydali iboralar: market penetration, robust public charging density, government fiscal subsidies, lagged considerably behind"
   },
   {
@@ -158,7 +158,7 @@
    "id": "w1_23",
    "type": "Bar Chart",
    "title": "Renewable Electricity Production by Country (2024)",
-   "prompt": "The bar chart compares renewable electricity generation across five OECD nations in gigawatt-hours.",
+   "prompt": "The bar chart compares renewable electricity generation, by source, across five OECD nations in 2024, in thousand gigawatt-hours.",
    "guide": "Qisqa namuna: 110 so'z. Imtihonda kamida 150 so'z yozish kerak.\n\nThe bar chart provides a comparative breakdown of renewable electricity yields across five OECD member nations for the year 2024, measured in gigawatt-hours (GWh).\n\nIn general terms, Germany emerged as the incontestable leader in overall green electricity output, whereas Norway demonstrated the highest proportion derived from hydroelectric facilities.\n\nGermany generated an impressive 245,000 GWh, propelled primarily by its expansive wind turbine and photovoltaic installations. In contrast, the United Kingdom registered approximately 135,000 GWh, drawing heavily on offshore wind capacity.\n\nMeanwhile, Sweden and Spain recorded comparable intermediate outputs of 98,000 GWh and 110,000 GWh respectively, with Norway rounding out the selection at 82,000 GWh, almost exclusively generated through mountainous reservoir hydro-turbines."
   }
  ],

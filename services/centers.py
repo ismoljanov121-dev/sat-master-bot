@@ -11,6 +11,7 @@ from typing import Any, Optional
 
 from config import ADMIN_IDS
 from database import db, now_ts
+from services import sessions
 from services.content import content
 
 CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
@@ -67,12 +68,14 @@ async def is_staff(user_id: int) -> bool:
     return is_admin(user_id) or bool(await teacher_center_ids(user_id))
 
 
-def exam_catalog() -> list[dict[str, str]]:
-    """Exams a teacher can assign to a session."""
+def exam_catalog() -> list[dict[str, Any]]:
+    """Exams a teacher can assign to a session, the ones with server-side keys first."""
     items = [{"kind": "sat_mock", "ref": mock["id"], "title": mock["title"]} for mock in content.mocks.values()]
     items += [{"kind": "ielts_reading", "ref": str(n), "title": f"IELTS Reading: {t['title']}"} for n, t in content.reading.items()]
     items += [{"kind": "ielts_listening", "ref": str(n), "title": f"IELTS Listening: {t['title']}"} for n, t in content.listening.items()]
-    return items
+    for item in items:
+        item["secure"] = sessions.is_sealed(item["kind"], item["ref"])
+    return sorted(items, key=lambda item: not item["secure"])
 
 
 async def create_session(created_by: int, kind: str, ref: str, title: str = "") -> dict[str, Any]:
@@ -137,32 +140,58 @@ async def list_sessions(user_id: int, limit: int = 30) -> list[dict[str, Any]]:
 
 
 async def session_results(code: str) -> dict[str, Any]:
+    entries = {
+        row["user_id"]: row
+        for row in await db.fetch(
+            """SELECT session_entries.*, users.first_name, users.username FROM session_entries
+               JOIN users ON users.id = session_entries.user_id WHERE code = ?""",
+            code,
+        )
+    }
     rows = await db.fetch(
         """SELECT attempts.*, users.first_name, users.username FROM attempts
            JOIN users ON users.id = attempts.user_id
-           WHERE session_code = ? ORDER BY score DESC, created_at""",
+           WHERE session_code = ? ORDER BY created_at""",
         code,
     )
+    # Older exams could hold several attempts per student. Only the first one counts.
+    first_attempts = {}
+    for row in rows:
+        first_attempts.setdefault(row["user_id"], row)
+
     students = []
     domains: dict[str, dict[str, int]] = {}
-    for row in rows:
+    for user_id, row in first_attempts.items():
         report = json.loads(row["report"])
+        entry = entries.get(user_id)
+        seconds = entry["finished_at"] - entry["started_at"] if entry and entry["finished_at"] else row["duration_s"]
         students.append({
-            "name": row["first_name"] or "—", "username": row["username"], "correct": row["correct"],
-            "total": row["total"], "score": row["score"], "low": row["score_low"], "high": row["score_high"],
-            "at": row["created_at"], "minutes": round(row["duration_s"] / 60),
+            "name": (entry and entry["full_name"]) or row["first_name"] or "—", "username": row["username"],
+            "correct": row["correct"], "total": row["total"], "score": row["score"], "low": row["score_low"],
+            "high": row["score_high"], "at": row["created_at"], "minutes": round(seconds / 60),
+            "late": bool(entry and entry["late"]), "active": False,
+            "seen": report.get("exposure", {}).get("seen", 0),
         })
         for part in report.get("domains", []):
-            entry = domains.setdefault(part["domain"], {"correct": 0, "total": 0})
-            entry["correct"] += part["correct"]
-            entry["total"] += part["total"]
+            topic = domains.setdefault(part["domain"], {"correct": 0, "total": 0})
+            topic["correct"] += part["correct"]
+            topic["total"] += part["total"]
+    students.sort(key=lambda student: (student["score"] is None, -(student["score"] or 0), student["at"]))
+    for user_id, entry in entries.items():
+        if user_id not in first_attempts:
+            students.append({
+                "name": entry["full_name"] or entry["first_name"] or "—", "username": entry["username"], "correct": None,
+                "total": None, "score": None, "low": None, "high": None, "at": entry["started_at"],
+                "minutes": round((now_ts() - entry["started_at"]) / 60), "late": False, "active": True, "seen": 0,
+            })
     topics = sorted(
         ({"domain": name, **value} for name, value in domains.items()),
         key=lambda item: item["correct"] / item["total"] if item["total"] else 1,
     )
     scores = [student["score"] for student in students if student["score"] is not None]
     return {
-        "students": students, "topics": topics, "count": len(students),
+        "students": students, "topics": topics, "count": len(first_attempts),
+        "active": sum(student["active"] for student in students),
         "average": round(sum(scores) / len(scores), 1) if scores else None,
     }
 
@@ -171,13 +200,15 @@ async def session_csv(code: str) -> bytes:
     data = await session_results(code)
     buffer = io.StringIO()
     writer = csv.writer(buffer)
-    writer.writerow(["O'quvchi", "Username", "To'g'ri", "Jami", "Ball", "Oraliq", "Daqiqa"])
+    writer.writerow(["O'quvchi", "Username", "To'g'ri", "Jami", "Ball", "Oraliq", "Daqiqa", "Holat"])
     for student in data["students"]:
+        if student["active"]:
+            continue
         spread = f"{student['low']:.0f}-{student['high']:.0f}" if student["low"] is not None else ""
         score = "" if student["score"] is None else student["score"]
         writer.writerow([
             _safe_cell(student["name"]), _safe_cell(student["username"]), student["correct"], student["total"],
-            score, spread, student["minutes"],
+            score, spread, student["minutes"], "Kech topshirdi" if student["late"] else "Topshirdi",
         ])
     # The BOM makes Excel read Uzbek letters correctly.
     return ("﻿" + buffer.getvalue()).encode("utf-8")

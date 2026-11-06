@@ -49,6 +49,11 @@ async def apply_results(user_id: int, results: list[tuple[str, bool, str]]) -> N
     )
 
 
+async def forget_sealed_questions() -> None:
+    """Questions that became sealed cannot be shown on the phone anymore, so old notebooks must let go of them."""
+    await db.executemany("DELETE FROM review_items WHERE question_id = ?", [(qid,) for qid in content.sealed_questions])
+
+
 async def due_count(user_id: int) -> int:
     value = await db.fetchval(
         "SELECT COUNT(*) FROM review_items WHERE user_id = ? AND resolved = 0 AND due_day <= ?", user_id, today()
@@ -82,17 +87,34 @@ async def pick_questions(
     difficulty: Optional[str] = None,
     count: int = 10,
 ) -> list[str]:
-    """Unseen questions come first, and among those the ones no mock uses, so mocks stay fresh."""
+    """
+    Unseen questions come first, and among those the ones that cost a mock the least: practice-only questions,
+    then mocks already taken, then the mock furthest away. The next mock and sealed exams are never used, so
+    a student always has a mock they have not seen.
+    """
     rows = await db.fetch(
         "SELECT question_id, MAX(created_at) AS last_seen FROM answers WHERE user_id = ? GROUP BY question_id", user_id
     )
     seen = {row["question_id"]: row["last_seen"] for row in rows}
+    taken = {
+        row["ref"]
+        for row in await db.fetch("SELECT DISTINCT ref FROM attempts WHERE user_id = ? AND kind = 'sat_mock'", user_id)
+    }
+    blocked = content.sealed_questions | content.mock_questions.get(content.next_mock(taken), set())
+
+    def exposure(question_id: str) -> int:
+        mock_id = content.mock_of.get(question_id)
+        if mock_id is None:
+            return 0
+        return 1 if mock_id in taken else 2 + len(content.mocks) - content.mocks[mock_id]["num"]
+
     pool = [
         q for q in content.bank.values()
-        if (section is None or q["sec"] == section)
+        if q["id"] not in blocked
+        and (section is None or q["sec"] == section)
         and (domain is None or q["dom"] == domain)
         and (difficulty is None or q["dif"] == difficulty)
     ]
     random.shuffle(pool)
-    pool.sort(key=lambda q: (q["id"] in seen, 0 if q.get("free") else 1, seen.get(q["id"], 0)))
+    pool.sort(key=lambda q: (q["id"] in seen, exposure(q["id"]), seen.get(q["id"], 0)))
     return [q["id"] for q in pool[:count]]

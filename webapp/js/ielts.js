@@ -61,7 +61,7 @@ function answerControl(question) {
 
 function questionCard(question) {
   let state = '', result = '';
-  if (it.graded) {
+  if (it.graded && !it.sealed) {
     const right = ieltsCorrect(question, it.answers[question.num]);
     state = right ? 'right' : 'wrong';
     result = `<div class="small ${right ? '' : ''}"><b>${right ? "To'g'ri" : `To'g'ri javob: ${esc(question.ans)}`}</b>${question.expl ? `. ${esc(question.expl)}` : ''}</div>`;
@@ -78,6 +78,10 @@ function headingsList() {
 
 function resultCard() {
   if (!it.graded) return '';
+  if (it.band == null) {
+    return `<div class="card score-hero"><div class="h2">Javoblaringiz saqlandi</div>
+      <p class="small muted" style="margin-top:6px">Natija serverda hisoblanadi va Natijalar bo'limida chiqadi.</p></div>`;
+  }
   return `<div class="card score-hero">
     <div class="eyebrow">Taxminiy band</div><div class="big">${it.band.toFixed(1)}</div>
     <div class="muted num">${it.correct} / ${it.test.questions.length} to'g'ri</div>
@@ -185,9 +189,10 @@ function speakScript() {
 async function gradeTest() {
   stopTestAudio();
   stopIeltsTimer();
-  const correct = it.test.questions.filter(q => ieltsCorrect(q, it.answers[q.num])).length;
-  it.correct = correct;
-  it.band = bandFor(correct, it.kind);
+  if (!it.sealed) {
+    it.correct = it.test.questions.filter(q => ieltsCorrect(q, it.answers[q.num])).length;
+    it.band = bandFor(it.correct, it.kind);
+  }
   it.graded = true;
   setExamGuard(false);
   haptic('good');
@@ -200,6 +205,7 @@ async function gradeTest() {
   });
   if (result) {
     it.savedId = result.id;
+    if (it.sealed) Object.assign(it, { correct: result.report.correct, band: result.report.band });
     drawTest();
     refreshBoot();
   }
@@ -237,13 +243,14 @@ views.ieltsTest = {
   leave() { stopIeltsTimer(); stopTestAudio(); },
 };
 
-async function startIelts(kind, num, session) {
-  const data = await loadData('ielts.json');
-  const test = data[kind].find(item => item.num === Number(num));
+async function startIelts(kind, num, session, ticket) {
+  const sealedTest = ticket?.exam?.test;
+  const test = sealedTest || (await loadData('ielts.json'))[kind].find(item => item.num === Number(num));
   if (!test) return;
+  const openLimit = kind === 'reading' ? Date.now() + READING_MINUTES * 60000 : 0;
   it = {
-    kind, test, session, part: 1, answers: {}, graded: false, pane: 'text', startedAt: Date.now(),
-    deadline: kind === 'reading' ? Date.now() + READING_MINUTES * 60000 : 0,
+    kind, test, session, sealed: !!sealedTest, part: 1, answers: {}, graded: false, pane: 'text', startedAt: Date.now(),
+    deadline: ticket ? Date.now() + ticket.seconds_left * 1000 : openLimit,
   };
   setExamGuard(true);
   track('ielts_started', `${kind}_${num}`);
@@ -306,7 +313,7 @@ Object.assign(actions, {
     if (it.graded) { leaveView(); return; }
     askConfirm("Testdan chiqasizmi? Javoblar saqlanmaydi.", () => { setExamGuard(false); leaveView(); });
   },
-  startIelts(el) { startIelts(el.dataset.kind, el.dataset.num, App.session?.ref === el.dataset.num && App.session?.kind === `ielts_${el.dataset.kind}` ? App.session.code : null); },
+  startIelts(el) { startIelts(el.dataset.kind, el.dataset.num, null); },
   ieltsTab(el) { App.ieltsTab = el.dataset.tab2; draw(); },
 });
 

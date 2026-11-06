@@ -37,5 +37,9 @@ Real Listening audio (idea 1) was built separately on `feat/listening-mp3-audio`
   every deploy, so SQLite there is only a stopgap.
 - Secrets live in environment variables only.
 - Gemini Developer API (`generativelanguage.googleapis.com`). The provided key is rejected by Vertex AI.
-- Question keys stay in the client data, so exams keep working on a bad connection. The server re-grades
+- Keys of open tests stay in the client data, so they keep working on a bad connection. The server re-grades
   every submitted attempt, and its result is the one stored.
+- Sealed exams are for centers: data/sealed_exams.json is never served, the phone gets the paper without keys,
+  and the server picks the second module. This only hides keys if the GitHub repository is private.
+- Practice never uses the next open mock, and a mock question a student has already seen does not count
+  towards the score, unless most of the section is familiar, in which case the report warns instead.
