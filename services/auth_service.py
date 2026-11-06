@@ -1,7 +1,5 @@
 """
-EduTest Pro - Telegram WebApp Authentication & Security Service
-Implements official Telegram WebApp HMAC-SHA256 initData validation,
-replay attack mitigation via auth_date window, and payload sanitization.
+Telegram Mini App authentication: HMAC-SHA256 initData validation with an auth_date age limit.
 """
 
 import hashlib
@@ -9,12 +7,12 @@ import hmac
 import json
 import logging
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
 from urllib.parse import parse_qsl
 
 from config import BOT_TOKEN
 
-logger = logging.getLogger("AuthService")
+logger = logging.getLogger(__name__)
 
 # Maximum acceptable age for initData (24 hours = 86400 seconds)
 MAX_AUTH_AGE_SECONDS = 86400
@@ -24,8 +22,8 @@ MAX_FUTURE_SKEW_SECONDS = 300
 
 def validate_telegram_init_data(
     init_data_raw: str,
-    bot_token: str | None = None
-) -> tuple[bool, dict[str, Any] | None, str]:
+    bot_token: Optional[str] = None
+) -> tuple[bool, Optional[dict[str, Any]], str]:
     """
     Validates Telegram WebApp initData string using HMAC-SHA256.
     

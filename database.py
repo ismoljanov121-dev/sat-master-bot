@@ -1,1047 +1,306 @@
 """
-EduTest Pro - Database Layer (MongoDB Atlas with Atomic Local JSON Fallback)
-Features:
-- Thread/task-safe atomic JSON file updates (asyncio.Lock + .tmp flush + fsync + os.replace)
-- Domain schemas: users, exam_sessions, exam_attempts, quiz_results, practice_stats, webapp_data
-- Centralized UTC timestamping and Tashkent timezone formatting
-- Full compatibility with existing quiz and practice interfaces
+Async storage layer. Uses Postgres when DATABASE_URL is set, otherwise a local SQLite file.
+
+Queries are written once with `?` placeholders and the portable subset of SQL both engines share.
 """
 
 import asyncio
-import csv
-import io
-import json
+import contextvars
 import logging
-import os
-from datetime import datetime, timedelta, timezone
+import re
+import time
+from contextlib import asynccontextmanager
+from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
-import motor.motor_asyncio
+from config import DATABASE_URL, SQLITE_PATH, TIMEZONE
 
-from config import LOCAL_DB_FILE, MONGO_URI
+logger = logging.getLogger(__name__)
 
-logger = logging.getLogger("Database")
-
-# Tashkent Timezone: UTC+5
-TASHKENT_TZ = timezone(timedelta(hours=5))
+TZ = ZoneInfo(TIMEZONE)
 
 
-def get_tashkent_now_str() -> str:
-    """Returns current date and time formatted in Tashkent timezone."""
-    return datetime.now(TASHKENT_TZ).strftime("%Y-%m-%d %H:%M:%S")
+def now_ts() -> int:
+    return int(time.time())
 
 
-def get_utc_now_str() -> str:
-    """Returns current date and time in UTC ISO format."""
-    return datetime.now(timezone.utc).isoformat()
+def today(ts: int | None = None) -> str:
+    return datetime.fromtimestamp(now_ts() if ts is None else ts, TZ).strftime("%Y-%m-%d")
 
 
-def utc_to_tashkent_str(utc_iso: str | None) -> str:
-    """Converts UTC ISO timestamp to a human-readable Tashkent time string."""
-    if not utc_iso:
-        return "Noma'lum"
-    try:
-        dt = datetime.fromisoformat(utc_iso)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.astimezone(TASHKENT_TZ).strftime("%Y-%m-%d %H:%M")
-    except Exception:
-        return utc_iso[:16]
+def shift_day(day: str, days: int) -> str:
+    return (datetime.strptime(day, "%Y-%m-%d") + timedelta(days=days)).strftime("%Y-%m-%d")
+
+
+def day_diff(later: str, earlier: str) -> int:
+    return (datetime.strptime(later, "%Y-%m-%d") - datetime.strptime(earlier, "%Y-%m-%d")).days
+
+
+SCHEMA = [
+    """CREATE TABLE IF NOT EXISTS users (
+        id BIGINT PRIMARY KEY,
+        first_name TEXT NOT NULL DEFAULT '',
+        username TEXT NOT NULL DEFAULT '',
+        language_code TEXT NOT NULL DEFAULT '',
+        created_at BIGINT NOT NULL,
+        last_seen_at BIGINT NOT NULL,
+        source TEXT NOT NULL DEFAULT '',
+        referred_by BIGINT,
+        referral_rewarded BIGINT NOT NULL DEFAULT 0,
+        bot_started BIGINT NOT NULL DEFAULT 0,
+        blocked BIGINT NOT NULL DEFAULT 0,
+        onboarded BIGINT NOT NULL DEFAULT 0,
+        focus TEXT NOT NULL DEFAULT '',
+        target_sat BIGINT,
+        target_ielts DOUBLE PRECISION,
+        exam_date TEXT,
+        daily_minutes BIGINT NOT NULL DEFAULT 30,
+        reminder_hour BIGINT NOT NULL DEFAULT 19,
+        reminders_on BIGINT NOT NULL DEFAULT 1,
+        streak BIGINT NOT NULL DEFAULT 0,
+        best_streak BIGINT NOT NULL DEFAULT 0,
+        last_active_day TEXT,
+        last_reminded_day TEXT,
+        ai_bonus BIGINT NOT NULL DEFAULT 0
+    )""",
+    """CREATE TABLE IF NOT EXISTS attempts (
+        id TEXT PRIMARY KEY,
+        user_id BIGINT NOT NULL,
+        kind TEXT NOT NULL,
+        ref TEXT NOT NULL DEFAULT '',
+        title TEXT NOT NULL DEFAULT '',
+        session_code TEXT,
+        correct BIGINT NOT NULL DEFAULT 0,
+        total BIGINT NOT NULL DEFAULT 0,
+        score DOUBLE PRECISION,
+        score_low DOUBLE PRECISION,
+        score_high DOUBLE PRECISION,
+        duration_s BIGINT NOT NULL DEFAULT 0,
+        report TEXT NOT NULL DEFAULT '{}',
+        created_at BIGINT NOT NULL,
+        day TEXT NOT NULL
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_attempts_user ON attempts (user_id, created_at)",
+    "CREATE INDEX IF NOT EXISTS idx_attempts_session ON attempts (session_code)",
+    """CREATE TABLE IF NOT EXISTS answers (
+        attempt_id TEXT NOT NULL,
+        user_id BIGINT NOT NULL,
+        question_id TEXT NOT NULL,
+        section TEXT NOT NULL DEFAULT '',
+        domain TEXT NOT NULL DEFAULT '',
+        skill TEXT NOT NULL DEFAULT '',
+        difficulty TEXT NOT NULL DEFAULT '',
+        module TEXT NOT NULL DEFAULT '',
+        chosen TEXT NOT NULL DEFAULT '',
+        is_correct BIGINT NOT NULL DEFAULT 0,
+        time_s BIGINT NOT NULL DEFAULT 0,
+        created_at BIGINT NOT NULL,
+        PRIMARY KEY (attempt_id, question_id)
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_answers_user ON answers (user_id, created_at)",
+    "CREATE INDEX IF NOT EXISTS idx_answers_question ON answers (question_id)",
+    """CREATE TABLE IF NOT EXISTS review_items (
+        user_id BIGINT NOT NULL,
+        question_id TEXT NOT NULL,
+        box BIGINT NOT NULL DEFAULT 0,
+        due_day TEXT NOT NULL,
+        wrong_count BIGINT NOT NULL DEFAULT 1,
+        resolved BIGINT NOT NULL DEFAULT 0,
+        last_chosen TEXT NOT NULL DEFAULT '',
+        updated_at BIGINT NOT NULL,
+        PRIMARY KEY (user_id, question_id)
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_review_due ON review_items (user_id, resolved, due_day)",
+    """CREATE TABLE IF NOT EXISTS writing_submissions (
+        id TEXT PRIMARY KEY,
+        user_id BIGINT NOT NULL,
+        task BIGINT NOT NULL,
+        prompt_id TEXT NOT NULL DEFAULT '',
+        prompt TEXT NOT NULL DEFAULT '',
+        essay TEXT NOT NULL DEFAULT '',
+        word_count BIGINT NOT NULL DEFAULT 0,
+        minutes BIGINT NOT NULL DEFAULT 0,
+        band DOUBLE PRECISION,
+        feedback TEXT NOT NULL DEFAULT '{}',
+        model TEXT NOT NULL DEFAULT '',
+        created_at BIGINT NOT NULL,
+        day TEXT NOT NULL
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_writing_user ON writing_submissions (user_id, created_at)",
+    "CREATE INDEX IF NOT EXISTS idx_writing_day ON writing_submissions (day)",
+    """CREATE TABLE IF NOT EXISTS channel_log (
+        kind TEXT NOT NULL,
+        item_id TEXT NOT NULL,
+        posted_at BIGINT NOT NULL,
+        PRIMARY KEY (kind, item_id)
+    )""",
+    """CREATE TABLE IF NOT EXISTS events (
+        user_id BIGINT NOT NULL,
+        name TEXT NOT NULL,
+        meta TEXT NOT NULL DEFAULT '',
+        day TEXT NOT NULL,
+        created_at BIGINT NOT NULL
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_events_day ON events (day, name)",
+    """CREATE TABLE IF NOT EXISTS centers (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        teacher_code TEXT NOT NULL UNIQUE,
+        created_by BIGINT NOT NULL,
+        created_at BIGINT NOT NULL
+    )""",
+    """CREATE TABLE IF NOT EXISTS center_members (
+        center_id TEXT NOT NULL,
+        user_id BIGINT NOT NULL,
+        role TEXT NOT NULL,
+        joined_at BIGINT NOT NULL,
+        PRIMARY KEY (center_id, user_id)
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_center_members_user ON center_members (user_id)",
+    """CREATE TABLE IF NOT EXISTS exam_sessions (
+        code TEXT PRIMARY KEY,
+        center_id TEXT,
+        created_by BIGINT NOT NULL,
+        title TEXT NOT NULL,
+        kind TEXT NOT NULL,
+        ref TEXT NOT NULL,
+        status TEXT NOT NULL DEFAULT 'open',
+        created_at BIGINT NOT NULL,
+        closed_at BIGINT
+    )""",
+    "CREATE INDEX IF NOT EXISTS idx_sessions_center ON exam_sessions (center_id, created_at)",
+]
+
+_current_conn: contextvars.ContextVar[Any] = contextvars.ContextVar("db_conn", default=None)
+_PLACEHOLDER = re.compile(r"\?")
+
+
+def _to_postgres(sql: str) -> str:
+    counter = iter(range(1, 1000))
+    return _PLACEHOLDER.sub(lambda _: f"${next(counter)}", sql)
 
 
 class Database:
-    def __init__(self, mongo_uri: str | None = None):
-        self.mongo_uri = mongo_uri or MONGO_URI
-        self.client: motor.motor_asyncio.AsyncIOMotorClient | None = None
-        self.db: Any | None = None
-        self.is_mongo_active: bool = False
-        self._lock = asyncio.Lock()
-        self.local_cache: dict[str, Any] = self._load_local_db()
+    def __init__(self, url: str = DATABASE_URL, sqlite_path: str = SQLITE_PATH):
+        self.url = url
+        self.sqlite_path = sqlite_path
+        self._pool = None
+        self._sqlite = None
+        self._sqlite_lock = asyncio.Lock()
 
-    def _load_local_db(self) -> dict[str, Any]:
-        """Loads and sanitizes local JSON database."""
-        default_schema: dict[str, Any] = {
-            "users": {},
-            "quizzes": [],
-            "exam_sessions": {},
-            "exam_attempts": {},
-            "diagnostic_sessions": {},
-            "practice_stats": {},
-            "webapp_data": {},
-            "attention_events": [],
-            "error_notebook": {},
-            "student_feedback": [],
-            "subscriptions": {},
-            "payments": [],
-            "daily_usage": {},
-            "weekly_mocks": {},
-            "study_plans": {},
-            "attempts_history": {},
-            "telemetry_events": []
-        }
-
-        if os.path.exists(LOCAL_DB_FILE):
-            try:
-                with open(LOCAL_DB_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    if isinstance(data, dict):
-                        for k, default_val in default_schema.items():
-                            data.setdefault(k, default_val)
-                        return data
-            except Exception as e:
-                logger.error(f"Error reading local db file ({e}), creating backup copy and restoring default schema.")
-                try:
-                    backup_name = f"{LOCAL_DB_FILE}.corrupt_{int(datetime.now().timestamp())}"
-                    os.rename(LOCAL_DB_FILE, backup_name)
-                    logger.info(f"Corrupted DB backed up to {backup_name}")
-                except Exception as ren_err:
-                    logger.warning(f"Could not rename corrupted DB: {ren_err}")
-
-        return default_schema
-
-    def _save_local_db_sync(self) -> None:
-        """Atomic write to disk using temp file, flush, fsync, and os.replace."""
-        temp_file = f"{LOCAL_DB_FILE}.tmp_{os.getpid()}"
-        try:
-            with open(temp_file, "w", encoding="utf-8") as f:
-                json.dump(self.local_cache, f, indent=2, ensure_ascii=False)
-                f.flush()
-                os.fsync(f.fileno())
-            os.replace(temp_file, LOCAL_DB_FILE)
-        except Exception as e:
-            logger.error(f"Failed atomic local db save: {e}")
-            if os.path.exists(temp_file):
-                try:
-                    os.remove(temp_file)
-                except Exception:
-                    pass
-
-    async def _atomic_save_local(self) -> None:
-        """Asynchronously acquires the lock and executes atomic disk write."""
-        async with self._lock:
-            loop = asyncio.get_running_loop()
-            await loop.run_in_executor(None, self._save_local_db_sync)
-
-    def _save_local_db(self) -> None:
-        """Synchronous wrapper for backward compatibility with synchronous callers."""
-        self._save_local_db_sync()
+    @property
+    def kind(self) -> str:
+        return "postgres" if self.url else "sqlite"
 
     async def connect(self) -> None:
-        """Attempts connection to MongoDB Atlas."""
-        if self.mongo_uri and "mongodb" in self.mongo_uri:
-            try:
-                self.client = motor.motor_asyncio.AsyncIOMotorClient(
-                    self.mongo_uri,
-                    serverSelectionTimeoutMS=5000
-                )
-                await self.client.admin.command('ping')
-                self.db = self.client.get_default_database("edutest_pro_db")
-                self.is_mongo_active = True
-                logger.info("✅ MongoDB Atlas connected successfully!")
-                return
-            except Exception as e:
-                logger.warning(f"⚠️ MongoDB connection failed ({e}). Using atomic local JSON persistence.")
+        if self.url:
+            import asyncpg
+
+            # statement_cache_size=0 keeps the pool usable behind pgbouncer-style poolers (Neon, Supabase).
+            self._pool = await asyncpg.create_pool(
+                self.url, min_size=1, max_size=5, command_timeout=30,
+                statement_cache_size=0, max_inactive_connection_lifetime=240,
+            )
         else:
-            logger.info("ℹ️ MONGO_URI not configured. Using atomic local users_db.json storage.")
-        self.is_mongo_active = False
+            import aiosqlite
+
+            if self.sqlite_path != ":memory:":
+                Path(self.sqlite_path).parent.mkdir(parents=True, exist_ok=True)
+            self._sqlite = await aiosqlite.connect(self.sqlite_path)
+            self._sqlite.row_factory = aiosqlite.Row
+            await self._sqlite.execute("PRAGMA journal_mode=WAL")
+            await self._sqlite.execute("PRAGMA synchronous=NORMAL")
+        for statement in SCHEMA:
+            await self.execute(statement)
+        logger.info("Database ready: %s", self.kind)
 
     async def close(self) -> None:
-        """Closes MongoDB connection cleanly during shutdown."""
-        if self.client:
-            self.client.close()
-            logger.info("Database connection closed cleanly.")
+        if self._pool is not None:
+            await self._pool.close()
+            self._pool = None
+        if self._sqlite is not None:
+            await self._sqlite.close()
+            self._sqlite = None
 
-    # --- User Management ---
-    async def save_user(
-        self,
-        user_id: int,
-        username: str,
-        full_name: str,
-        referred_by: int | None = None
-    ) -> None:
-        now_utc = get_utc_now_str()
-        user_data = {
-            "user_id": user_id,
-            "username": username or "",
-            "full_name": full_name or "",
-            "last_active": now_utc,
-            "referred_by": referred_by
-        }
-
-        # Local save
-        str_id = str(user_id)
-        users = self.local_cache.setdefault("users", {})
-        if str_id not in users:
-            user_data["created_at"] = now_utc
-            user_data["quizzes_taken"] = 0
-            user_data["exams_taken"] = 0
-            user_data["streak"] = 0
-            users[str_id] = user_data
-        else:
-            users[str_id].update(user_data)
-
-        await self._atomic_save_local()
-
-        # MongoDB save
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.users.update_one(
-                    {"user_id": user_id},
-                    {"$set": user_data, "$setOnInsert": {"created_at": now_utc}},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB save_user error: {e}")
-
-    def get_user(self, user_id: int) -> dict[str, Any] | None:
-        """Retrieves user profile from cache."""
-        return self.local_cache.get("users", {}).get(str(user_id))
-
-    def list_users(self) -> list[dict[str, Any]]:
-        """Returns list of all registered users."""
-        return list(self.local_cache.get("users", {}).values())
-
-    # --- Quiz Results (Diagnostic compatibility) ---
-    async def save_quiz_result(
-        self,
-        user_id: int,
-        score: int,
-        correct: int,
-        total: int,
-        weaknesses: list
-    ) -> None:
-        result_entry = {
-            "user_id": user_id,
-            "score": score,
-            "correct": correct,
-            "total": total,
-            "weaknesses": weaknesses,
-            "timestamp": get_utc_now_str()
-        }
-
-        self.local_cache.setdefault("quizzes", []).append(result_entry)
-        str_id = str(user_id)
-        if str_id in self.local_cache.get("users", {}):
-            self.local_cache["users"][str_id]["last_score"] = score
-            self.local_cache["users"][str_id]["quizzes_taken"] = (
-                self.local_cache["users"][str_id].get("quizzes_taken", 0) + 1
-            )
-
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.quiz_results.insert_one(result_entry)
-                await self.db.users.update_one(
-                    {"user_id": user_id},
-                    {"$set": {"last_score": score}, "$inc": {"quizzes_taken": 1}}
-                )
-            except Exception as e:
-                logger.error(f"MongoDB save_quiz_result error: {e}")
-
-    # --- Practice Stats ---
-    def record_practice_answer(
-        self,
-        user_id: int,
-        question_id: str,
-        is_correct: bool,
-        section: str
-    ) -> None:
+    async def ping(self) -> bool:
         try:
-            self.local_cache.setdefault("practice_stats", {})
-            str_id = str(user_id)
-            user_stats = self.local_cache["practice_stats"].setdefault(str_id, {
-                "total_answered": 0,
-                "correct_count": 0,
-                "current_streak": 0,
-                "best_streak": 0,
-                "by_section": {
-                    "math": {"total": 0, "correct": 0},
-                    "reading": {"total": 0, "correct": 0},
-                    "writing": {"total": 0, "correct": 0}
-                },
-                "answered_ids": []
-            })
-
-            user_stats["total_answered"] += 1
-            if question_id not in user_stats["answered_ids"]:
-                user_stats["answered_ids"].append(question_id)
-
-            sec_key = section.lower() if section else "math"
-            if sec_key not in user_stats["by_section"]:
-                user_stats["by_section"][sec_key] = {"total": 0, "correct": 0}
-            user_stats["by_section"][sec_key]["total"] += 1
-
-            if is_correct:
-                user_stats["correct_count"] += 1
-                user_stats["current_streak"] += 1
-                if user_stats["current_streak"] > user_stats.get("best_streak", 0):
-                    user_stats["best_streak"] = user_stats["current_streak"]
-                user_stats["by_section"][sec_key]["correct"] += 1
-            else:
-                user_stats["current_streak"] = 0
-
-            self._save_local_db_sync()
+            return await self.fetchval("SELECT 1") == 1
         except Exception as e:
-            logger.error(f"Error in record_practice_answer: {e}")
-
-    def get_user_practice_stats(self, user_id: int) -> dict[str, Any]:
-        str_id = str(user_id)
-        stats = self.local_cache.get("practice_stats", {}).get(str_id, {
-            "total_answered": 0,
-            "correct_count": 0,
-            "current_streak": 0,
-            "best_streak": 0,
-            "by_section": {
-                "math": {"total": 0, "correct": 0},
-                "reading": {"total": 0, "correct": 0},
-                "writing": {"total": 0, "correct": 0}
-            },
-            "answered_ids": []
-        })
-        total = stats.get("total_answered", 0)
-        correct = stats.get("correct_count", 0)
-        accuracy = round((correct / total) * 100) if total > 0 else 0
-        stats_copy = dict(stats)
-        stats_copy["accuracy"] = accuracy
-        return stats_copy
-
-    def get_answered_question_ids(self, user_id: int) -> list[str]:
-        str_id = str(user_id)
-        return list(self.local_cache.get("practice_stats", {}).get(str_id, {}).get("answered_ids", []))
-
-    # --- Exam Sessions (Admin Live Mocks) ---
-    async def save_exam_session(self, session_data: dict[str, Any]) -> None:
-        """Saves or updates an exam session."""
-        session_id = session_data["session_id"]
-        self.local_cache.setdefault("exam_sessions", {})[session_id] = session_data
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.exam_sessions.update_one(
-                    {"session_id": session_id},
-                    {"$set": session_data},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB save_exam_session error: {e}")
-
-    def get_exam_session(self, session_id: str) -> dict[str, Any] | None:
-        return self.local_cache.get("exam_sessions", {}).get(session_id)
-
-    def get_active_session_by_code(self, code: str) -> dict[str, Any] | None:
-        """Finds an active exam session matching the 6-character code."""
-        code_upper = code.strip().upper()
-        for s in self.local_cache.get("exam_sessions", {}).values():
-            if s.get("code", "").upper() == code_upper and s.get("status") == "active":
-                return s
-        return None
-
-    def list_exam_sessions(self, limit: int = 10) -> list[dict[str, Any]]:
-        """Lists recent exam sessions sorted by creation time."""
-        sessions = list(self.local_cache.get("exam_sessions", {}).values())
-        sessions.sort(key=lambda x: x.get("created_at", ""), reverse=True)
-        return sessions[:limit]
-
-    async def close_exam_session(self, session_id: str) -> bool:
-        """Marks an exam session as closed."""
-        sessions = self.local_cache.setdefault("exam_sessions", {})
-        if session_id in sessions:
-            sessions[session_id]["status"] = "closed"
-            sessions[session_id]["closed_at"] = get_utc_now_str()
-            await self._atomic_save_local()
-            if self.is_mongo_active and (self.db is not None):
-                try:
-                    await self.db.exam_sessions.update_one(
-                        {"session_id": session_id},
-                        {"$set": {"status": "closed", "closed_at": get_utc_now_str()}}
-                    )
-                except Exception as e:
-                    logger.error(f"MongoDB close_exam_session error: {e}")
-            return True
-        return False
-
-    # --- Exam Attempts (Student Tests) ---
-    async def create_user_attempt_atomic(
-        self,
-        user_id: int,
-        attempt_data: dict[str, Any]
-    ) -> tuple[bool, dict[str, Any] | None, str]:
-        """
-        Atomically ensures only one active attempt exists for a user.
-        If an active unexpired attempt exists, returns (False, existing_attempt, message).
-        Otherwise saves new attempt and returns (True, attempt_data, message).
-        """
-        async with self._lock:
-            for att in self.local_cache.get("exam_attempts", {}).values():
-                if att.get("user_id") == user_id and att.get("status") == "active":
-                    try:
-                        dl = datetime.fromisoformat(att["deadline"])
-                        if dl.tzinfo is None:
-                            dl = dl.replace(tzinfo=timezone.utc)
-                        if datetime.now(timezone.utc) <= dl:
-                            return False, att, "Foydalanuvchida allaqachon faol imtihon mavjud"
-                        else:
-                            att["status"] = "expired"
-                    except Exception:
-                        pass
-
-            attempt_id = attempt_data["attempt_id"]
-            self.local_cache.setdefault("exam_attempts", {})[attempt_id] = attempt_data
-            loop = asyncio.get_running_loop()
-            await loop.run_in_executor(None, self._save_local_db_sync)
-
-            if self.is_mongo_active and (self.db is not None):
-                try:
-                    await self.db.exam_attempts.update_one(
-                        {"attempt_id": attempt_id},
-                        {"$set": attempt_data},
-                        upsert=True
-                    )
-                except Exception as e:
-                    logger.error(f"MongoDB create_user_attempt_atomic error: {e}")
-
-            return True, attempt_data, "Muvaffaqiyatli yaratildi"
-
-    async def save_attempt(self, attempt_data: dict[str, Any]) -> None:
-        """Saves student exam attempt and increments user exam count once if submitted (idempotent)."""
-        attempt_id = attempt_data["attempt_id"]
-        self.local_cache.setdefault("exam_attempts", {})[attempt_id] = attempt_data
-
-        user_id_str = str(attempt_data.get("user_id", ""))
-        status = attempt_data.get("status")
-
-        if status in ("submitted", "expired"):
-            if not attempt_data.get("counter_recorded", False):
-                attempt_data["counter_recorded"] = True
-                if user_id_str in self.local_cache.get("users", {}):
-                    user = self.local_cache["users"][user_id_str]
-                    user["exams_taken"] = user.get("exams_taken", 0) + 1
-                    if attempt_data.get("score"):
-                        user["last_mock_score"] = attempt_data["score"].get("accuracy_percentage")
-
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.exam_attempts.update_one(
-                    {"attempt_id": attempt_id},
-                    {"$set": attempt_data},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB save_attempt error: {e}")
-
-    def get_attempt(self, attempt_id: str) -> dict[str, Any] | None:
-        return self.local_cache.get("exam_attempts", {}).get(attempt_id)
-
-    def get_user_active_attempt(self, user_id: int) -> dict[str, Any] | None:
-        """Finds currently active attempt for user if deadline has not passed."""
-        for att in self.local_cache.get("exam_attempts", {}).values():
-            if att.get("user_id") == user_id and att.get("status") == "active":
-                return att
-        return None
-
-    def list_user_attempts(self, user_id: int) -> list[dict[str, Any]]:
-        attempts = [
-            att for att in self.local_cache.get("exam_attempts", {}).values()
-            if att.get("user_id") == user_id
-        ]
-        attempts.sort(key=lambda x: x.get("start_time", ""), reverse=True)
-        return attempts
-
-    # --- Admin Dashboard Statistics & CSV ---
-    def get_admin_dashboard_stats(self) -> dict[str, Any]:
-        """Calculates real-time statistics from local cache."""
-        users = self.local_cache.get("users", {})
-        total_students = len(users)
-
-        # Active today (last 24 hours UTC)
-        now_utc = datetime.now(timezone.utc)
-        today_active_count = 0
-        for u in users.values():
-            last_act = u.get("last_active")
-            if last_act:
-                try:
-                    dt = datetime.fromisoformat(last_act)
-                    if dt.tzinfo is None:
-                        dt = dt.replace(tzinfo=timezone.utc)
-                    if (now_utc - dt).total_seconds() <= 86400:
-                        today_active_count += 1
-                except Exception:
-                    pass
-
-        attempts = list(self.local_cache.get("exam_attempts", {}).values())
-        completed_exams = [a for a in attempts if a.get("status") in ("submitted", "expired")]
-
-        total_accuracy = 0
-        for a in completed_exams:
-            if a.get("score") and "accuracy_percentage" in a["score"]:
-                total_accuracy += a["score"]["accuracy_percentage"]
-
-        avg_accuracy = round(total_accuracy / len(completed_exams)) if completed_exams else 0
-
-        active_sessions_count = sum(
-            1 for s in self.local_cache.get("exam_sessions", {}).values()
-            if s.get("status") == "active"
-        )
-
-        return {
-            "total_students": total_students,
-            "active_today": today_active_count,
-            "completed_exams": len(completed_exams),
-            "average_accuracy": avg_accuracy,
-            "active_sessions_count": active_sessions_count
-        }
-
-    def get_recent_exam_results(self, limit: int = 15) -> list[dict[str, Any]]:
-        """Returns recent completed exam attempts with student names."""
-        attempts = [
-            att for att in self.local_cache.get("exam_attempts", {}).values()
-            if att.get("status") in ("submitted", "expired")
-        ]
-        attempts.sort(key=lambda x: x.get("start_time", ""), reverse=True)
-
-        results = []
-        for att in attempts[:limit]:
-            uid = att.get("user_id")
-            user = self.get_user(uid)
-            name = user.get("full_name", f"ID: {uid}") if user else f"ID: {uid}"
-            score = att.get("score") or {}
-            results.append({
-                "attempt_id": att.get("attempt_id"),
-                "student_name": name,
-                "user_id": uid,
-                "session_id": att.get("session_id"),
-                "template_name": att.get("template_name", "mock"),
-                "accuracy": score.get("accuracy_percentage", 0),
-                "correct_count": score.get("correct_count", 0),
-                "total_questions": score.get("total_questions", 0),
-                "by_section": score.get("by_section", {}),
-                "weaknesses": score.get("weaknesses", []),
-                "date_tashkent": utc_to_tashkent_str(att.get("start_time")),
-                "status": att.get("status")
-            })
-        return results
-
-    def get_session_results(self, session_id: str) -> list[dict[str, Any]]:
-        """Returns completed attempts belonging to a specific session_id."""
-        attempts = [
-            att for att in self.local_cache.get("exam_attempts", {}).values()
-            if att.get("session_id") == session_id and att.get("status") in ("submitted", "expired")
-        ]
-        attempts.sort(key=lambda x: x.get("start_time", ""), reverse=True)
-        results = []
-        for att in attempts:
-            uid = att.get("user_id")
-            user = self.get_user(uid)
-            name = user.get("full_name", f"ID: {uid}") if user else f"ID: {uid}"
-            score = att.get("score") or {}
-            results.append({
-                "attempt_id": att.get("attempt_id"),
-                "student_name": name,
-                "user_id": uid,
-                "session_id": session_id,
-                "template_name": att.get("template_name", "mock"),
-                "accuracy": score.get("accuracy_percentage", 0),
-                "correct_count": score.get("correct_count", 0),
-                "total_questions": score.get("total_questions", 0),
-                "by_section": score.get("by_section", {}),
-                "weaknesses": score.get("weaknesses", []),
-                "date_tashkent": utc_to_tashkent_str(att.get("start_time")),
-                "status": att.get("status")
-            })
-        return results
-
-    def export_results_csv(self) -> str:
-        """Generates CSV content of all completed exam results."""
-        output = io.StringIO()
-        writer = csv.writer(output)
-        writer.writerow([
-            "Urinish ID",
-            "O'quvchi Ismi",
-            "Telegram ID",
-            "Username",
-            "Imtihon Turi",
-            "To'g'ri Javoblar",
-            "Jami Savollar",
-            "Aniqlik Foizi (%)",
-            "Math",
-            "Reading",
-            "Writing",
-            "Boshlangan Vaqt (Toshkent)",
-            "Holat"
-        ])
-
-        attempts = list(self.local_cache.get("exam_attempts", {}).values())
-        attempts.sort(key=lambda x: x.get("start_time", ""), reverse=True)
-
-        for att in attempts:
-            uid = att.get("user_id")
-            user = self.get_user(uid) or {}
-            name = user.get("full_name", "")
-            username = f"@{user.get('username')}" if user.get("username") else ""
-            score = att.get("score") or {}
-            sec = score.get("by_section") or {}
-
-            math_stat = f"{sec.get('math', {}).get('correct', 0)}/{sec.get('math', {}).get('total', 0)}"
-            read_stat = f"{sec.get('reading', {}).get('correct', 0)}/{sec.get('reading', {}).get('total', 0)}"
-            write_stat = f"{sec.get('writing', {}).get('correct', 0)}/{sec.get('writing', {}).get('total', 0)}"
-
-            writer.writerow([
-                att.get("attempt_id", ""),
-                name,
-                uid,
-                username,
-                att.get("title", att.get("template_name", "")),
-                score.get("correct_count", 0),
-                score.get("total_questions", 0),
-                f"{score.get('accuracy_percentage', 0)}%",
-                math_stat,
-                read_stat,
-                write_stat,
-                utc_to_tashkent_str(att.get("start_time")),
-                att.get("status", "")
-            ])
-
-        return output.getvalue()
-
-    # --- Mini App Sync Data ---
-    async def save_webapp_user_data(self, user_id: int, data: dict[str, Any]) -> None:
-        """Saves WebApp tasks, errors, and settings."""
-        str_id = str(user_id)
-        user_record = {
-            "tasks": data.get("tasks", []),
-            "errors": data.get("errors", []),
-            "settings": data.get("settings", {}),
-            "updated_at": get_utc_now_str()
-        }
-        self.local_cache.setdefault("webapp_data", {})[str_id] = user_record
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.webapp_data.update_one(
-                    {"user_id": user_id},
-                    {"$set": user_record},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB save_webapp_user_data error: {e}")
-
-    def get_webapp_user_data(self, user_id: int) -> dict[str, Any] | None:
-        return self.local_cache.get("webapp_data", {}).get(str(user_id))
-
-    # --- Attention Events (Web / Exam Focus Monitoring) ---
-    async def save_attention_event(self, user_id: int, event_data: dict[str, Any]) -> None:
-        """Saves focus loss, tab switch, or blur events."""
-        entry = {
-            "user_id": user_id,
-            "event": event_data.get("event"),
-            "attempt_id": event_data.get("attempt_id"),
-            "timestamp": event_data.get("timestamp") or get_utc_now_str(),
-            "details": event_data.get("details", {})
-        }
-        self.local_cache.setdefault("attention_events", []).append(entry)
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.attention_events.insert_one(entry)
-            except Exception as e:
-                logger.error(f"MongoDB save_attention_event error: {e}")
-
-    def get_attention_events(self, user_id: int | None = None) -> list[dict[str, Any]]:
-        """Returns attention events, optionally filtered by user_id."""
-        events = self.local_cache.get("attention_events", [])
-        if user_id is not None:
-            return [e for e in events if e.get("user_id") == user_id]
-        return list(events)
-
-    # --- Error Notebook (Xatolar Daftari) ---
-    async def record_mistake(
-        self,
-        user_id: int,
-        question_id: str,
-        section: str,
-        domain: str,
-        question_text: str,
-        correct_answer: str,
-        user_answer: str,
-        explanation: str,
-        hack: str = "",
-        options: list[dict[str, str]] | None = None,
-        passage: str | None = None,
-        source: str = "practice"
-    ) -> None:
-        """
-        Records or updates a student mistake in the persistent error notebook.
-        Thread-safe and atomic.
-        """
-        str_id = str(user_id)
-        user_mistakes = self.local_cache.setdefault("error_notebook", {}).setdefault(str_id, {})
-        now_utc = get_utc_now_str()
-        qid_str = str(question_id)
-        existing = user_mistakes.get(qid_str)
-
-        if existing:
-            existing["mistake_count"] = existing.get("mistake_count", 1) + 1
-            existing["last_attempted_at"] = now_utc
-            existing["user_answer"] = user_answer
-            existing["resolved"] = False  # re-opened if made again
-        else:
-            user_mistakes[qid_str] = {
-                "question_id": qid_str,
-                "section": section,
-                "domain": domain,
-                "question_text": question_text,
-                "options": options or [],
-                "passage": passage,
-                "correct_answer": correct_answer,
-                "user_answer": user_answer,
-                "explanation": explanation,
-                "hack": hack,
-                "source": source,
-                "mistake_count": 1,
-                "resolved": False,
-                "first_made_at": now_utc,
-                "last_attempted_at": now_utc,
-                "resolved_at": None
-            }
-
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.error_notebook.update_one(
-                    {"user_id": user_id, "question_id": qid_str},
-                    {"$set": user_mistakes[qid_str]},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB record_mistake error: {e}")
-
-    def get_user_mistakes(self, user_id: int, resolved_filter: bool | None = False) -> list[dict[str, Any]]:
-        """
-        Returns mistakes for the user.
-        If resolved_filter is False, returns only active (unresolved) mistakes.
-        If resolved_filter is True, returns only resolved mistakes.
-        If resolved_filter is None, returns all mistakes.
-        """
-        str_id = str(user_id)
-        user_mistakes = self.local_cache.get("error_notebook", {}).get(str_id, {})
-        all_items = list(user_mistakes.values())
-        if resolved_filter is None:
-            return all_items
-        return [m for m in all_items if m.get("resolved") == resolved_filter]
-
-    async def resolve_mistake(self, user_id: int, question_id: str) -> bool:
-        """Marks a previously mistaken question as resolved/mastered."""
-        str_id = str(user_id)
-        user_mistakes = self.local_cache.get("error_notebook", {}).get(str_id, {})
-        qid_str = str(question_id)
-        if qid_str in user_mistakes:
-            user_mistakes[qid_str]["resolved"] = True
-            user_mistakes[qid_str]["resolved_at"] = get_utc_now_str()
-            await self._atomic_save_local()
-            if self.is_mongo_active and (self.db is not None):
-                try:
-                    await self.db.error_notebook.update_one(
-                        {"user_id": user_id, "question_id": qid_str},
-                        {"$set": {"resolved": True, "resolved_at": user_mistakes[qid_str]["resolved_at"]}}
-                    )
-                except Exception as e:
-                    logger.error(f"MongoDB resolve_mistake error: {e}")
-            return True
-        return False
-
-    def get_unresolved_mistakes_count(self, user_id: int) -> int:
-        return len(self.get_user_mistakes(user_id, resolved_filter=False))
-
-    # --- Student Feedback (Taklif va Fikrlar) ---
-    async def save_student_feedback(
-        self,
-        user_id: int,
-        username: str,
-        full_name: str,
-        feedback_text: str,
-        category: str = "general"
-    ) -> dict[str, Any]:
-        """Saves student feedback into database."""
-        entry = {
-            "id": f"fb_{int(datetime.now(timezone.utc).timestamp() * 1000)}",
-            "user_id": user_id,
-            "username": username,
-            "full_name": full_name,
-            "category": category,
-            "text": feedback_text,
-            "created_at": get_utc_now_str()
-        }
-        self.local_cache.setdefault("student_feedback", []).append(entry)
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.student_feedback.insert_one(entry)
-            except Exception as e:
-                logger.error(f"MongoDB save_student_feedback error: {e}")
-        return entry
-
-    def get_all_feedback(self) -> list[dict[str, Any]]:
-        return list(self.local_cache.get("student_feedback", []))
-
-    # --- Subscriptions & Telegram Stars Payments ---
-    def get_user_subscription(self, user_id: int) -> dict[str, Any] | None:
-        """Returns the user's active or latest subscription object."""
-        subs = self.local_cache.setdefault("subscriptions", {})
-        return subs.get(str(user_id))
-
-    async def add_user_subscription(
-        self,
-        user_id: int,
-        plan_id: str,
-        duration_days: int,
-        stars_paid: int,
-        telegram_charge_id: str
-    ) -> dict[str, Any]:
-        """Activates or extends a user's PRO subscription idempotently."""
-        now = datetime.now(timezone.utc)
-        str_id = str(user_id)
-        subs = self.local_cache.setdefault("subscriptions", {})
-        current_sub = subs.get(str_id)
-
-        if current_sub and current_sub.get("is_active"):
-            try:
-                curr_exp = datetime.fromisoformat(current_sub["expires_at"])
-                if curr_exp.tzinfo is None:
-                    curr_exp = curr_exp.replace(tzinfo=timezone.utc)
-                if curr_exp > now:
-                    start_base = curr_exp
-                else:
-                    start_base = now
-            except Exception:
-                start_base = now
-        else:
-            start_base = now
-
-        new_expires = start_base + timedelta(days=duration_days)
-
-        sub_record = {
-            "user_id": user_id,
-            "plan_id": plan_id,
-            "is_active": True,
-            "started_at": now.isoformat(),
-            "expires_at": new_expires.isoformat(),
-            "stars_paid": stars_paid,
-            "latest_charge_id": telegram_charge_id,
-            "updated_at": now.isoformat()
-        }
-        subs[str_id] = sub_record
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.subscriptions.update_one(
-                    {"user_id": user_id},
-                    {"$set": sub_record},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB add_user_subscription error: {e}")
-
-        return sub_record
-
-    def has_payment_charge_id(self, telegram_charge_id: str) -> bool:
-        """Idempotency check: returns True if charge_id has already been processed."""
-        if not telegram_charge_id:
+            logger.warning("Database ping failed: %s", e)
             return False
-        payments = self.local_cache.setdefault("payments", [])
-        return any(p.get("telegram_charge_id") == telegram_charge_id for p in payments)
 
-    async def record_payment(
-        self,
-        user_id: int,
-        plan_id: str,
-        stars_amount: int,
-        telegram_charge_id: str,
-        provider_payment_charge_id: str = ""
-    ) -> dict[str, Any]:
-        """Records a successful Telegram Stars payment transaction."""
-        now_utc = get_utc_now_str()
-        payment_entry = {
-            "payment_id": f"pay_{int(datetime.now(timezone.utc).timestamp() * 1000)}",
-            "user_id": user_id,
-            "plan_id": plan_id,
-            "currency": "XTR",
-            "total_amount": stars_amount,
-            "telegram_charge_id": telegram_charge_id,
-            "provider_payment_charge_id": provider_payment_charge_id,
-            "status": "completed",
-            "created_at": now_utc
-        }
-        self.local_cache.setdefault("payments", []).append(payment_entry)
-        await self._atomic_save_local()
-
-        if self.is_mongo_active and (self.db is not None):
+    @asynccontextmanager
+    async def transaction(self):
+        """Statements awaited inside this block run in one transaction on one connection."""
+        if self._pool is not None:
+            async with self._pool.acquire() as conn:
+                async with conn.transaction():
+                    token = _current_conn.set(conn)
+                    try:
+                        yield
+                    finally:
+                        _current_conn.reset(token)
+            return
+        async with self._sqlite_lock:
+            await self._sqlite.execute("BEGIN")
+            token = _current_conn.set(self._sqlite)
             try:
-                await self.db.payments.insert_one(payment_entry)
-            except Exception as e:
-                logger.error(f"MongoDB record_payment error: {e}")
+                yield
+            except BaseException:
+                await self._sqlite.rollback()
+                raise
+            else:
+                await self._sqlite.commit()
+            finally:
+                _current_conn.reset(token)
 
-        return payment_entry
+    async def execute(self, sql: str, *args: Any) -> None:
+        if self._pool is not None:
+            conn = _current_conn.get()
+            await (conn or self._pool).execute(_to_postgres(sql), *args)
+            return
+        if _current_conn.get() is not None:
+            await self._sqlite.execute(sql, args)
+            return
+        async with self._sqlite_lock:
+            await self._sqlite.execute(sql, args)
+            await self._sqlite.commit()
 
-    # --- Daily Question Usage Tracking ---
-    def get_daily_usage(self, user_id: int, date_str: str) -> int:
-        """Returns the number of questions answered on date_str (YYYY-MM-DD)."""
-        daily = self.local_cache.setdefault("daily_usage", {})
-        user_daily = daily.get(str(user_id), {})
-        return user_daily.get(date_str, 0)
+    async def executemany(self, sql: str, rows: list[tuple]) -> None:
+        if not rows:
+            return
+        if self._pool is not None:
+            conn = _current_conn.get()
+            await (conn or self._pool).executemany(_to_postgres(sql), rows)
+            return
+        if _current_conn.get() is not None:
+            await self._sqlite.executemany(sql, rows)
+            return
+        async with self._sqlite_lock:
+            await self._sqlite.executemany(sql, rows)
+            await self._sqlite.commit()
 
-    async def increment_daily_usage(self, user_id: int, date_str: str, count: int = 1) -> int:
-        """Increments and returns new daily question count."""
-        str_id = str(user_id)
-        daily = self.local_cache.setdefault("daily_usage", {})
-        user_daily = daily.setdefault(str_id, {})
-        new_val = user_daily.get(date_str, 0) + count
-        user_daily[date_str] = new_val
-        await self._atomic_save_local()
+    async def fetch(self, sql: str, *args: Any) -> list[dict[str, Any]]:
+        if self._pool is not None:
+            conn = _current_conn.get()
+            rows = await (conn or self._pool).fetch(_to_postgres(sql), *args)
+            return [dict(row) for row in rows]
+        if _current_conn.get() is not None:
+            async with self._sqlite.execute(sql, args) as cursor:
+                return [dict(row) for row in await cursor.fetchall()]
+        async with self._sqlite_lock:
+            async with self._sqlite.execute(sql, args) as cursor:
+                return [dict(row) for row in await cursor.fetchall()]
 
-        if self.is_mongo_active and (self.db is not None):
-            try:
-                await self.db.daily_usage.update_one(
-                    {"user_id": user_id},
-                    {"$set": {f"usage.{date_str}": new_val}},
-                    upsert=True
-                )
-            except Exception as e:
-                logger.error(f"MongoDB increment_daily_usage error: {e}")
+    async def fetchrow(self, sql: str, *args: Any) -> dict[str, Any] | None:
+        rows = await self.fetch(sql, *args)
+        return rows[0] if rows else None
 
-        return new_val
-
-    # --- Weekly Mock Tracking ---
-    def get_weekly_mocks_used(self, user_id: int, week_str: str | None = None) -> int:
-        """Returns the number of full mock exams taken during week_str (YYYY-Www)."""
-        if not week_str:
-            now_dt = datetime.now(TASHKENT_TZ)
-            week_str = f"{now_dt.isocalendar().year}-W{now_dt.isocalendar().week:02d}"
-        wm = self.local_cache.setdefault("weekly_mocks", {})
-        user_mocks = wm.get(str(user_id), {})
-        return user_mocks.get(week_str, 0)
-
-    async def increment_weekly_mocks(self, user_id: int, week_str: str | None = None, count: int = 1) -> int:
-        """Increments and returns weekly mock exam count."""
-        if not week_str:
-            now_dt = datetime.now(TASHKENT_TZ)
-            week_str = f"{now_dt.isocalendar().year}-W{now_dt.isocalendar().week:02d}"
-        str_id = str(user_id)
-        wm = self.local_cache.setdefault("weekly_mocks", {})
-        user_mocks = wm.setdefault(str_id, {})
-        new_val = user_mocks.get(week_str, 0) + count
-        user_mocks[week_str] = new_val
-        await self._atomic_save_local()
-        return new_val
-
-    # --- Adaptive Study Plan Persistence ---
-    def get_user_study_plan(self, user_id: int) -> dict[str, Any] | None:
-        """Returns stored adaptive study plan for user."""
-        plans = self.local_cache.setdefault("study_plans", {})
-        return plans.get(str(user_id))
-
-    async def save_user_study_plan(self, user_id: int, plan: dict[str, Any]) -> dict[str, Any]:
-        """Saves or updates user's adaptive study plan."""
-        plans = self.local_cache.setdefault("study_plans", {})
-        plan["updated_at"] = get_utc_now_str()
-        plans[str(user_id)] = plan
-        await self._atomic_save_local()
-        return plan
-
-    # --- Attempts History & Pacing Analytics ---
-    async def record_attempt_detail(
-        self,
-        user_id: int,
-        question_id: str,
-        is_correct: bool = False,
-        time_spent_seconds: int = 0,
-        section: str = "math",
-        domain: str = "General",
-        skill: str = "General",
-        mode: str = "drill"
-    ) -> None:
-        """Records detailed attempt with pacing data for deduplication and analytics."""
-        str_id = str(user_id)
-        history = self.local_cache.setdefault("attempts_history", {})
-        user_history = history.setdefault(str_id, [])
-        attempt_record = {
-            "question_id": question_id,
-            "section": section,
-            "domain": domain,
-            "skill": skill or domain or "General",
-            "mode": mode,
-            "is_correct": bool(is_correct),
-            "time_spent_seconds": max(0, int(time_spent_seconds)),
-            "timestamp": get_utc_now_str()
-        }
-        user_history.append(attempt_record)
-        if len(user_history) > 1000:
-            history[str_id] = user_history[-1000:]
-        await self._atomic_save_local()
-
-    def get_user_recent_attempted_qids(self, user_id: int, days: int = 7) -> set[str]:
-        """Returns set of question IDs attempted by user within the last `days` days."""
-        str_id = str(user_id)
-        history = self.local_cache.setdefault("attempts_history", {}).get(str_id, [])
-        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-        recent_qids = set()
-        for att in history:
-            ts_raw = att.get("timestamp")
-            if ts_raw:
-                try:
-                    att_dt = datetime.fromisoformat(ts_raw)
-                    if att_dt.tzinfo is None:
-                        att_dt = att_dt.replace(tzinfo=timezone.utc)
-                    if att_dt >= cutoff:
-                        recent_qids.add(att.get("question_id"))
-                except Exception:
-                    recent_qids.add(att.get("question_id"))
-        return recent_qids
-
-    def get_user_pacing_history(self, user_id: int, limit: int = 100) -> list[dict[str, Any]]:
-        """Returns the user's recent attempts history with pacing data."""
-        str_id = str(user_id)
-        history = self.local_cache.setdefault("attempts_history", {}).get(str_id, [])
-        return history[-limit:]
-
-    # --- Minimal Privacy-Preserving Telemetry ---
-    async def log_telemetry_event(
-        self,
-        event_name: str,
-        user_id: int | None = None,
-        metadata: dict[str, Any] | None = None
-    ) -> None:
-        """Logs an anonymous, minimal product engagement event without collecting PII."""
-        events = self.local_cache.setdefault("telemetry_events", [])
-        entry = {
-            "event": event_name,
-            "user_id": user_id,
-            "metadata": metadata or {},
-            "timestamp": get_utc_now_str()
-        }
-        events.append(entry)
-        if len(events) > 5000:
-            self.local_cache["telemetry_events"] = events[-5000:]
-        await self._atomic_save_local()
-
-    def get_telemetry_summary(self) -> dict[str, int]:
-        """Returns count of recorded telemetry events by event_name."""
-        events = self.local_cache.setdefault("telemetry_events", [])
-        counts: dict[str, int] = {}
-        for ev in events:
-            name = ev.get("event", "unknown")
-            counts[name] = counts.get(name, 0) + 1
-        return counts
+    async def fetchval(self, sql: str, *args: Any) -> Any:
+        row = await self.fetchrow(sql, *args)
+        return next(iter(row.values())) if row else None
 
 
-# Singleton instance
 db = Database()
-

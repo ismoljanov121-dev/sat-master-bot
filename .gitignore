@@ -6,3 +6,6 @@ cloudflared.exe
 users_db.json
 backup_audit_*/
 .ruff_cache/
+data/app.db*
+node_modules/
+.claude/
