@@ -26,6 +26,9 @@ views.profile = {
         <div class="list-row"><span class="tile warn">${icon('bell')}</span>
           <span class="grow"><span class="h3">Eslatmalar</span><br><span class="label">Har kuni soat ${me.reminder_hour}:00 da</span></span>
           <button class="switch ${me.reminders_on ? 'on' : ''}" data-act="toggleReminders" aria-label="Eslatmalar"></button></div>
+        ${canFullscreen() ? `<div class="list-row"><span class="tile">${icon('expand')}</span>
+          <span class="grow"><span class="h3">To'liq ekran</span><br><span class="label">Ilova butun ekranni egallaydi</span></span>
+          <button class="switch ${isFullscreen() ? 'on' : ''}" data-act="toggleFullscreen" aria-label="To'liq ekran"></button></div>` : ''}
       </div>
       <div class="section-title">Do'stlarni taklif qilish</div>
       <div class="card stack">

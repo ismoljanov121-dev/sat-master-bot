@@ -213,7 +213,7 @@ views.runner = {
         <div class="exam-title" ${run.deadline ? 'data-act="qTimer"' : ''}>
           <span class="eyebrow">${esc(run.title)}</span><span id="exam-timer">${timerHTML()}</span>
         </div>
-        ${tools || '<span style="width:44px"></span>'}
+        ${examFullscreenButton()}${tools || '<span style="width:44px"></span>'}
       </div><div class="exam-progress"><i id="exam-bar"></i></div></div>
       <div id="exam-main" class="exam-main"></div>
       <div class="exam-bottom"><div id="exam-bottom" class="exam-bottom-in"></div></div>

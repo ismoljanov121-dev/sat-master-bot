@@ -69,6 +69,49 @@ function askConfirm(message, onYes, onNo) {
   done(window.confirm(message));
 }
 
+// Phones open in full screen by default. Elsewhere it is the student's choice, and the choice is remembered.
+const FULLSCREEN_KEY = 'fullscreen';
+const PHONE_PLATFORMS = ['android', 'android_x', 'ios'];
+let fullscreenTapped = false;
+
+function onPhone() { return !!tg && PHONE_PLATFORMS.includes(tg.platform); }
+function canFullscreen() { return tgAtLeast('8.0') || !!document.documentElement.requestFullscreen; }
+function isFullscreen() { return !!(tg && tg.isFullscreen) || !!document.fullscreenElement; }
+function wantsFullscreen() { return recall(FULLSCREEN_KEY) ?? onPhone(); }
+
+function browserFullscreen(on) {
+  const change = on ? document.documentElement.requestFullscreen?.() : document.exitFullscreen?.();
+  change?.catch(() => toast("Bu qurilmada to'liq ekran ishlamaydi."));
+}
+
+function setFullscreen(on) {
+  if (document.fullscreenElement) browserFullscreen(on);
+  else if (tgAtLeast('8.0')) tgSafe(() => (on ? tg.requestFullscreen() : tg.exitFullscreen()));
+  else browserFullscreen(on);
+}
+
+function fullscreenButton() {
+  if (!canFullscreen()) return '';
+  return `<button class="icon-btn" data-act="toggleFullscreen" aria-label="To'liq ekran">${icon(isFullscreen() ? 'shrink' : 'expand')}</button>`;
+}
+
+// A phone's exam screen is already full, so the button there would only take room from the title.
+function examFullscreenButton() { return onPhone() ? '' : fullscreenButton(); }
+
+function syncFullscreen() {
+  const on = isFullscreen();
+  document.querySelectorAll('[data-act="toggleFullscreen"]').forEach(el => {
+    if (el.classList.contains('switch')) el.classList.toggle('on', on);
+    else el.innerHTML = icon(on ? 'shrink' : 'expand');
+  });
+}
+
+// Telegram refuses on some clients. A tap still counts as a user gesture, so the browser can take over.
+function onFullscreenFailed(event) {
+  if (event?.error === 'UNSUPPORTED' && fullscreenTapped) browserFullscreen(true);
+  fullscreenTapped = false;
+}
+
 function setExamGuard(enabled) {
   if (!tgAtLeast('6.2')) return;
   tgSafe(() => (enabled ? tg.enableClosingConfirmation() : tg.disableClosingConfirmation()));
@@ -264,6 +307,13 @@ Object.assign(actions, {
   },
   closeSheet() { closeSheet(); },
   back() { goBack(); },
+  toggleFullscreen() {
+    const on = !isFullscreen();
+    store(FULLSCREEN_KEY, on);
+    fullscreenTapped = on;
+    haptic('tap');
+    setFullscreen(on);
+  },
   open(el) { open(el.dataset.view, { ...el.dataset }); },
 });
 
@@ -276,11 +326,14 @@ document.addEventListener('click', event => {
 
 function startTelegram() {
   applyTheme();
+  document.addEventListener('fullscreenchange', syncFullscreen);
   if (!tg) return;
   tgSafe(() => tg.ready());
   tgSafe(() => tg.expand());
   if (tgAtLeast('7.7')) tgSafe(() => tg.disableVerticalSwipes());
-  if (tgAtLeast('8.0') && ['android', 'ios'].includes(tg.platform)) tgSafe(() => tg.requestFullscreen());
+  tgSafe(() => tg.onEvent('fullscreenChanged', syncFullscreen));
+  tgSafe(() => tg.onEvent('fullscreenFailed', onFullscreenFailed));
+  if (tgAtLeast('8.0') && wantsFullscreen()) tgSafe(() => tg.requestFullscreen());
   tgSafe(() => tg.onEvent('themeChanged', applyTheme));
   if (tgAtLeast('6.1')) tgSafe(() => tg.BackButton.onClick(goBack));
 }

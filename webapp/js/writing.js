@@ -64,6 +64,7 @@ views.writing = {
     return `<div class="exam"><div class="exam-top"><div class="exam-top-in">
         <button class="icon-btn" data-act="back" aria-label="Orqaga">${icon('left')}</button>
         <div class="exam-title"><span class="eyebrow">IELTS Writing Task ${task}</span><span id="w-timer"><span class="timer off">${WRITING_MINUTES[task]} daqiqa tavsiya etiladi</span></span></div>
+        ${examFullscreenButton()}
         ${prompt.visual ? `<button class="icon-btn" data-act="writingVisual" aria-label="Grafikni ko'rish">${icon('chart')}</button>` : ''}
         <button class="icon-btn" data-act="writingTimer" aria-label="Taymer">${icon('clock')}</button></div></div>
       <div class="exam-main"><div class="exam-grid">
