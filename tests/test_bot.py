@@ -1,5 +1,5 @@
 from types import SimpleNamespace
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, patch
 
 from aiogram.exceptions import TelegramForbiddenError
 
@@ -7,7 +7,7 @@ import scheduler
 from content_bank import IELTS_TIPS, IELTS_VOCAB_PACKS
 from database import db, shift_day, today
 from handlers import admin, menu
-from services import centers, plan, users
+from services import centers, channel, plan, users
 from tests.helpers import DatabaseTestCase
 
 
@@ -113,11 +113,11 @@ class ChannelTest(DatabaseTestCase):
 
     async def test_daily_posts_reach_the_channel(self):
         bot = SimpleNamespace(send_message=AsyncMock(), send_poll=AsyncMock())
-        await scheduler.post_daily_vocab_pack(bot)
-        await scheduler.post_daily_tip(bot)
-        await scheduler.post_daily_sat_quiz(bot)
-        self.assertEqual(bot.send_poll.await_count, 1)
-        self.assertGreaterEqual(bot.send_message.await_count, 2)
+        with patch.object(channel, "POST_GAP_SECONDS", 0):
+            for slot in range(len(scheduler.SLOTS)):
+                await scheduler.post_channel_slot(bot, slot)
+        self.assertGreaterEqual(bot.send_poll.await_count, 4)
+        self.assertGreaterEqual(bot.send_message.await_count, 6)
 
     def test_channel_has_enough_content(self):
         self.assertGreaterEqual(len(IELTS_VOCAB_PACKS), 20)

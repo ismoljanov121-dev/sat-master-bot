@@ -1,0 +1,4682 @@
+[
+{
+"t": "Algebra",
+"q": "If 8x + 26 = 98, what is the value of x?",
+"o": [
+"72",
+"31/2",
+"10",
+"9"
+],
+"a": 3,
+"e": "8x = 98 - 26 = 72, demak x = 72/8 = 9."
+},
+{
+"t": "Algebra",
+"q": "If 5x + 23 = 48, what is the value of x?",
+"o": [
+"6",
+"71/5",
+"25",
+"5"
+],
+"a": 3,
+"e": "5x = 48 - 23 = 25, demak x = 25/5 = 5."
+},
+{
+"t": "Algebra",
+"q": "If 3x + 7 = 19, what is the value of x?",
+"o": [
+"12",
+"26/3",
+"4",
+"5"
+],
+"a": 2,
+"e": "3x = 19 - 7 = 12, demak x = 12/3 = 4."
+},
+{
+"t": "Algebra",
+"q": "If 4x + 6 = 34, what is the value of x?",
+"o": [
+"28",
+"7",
+"8",
+"10"
+],
+"a": 1,
+"e": "4x = 34 - 6 = 28, demak x = 28/4 = 7."
+},
+{
+"t": "Algebra",
+"q": "If 8x + 21 = 141, what is the value of x?",
+"o": [
+"81/4",
+"120",
+"16",
+"15"
+],
+"a": 3,
+"e": "8x = 141 - 21 = 120, demak x = 120/8 = 15."
+},
+{
+"t": "Algebra",
+"q": "If 5x + 2 = 77, what is the value of x?",
+"o": [
+"79/5",
+"15",
+"75",
+"16"
+],
+"a": 1,
+"e": "5x = 77 - 2 = 75, demak x = 75/5 = 15."
+},
+{
+"t": "Algebra",
+"q": "If 9x + 5 = 95, what is the value of x?",
+"o": [
+"11",
+"90",
+"10",
+"100/9"
+],
+"a": 2,
+"e": "9x = 95 - 5 = 90, demak x = 90/9 = 10."
+},
+{
+"t": "Algebra",
+"q": "If 9x + 14 = 122, what is the value of x?",
+"o": [
+"13",
+"108",
+"136/9",
+"12"
+],
+"a": 3,
+"e": "9x = 122 - 14 = 108, demak x = 108/9 = 12."
+},
+{
+"t": "Algebra",
+"q": "If 5x + 3 = 23, what is the value of x?",
+"o": [
+"26/5",
+"20",
+"4",
+"5"
+],
+"a": 2,
+"e": "5x = 23 - 3 = 20, demak x = 20/5 = 4."
+},
+{
+"t": "Algebra",
+"q": "If 2x + 12 = 24, what is the value of x?",
+"o": [
+"6",
+"18",
+"7",
+"12"
+],
+"a": 0,
+"e": "2x = 24 - 12 = 12, demak x = 12/2 = 6."
+},
+{
+"t": "Algebra",
+"q": "If 9x + 1 = 118, what is the value of x?",
+"o": [
+"13",
+"14",
+"119/9",
+"117"
+],
+"a": 0,
+"e": "9x = 118 - 1 = 117, demak x = 117/9 = 13."
+},
+{
+"t": "Algebra",
+"q": "If 2x + 8 = 12, what is the value of x?",
+"o": [
+"3",
+"2",
+"4",
+"10"
+],
+"a": 1,
+"e": "2x = 12 - 8 = 4, demak x = 4/2 = 2."
+},
+{
+"t": "Algebra",
+"q": "If 4x + 26 = 62, what is the value of x?",
+"o": [
+"22",
+"9",
+"36",
+"10"
+],
+"a": 1,
+"e": "4x = 62 - 26 = 36, demak x = 36/4 = 9."
+},
+{
+"t": "Algebra",
+"q": "If 6x + 15 = 45, what is the value of x?",
+"o": [
+"10",
+"30",
+"6",
+"5"
+],
+"a": 3,
+"e": "6x = 45 - 15 = 30, demak x = 30/6 = 5."
+},
+{
+"t": "Algebra",
+"q": "If 6x + 11 = 83, what is the value of x?",
+"o": [
+"47/3",
+"12",
+"13",
+"72"
+],
+"a": 1,
+"e": "6x = 83 - 11 = 72, demak x = 72/6 = 12."
+},
+{
+"t": "Algebra",
+"q": "If 4x - 8 = 28, what is the value of 4x + 7?",
+"o": [
+"47",
+"9",
+"36",
+"43"
+],
+"a": 3,
+"e": "4x = 28 + 8 = 36, demak x = 9. Keyin 4·9 + 7 = 43."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 4 = 12, what is the value of 2x + 6?",
+"o": [
+"22",
+"8",
+"24",
+"16"
+],
+"a": 0,
+"e": "2x = 12 + 4 = 16, demak x = 8. Keyin 2·8 + 6 = 22."
+},
+{
+"t": "Algebra",
+"q": "If 5x - 9 = 6, what is the value of 4x + 14?",
+"o": [
+"12",
+"3",
+"26",
+"30"
+],
+"a": 2,
+"e": "5x = 6 + 9 = 15, demak x = 3. Keyin 4·3 + 14 = 26."
+},
+{
+"t": "Algebra",
+"q": "If 6x - 7 = 35, what is the value of 5x + 7?",
+"o": [
+"7",
+"42",
+"35",
+"47"
+],
+"a": 1,
+"e": "6x = 35 + 7 = 42, demak x = 7. Keyin 5·7 + 7 = 42."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 16 = 0, what is the value of 2x + 14?",
+"o": [
+"30",
+"16",
+"8",
+"32"
+],
+"a": 0,
+"e": "2x = 0 + 16 = 16, demak x = 8. Keyin 2·8 + 14 = 30."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 13 = 7, what is the value of 2x + 13?",
+"o": [
+"35",
+"10",
+"20",
+"33"
+],
+"a": 3,
+"e": "2x = 7 + 13 = 20, demak x = 10. Keyin 2·10 + 13 = 33."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 16 = -4, what is the value of 3x + 15?",
+"o": [
+"36",
+"18",
+"6",
+"33"
+],
+"a": 3,
+"e": "2x = (-4) + 16 = 12, demak x = 6. Keyin 3·6 + 15 = 33."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 13 = -1, what is the value of 3x + 1?",
+"o": [
+"22",
+"6",
+"18",
+"19"
+],
+"a": 3,
+"e": "2x = (-1) + 13 = 12, demak x = 6. Keyin 3·6 + 1 = 19."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 10 = -2, what is the value of 5x + 6?",
+"o": [
+"26",
+"31",
+"20",
+"4"
+],
+"a": 0,
+"e": "2x = (-2) + 10 = 8, demak x = 4. Keyin 5·4 + 6 = 26."
+},
+{
+"t": "Algebra",
+"q": "If 4x - 15 = -3, what is the value of 5x + 15?",
+"o": [
+"3",
+"35",
+"15",
+"30"
+],
+"a": 3,
+"e": "4x = (-3) + 15 = 12, demak x = 3. Keyin 5·3 + 15 = 30."
+},
+{
+"t": "Algebra",
+"q": "If 6x - 8 = 22, what is the value of 5x + 14?",
+"o": [
+"39",
+"44",
+"5",
+"25"
+],
+"a": 0,
+"e": "6x = 22 + 8 = 30, demak x = 5. Keyin 5·5 + 14 = 39."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 7 = 15, what is the value of 2x + 5?",
+"o": [
+"27",
+"22",
+"11",
+"29"
+],
+"a": 0,
+"e": "2x = 15 + 7 = 22, demak x = 11. Keyin 2·11 + 5 = 27."
+},
+{
+"t": "Algebra",
+"q": "If 6x - 1 = 35, what is the value of 3x + 9?",
+"o": [
+"30",
+"27",
+"18",
+"6"
+],
+"a": 1,
+"e": "6x = 35 + 1 = 36, demak x = 6. Keyin 3·6 + 9 = 27."
+},
+{
+"t": "Algebra",
+"q": "If 3x - 14 = 1, what is the value of 2x + 11?",
+"o": [
+"10",
+"5",
+"21",
+"23"
+],
+"a": 2,
+"e": "3x = 1 + 14 = 15, demak x = 5. Keyin 2·5 + 11 = 21."
+},
+{
+"t": "Algebra",
+"q": "If 2x - 1 = 21, what is the value of 3x + 6?",
+"o": [
+"42",
+"11",
+"39",
+"33"
+],
+"a": 2,
+"e": "2x = 21 + 1 = 22, demak x = 11. Keyin 3·11 + 6 = 39."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-5, 1) and (-1, -11)?",
+"o": [
+"-3",
+"-1/3",
+"-2",
+"3"
+],
+"a": 0,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-11 - 1)/(-1 - (-5)) = -12/4 = -3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-5, 1) and (-3, -5)?",
+"o": [
+"-1/3",
+"-3",
+"-2",
+"3"
+],
+"a": 1,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-5 - 1)/(-3 - (-5)) = -6/2 = -3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-3, -1) and (1, -9)?",
+"o": [
+"-2",
+"-1/2",
+"-1",
+"2"
+],
+"a": 0,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-9 - (-1))/(1 - (-3)) = -8/4 = -2."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-2, 3) and (4, 15)?",
+"o": [
+"-2",
+"2",
+"1/2",
+"3"
+],
+"a": 1,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (15 - 3)/(4 - (-2)) = 12/6 = 2."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-3, 5) and (1, -7)?",
+"o": [
+"-3",
+"-2",
+"-1/3",
+"3"
+],
+"a": 0,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-7 - 5)/(1 - (-3)) = -12/4 = -3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-1, -1) and (3, -13)?",
+"o": [
+"-1/3",
+"3",
+"-3",
+"-2"
+],
+"a": 2,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-13 - (-1))/(3 - (-1)) = -12/4 = -3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (3, -3) and (7, -15)?",
+"o": [
+"3",
+"-1/3",
+"-2",
+"-3"
+],
+"a": 3,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-15 - (-3))/(7 - 3) = -12/4 = -3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (5, -3) and (7, 3)?",
+"o": [
+"1/3",
+"3",
+"-3",
+"4"
+],
+"a": 1,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (3 - (-3))/(7 - 5) = 6/2 = 3."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-1, 2) and (5, 32)?",
+"o": [
+"5",
+"6",
+"1/5",
+"-5"
+],
+"a": 0,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (32 - 2)/(5 - (-1)) = 30/6 = 5."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (1, 6) and (6, 26)?",
+"o": [
+"1/4",
+"5",
+"-4",
+"4"
+],
+"a": 3,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (26 - 6)/(6 - 1) = 20/5 = 4."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-2, -6) and (0, -14)?",
+"o": [
+"-3",
+"-1/4",
+"-4",
+"4"
+],
+"a": 2,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-14 - (-6))/(0 - (-2)) = -8/2 = -4."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (1, -4) and (3, -12)?",
+"o": [
+"4",
+"-1/4",
+"-4",
+"-3"
+],
+"a": 2,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-12 - (-4))/(3 - 1) = -8/2 = -4."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-1, 6) and (4, -14)?",
+"o": [
+"-4",
+"-1/4",
+"4",
+"-3"
+],
+"a": 0,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (-14 - 6)/(4 - (-1)) = -20/5 = -4."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-2, 6) and (4, 30)?",
+"o": [
+"5",
+"4",
+"-4",
+"1/4"
+],
+"a": 1,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (30 - 6)/(4 - (-2)) = 24/6 = 4."
+},
+{
+"t": "Algebra",
+"q": "What is the slope of the line that passes through the points (-1, 1) and (2, 10)?",
+"o": [
+"-3",
+"4",
+"3",
+"1/3"
+],
+"a": 2,
+"e": "Qiyalik = (y₂ - y₁)/(x₂ - x₁) = (10 - 1)/(2 - (-1)) = 9/3 = 3."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 2 and a y-intercept of 11. What is the value of y when x = 4?",
+"o": [
+"19",
+"46",
+"-3",
+"30"
+],
+"a": 0,
+"e": "Tenglama: y = 2x + 11. x = 4 bo'lganda y = 2·4 + 11 = 19."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 2 and a y-intercept of -4. What is the value of y when x = 7?",
+"o": [
+"10",
+"18",
+"6",
+"-26"
+],
+"a": 0,
+"e": "Tenglama: y = 2x - 4. x = 7 bo'lganda y = 2·7 - 4 = 10."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 4 and a y-intercept of -5. What is the value of y when x = 7?",
+"o": [
+"23",
+"-31",
+"33",
+"8"
+],
+"a": 0,
+"e": "Tenglama: y = 4x - 5. x = 7 bo'lganda y = 4·7 - 5 = 23."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 5 and a y-intercept of -2. What is the value of y when x = 4?",
+"o": [
+"-3",
+"18",
+"22",
+"10"
+],
+"a": 1,
+"e": "Tenglama: y = 5x - 2. x = 4 bo'lganda y = 5·4 - 2 = 18."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of -2 and a y-intercept of -4. What is the value of y when x = 5?",
+"o": [
+"-22",
+"-14",
+"-2",
+"-6"
+],
+"a": 1,
+"e": "Tenglama: y = -2x - 4. x = 5 bo'lganda y = -2·5 - 4 = -14."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of -3 and a y-intercept of -7. What is the value of y when x = 4?",
+"o": [
+"-31",
+"-19",
+"-5",
+"9"
+],
+"a": 1,
+"e": "Tenglama: y = -3x - 7. x = 4 bo'lganda y = -3·4 - 7 = -19."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 3 and a y-intercept of -4. What is the value of y when x = 3?",
+"o": [
+"5",
+"-3",
+"13",
+"-9"
+],
+"a": 0,
+"e": "Tenglama: y = 3x - 4. x = 3 bo'lganda y = 3·3 - 4 = 5."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 3 and a y-intercept of -7. What is the value of y when x = 4?",
+"o": [
+"19",
+"-25",
+"-9",
+"5"
+],
+"a": 3,
+"e": "Tenglama: y = 3x - 7. x = 4 bo'lganda y = 3·4 - 7 = 5."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 2 and a y-intercept of -5. What is the value of y when x = 5?",
+"o": [
+"15",
+"5",
+"-23",
+"0"
+],
+"a": 1,
+"e": "Tenglama: y = 2x - 5. x = 5 bo'lganda y = 2·5 - 5 = 5."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of -3 and a y-intercept of -3. What is the value of y when x = 2?",
+"o": [
+"-3",
+"-9",
+"-12",
+"3"
+],
+"a": 1,
+"e": "Tenglama: y = -3x - 3. x = 2 bo'lganda y = -3·2 - 3 = -9."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 4 and a y-intercept of 1. What is the value of y when x = 2?",
+"o": [
+"6",
+"7",
+"9",
+"12"
+],
+"a": 2,
+"e": "Tenglama: y = 4x + 1. x = 2 bo'lganda y = 4·2 + 1 = 9."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 5 and a y-intercept of 5. What is the value of y when x = 8?",
+"o": [
+"45",
+"50",
+"65",
+"35"
+],
+"a": 0,
+"e": "Tenglama: y = 5x + 5. x = 8 bo'lganda y = 5·8 + 5 = 45."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of -2 and a y-intercept of 5. What is the value of y when x = 2?",
+"o": [
+"-14",
+"8",
+"1",
+"-9"
+],
+"a": 2,
+"e": "Tenglama: y = -2x + 5. x = 2 bo'lganda y = -2·2 + 5 = 1."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of 2 and a y-intercept of 4. What is the value of y when x = 4?",
+"o": [
+"18",
+"16",
+"12",
+"4"
+],
+"a": 2,
+"e": "Tenglama: y = 2x + 4. x = 4 bo'lganda y = 2·4 + 4 = 12."
+},
+{
+"t": "Algebra",
+"q": "A line in the xy-plane has a slope of -3 and a y-intercept of 5. What is the value of y when x = 2?",
+"o": [
+"-11",
+"-21",
+"-1",
+"7"
+],
+"a": 2,
+"e": "Tenglama: y = -3x + 5. x = 2 bo'lganda y = -3·2 + 5 = -1."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 14 and x - y = 4, what is the value of x?",
+"o": [
+"10",
+"5",
+"9",
+"18"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shing: 2x = 14 + 4 = 18, demak x = 9."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 18 and x - y = -4, what is the value of x?",
+"o": [
+"11",
+"14",
+"22",
+"7"
+],
+"a": 3,
+"e": "Tenglamalarni qo'shing: 2x = 18 + (-4) = 14, demak x = 7."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 10 and x - y = -6, what is the value of x?",
+"o": [
+"4",
+"2",
+"8",
+"16"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shing: 2x = 10 + (-6) = 4, demak x = 2."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 20 and x - y = 10, what is the value of x?",
+"o": [
+"10",
+"5",
+"15",
+"30"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shing: 2x = 20 + 10 = 30, demak x = 15."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 14 and x - y = 6, what is the value of x?",
+"o": [
+"4",
+"8",
+"20",
+"10"
+],
+"a": 3,
+"e": "Tenglamalarni qo'shing: 2x = 14 + 6 = 20, demak x = 10."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 15 and x - y = 11, what is the value of x?",
+"o": [
+"4",
+"26",
+"2",
+"13"
+],
+"a": 3,
+"e": "Tenglamalarni qo'shing: 2x = 15 + 11 = 26, demak x = 13."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 5 and x - y = 1, what is the value of x?",
+"o": [
+"4",
+"3",
+"2",
+"6"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shing: 2x = 5 + 1 = 6, demak x = 3."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 11 and x - y = 1, what is the value of x?",
+"o": [
+"6",
+"12",
+"5",
+"10"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shing: 2x = 11 + 1 = 12, demak x = 6."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 15 and x - y = 9, what is the value of x?",
+"o": [
+"6",
+"24",
+"12",
+"3"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shing: 2x = 15 + 9 = 24, demak x = 12."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 14 and x - y = 2, what is the value of x?",
+"o": [
+"8",
+"16",
+"12",
+"6"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shing: 2x = 14 + 2 = 16, demak x = 8."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 18 and x - y = 10, what is the value of x?",
+"o": [
+"14",
+"4",
+"28",
+"8"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shing: 2x = 18 + 10 = 28, demak x = 14."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 16 and x - y = 14, what is the value of x?",
+"o": [
+"15",
+"2",
+"30",
+"1"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shing: 2x = 16 + 14 = 30, demak x = 15."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 16 and x - y = 2, what is the value of x?",
+"o": [
+"18",
+"14",
+"9",
+"7"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shing: 2x = 16 + 2 = 18, demak x = 9."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 9 and x - y = -5, what is the value of x?",
+"o": [
+"7",
+"2",
+"4",
+"14"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shing: 2x = 9 + (-5) = 4, demak x = 2."
+},
+{
+"t": "Algebra",
+"q": "If x + y = 19 and x - y = -5, what is the value of x?",
+"o": [
+"14",
+"7",
+"24",
+"12"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shing: 2x = 19 + (-5) = 14, demak x = 7."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 17 and x - y = -5, what is the value of x?",
+"o": [
+"12",
+"4",
+"13",
+"9"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 17 + (-5) = 12, demak x = 4."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 8 and x - y = -2, what is the value of x?",
+"o": [
+"6",
+"2",
+"4",
+"10/3"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 8 + (-2) = 6, demak x = 2."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 25 and x - y = -1, what is the value of x?",
+"o": [
+"24",
+"17",
+"8",
+"9"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 25 + (-1) = 24, demak x = 8."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 11 and x - y = -8, what is the value of x?",
+"o": [
+"9",
+"10",
+"1",
+"3"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 11 + (-8) = 3, demak x = 1."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 10 and x - y = -4, what is the value of x?",
+"o": [
+"8",
+"6",
+"14/3",
+"2"
+],
+"a": 3,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 10 + (-4) = 6, demak x = 2."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 15 and x - y = -3, what is the value of x?",
+"o": [
+"12",
+"4",
+"7",
+"11"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 15 + (-3) = 12, demak x = 4."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 9 and x - y = -6, what is the value of x?",
+"o": [
+"8",
+"7",
+"1",
+"3"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 9 + (-6) = 3, demak x = 1."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 20 and x - y = 7, what is the value of x?",
+"o": [
+"9",
+"2",
+"11",
+"27"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 20 + 7 = 27, demak x = 9."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 14 and x - y = 1, what is the value of x?",
+"o": [
+"4",
+"9",
+"5",
+"15"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 14 + 1 = 15, demak x = 5."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 4 and x - y = -1, what is the value of x?",
+"o": [
+"1",
+"5/3",
+"3",
+"2"
+],
+"a": 0,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 4 + (-1) = 3, demak x = 1."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 11 and x - y = -2, what is the value of x?",
+"o": [
+"5",
+"8",
+"9",
+"3"
+],
+"a": 3,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 11 + (-2) = 9, demak x = 3."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 17 and x - y = 4, what is the value of x?",
+"o": [
+"3",
+"21",
+"7",
+"10"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 17 + 4 = 21, demak x = 7."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 19 and x - y = 5, what is the value of x?",
+"o": [
+"11",
+"8",
+"24",
+"3"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 19 + 5 = 24, demak x = 8."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 13 and x - y = -7, what is the value of x?",
+"o": [
+"11",
+"6",
+"2",
+"9"
+],
+"a": 2,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 13 + (-7) = 6, demak x = 2."
+},
+{
+"t": "Algebra",
+"q": "If 2x + y = 17 and x - y = 1, what is the value of x?",
+"o": [
+"18",
+"6",
+"5",
+"11"
+],
+"a": 1,
+"e": "Tenglamalarni qo'shsak, y yo'qoladi: 3x = 17 + 1 = 18, demak x = 6."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 3| = 2?",
+"o": [
+"4",
+"-6",
+"-5",
+"-1"
+],
+"a": 1,
+"e": "x + 3 = 2 yoki x + 3 = -2, ya'ni x = -1 yoki x = -5. Yig'indi: -6."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 6| = 3?",
+"o": [
+"3",
+"6",
+"12",
+"9"
+],
+"a": 2,
+"e": "x - 6 = 3 yoki x - 6 = -3, ya'ni x = 9 yoki x = 3. Yig'indi: 12."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 4| = 2?",
+"o": [
+"2",
+"6",
+"4",
+"8"
+],
+"a": 3,
+"e": "x - 4 = 2 yoki x - 4 = -2, ya'ni x = 6 yoki x = 2. Yig'indi: 8."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 8| = 6?",
+"o": [
+"12",
+"-2",
+"-16",
+"-14"
+],
+"a": 2,
+"e": "x + 8 = 6 yoki x + 8 = -6, ya'ni x = -2 yoki x = -14. Yig'indi: -16."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x| = 2?",
+"o": [
+"0",
+"4",
+"2",
+"-2"
+],
+"a": 0,
+"e": "x = 2 yoki x = -2, ya'ni x = 2 yoki x = -2. Yig'indi: 0."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 1| = 4?",
+"o": [
+"8",
+"-3",
+"2",
+"5"
+],
+"a": 2,
+"e": "x - 1 = 4 yoki x - 1 = -4, ya'ni x = 5 yoki x = -3. Yig'indi: 2."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 7| = 8?",
+"o": [
+"14",
+"-1",
+"15",
+"16"
+],
+"a": 0,
+"e": "x - 7 = 8 yoki x - 7 = -8, ya'ni x = 15 yoki x = -1. Yig'indi: 14."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 8| = 2?",
+"o": [
+"16",
+"10",
+"4",
+"6"
+],
+"a": 0,
+"e": "x - 8 = 2 yoki x - 8 = -2, ya'ni x = 10 yoki x = 6. Yig'indi: 16."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 3| = 10?",
+"o": [
+"20",
+"13",
+"6",
+"-7"
+],
+"a": 2,
+"e": "x - 3 = 10 yoki x - 3 = -10, ya'ni x = 13 yoki x = -7. Yig'indi: 6."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 8| = 4?",
+"o": [
+"-12",
+"-16",
+"8",
+"-4"
+],
+"a": 1,
+"e": "x + 8 = 4 yoki x + 8 = -4, ya'ni x = -4 yoki x = -12. Yig'indi: -16."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 6| = 9?",
+"o": [
+"3",
+"-15",
+"-12",
+"18"
+],
+"a": 2,
+"e": "x + 6 = 9 yoki x + 6 = -9, ya'ni x = 3 yoki x = -15. Yig'indi: -12."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 4| = 7?",
+"o": [
+"14",
+"-3",
+"8",
+"11"
+],
+"a": 2,
+"e": "x - 4 = 7 yoki x - 4 = -7, ya'ni x = 11 yoki x = -3. Yig'indi: 8."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x - 2| = 3?",
+"o": [
+"5",
+"-1",
+"6",
+"4"
+],
+"a": 3,
+"e": "x - 2 = 3 yoki x - 2 = -3, ya'ni x = 5 yoki x = -1. Yig'indi: 4."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 1| = 10?",
+"o": [
+"9",
+"-2",
+"20",
+"-11"
+],
+"a": 1,
+"e": "x + 1 = 10 yoki x + 1 = -10, ya'ni x = 9 yoki x = -11. Yig'indi: -2."
+},
+{
+"t": "Algebra",
+"q": "What is the sum of all solutions to the equation |x + 4| = 2?",
+"o": [
+"4",
+"-2",
+"-6",
+"-8"
+],
+"a": 3,
+"e": "x + 4 = 2 yoki x + 4 = -2, ya'ni x = -2 yoki x = -6. Yig'indi: -8."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 2x - 8 > 12?",
+"o": [
+"10",
+"11",
+"9",
+"12"
+],
+"a": 1,
+"e": "2x > 12 + 8 = 20, demak x > 10. Eng kichik butun son: 11."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 5x - 1 > 44?",
+"o": [
+"8",
+"10",
+"11",
+"9"
+],
+"a": 1,
+"e": "5x > 44 + 1 = 45, demak x > 9. Eng kichik butun son: 10."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 2x - 14 > 8?",
+"o": [
+"12",
+"10",
+"11",
+"13"
+],
+"a": 0,
+"e": "2x > 8 + 14 = 22, demak x > 11. Eng kichik butun son: 12."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 8 > 19?",
+"o": [
+"11",
+"10",
+"8",
+"9"
+],
+"a": 1,
+"e": "3x > 19 + 8 = 27, demak x > 9. Eng kichik butun son: 10."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 4x - 7 > 25?",
+"o": [
+"7",
+"9",
+"8",
+"10"
+],
+"a": 1,
+"e": "4x > 25 + 7 = 32, demak x > 8. Eng kichik butun son: 9."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 7x - 6 > 71?",
+"o": [
+"13",
+"11",
+"12",
+"10"
+],
+"a": 2,
+"e": "7x > 71 + 6 = 77, demak x > 11. Eng kichik butun son: 12."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 7x - 14 > 70?",
+"o": [
+"14",
+"13",
+"11",
+"12"
+],
+"a": 1,
+"e": "7x > 70 + 14 = 84, demak x > 12. Eng kichik butun son: 13."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 6 > 3?",
+"o": [
+"3",
+"4",
+"5",
+"2"
+],
+"a": 1,
+"e": "3x > 3 + 6 = 9, demak x > 3. Eng kichik butun son: 4."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 7x - 11 > 73?",
+"o": [
+"13",
+"11",
+"14",
+"12"
+],
+"a": 0,
+"e": "7x > 73 + 11 = 84, demak x > 12. Eng kichik butun son: 13."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 5 > 19?",
+"o": [
+"8",
+"10",
+"9",
+"7"
+],
+"a": 2,
+"e": "3x > 19 + 5 = 24, demak x > 8. Eng kichik butun son: 9."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 2 > 10?",
+"o": [
+"5",
+"3",
+"4",
+"6"
+],
+"a": 0,
+"e": "3x > 10 + 2 = 12, demak x > 4. Eng kichik butun son: 5."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 4x - 13 > 31?",
+"o": [
+"12",
+"10",
+"13",
+"11"
+],
+"a": 0,
+"e": "4x > 31 + 13 = 44, demak x > 11. Eng kichik butun son: 12."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 6x - 12 > 48?",
+"o": [
+"11",
+"9",
+"12",
+"10"
+],
+"a": 0,
+"e": "6x > 48 + 12 = 60, demak x > 10. Eng kichik butun son: 11."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 11 > 16?",
+"o": [
+"11",
+"9",
+"8",
+"10"
+],
+"a": 3,
+"e": "3x > 16 + 11 = 27, demak x > 9. Eng kichik butun son: 10."
+},
+{
+"t": "Algebra",
+"q": "What is the least integer value of x that satisfies 3x - 15 > 15?",
+"o": [
+"12",
+"11",
+"10",
+"9"
+],
+"a": 1,
+"e": "3x > 15 + 15 = 30, demak x > 10. Eng kichik butun son: 11."
+},
+{
+"t": "Algebra",
+"q": "A tutor charges a $20 registration fee plus $50 per hour of work. What is the total cost, in dollars, of a 7-hour job?",
+"o": [
+"190",
+"370",
+"350",
+"490"
+],
+"a": 1,
+"e": "Jami: 20 + 50·7 = 20 + 350 = 370 dollar."
+},
+{
+"t": "Algebra",
+"q": "A mechanic charges a $35 inspection fee plus $20 per hour of work. What is the total cost, in dollars, of a 2-hour job?",
+"o": [
+"40",
+"75",
+"90",
+"110"
+],
+"a": 1,
+"e": "Jami: 35 + 20·2 = 35 + 40 = 75 dollar."
+},
+{
+"t": "Algebra",
+"q": "A electrician charges a $25 service fee plus $60 per hour of work. What is the total cost, in dollars, of a 5-hour job?",
+"o": [
+"325",
+"300",
+"185",
+"425"
+],
+"a": 0,
+"e": "Jami: 25 + 60·5 = 25 + 300 = 325 dollar."
+},
+{
+"t": "Algebra",
+"q": "A tutor charges a $30 registration fee plus $40 per hour of work. What is the total cost, in dollars, of a 5-hour job?",
+"o": [
+"350",
+"230",
+"200",
+"190"
+],
+"a": 1,
+"e": "Jami: 30 + 40·5 = 30 + 200 = 230 dollar."
+},
+{
+"t": "Algebra",
+"q": "A photographer charges a $20 booking fee plus $45 per hour of work. What is the total cost, in dollars, of a 2-hour job?",
+"o": [
+"110",
+"130",
+"90",
+"85"
+],
+"a": 0,
+"e": "Jami: 20 + 45·2 = 20 + 90 = 110 dollar."
+},
+{
+"t": "Algebra",
+"q": "A tutor charges a $45 registration fee plus $45 per hour of work. What is the total cost, in dollars, of a 8-hour job?",
+"o": [
+"720",
+"450",
+"405",
+"360"
+],
+"a": 2,
+"e": "Jami: 45 + 45·8 = 45 + 360 = 405 dollar."
+},
+{
+"t": "Algebra",
+"q": "A plumber charges a $20 visit fee plus $45 per hour of work. What is the total cost, in dollars, of a 7-hour job?",
+"o": [
+"315",
+"185",
+"455",
+"335"
+],
+"a": 3,
+"e": "Jami: 20 + 45·7 = 20 + 315 = 335 dollar."
+},
+{
+"t": "Algebra",
+"q": "A tutor charges a $75 registration fee plus $20 per hour of work. What is the total cost, in dollars, of a 3-hour job?",
+"o": [
+"245",
+"285",
+"60",
+"135"
+],
+"a": 3,
+"e": "Jami: 75 + 20·3 = 75 + 60 = 135 dollar."
+},
+{
+"t": "Algebra",
+"q": "A photographer charges a $40 booking fee plus $40 per hour of work. What is the total cost, in dollars, of a 7-hour job?",
+"o": [
+"280",
+"560",
+"360",
+"320"
+],
+"a": 3,
+"e": "Jami: 40 + 40·7 = 40 + 280 = 320 dollar."
+},
+{
+"t": "Algebra",
+"q": "A electrician charges a $40 service fee plus $35 per hour of work. What is the total cost, in dollars, of a 8-hour job?",
+"o": [
+"280",
+"320",
+"355",
+"600"
+],
+"a": 1,
+"e": "Jami: 40 + 35·8 = 40 + 280 = 320 dollar."
+},
+{
+"t": "Algebra",
+"q": "A tutor charges a $30 registration fee plus $60 per hour of work. What is the total cost, in dollars, of a 6-hour job?",
+"o": [
+"390",
+"240",
+"360",
+"540"
+],
+"a": 0,
+"e": "Jami: 30 + 60·6 = 30 + 360 = 390 dollar."
+},
+{
+"t": "Algebra",
+"q": "A plumber charges a $75 visit fee plus $50 per hour of work. What is the total cost, in dollars, of a 4-hour job?",
+"o": [
+"500",
+"275",
+"200",
+"350"
+],
+"a": 1,
+"e": "Jami: 75 + 50·4 = 75 + 200 = 275 dollar."
+},
+{
+"t": "Algebra",
+"q": "A photographer charges a $50 booking fee plus $20 per hour of work. What is the total cost, in dollars, of a 8-hour job?",
+"o": [
+"160",
+"420",
+"560",
+"210"
+],
+"a": 3,
+"e": "Jami: 50 + 20·8 = 50 + 160 = 210 dollar."
+},
+{
+"t": "Algebra",
+"q": "A electrician charges a $30 service fee plus $30 per hour of work. What is the total cost, in dollars, of a 3-hour job?",
+"o": [
+"150",
+"120",
+"180",
+"90"
+],
+"a": 1,
+"e": "Jami: 30 + 30·3 = 30 + 90 = 120 dollar."
+},
+{
+"t": "Algebra",
+"q": "A mechanic charges a $25 inspection fee plus $35 per hour of work. What is the total cost, in dollars, of a 3-hour job?",
+"o": [
+"180",
+"110",
+"130",
+"105"
+],
+"a": 2,
+"e": "Jami: 25 + 35·3 = 25 + 105 = 130 dollar."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x² - 3x + 3, what is the value of f(-2)?",
+"o": [
+"5",
+"17",
+"14",
+"25"
+],
+"a": 1,
+"e": "f(-2) = 2·(-2)² - 3·(-2) + 3 = 17."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x² + 5x - 9, what is the value of f(2)?",
+"o": [
+"-11",
+"9",
+"18",
+"17"
+],
+"a": 1,
+"e": "f(2) = 2·2² + 5·2 - 9 = 9."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² + 2x + 2, what is the value of f(2)?",
+"o": [
+"14",
+"22",
+"20",
+"70"
+],
+"a": 1,
+"e": "f(2) = 4·2² + 2·2 + 2 = 22."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x² + 3x + 4, what is the value of f(-1)?",
+"o": [
+"9",
+"3",
+"5",
+"-1"
+],
+"a": 1,
+"e": "f(-1) = 2·(-1)² + 3·(-1) + 4 = 3."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² - 3x - 4, what is the value of f(-3)?",
+"o": [
+"23",
+"149",
+"45",
+"41"
+],
+"a": 3,
+"e": "f(-3) = 4·(-3)² - 3·(-3) - 4 = 41."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² + x - 4, what is the value of f(-3)?",
+"o": [
+"33",
+"137",
+"29",
+"35"
+],
+"a": 2,
+"e": "f(-3) = 4·(-3)² + 1·(-3) - 4 = 29."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² - 5x - 4, what is the value of f(2)?",
+"o": [
+"50",
+"22",
+"6",
+"2"
+],
+"a": 3,
+"e": "f(2) = 4·2² - 5·2 - 4 = 2."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x² + x - 9, what is the value of f(-1)?",
+"o": [
+"1",
+"-6",
+"-4",
+"-8"
+],
+"a": 3,
+"e": "f(-1) = 2·(-1)² + 1·(-1) - 9 = -8."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x² + 4x + 4, what is the value of f(-3)?",
+"o": [
+"73",
+"19",
+"43",
+"15"
+],
+"a": 1,
+"e": "f(-3) = 3·(-3)² + 4·(-3) + 4 = 19."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² + 2x - 6, what is the value of f(-2)?",
+"o": [
+"54",
+"6",
+"14",
+"12"
+],
+"a": 1,
+"e": "f(-2) = 4·(-2)² + 2·(-2) - 6 = 6."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² - 3x - 8, what is the value of f(-4)?",
+"o": [
+"260",
+"76",
+"44",
+"68"
+],
+"a": 3,
+"e": "f(-4) = 4·(-4)² - 3·(-4) - 8 = 68."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = x² - 4x - 9, what is the value of f(2)?",
+"o": [
+"-13",
+"-4",
+"-11",
+"3"
+],
+"a": 0,
+"e": "f(2) = 1·2² - 4·2 - 9 = -13."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x² - x + 9, what is the value of f(-4)?",
+"o": [
+"45",
+"37",
+"77",
+"36"
+],
+"a": 0,
+"e": "f(-4) = 2·(-4)² - 1·(-4) + 9 = 45."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x² - 6, what is the value of f(-4)?",
+"o": [
+"250",
+"66",
+"58",
+"64"
+],
+"a": 2,
+"e": "f(-4) = 4·(-4)² - 6 = 58."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = x² + 2x - 6, what is the value of f(3)?",
+"o": [
+"15",
+"-3",
+"9",
+"11"
+],
+"a": 2,
+"e": "f(3) = 1·3² + 2·3 - 6 = 9."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x - 6 and g(x) = x² - 2, what is the value of f(g(2))?",
+"o": [
+"3",
+"0",
+"-2",
+"2"
+],
+"a": 1,
+"e": "Avval g(2) = 2² - 2 = 2. Keyin f(2) = 3·2 - 6 = 0."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x + 1 and g(x) = x² - 5, what is the value of f(g(-1))?",
+"o": [
+"-15",
+"12",
+"4",
+"-7"
+],
+"a": 0,
+"e": "Avval g(-1) = (-1)² - 5 = -4. Keyin f(-4) = 4·(-4) + 1 = -15."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x + 8 and g(x) = x² + 3, what is the value of f(g(-4))?",
+"o": [
+"19",
+"0",
+"46",
+"3"
+],
+"a": 2,
+"e": "Avval g(-4) = (-4)² + 3 = 19. Keyin f(19) = 2·19 + 8 = 46."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x + 3 and g(x) = x² - 2, what is the value of f(g(2))?",
+"o": [
+"79",
+"11",
+"18",
+"9"
+],
+"a": 3,
+"e": "Avval g(2) = 2² - 2 = 2. Keyin f(2) = 3·2 + 3 = 9."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x - 5 and g(x) = x² - 4, what is the value of f(g(2))?",
+"o": [
+"0",
+"-3",
+"-1",
+"-5"
+],
+"a": 3,
+"e": "Avval g(2) = 2² - 4 = 0. Keyin f(0) = 2·0 - 5 = -5."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x - 1 and g(x) = x² + 5, what is the value of f(g(3))?",
+"o": [
+"41",
+"112",
+"69",
+"22"
+],
+"a": 0,
+"e": "Avval g(3) = 3² + 5 = 14. Keyin f(14) = 3·14 - 1 = 41."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x + 5 and g(x) = x² - 3, what is the value of f(g(-4))?",
+"o": [
+"10",
+"6",
+"31",
+"-39"
+],
+"a": 2,
+"e": "Avval g(-4) = (-4)² - 3 = 13. Keyin f(13) = 2·13 + 5 = 31."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 2x + 7 and g(x) = x² + 1, what is the value of f(g(3))?",
+"o": [
+"27",
+"23",
+"170",
+"130"
+],
+"a": 0,
+"e": "Avval g(3) = 3² + 1 = 10. Keyin f(10) = 2·10 + 7 = 27."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 5x + 5 and g(x) = x² - 5, what is the value of f(g(-2))?",
+"o": [
+"20",
+"0",
+"5",
+"-6"
+],
+"a": 1,
+"e": "Avval g(-2) = (-2)² - 5 = -1. Keyin f(-1) = 5·(-1) + 5 = 0."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x + 7 and g(x) = x² + 4, what is the value of f(g(-1))?",
+"o": [
+"9",
+"22",
+"25",
+"20"
+],
+"a": 1,
+"e": "Avval g(-1) = (-1)² + 4 = 5. Keyin f(5) = 3·5 + 7 = 22."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x + 6 and g(x) = x² + 6, what is the value of f(g(1))?",
+"o": [
+"34",
+"70",
+"106",
+"17"
+],
+"a": 0,
+"e": "Avval g(1) = 1² + 6 = 7. Keyin f(7) = 4·7 + 6 = 34."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 4x + 2 and g(x) = x² - 5, what is the value of f(g(-4))?",
+"o": [
+"-154",
+"46",
+"-3",
+"191"
+],
+"a": 1,
+"e": "Avval g(-4) = (-4)² - 5 = 11. Keyin f(11) = 4·11 + 2 = 46."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 5x + 7 and g(x) = x² + 4, what is the value of f(g(4))?",
+"o": [
+"733",
+"107",
+"47",
+"540"
+],
+"a": 1,
+"e": "Avval g(4) = 4² + 4 = 20. Keyin f(20) = 5·20 + 7 = 107."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 3x + 6 and g(x) = x² - 2, what is the value of f(g(-1))?",
+"o": [
+"3",
+"-3",
+"7",
+"2"
+],
+"a": 0,
+"e": "Avval g(-1) = (-1)² - 2 = -1. Keyin f(-1) = 3·(-1) + 6 = 3."
+},
+{
+"t": "Advanced Math",
+"q": "If f(x) = 5x + 2 and g(x) = x² - 1, what is the value of f(g(1))?",
+"o": [
+"0",
+"2",
+"48",
+"7"
+],
+"a": 1,
+"e": "Avval g(1) = 1² - 1 = 0. Keyin f(0) = 5·0 + 2 = 2."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 2x - 15 = 0?",
+"o": [
+"-15",
+"5",
+"2",
+"-2"
+],
+"a": 2,
+"e": "x² - 2x - 15 = (x - 5)(x + 3), yechimlar 5 va -3. Yig'indi: 2."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - x - 42 = 0?",
+"o": [
+"1",
+"-1",
+"7",
+"-42"
+],
+"a": 0,
+"e": "x² - x - 42 = (x - 7)(x + 6), yechimlar 7 va -6. Yig'indi: 1."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 8x + 12 = 0?",
+"o": [
+"12",
+"8",
+"-8",
+"6"
+],
+"a": 1,
+"e": "x² - 8x + 12 = (x - 2)(x - 6), yechimlar 2 va 6. Yig'indi: 8."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 2x - 48 = 0?",
+"o": [
+"8",
+"2",
+"-2",
+"-48"
+],
+"a": 1,
+"e": "x² - 2x - 48 = (x - 8)(x + 6), yechimlar 8 va -6. Yig'indi: 2."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² + 7x + 6 = 0?",
+"o": [
+"-7",
+"7",
+"-1",
+"6"
+],
+"a": 0,
+"e": "x² + 7x + 6 = (x + 1)(x + 6), yechimlar -1 va -6. Yig'indi: -7."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - x - 30 = 0?",
+"o": [
+"-1",
+"1",
+"6",
+"-30"
+],
+"a": 1,
+"e": "x² - x - 30 = (x - 6)(x + 5), yechimlar 6 va -5. Yig'indi: 1."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - x - 12 = 0?",
+"o": [
+"-1",
+"4",
+"1",
+"-12"
+],
+"a": 2,
+"e": "x² - x - 12 = (x + 3)(x - 4), yechimlar -3 va 4. Yig'indi: 1."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² + 2x - 3 = 0?",
+"o": [
+"2",
+"1",
+"-3",
+"-2"
+],
+"a": 3,
+"e": "x² + 2x - 3 = (x - 1)(x + 3), yechimlar 1 va -3. Yig'indi: -2."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 11x + 24 = 0?",
+"o": [
+"24",
+"11",
+"8",
+"-11"
+],
+"a": 1,
+"e": "x² - 11x + 24 = (x - 8)(x - 3), yechimlar 8 va 3. Yig'indi: 11."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 9x + 8 = 0?",
+"o": [
+"9",
+"8",
+"-9",
+"10"
+],
+"a": 0,
+"e": "x² - 9x + 8 = (x - 8)(x - 1), yechimlar 8 va 1. Yig'indi: 9."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² + 11x + 30 = 0?",
+"o": [
+"-11",
+"-5",
+"30",
+"11"
+],
+"a": 0,
+"e": "x² + 11x + 30 = (x + 6)(x + 5), yechimlar -6 va -5. Yig'indi: -11."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 13x + 40 = 0?",
+"o": [
+"13",
+"-13",
+"8",
+"40"
+],
+"a": 0,
+"e": "x² - 13x + 40 = (x - 5)(x - 8), yechimlar 5 va 8. Yig'indi: 13."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 11x + 30 = 0?",
+"o": [
+"30",
+"11",
+"6",
+"-11"
+],
+"a": 1,
+"e": "x² - 11x + 30 = (x - 5)(x - 6), yechimlar 5 va 6. Yig'indi: 11."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - 3x - 18 = 0?",
+"o": [
+"3",
+"6",
+"-18",
+"-3"
+],
+"a": 0,
+"e": "x² - 3x - 18 = (x - 6)(x + 3), yechimlar 6 va -3. Yig'indi: 3."
+},
+{
+"t": "Advanced Math",
+"q": "What is the sum of the solutions to the equation x² - x - 20 = 0?",
+"o": [
+"5",
+"-1",
+"1",
+"-20"
+],
+"a": 2,
+"e": "x² - x - 20 = (x - 5)(x + 4), yechimlar 5 va -4. Yig'indi: 1."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + x - 72 = 0?",
+"o": [
+"72",
+"17",
+"8",
+"9"
+],
+"a": 2,
+"e": "x² + x - 72 = (x - 8)(x + 9), yechimlar 8 va -9. Musbat yechim: 8."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 2x - 48 = 0?",
+"o": [
+"48",
+"14",
+"6",
+"8"
+],
+"a": 3,
+"e": "x² - 2x - 48 = (x - 8)(x + 6), yechimlar 8 va -6. Musbat yechim: 8."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + 2x - 15 = 0?",
+"o": [
+"8",
+"5",
+"15",
+"3"
+],
+"a": 3,
+"e": "x² + 2x - 15 = (x - 3)(x + 5), yechimlar 3 va -5. Musbat yechim: 3."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 3x - 54 = 0?",
+"o": [
+"6",
+"9",
+"15",
+"54"
+],
+"a": 1,
+"e": "x² - 3x - 54 = (x - 9)(x + 6), yechimlar 9 va -6. Musbat yechim: 9."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 7x - 8 = 0?",
+"o": [
+"8",
+"9",
+"-1",
+"1"
+],
+"a": 0,
+"e": "x² - 7x - 8 = (x - 8)(x + 1), yechimlar 8 va -1. Musbat yechim: 8."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + 6x - 27 = 0?",
+"o": [
+"9",
+"12",
+"3",
+"27"
+],
+"a": 2,
+"e": "x² + 6x - 27 = (x - 3)(x + 9), yechimlar 3 va -9. Musbat yechim: 3."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 3x - 10 = 0?",
+"o": [
+"10",
+"5",
+"2",
+"7"
+],
+"a": 1,
+"e": "x² - 3x - 10 = (x - 5)(x + 2), yechimlar 5 va -2. Musbat yechim: 5."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 4x - 45 = 0?",
+"o": [
+"5",
+"14",
+"45",
+"9"
+],
+"a": 3,
+"e": "x² - 4x - 45 = (x - 9)(x + 5), yechimlar 9 va -5. Musbat yechim: 9."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 5x - 6 = 0?",
+"o": [
+"7",
+"1",
+"-1",
+"6"
+],
+"a": 3,
+"e": "x² - 5x - 6 = (x - 6)(x + 1), yechimlar 6 va -1. Musbat yechim: 6."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + 4x - 21 = 0?",
+"o": [
+"21",
+"7",
+"3",
+"10"
+],
+"a": 2,
+"e": "x² + 4x - 21 = (x - 3)(x + 7), yechimlar 3 va -7. Musbat yechim: 3."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - x - 12 = 0?",
+"o": [
+"4",
+"12",
+"3",
+"7"
+],
+"a": 0,
+"e": "x² - x - 12 = (x - 4)(x + 3), yechimlar 4 va -3. Musbat yechim: 4."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + 3x - 28 = 0?",
+"o": [
+"28",
+"7",
+"4",
+"11"
+],
+"a": 2,
+"e": "x² + 3x - 28 = (x - 4)(x + 7), yechimlar 4 va -7. Musbat yechim: 4."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² + 5x - 6 = 0?",
+"o": [
+"-6",
+"6",
+"7",
+"1"
+],
+"a": 3,
+"e": "x² + 5x - 6 = (x - 1)(x + 6), yechimlar 1 va -6. Musbat yechim: 1."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 5x - 24 = 0?",
+"o": [
+"3",
+"8",
+"11",
+"24"
+],
+"a": 1,
+"e": "x² - 5x - 24 = (x - 8)(x + 3), yechimlar 8 va -3. Musbat yechim: 8."
+},
+{
+"t": "Advanced Math",
+"q": "What is the positive solution to the equation x² - 2x - 63 = 0?",
+"o": [
+"9",
+"63",
+"7",
+"16"
+],
+"a": 0,
+"e": "x² - 2x - 63 = (x - 9)(x + 7), yechimlar 9 va -7. Musbat yechim: 9."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 4) = 243, what is the value of x?",
+"o": [
+"5",
+"1",
+"81/4",
+"9"
+],
+"a": 1,
+"e": "243 = 3^5, demak x + 4 = 5 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 5^(x + 2) = 125, what is the value of x?",
+"o": [
+"5",
+"25/2",
+"3",
+"1"
+],
+"a": 3,
+"e": "125 = 5^3, demak x + 2 = 3 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 2^(x + 2) = 32, what is the value of x?",
+"o": [
+"3",
+"7",
+"5",
+"8"
+],
+"a": 0,
+"e": "32 = 2^5, demak x + 2 = 5 va x = 3."
+},
+{
+"t": "Advanced Math",
+"q": "If 2^(x + 6) = 128, what is the value of x?",
+"o": [
+"32/3",
+"7",
+"1",
+"13"
+],
+"a": 2,
+"e": "128 = 2^7, demak x + 6 = 7 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 2^(x + 2) = 8, what is the value of x?",
+"o": [
+"1",
+"5",
+"3",
+"2"
+],
+"a": 0,
+"e": "8 = 2^3, demak x + 2 = 3 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 3) = 243, what is the value of x?",
+"o": [
+"5",
+"27",
+"2",
+"8"
+],
+"a": 2,
+"e": "243 = 3^5, demak x + 3 = 5 va x = 2."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 2) = 27, what is the value of x?",
+"o": [
+"5",
+"3",
+"1",
+"9/2"
+],
+"a": 2,
+"e": "27 = 3^3, demak x + 2 = 3 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 2) = 81, what is the value of x?",
+"o": [
+"2",
+"6",
+"4",
+"27/2"
+],
+"a": 0,
+"e": "81 = 3^4, demak x + 2 = 4 va x = 2."
+},
+{
+"t": "Advanced Math",
+"q": "If 5^(x + 1) = 625, what is the value of x?",
+"o": [
+"5",
+"4",
+"3",
+"125"
+],
+"a": 2,
+"e": "625 = 5^4, demak x + 1 = 4 va x = 3."
+},
+{
+"t": "Advanced Math",
+"q": "If 5^(x + 1) = 125, what is the value of x?",
+"o": [
+"25",
+"4",
+"2",
+"3"
+],
+"a": 2,
+"e": "125 = 5^3, demak x + 1 = 3 va x = 2."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 3) = 81, what is the value of x?",
+"o": [
+"9",
+"1",
+"4",
+"7"
+],
+"a": 1,
+"e": "81 = 3^4, demak x + 3 = 4 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 2^(x + 4) = 32, what is the value of x?",
+"o": [
+"1",
+"4",
+"9",
+"5"
+],
+"a": 0,
+"e": "32 = 2^5, demak x + 4 = 5 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "If 2^(x + 1) = 32, what is the value of x?",
+"o": [
+"16",
+"6",
+"4",
+"5"
+],
+"a": 2,
+"e": "32 = 2^5, demak x + 1 = 5 va x = 4."
+},
+{
+"t": "Advanced Math",
+"q": "If 3^(x + 1) = 27, what is the value of x?",
+"o": [
+"9",
+"2",
+"4",
+"3"
+],
+"a": 1,
+"e": "27 = 3^3, demak x + 1 = 3 va x = 2."
+},
+{
+"t": "Advanced Math",
+"q": "If 5^(x + 3) = 625, what is the value of x?",
+"o": [
+"1",
+"4",
+"7",
+"125/3"
+],
+"a": 0,
+"e": "625 = 5^4, demak x + 3 = 4 va x = 1."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 1000 bacteria doubles in size every 3 hours. How many bacteria will there be after 9 hours?",
+"o": [
+"6000",
+"8000",
+"16,000",
+"3000"
+],
+"a": 1,
+"e": "9 soatda koloniya 3 marta ikki baravar o'sadi: 1000·2^3 = 1000·8 = 8000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 400 bacteria doubles in size every 2 hours. How many bacteria will there be after 4 hours?",
+"o": [
+"3200",
+"404",
+"1600",
+"800"
+],
+"a": 2,
+"e": "4 soatda koloniya 2 marta ikki baravar o'sadi: 400·2^2 = 400·4 = 1600."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 400 bacteria doubles in size every 3 hours. How many bacteria will there be after 6 hours?",
+"o": [
+"1600",
+"404",
+"800",
+"3200"
+],
+"a": 0,
+"e": "6 soatda koloniya 2 marta ikki baravar o'sadi: 400·2^2 = 400·4 = 1600."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 400 bacteria doubles in size every 6 hours. How many bacteria will there be after 12 hours?",
+"o": [
+"3200",
+"1600",
+"404",
+"800"
+],
+"a": 1,
+"e": "12 soatda koloniya 2 marta ikki baravar o'sadi: 400·2^2 = 400·4 = 1600."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 800 bacteria doubles in size every 2 hours. How many bacteria will there be after 6 hours?",
+"o": [
+"12,800",
+"2400",
+"6400",
+"4800"
+],
+"a": 2,
+"e": "6 soatda koloniya 3 marta ikki baravar o'sadi: 800·2^3 = 800·8 = 6400."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 250 bacteria doubles in size every 4 hours. How many bacteria will there be after 8 hours?",
+"o": [
+"1000",
+"500",
+"254",
+"2000"
+],
+"a": 0,
+"e": "8 soatda koloniya 2 marta ikki baravar o'sadi: 250·2^2 = 250·4 = 1000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 100 bacteria doubles in size every 3 hours. How many bacteria will there be after 6 hours?",
+"o": [
+"800",
+"104",
+"400",
+"200"
+],
+"a": 2,
+"e": "6 soatda koloniya 2 marta ikki baravar o'sadi: 100·2^2 = 100·4 = 400."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 1500 bacteria doubles in size every 10 hours. How many bacteria will there be after 40 hours?",
+"o": [
+"24,000",
+"48,000",
+"12,000",
+"6000"
+],
+"a": 0,
+"e": "40 soatda koloniya 4 marta ikki baravar o'sadi: 1500·2^4 = 1500·16 = 24000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 500 bacteria doubles in size every 6 hours. How many bacteria will there be after 24 hours?",
+"o": [
+"8000",
+"2000",
+"4000",
+"16,000"
+],
+"a": 0,
+"e": "24 soatda koloniya 4 marta ikki baravar o'sadi: 500·2^4 = 500·16 = 8000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 1000 bacteria doubles in size every 2 hours. How many bacteria will there be after 4 hours?",
+"o": [
+"4000",
+"8000",
+"1004",
+"2000"
+],
+"a": 0,
+"e": "4 soatda koloniya 2 marta ikki baravar o'sadi: 1000·2^2 = 1000·4 = 4000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 500 bacteria doubles in size every 5 hours. How many bacteria will there be after 15 hours?",
+"o": [
+"8000",
+"3000",
+"1500",
+"4000"
+],
+"a": 3,
+"e": "15 soatda koloniya 3 marta ikki baravar o'sadi: 500·2^3 = 500·8 = 4000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 1500 bacteria doubles in size every 10 hours. How many bacteria will there be after 30 hours?",
+"o": [
+"4500",
+"24,000",
+"9000",
+"12,000"
+],
+"a": 3,
+"e": "30 soatda koloniya 3 marta ikki baravar o'sadi: 1500·2^3 = 1500·8 = 12000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 800 bacteria doubles in size every 4 hours. How many bacteria will there be after 12 hours?",
+"o": [
+"2400",
+"4800",
+"12,800",
+"6400"
+],
+"a": 3,
+"e": "12 soatda koloniya 3 marta ikki baravar o'sadi: 800·2^3 = 800·8 = 6400."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 1500 bacteria doubles in size every 5 hours. How many bacteria will there be after 15 hours?",
+"o": [
+"12,000",
+"9000",
+"4500",
+"24,000"
+],
+"a": 0,
+"e": "15 soatda koloniya 3 marta ikki baravar o'sadi: 1500·2^3 = 1500·8 = 12000."
+},
+{
+"t": "Advanced Math",
+"q": "A colony of 400 bacteria doubles in size every 2 hours. How many bacteria will there be after 6 hours?",
+"o": [
+"1200",
+"3200",
+"6400",
+"2400"
+],
+"a": 1,
+"e": "6 soatda koloniya 3 marta ikki baravar o'sadi: 400·2^3 = 400·8 = 3200."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of headphones originally costs $360. It is on sale for 25% off. What is the sale price, in dollars?",
+"o": [
+"90",
+"270",
+"335",
+"450"
+],
+"a": 1,
+"e": "Chegirma: 360·25/100 = 90. Yangi narx: 360 - 90 = 270 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A jacket originally costs $280. It is on sale for 10% off. What is the sale price, in dollars?",
+"o": [
+"252",
+"270",
+"308",
+"28"
+],
+"a": 0,
+"e": "Chegirma: 280·10/100 = 28. Yangi narx: 280 - 28 = 252 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bicycle helmet originally costs $340. It is on sale for 25% off. What is the sale price, in dollars?",
+"o": [
+"255",
+"425",
+"85",
+"315"
+],
+"a": 0,
+"e": "Chegirma: 340·25/100 = 85. Yangi narx: 340 - 85 = 255 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of headphones originally costs $200. It is on sale for 50% off. What is the sale price, in dollars?",
+"o": [
+"100",
+"300",
+"150",
+"50"
+],
+"a": 0,
+"e": "Chegirma: 200·50/100 = 100. Yangi narx: 200 - 100 = 100 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of sneakers originally costs $280. It is on sale for 50% off. What is the sale price, in dollars?",
+"o": [
+"140",
+"230",
+"90",
+"420"
+],
+"a": 0,
+"e": "Chegirma: 280·50/100 = 140. Yangi narx: 280 - 140 = 140 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of headphones originally costs $180. It is on sale for 50% off. What is the sale price, in dollars?",
+"o": [
+"130",
+"90",
+"40",
+"270"
+],
+"a": 1,
+"e": "Chegirma: 180·50/100 = 90. Yangi narx: 180 - 90 = 90 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A desk lamp originally costs $160. It is on sale for 40% off. What is the sale price, in dollars?",
+"o": [
+"64",
+"96",
+"224",
+"120"
+],
+"a": 1,
+"e": "Chegirma: 160·40/100 = 64. Yangi narx: 160 - 64 = 96 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A jacket originally costs $320. It is on sale for 35% off. What is the sale price, in dollars?",
+"o": [
+"112",
+"285",
+"208",
+"432"
+],
+"a": 2,
+"e": "Chegirma: 320·35/100 = 112. Yangi narx: 320 - 112 = 208 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of headphones originally costs $220. It is on sale for 40% off. What is the sale price, in dollars?",
+"o": [
+"88",
+"308",
+"132",
+"180"
+],
+"a": 2,
+"e": "Chegirma: 220·40/100 = 88. Yangi narx: 220 - 88 = 132 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bicycle helmet originally costs $300. It is on sale for 25% off. What is the sale price, in dollars?",
+"o": [
+"275",
+"75",
+"225",
+"375"
+],
+"a": 2,
+"e": "Chegirma: 300·25/100 = 75. Yangi narx: 300 - 75 = 225 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A backpack originally costs $300. It is on sale for 20% off. What is the sale price, in dollars?",
+"o": [
+"240",
+"60",
+"280",
+"360"
+],
+"a": 0,
+"e": "Chegirma: 300·20/100 = 60. Yangi narx: 300 - 60 = 240 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bicycle helmet originally costs $260. It is on sale for 40% off. What is the sale price, in dollars?",
+"o": [
+"220",
+"364",
+"104",
+"156"
+],
+"a": 3,
+"e": "Chegirma: 260·40/100 = 104. Yangi narx: 260 - 104 = 156 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A desk lamp originally costs $140. It is on sale for 20% off. What is the sale price, in dollars?",
+"o": [
+"168",
+"112",
+"28",
+"120"
+],
+"a": 1,
+"e": "Chegirma: 140·20/100 = 28. Yangi narx: 140 - 28 = 112 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A backpack originally costs $100. It is on sale for 40% off. What is the sale price, in dollars?",
+"o": [
+"60",
+"140",
+"20",
+"40"
+],
+"a": 0,
+"e": "Chegirma: 100·40/100 = 40. Yangi narx: 100 - 40 = 60 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A pair of sneakers originally costs $320. It is on sale for 25% off. What is the sale price, in dollars?",
+"o": [
+"240",
+"400",
+"295",
+"80"
+],
+"a": 0,
+"e": "Chegirma: 320·25/100 = 80. Yangi narx: 320 - 80 = 240 dollar."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of headphones increased from $400 to $640. By what percent did the price increase?",
+"o": [
+"70%",
+"37.5%",
+"60%",
+"240%"
+],
+"a": 2,
+"e": "O'sish: 640 - 400 = 240. Foiz eski narxdan olinadi: 240/400·100 = 60%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of headphones increased from $120 to $180. By what percent did the price increase?",
+"o": [
+"150%",
+"33.3%",
+"50%",
+"60%"
+],
+"a": 2,
+"e": "O'sish: 180 - 120 = 60. Foiz eski narxdan olinadi: 60/120·100 = 50%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a jacket increased from $120 to $156. By what percent did the price increase?",
+"o": [
+"36%",
+"40%",
+"23.1%",
+"30%"
+],
+"a": 3,
+"e": "O'sish: 156 - 120 = 36. Foiz eski narxdan olinadi: 36/120·100 = 30%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a backpack increased from $80 to $128. By what percent did the price increase?",
+"o": [
+"48%",
+"70%",
+"60%",
+"37.5%"
+],
+"a": 2,
+"e": "O'sish: 128 - 80 = 48. Foiz eski narxdan olinadi: 48/80·100 = 60%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a backpack increased from $20 to $32. By what percent did the price increase?",
+"o": [
+"37.5%",
+"70%",
+"60%",
+"12%"
+],
+"a": 2,
+"e": "O'sish: 32 - 20 = 12. Foiz eski narxdan olinadi: 12/20·100 = 60%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of headphones increased from $25 to $35. By what percent did the price increase?",
+"o": [
+"40%",
+"28.6%",
+"10%",
+"50%"
+],
+"a": 0,
+"e": "O'sish: 35 - 25 = 10. Foiz eski narxdan olinadi: 10/25·100 = 40%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of headphones increased from $400 to $600. By what percent did the price increase?",
+"o": [
+"200%",
+"50%",
+"33.3%",
+"60%"
+],
+"a": 1,
+"e": "O'sish: 600 - 400 = 200. Foiz eski narxdan olinadi: 200/400·100 = 50%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of headphones increased from $200 to $350. By what percent did the price increase?",
+"o": [
+"75%",
+"85%",
+"150%",
+"42.9%"
+],
+"a": 0,
+"e": "O'sish: 350 - 200 = 150. Foiz eski narxdan olinadi: 150/200·100 = 75%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a pair of sneakers increased from $20 to $28. By what percent did the price increase?",
+"o": [
+"28.6%",
+"40%",
+"8%",
+"50%"
+],
+"a": 1,
+"e": "O'sish: 28 - 20 = 8. Foiz eski narxdan olinadi: 8/20·100 = 40%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a backpack increased from $20 to $30. By what percent did the price increase?",
+"o": [
+"50%",
+"10%",
+"33.3%",
+"60%"
+],
+"a": 0,
+"e": "O'sish: 30 - 20 = 10. Foiz eski narxdan olinadi: 10/20·100 = 50%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a bicycle helmet increased from $40 to $50. By what percent did the price increase?",
+"o": [
+"20%",
+"25%",
+"10%",
+"35%"
+],
+"a": 1,
+"e": "O'sish: 50 - 40 = 10. Foiz eski narxdan olinadi: 10/40·100 = 25%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a desk lamp increased from $20 to $24. By what percent did the price increase?",
+"o": [
+"4%",
+"20%",
+"30%",
+"16.7%"
+],
+"a": 1,
+"e": "O'sish: 24 - 20 = 4. Foiz eski narxdan olinadi: 4/20·100 = 20%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a bicycle helmet increased from $120 to $210. By what percent did the price increase?",
+"o": [
+"42.9%",
+"75%",
+"85%",
+"90%"
+],
+"a": 1,
+"e": "O'sish: 210 - 120 = 90. Foiz eski narxdan olinadi: 90/120·100 = 75%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a bicycle helmet increased from $400 to $520. By what percent did the price increase?",
+"o": [
+"30%",
+"120%",
+"40%",
+"23.1%"
+],
+"a": 0,
+"e": "O'sish: 520 - 400 = 120. Foiz eski narxdan olinadi: 120/400·100 = 30%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The price of a desk lamp increased from $40 to $70. By what percent did the price increase?",
+"o": [
+"42.9%",
+"75%",
+"30%",
+"85%"
+],
+"a": 1,
+"e": "O'sish: 70 - 40 = 30. Foiz eski narxdan olinadi: 30/40·100 = 75%."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 8:2. If there are 100 in all, how many are dogs?",
+"o": [
+"80",
+"20",
+"10",
+"90"
+],
+"a": 1,
+"e": "Jami 8 + 2 = 10 qism, bir qism = 100/10 = 10. Javob: 2·10 = 20."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of red marbles to blue marbles among the marbles in a bag is 3:6. If there are 90 in all, how many are blue marbles?",
+"o": [
+"80",
+"30",
+"60",
+"10"
+],
+"a": 2,
+"e": "Jami 3 + 6 = 9 qism, bir qism = 90/9 = 10. Javob: 6·10 = 60."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of fiction books to nonfiction books among the books on a shelf is 3:4. If there are 77 in all, how many are nonfiction books?",
+"o": [
+"66",
+"33",
+"44",
+"11"
+],
+"a": 2,
+"e": "Jami 3 + 4 = 7 qism, bir qism = 77/7 = 11. Javob: 4·11 = 44."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of fiction books to nonfiction books among the books on a shelf is 5:3. If there are 96 in all, how many are nonfiction books?",
+"o": [
+"36",
+"84",
+"12",
+"60"
+],
+"a": 0,
+"e": "Jami 5 + 3 = 8 qism, bir qism = 96/8 = 12. Javob: 3·12 = 36."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of red marbles to blue marbles among the marbles in a bag is 5:8. If there are 130 in all, how many are blue marbles?",
+"o": [
+"80",
+"10",
+"50",
+"120"
+],
+"a": 0,
+"e": "Jami 5 + 8 = 13 qism, bir qism = 130/13 = 10. Javob: 8·10 = 80."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 4:3. If there are 42 in all, how many are dogs?",
+"o": [
+"36",
+"6",
+"18",
+"24"
+],
+"a": 2,
+"e": "Jami 4 + 3 = 7 qism, bir qism = 42/7 = 6. Javob: 3·6 = 18."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 7:2. If there are 36 in all, how many are dogs?",
+"o": [
+"4",
+"28",
+"8",
+"32"
+],
+"a": 2,
+"e": "Jami 7 + 2 = 9 qism, bir qism = 36/9 = 4. Javob: 2·4 = 8."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of red marbles to blue marbles among the marbles in a bag is 8:7. If there are 135 in all, how many are blue marbles?",
+"o": [
+"9",
+"72",
+"126",
+"63"
+],
+"a": 3,
+"e": "Jami 8 + 7 = 15 qism, bir qism = 135/15 = 9. Javob: 7·9 = 63."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of boys to girls among the students in a club is 6:4. If there are 50 in all, how many are girls?",
+"o": [
+"20",
+"45",
+"5",
+"30"
+],
+"a": 0,
+"e": "Jami 6 + 4 = 10 qism, bir qism = 50/10 = 5. Javob: 4·5 = 20."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 6:5. If there are 88 in all, how many are dogs?",
+"o": [
+"48",
+"8",
+"80",
+"40"
+],
+"a": 3,
+"e": "Jami 6 + 5 = 11 qism, bir qism = 88/11 = 8. Javob: 5·8 = 40."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of boys to girls among the students in a club is 5:2. If there are 63 in all, how many are girls?",
+"o": [
+"45",
+"9",
+"54",
+"18"
+],
+"a": 3,
+"e": "Jami 5 + 2 = 7 qism, bir qism = 63/7 = 9. Javob: 2·9 = 18."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 5:6. If there are 110 in all, how many are dogs?",
+"o": [
+"10",
+"50",
+"60",
+"100"
+],
+"a": 2,
+"e": "Jami 5 + 6 = 11 qism, bir qism = 110/11 = 10. Javob: 6·10 = 60."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of boys to girls among the students in a club is 4:8. If there are 84 in all, how many are girls?",
+"o": [
+"56",
+"7",
+"77",
+"28"
+],
+"a": 0,
+"e": "Jami 4 + 8 = 12 qism, bir qism = 84/12 = 7. Javob: 8·7 = 56."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of cats to dogs among the pets at a shelter is 6:5. If there are 99 in all, how many are dogs?",
+"o": [
+"54",
+"90",
+"9",
+"45"
+],
+"a": 3,
+"e": "Jami 6 + 5 = 11 qism, bir qism = 99/11 = 9. Javob: 5·9 = 45."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The ratio of boys to girls among the students in a club is 4:2. If there are 66 in all, how many are girls?",
+"o": [
+"44",
+"11",
+"22",
+"55"
+],
+"a": 2,
+"e": "Jami 4 + 2 = 6 qism, bir qism = 66/6 = 11. Javob: 2·11 = 22."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 80 miles in 4 hours. At this rate, how many miles will it travel in 5 hours?",
+"o": [
+"400",
+"20",
+"100",
+"85"
+],
+"a": 2,
+"e": "Tezlik: 80/4 = 20 mil/soat. 5 soatda: 20·5 = 100 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 150 miles in 5 hours. At this rate, how many miles will it travel in 8 hours?",
+"o": [
+"30",
+"1200",
+"158",
+"240"
+],
+"a": 3,
+"e": "Tezlik: 150/5 = 30 mil/soat. 8 soatda: 30·8 = 240 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 80 miles in 4 hours. At this rate, how many miles will it travel in 8 hours?",
+"o": [
+"640",
+"88",
+"20",
+"160"
+],
+"a": 3,
+"e": "Tezlik: 80/4 = 20 mil/soat. 8 soatda: 20·8 = 160 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 225 miles in 3 hours. At this rate, how many miles will it travel in 6 hours?",
+"o": [
+"1350",
+"231",
+"75",
+"450"
+],
+"a": 3,
+"e": "Tezlik: 225/3 = 75 mil/soat. 6 soatda: 75·6 = 450 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 200 miles in 4 hours. At this rate, how many miles will it travel in 8 hours?",
+"o": [
+"400",
+"1600",
+"50",
+"208"
+],
+"a": 0,
+"e": "Tezlik: 200/4 = 50 mil/soat. 8 soatda: 50·8 = 400 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 300 miles in 4 hours. At this rate, how many miles will it travel in 8 hours?",
+"o": [
+"75",
+"308",
+"600",
+"2400"
+],
+"a": 2,
+"e": "Tezlik: 300/4 = 75 mil/soat. 8 soatda: 75·8 = 600 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 110 miles in 2 hours. At this rate, how many miles will it travel in 7 hours?",
+"o": [
+"117",
+"770",
+"385",
+"55"
+],
+"a": 2,
+"e": "Tezlik: 110/2 = 55 mil/soat. 7 soatda: 55·7 = 385 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 250 miles in 5 hours. At this rate, how many miles will it travel in 3 hours?",
+"o": [
+"253",
+"750",
+"150",
+"50"
+],
+"a": 2,
+"e": "Tezlik: 250/5 = 50 mil/soat. 3 soatda: 50·3 = 150 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 200 miles in 5 hours. At this rate, how many miles will it travel in 2 hours?",
+"o": [
+"400",
+"202",
+"40",
+"80"
+],
+"a": 3,
+"e": "Tezlik: 200/5 = 40 mil/soat. 2 soatda: 40·2 = 80 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 225 miles in 5 hours. At this rate, how many miles will it travel in 3 hours?",
+"o": [
+"135",
+"228",
+"675",
+"45"
+],
+"a": 0,
+"e": "Tezlik: 225/5 = 45 mil/soat. 3 soatda: 45·3 = 135 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 40 miles in 2 hours. At this rate, how many miles will it travel in 3 hours?",
+"o": [
+"120",
+"20",
+"43",
+"60"
+],
+"a": 3,
+"e": "Tezlik: 40/2 = 20 mil/soat. 3 soatda: 20·3 = 60 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 250 miles in 5 hours. At this rate, how many miles will it travel in 8 hours?",
+"o": [
+"258",
+"2000",
+"50",
+"400"
+],
+"a": 3,
+"e": "Tezlik: 250/5 = 50 mil/soat. 8 soatda: 50·8 = 400 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 120 miles in 2 hours. At this rate, how many miles will it travel in 6 hours?",
+"o": [
+"60",
+"360",
+"720",
+"126"
+],
+"a": 1,
+"e": "Tezlik: 120/2 = 60 mil/soat. 6 soatda: 60·6 = 360 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 220 miles in 4 hours. At this rate, how many miles will it travel in 6 hours?",
+"o": [
+"226",
+"55",
+"330",
+"1320"
+],
+"a": 2,
+"e": "Tezlik: 220/4 = 55 mil/soat. 6 soatda: 55·6 = 330 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A car travels 70 miles in 2 hours. At this rate, how many miles will it travel in 4 hours?",
+"o": [
+"74",
+"35",
+"280",
+"140"
+],
+"a": 3,
+"e": "Tezlik: 70/2 = 35 mil/soat. 4 soatda: 35·4 = 140 mil."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 23. Four of the numbers are 24, 17, 26, 27. What is the fifth number?",
+"o": [
+"26",
+"24",
+"23",
+"21"
+],
+"a": 3,
+"e": "Beshta sonning yig'indisi: 5·23 = 115. Beshinchi son: 115 - 94 = 21."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 28. Four of the numbers are 25, 32, 32, 26. What is the fifth number?",
+"o": [
+"30",
+"29",
+"28",
+"25"
+],
+"a": 3,
+"e": "Beshta sonning yig'indisi: 5·28 = 140. Beshinchi son: 140 - 115 = 25."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 15. Four of the numbers are 17, 21, 11, 17. What is the fifth number?",
+"o": [
+"9",
+"16",
+"15",
+"14"
+],
+"a": 0,
+"e": "Beshta sonning yig'indisi: 5·15 = 75. Beshinchi son: 75 - 66 = 9."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 19. Four of the numbers are 16, 20, 14, 22. What is the fifth number?",
+"o": [
+"18",
+"23",
+"4",
+"19"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·19 = 95. Beshinchi son: 95 - 72 = 23."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 19. Four of the numbers are 22, 19, 17, 21. What is the fifth number?",
+"o": [
+"21",
+"16",
+"19",
+"20"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·19 = 95. Beshinchi son: 95 - 79 = 16."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 21. Four of the numbers are 19, 15, 17, 22. What is the fifth number?",
+"o": [
+"21",
+"18",
+"32",
+"11"
+],
+"a": 2,
+"e": "Beshta sonning yig'indisi: 5·21 = 105. Beshinchi son: 105 - 73 = 32."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 22. Four of the numbers are 25, 28, 21, 22. What is the fifth number?",
+"o": [
+"24",
+"14",
+"22",
+"19"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·22 = 110. Beshinchi son: 110 - 96 = 14."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 21. Four of the numbers are 26, 23, 15, 22. What is the fifth number?",
+"o": [
+"24",
+"19",
+"22",
+"21"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·21 = 105. Beshinchi son: 105 - 86 = 19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 25. Four of the numbers are 22, 27, 27, 20. What is the fifth number?",
+"o": [
+"29",
+"25",
+"4",
+"24"
+],
+"a": 0,
+"e": "Beshta sonning yig'indisi: 5·25 = 125. Beshinchi son: 125 - 96 = 29."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 23. Four of the numbers are 27, 23, 26, 22. What is the fifth number?",
+"o": [
+"23",
+"17",
+"24",
+"22"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·23 = 115. Beshinchi son: 115 - 98 = 17."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 16. Four of the numbers are 14, 14, 12, 15. What is the fifth number?",
+"o": [
+"16",
+"25",
+"14",
+"9"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·16 = 80. Beshinchi son: 80 - 55 = 25."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 24. Four of the numbers are 21, 24, 22, 18. What is the fifth number?",
+"o": [
+"11",
+"24",
+"35",
+"21"
+],
+"a": 2,
+"e": "Beshta sonning yig'indisi: 5·24 = 120. Beshinchi son: 120 - 85 = 35."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 19. Four of the numbers are 19, 25, 25, 21. What is the fifth number?",
+"o": [
+"22",
+"5",
+"19",
+"10"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·19 = 95. Beshinchi son: 95 - 90 = 5."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 27. Four of the numbers are 21, 31, 29, 26. What is the fifth number?",
+"o": [
+"1",
+"28",
+"33",
+"27"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·27 = 135. Beshinchi son: 135 - 107 = 28."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "The mean of five numbers is 22. Four of the numbers are 19, 17, 17, 18. What is the fifth number?",
+"o": [
+"22",
+"39",
+"18",
+"17"
+],
+"a": 1,
+"e": "Beshta sonning yig'indisi: 5·22 = 110. Beshinchi son: 110 - 71 = 39."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 3, 38, 17, 20, 35, 10, 11?",
+"o": [
+"11",
+"17",
+"20",
+"19.1"
+],
+"a": 1,
+"e": "Avval tartiblang: 3, 10, 11, 17, 20, 35, 38. O'rtadagi, ya'ni 4-qiymat: 17."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 18, 6, 11, 30, 3, 37, 14?",
+"o": [
+"11",
+"30",
+"17",
+"14"
+],
+"a": 3,
+"e": "Avval tartiblang: 3, 6, 11, 14, 18, 30, 37. O'rtadagi, ya'ni 4-qiymat: 14."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 10, 2, 4, 29, 34, 18, 31?",
+"o": [
+"29",
+"10",
+"18.3",
+"18"
+],
+"a": 3,
+"e": "Avval tartiblang: 2, 4, 10, 18, 29, 31, 34. O'rtadagi, ya'ni 4-qiymat: 18."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 31, 16, 33, 11, 25, 17, 10?",
+"o": [
+"17",
+"11",
+"16",
+"20.4"
+],
+"a": 0,
+"e": "Avval tartiblang: 10, 11, 16, 17, 25, 31, 33. O'rtadagi, ya'ni 4-qiymat: 17."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 33, 9, 30, 16, 19, 39, 7?",
+"o": [
+"16",
+"30",
+"19",
+"21.9"
+],
+"a": 2,
+"e": "Avval tartiblang: 7, 9, 16, 19, 30, 33, 39. O'rtadagi, ya'ni 4-qiymat: 19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 39, 3, 19, 15, 18, 22, 29?",
+"o": [
+"15",
+"18",
+"19",
+"20.7"
+],
+"a": 2,
+"e": "Avval tartiblang: 3, 15, 18, 19, 22, 29, 39. O'rtadagi, ya'ni 4-qiymat: 19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 6, 21, 8, 32, 35, 33, 31?",
+"o": [
+"21",
+"32",
+"31",
+"23.7"
+],
+"a": 2,
+"e": "Avval tartiblang: 6, 8, 21, 31, 32, 33, 35. O'rtadagi, ya'ni 4-qiymat: 31."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 15, 17, 7, 37, 21, 3, 19?",
+"o": [
+"37",
+"19",
+"15",
+"17"
+],
+"a": 3,
+"e": "Avval tartiblang: 3, 7, 15, 17, 19, 21, 37. O'rtadagi, ya'ni 4-qiymat: 17."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 19, 4, 31, 38, 18, 35, 10?",
+"o": [
+"19",
+"22.1",
+"38",
+"18"
+],
+"a": 0,
+"e": "Avval tartiblang: 4, 10, 18, 19, 31, 35, 38. O'rtadagi, ya'ni 4-qiymat: 19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 5, 35, 20, 30, 3, 27, 7?",
+"o": [
+"18.1",
+"20",
+"7",
+"30"
+],
+"a": 1,
+"e": "Avval tartiblang: 3, 5, 7, 20, 27, 30, 35. O'rtadagi, ya'ni 4-qiymat: 20."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 36, 35, 29, 20, 25, 9, 2?",
+"o": [
+"22.3",
+"20",
+"25",
+"29"
+],
+"a": 2,
+"e": "Avval tartiblang: 2, 9, 20, 25, 29, 35, 36. O'rtadagi, ya'ni 4-qiymat: 25."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 16, 15, 33, 30, 6, 35, 10?",
+"o": [
+"20.7",
+"15",
+"30",
+"16"
+],
+"a": 3,
+"e": "Avval tartiblang: 6, 10, 15, 16, 30, 33, 35. O'rtadagi, ya'ni 4-qiymat: 16."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 38, 18, 39, 7, 15, 24, 29?",
+"o": [
+"24",
+"7",
+"18",
+"24.3"
+],
+"a": 0,
+"e": "Avval tartiblang: 7, 15, 18, 24, 29, 38, 39. O'rtadagi, ya'ni 4-qiymat: 24."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 36, 34, 28, 2, 12, 33, 7?",
+"o": [
+"12",
+"28",
+"21.7",
+"2"
+],
+"a": 1,
+"e": "Avval tartiblang: 2, 7, 12, 28, 33, 34, 36. O'rtadagi, ya'ni 4-qiymat: 28."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "What is the median of the data set 9, 3, 10, 39, 37, 6, 5?",
+"o": [
+"15.6",
+"9",
+"39",
+"6"
+],
+"a": 1,
+"e": "Avval tartiblang: 3, 5, 6, 9, 10, 37, 39. O'rtadagi, ya'ni 4-qiymat: 9."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 9 red, 3 blue, and 2 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/14",
+"9/14",
+"3/11",
+"3/14"
+],
+"a": 3,
+"e": "Ko'k sharlar: 3 ta, jami: 14 ta. Ehtimollik: 3/14."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 8 red, 7 blue, and 6 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/2",
+"8/21",
+"1/21",
+"1/3"
+],
+"a": 3,
+"e": "Ko'k sharlar: 7 ta, jami: 21 ta. Ehtimollik: 7/21 = 1/3."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 3 red, 9 blue, and 3 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"3/5",
+"3/2",
+"1/5",
+"1/15"
+],
+"a": 0,
+"e": "Ko'k sharlar: 9 ta, jami: 15 ta. Ehtimollik: 9/15 = 3/5."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 2 red, 3 blue, and 3 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"3/8",
+"3/5",
+"1/4",
+"1/8"
+],
+"a": 0,
+"e": "Ko'k sharlar: 3 ta, jami: 8 ta. Ehtimollik: 3/8."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 7 red, 4 blue, and 2 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"7/13",
+"4/13",
+"1/13",
+"4/9"
+],
+"a": 1,
+"e": "Ko'k sharlar: 4 ta, jami: 13 ta. Ehtimollik: 4/13."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 5 red, 8 blue, and 2 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"8/7",
+"1/15",
+"8/15",
+"1/3"
+],
+"a": 2,
+"e": "Ko'k sharlar: 8 ta, jami: 15 ta. Ehtimollik: 8/15."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 8 red, 6 blue, and 4 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/18",
+"1/3",
+"1/2",
+"4/9"
+],
+"a": 1,
+"e": "Ko'k sharlar: 6 ta, jami: 18 ta. Ehtimollik: 6/18 = 1/3."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 6 red, 9 blue, and 4 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/19",
+"9/10",
+"9/19",
+"6/19"
+],
+"a": 2,
+"e": "Ko'k sharlar: 9 ta, jami: 19 ta. Ehtimollik: 9/19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 5 red, 3 blue, and 2 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"3/7",
+"1/2",
+"1/10",
+"3/10"
+],
+"a": 3,
+"e": "Ko'k sharlar: 3 ta, jami: 10 ta. Ehtimollik: 3/10."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 3 red, 2 blue, and 5 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/10",
+"1/4",
+"3/10",
+"1/5"
+],
+"a": 3,
+"e": "Ko'k sharlar: 2 ta, jami: 10 ta. Ehtimollik: 2/10 = 1/5."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 7 red, 7 blue, and 3 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"7/10",
+"1",
+"1/17",
+"7/17"
+],
+"a": 3,
+"e": "Ko'k sharlar: 7 ta, jami: 17 ta. Ehtimollik: 7/17."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 3 red, 5 blue, and 6 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"5/14",
+"5/9",
+"1/14",
+"3/14"
+],
+"a": 0,
+"e": "Ko'k sharlar: 5 ta, jami: 14 ta. Ehtimollik: 5/14."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 8 red, 9 blue, and 2 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/19",
+"9/19",
+"8/19",
+"9/10"
+],
+"a": 1,
+"e": "Ko'k sharlar: 9 ta, jami: 19 ta. Ehtimollik: 9/19."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 8 red, 8 blue, and 5 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"8/13",
+"1",
+"1/21",
+"8/21"
+],
+"a": 3,
+"e": "Ko'k sharlar: 8 ta, jami: 21 ta. Ehtimollik: 8/21."
+},
+{
+"t": "Problem-Solving and Data Analysis",
+"q": "A bag contains 8 red, 9 blue, and 3 green marbles. If one marble is chosen at random, what is the probability that it is blue?",
+"o": [
+"1/20",
+"9/11",
+"2/5",
+"9/20"
+],
+"a": 3,
+"e": "Ko'k sharlar: 9 ta, jami: 20 ta. Ehtimollik: 9/20."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 26 centimeters and a length of 5 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"105",
+"80",
+"40",
+"13"
+],
+"a": 2,
+"e": "Eni: 26/2 - 5 = 8. Yuzasi: 5·8 = 40 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 46 centimeters and a length of 17 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"204",
+"23",
+"102",
+"493"
+],
+"a": 2,
+"e": "Eni: 46/2 - 17 = 6. Yuzasi: 17·6 = 102 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 32 centimeters and a length of 7 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"126",
+"16",
+"63",
+"175"
+],
+"a": 2,
+"e": "Eni: 32/2 - 7 = 9. Yuzasi: 7·9 = 63 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 54 centimeters and a length of 17 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"340",
+"629",
+"27",
+"170"
+],
+"a": 3,
+"e": "Eni: 54/2 - 17 = 10. Yuzasi: 17·10 = 170 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 32 centimeters and a length of 5 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"16",
+"135",
+"110",
+"55"
+],
+"a": 3,
+"e": "Eni: 32/2 - 5 = 11. Yuzasi: 5·11 = 55 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 66 centimeters and a length of 20 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"920",
+"33",
+"260",
+"520"
+],
+"a": 2,
+"e": "Eni: 66/2 - 20 = 13. Yuzasi: 20·13 = 260 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 66 centimeters and a length of 18 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"540",
+"33",
+"864",
+"270"
+],
+"a": 3,
+"e": "Eni: 66/2 - 18 = 15. Yuzasi: 18·15 = 270 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 50 centimeters and a length of 11 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"308",
+"429",
+"25",
+"154"
+],
+"a": 3,
+"e": "Eni: 50/2 - 11 = 14. Yuzasi: 11·14 = 154 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 56 centimeters and a length of 20 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"320",
+"160",
+"28",
+"720"
+],
+"a": 1,
+"e": "Eni: 56/2 - 20 = 8. Yuzasi: 20·8 = 160 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 38 centimeters and a length of 5 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"70",
+"19",
+"140",
+"165"
+],
+"a": 0,
+"e": "Eni: 38/2 - 5 = 14. Yuzasi: 5·14 = 70 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 40 centimeters and a length of 7 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"91",
+"231",
+"20",
+"182"
+],
+"a": 0,
+"e": "Eni: 40/2 - 7 = 13. Yuzasi: 7·13 = 91 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 38 centimeters and a length of 13 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"325",
+"156",
+"19",
+"78"
+],
+"a": 3,
+"e": "Eni: 38/2 - 13 = 6. Yuzasi: 13·6 = 78 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 52 centimeters and a length of 15 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"330",
+"26",
+"165",
+"555"
+],
+"a": 2,
+"e": "Eni: 52/2 - 15 = 11. Yuzasi: 15·11 = 165 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 62 centimeters and a length of 19 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"456",
+"228",
+"817",
+"31"
+],
+"a": 1,
+"e": "Eni: 62/2 - 19 = 12. Yuzasi: 19·12 = 228 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A rectangle has a perimeter of 46 centimeters and a length of 18 centimeters. What is the area of the rectangle, in square centimeters?",
+"o": [
+"504",
+"23",
+"90",
+"180"
+],
+"a": 2,
+"e": "Eni: 46/2 - 18 = 5. Yuzasi: 18·5 = 90 kv. sm."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 15 and 36. What is the length of the hypotenuse?",
+"o": [
+"42",
+"1521",
+"51",
+"39"
+],
+"a": 3,
+"e": "Pifagor teoremasi: 15² + 36² = 225 + 1296 = 1521. Gipotenuza: √1521 = 39."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 8 and 15. What is the length of the hypotenuse?",
+"o": [
+"289",
+"17",
+"18",
+"23"
+],
+"a": 1,
+"e": "Pifagor teoremasi: 8² + 15² = 64 + 225 = 289. Gipotenuza: √289 = 17."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 5 and 12. What is the length of the hypotenuse?",
+"o": [
+"13",
+"169",
+"14",
+"17"
+],
+"a": 0,
+"e": "Pifagor teoremasi: 5² + 12² = 25 + 144 = 169. Gipotenuza: √169 = 13."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 60 and 63. What is the length of the hypotenuse?",
+"o": [
+"123",
+"7569",
+"90",
+"87"
+],
+"a": 3,
+"e": "Pifagor teoremasi: 60² + 63² = 3600 + 3969 = 7569. Gipotenuza: √7569 = 87."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 14 and 48. What is the length of the hypotenuse?",
+"o": [
+"52",
+"2500",
+"50",
+"62"
+],
+"a": 2,
+"e": "Pifagor teoremasi: 14² + 48² = 196 + 2304 = 2500. Gipotenuza: √2500 = 50."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 24 and 45. What is the length of the hypotenuse?",
+"o": [
+"54",
+"51",
+"69",
+"2601"
+],
+"a": 1,
+"e": "Pifagor teoremasi: 24² + 45² = 576 + 2025 = 2601. Gipotenuza: √2601 = 51."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 9 and 12. What is the length of the hypotenuse?",
+"o": [
+"15",
+"18",
+"21",
+"225"
+],
+"a": 0,
+"e": "Pifagor teoremasi: 9² + 12² = 81 + 144 = 225. Gipotenuza: √225 = 15."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 10 and 24. What is the length of the hypotenuse?",
+"o": [
+"28",
+"34",
+"676",
+"26"
+],
+"a": 3,
+"e": "Pifagor teoremasi: 10² + 24² = 100 + 576 = 676. Gipotenuza: √676 = 26."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 21 and 72. What is the length of the hypotenuse?",
+"o": [
+"5625",
+"75",
+"78",
+"93"
+],
+"a": 1,
+"e": "Pifagor teoremasi: 21² + 72² = 441 + 5184 = 5625. Gipotenuza: √5625 = 75."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 20 and 21. What is the length of the hypotenuse?",
+"o": [
+"841",
+"30",
+"41",
+"29"
+],
+"a": 3,
+"e": "Pifagor teoremasi: 20² + 21² = 400 + 441 = 841. Gipotenuza: √841 = 29."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 3 and 4. What is the length of the hypotenuse?",
+"o": [
+"6",
+"7",
+"25",
+"5"
+],
+"a": 3,
+"e": "Pifagor teoremasi: 3² + 4² = 9 + 16 = 25. Gipotenuza: √25 = 5."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 40 and 42. What is the length of the hypotenuse?",
+"o": [
+"60",
+"3364",
+"58",
+"82"
+],
+"a": 2,
+"e": "Pifagor teoremasi: 40² + 42² = 1600 + 1764 = 3364. Gipotenuza: √3364 = 58."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 16 and 30. What is the length of the hypotenuse?",
+"o": [
+"1156",
+"46",
+"34",
+"36"
+],
+"a": 2,
+"e": "Pifagor teoremasi: 16² + 30² = 256 + 900 = 1156. Gipotenuza: √1156 = 34."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 6 and 8. What is the length of the hypotenuse?",
+"o": [
+"10",
+"12",
+"14",
+"100"
+],
+"a": 0,
+"e": "Pifagor teoremasi: 6² + 8² = 36 + 64 = 100. Gipotenuza: √100 = 10."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A right triangle has legs of lengths 7 and 24. What is the length of the hypotenuse?",
+"o": [
+"31",
+"25",
+"625",
+"26"
+],
+"a": 1,
+"e": "Pifagor teoremasi: 7² + 24² = 49 + 576 = 625. Gipotenuza: √625 = 25."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 225π square units. What is the circumference of the circle?",
+"o": [
+"15π",
+"225π",
+"30π",
+"450π"
+],
+"a": 2,
+"e": "πr² = 225π, demak r = 15. Aylana uzunligi: 2πr = 30π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 64π square units. What is the circumference of the circle?",
+"o": [
+"16π",
+"64π",
+"128π",
+"8π"
+],
+"a": 0,
+"e": "πr² = 64π, demak r = 8. Aylana uzunligi: 2πr = 16π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 100π square units. What is the circumference of the circle?",
+"o": [
+"200π",
+"10π",
+"100π",
+"20π"
+],
+"a": 3,
+"e": "πr² = 100π, demak r = 10. Aylana uzunligi: 2πr = 20π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 196π square units. What is the circumference of the circle?",
+"o": [
+"196π",
+"392π",
+"28π",
+"14π"
+],
+"a": 2,
+"e": "πr² = 196π, demak r = 14. Aylana uzunligi: 2πr = 28π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 9π square units. What is the circumference of the circle?",
+"o": [
+"6π",
+"3π",
+"9π",
+"18π"
+],
+"a": 0,
+"e": "πr² = 9π, demak r = 3. Aylana uzunligi: 2πr = 6π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 25π square units. What is the circumference of the circle?",
+"o": [
+"25π",
+"5π",
+"50π",
+"10π"
+],
+"a": 3,
+"e": "πr² = 25π, demak r = 5. Aylana uzunligi: 2πr = 10π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 36π square units. What is the circumference of the circle?",
+"o": [
+"12π",
+"36π",
+"72π",
+"6π"
+],
+"a": 0,
+"e": "πr² = 36π, demak r = 6. Aylana uzunligi: 2πr = 12π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 16π square units. What is the circumference of the circle?",
+"o": [
+"4π",
+"32π",
+"8π",
+"16π"
+],
+"a": 2,
+"e": "πr² = 16π, demak r = 4. Aylana uzunligi: 2πr = 8π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 49π square units. What is the circumference of the circle?",
+"o": [
+"49π",
+"7π",
+"98π",
+"14π"
+],
+"a": 3,
+"e": "πr² = 49π, demak r = 7. Aylana uzunligi: 2πr = 14π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 256π square units. What is the circumference of the circle?",
+"o": [
+"512π",
+"256π",
+"16π",
+"32π"
+],
+"a": 3,
+"e": "πr² = 256π, demak r = 16. Aylana uzunligi: 2πr = 32π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 400π square units. What is the circumference of the circle?",
+"o": [
+"400π",
+"20π",
+"800π",
+"40π"
+],
+"a": 3,
+"e": "πr² = 400π, demak r = 20. Aylana uzunligi: 2πr = 40π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 121π square units. What is the circumference of the circle?",
+"o": [
+"22π",
+"11π",
+"242π",
+"121π"
+],
+"a": 0,
+"e": "πr² = 121π, demak r = 11. Aylana uzunligi: 2πr = 22π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 289π square units. What is the circumference of the circle?",
+"o": [
+"289π",
+"578π",
+"17π",
+"34π"
+],
+"a": 3,
+"e": "πr² = 289π, demak r = 17. Aylana uzunligi: 2πr = 34π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 169π square units. What is the circumference of the circle?",
+"o": [
+"13π",
+"338π",
+"26π",
+"169π"
+],
+"a": 2,
+"e": "πr² = 169π, demak r = 13. Aylana uzunligi: 2πr = 26π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "A circle has an area of 324π square units. What is the circumference of the circle?",
+"o": [
+"648π",
+"18π",
+"36π",
+"324π"
+],
+"a": 2,
+"e": "πr² = 324π, demak r = 18. Aylana uzunligi: 2πr = 36π."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 68° and 72°. What is the measure of the third angle?",
+"o": [
+"140°",
+"220°",
+"50°",
+"40°"
+],
+"a": 3,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 68 - 72 = 40°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 83° and 24°. What is the measure of the third angle?",
+"o": [
+"83°",
+"107°",
+"253°",
+"73°"
+],
+"a": 3,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 83 - 24 = 73°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 71° and 27°. What is the measure of the third angle?",
+"o": [
+"92°",
+"82°",
+"262°",
+"98°"
+],
+"a": 1,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 71 - 27 = 82°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 43° and 69°. What is the measure of the third angle?",
+"o": [
+"78°",
+"248°",
+"112°",
+"68°"
+],
+"a": 3,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 43 - 69 = 68°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 82° and 63°. What is the measure of the third angle?",
+"o": [
+"45°",
+"35°",
+"215°",
+"145°"
+],
+"a": 1,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 82 - 63 = 35°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 26° and 59°. What is the measure of the third angle?",
+"o": [
+"95°",
+"275°",
+"105°",
+"85°"
+],
+"a": 0,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 26 - 59 = 95°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 74° and 75°. What is the measure of the third angle?",
+"o": [
+"31°",
+"149°",
+"211°",
+"41°"
+],
+"a": 0,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 74 - 75 = 31°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 86° and 59°. What is the measure of the third angle?",
+"o": [
+"45°",
+"215°",
+"35°",
+"145°"
+],
+"a": 2,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 86 - 59 = 35°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 55° and 33°. What is the measure of the third angle?",
+"o": [
+"92°",
+"102°",
+"88°",
+"272°"
+],
+"a": 0,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 55 - 33 = 92°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 30° and 69°. What is the measure of the third angle?",
+"o": [
+"81°",
+"99°",
+"91°",
+"261°"
+],
+"a": 0,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 30 - 69 = 81°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 33° and 51°. What is the measure of the third angle?",
+"o": [
+"106°",
+"84°",
+"276°",
+"96°"
+],
+"a": 3,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 33 - 51 = 96°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 74° and 26°. What is the measure of the third angle?",
+"o": [
+"90°",
+"80°",
+"260°",
+"100°"
+],
+"a": 1,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 74 - 26 = 80°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 74° and 33°. What is the measure of the third angle?",
+"o": [
+"83°",
+"73°",
+"253°",
+"107°"
+],
+"a": 1,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 74 - 33 = 73°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 28° and 33°. What is the measure of the third angle?",
+"o": [
+"61°",
+"119°",
+"129°",
+"299°"
+],
+"a": 1,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 28 - 33 = 119°."
+},
+{
+"t": "Geometry and Trigonometry",
+"q": "In a triangle, two of the angles measure 73° and 22°. What is the measure of the third angle?",
+"o": [
+"95°",
+"5°",
+"265°",
+"85°"
+],
+"a": 3,
+"e": "Uchburchak burchaklari yig'indisi 180°: 180 - 73 - 22 = 85°."
+}
+]

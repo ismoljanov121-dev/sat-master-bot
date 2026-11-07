@@ -143,8 +143,10 @@ class StartupTest(unittest.IsolatedAsyncioTestCase):
 
     def test_scheduler_has_all_jobs(self):
         scheduler = setup_scheduler(object())
-        names = {job.func.__name__ for job in scheduler.get_jobs()}
-        self.assertEqual(names, {"post_daily_vocab_pack", "post_daily_sat_quiz", "post_daily_tip", "send_reminders", "send_weekly_reports"})
+        jobs = scheduler.get_jobs()
+        self.assertEqual({job.func.__name__ for job in jobs}, {"post_channel_slot", "send_reminders", "send_weekly_reports"})
+        slots = [job for job in jobs if job.func.__name__ == "post_channel_slot"]
+        self.assertEqual(sorted(job.args[1] for job in slots), [0, 1, 2, 3])
 
     async def test_main_starts_serves_and_stops_cleanly(self):
         seen = {}

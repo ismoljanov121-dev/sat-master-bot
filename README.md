@@ -22,7 +22,9 @@ Bot: [@ieltssat_dailybot](https://t.me/ieltssat_dailybot) · Kanal: [@ieltssat_d
 - O'qituvchilarni taklif havolasi orqali qo'shish
 
 **Kanal uchun**
-- Kuniga 3 ta avtomatik post: lug'at, SAT savoli, strategiya. Hamma kontent ishlatilmaguncha takrorlanmaydi
+- Kuniga 10 ta avtomatik post, 4 mahal (08:00, 13:00, 18:00, 21:00): SAT va IELTS so'zlari, so'z testlari, SAT grammatika va Math savollari, IELTS quizlari, iboralar, Speaking savollari, maslahatlar va faktlar
+- Bazada 3 000 dan ortiq post bor (`data/channel/`). Har tur o'z hovuzi tugamaguncha takrorlanmaydi, eng kichik hovuz ham 4 oydan ko'proqqa yetadi
+- SAT Math savollarini `scripts/generate_channel_math.py` yaratadi va har bir javobni o'zi hisoblaydi
 
 ## O'rnatish
 
@@ -97,7 +99,8 @@ https://sat-master-bot.onrender.com/health
 bot.py            ishga tushirish, veb-server, health check
 webapi.py         Mini App uchun /api/v1, initData bilan himoyalangan
 database.py       Postgres yoki SQLite
-scheduler.py      kanal postlari, eslatmalar, haftalik hisobot
+scheduler.py      kanal slotlari, eslatmalar, haftalik hisobot
+services/channel.py  kanal postlarini tanlash va yuborish
 handlers/         bot buyruqlari
 services/         baholash, takrorlash, reja, AI, markazlar
 webapp/           Mini App
