@@ -48,7 +48,7 @@ views.home = {
     const allDone = plan.total && plan.done === plan.total;
     return `<div class="page stack">
       <div class="between"><div><div class="label">${greeting()}</div><div class="h1">${esc(me.first_name || "O'quvchi")}</div></div>
-        <span class="chip ${me.streak ? 'warn' : ''} num">${icon('flame', true)}${me.streak} kun</span></div>
+        <span class="row" style="gap:2px"><span class="chip ${me.streak ? 'warn' : ''} num">${icon('flame', true)}${me.streak} kun</span>${fullscreenButton()}</span></div>
       ${!me.onboarded ? `<button class="card row" data-act="open" data-view="onboarding" style="text-align:left;width:100%">
         <span class="tile">${icon('target')}</span><span class="grow"><span class="h3">Maqsadingizni belgilang</span><br><span class="label">Sizga mos kunlik reja tuzamiz</span></span>
         <span class="chev">${icon('right', true)}</span></button>` : ''}

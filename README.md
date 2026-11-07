@@ -15,6 +15,7 @@ Bot: [@ieltssat_dailybot](https://t.me/ieltssat_dailybot) · Kanal: [@ieltssat_d
 - Diagnostika, kunlik reja, eslatmalar va haftalik hisobot
 - IELTS Listening (MP3 audio), Reading (4 ta test, 2 tasi to'liq uzunlikda), Writing (46 mavzu va AI tekshiruvi)
 - Natijani ulashish va do'stlarni taklif qilish
+- To'liq ekran: telefonda avtomatik, kompyuterda Bosh sahifa, Profil va imtihon ekranidagi tugma bilan. Tanlov eslab qolinadi
 
 **O'quv markazi uchun**
 - 6 belgili kod bilan guruh imtihoni, natijalar jadvali, guruhning zaif mavzulari, CSV eksport

@@ -222,7 +222,7 @@ views.ieltsTest = {
     return `<div class="exam"><div class="exam-top"><div class="exam-top-in">
         <button class="icon-btn" data-act="iqExit" aria-label="Chiqish">${icon('x')}</button>
         <div class="exam-title"><span class="eyebrow">${label}</span><span id="exam-timer"><span class="timer off">${esc(it.test.title)}</span></span></div>
-        <span style="width:44px"></span></div><div class="exam-progress"><i id="exam-bar"></i></div></div>
+        ${examFullscreenButton() || '<span style="width:44px"></span>'}</div><div class="exam-progress"><i id="exam-bar"></i></div></div>
       <div id="exam-main" class="exam-main"></div>
       <div class="exam-bottom"><div id="exam-bottom" class="exam-bottom-in"></div></div></div>`;
   },
