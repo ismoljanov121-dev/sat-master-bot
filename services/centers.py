@@ -12,6 +12,7 @@ from typing import Any, Optional
 from config import ADMIN_IDS
 from database import db, now_ts
 from services.content import content
+from services.promo import SOURCE as PROMO_SOURCE
 
 CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
 
@@ -202,5 +203,6 @@ async def platform_stats() -> dict[str, Any]:
         "attempts_today": int(await db.fetchval("SELECT COUNT(*) FROM attempts WHERE day = ?", day) or 0),
         "mocks": int(await db.fetchval("SELECT COUNT(*) FROM attempts WHERE kind = 'sat_mock'") or 0),
         "essays_today": int(await db.fetchval("SELECT COUNT(*) FROM writing_submissions WHERE day = ?", day) or 0),
+        "promo": int(await db.fetchval("SELECT COUNT(*) FROM users WHERE source = ?", PROMO_SOURCE) or 0),
         "storage": db.kind,
     }

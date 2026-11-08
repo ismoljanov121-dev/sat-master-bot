@@ -19,6 +19,13 @@ def _int_env(name: str, default: int) -> int:
         return default
 
 
+def _bool_env(name: str, default: bool) -> bool:
+    value = os.getenv(name, "").strip().lower()
+    if not value:
+        return default
+    return value not in ("0", "false", "no", "off")
+
+
 def _id_set(*names: str) -> frozenset[int]:
     ids = set()
     for name in names:
@@ -33,6 +40,8 @@ BOT_TOKEN: str = os.getenv("BOT_TOKEN", "").strip()
 BOT_USERNAME: str = os.getenv("BOT_USERNAME", "ieltssat_dailybot").strip().lstrip("@")
 CHANNEL_ID: str = os.getenv("CHANNEL_ID", "@ieltssat_daily").strip()
 CHANNEL_URL: str = os.getenv("CHANNEL_URL", "https://t.me/ieltssat_daily").strip()
+# Students must join CHANNEL_ID before they can use the bot and the Mini App. Admins and teachers are exempt.
+REQUIRE_SUBSCRIPTION: bool = _bool_env("REQUIRE_SUBSCRIPTION", True)
 TIMEZONE: str = os.getenv("TIMEZONE", "Asia/Tashkent").strip()
 WEBAPP_URL: str = os.getenv("WEBAPP_URL", "https://sat-master-bot.onrender.com/webapp").strip()
 PORT: int = _int_env("PORT", 8080)

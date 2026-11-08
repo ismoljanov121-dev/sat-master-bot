@@ -9,7 +9,7 @@ from aiogram.filters import Command, CommandObject
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message, WebAppInfo
 
 from config import BOT_USERNAME, WEBAPP_URL
-from services import centers
+from services import centers, promo
 
 router = Router()
 
@@ -32,8 +32,10 @@ async def dashboard_text() -> str:
         f"📝 Bugungi urinishlar: <b>{stats['attempts_today']}</b>\n"
         f"🎯 Jami SAT mock: <b>{stats['mocks']}</b>\n"
         f"✍️ Bugungi AI tekshiruvlar: <b>{stats['essays_today']}</b>\n"
+        f"📣 Reklama tugmasidan kelganlar: <b>{stats['promo']}</b>\n"
         f"💾 Saqlash: {storage}\n\n"
-        "Yangi markaz: <code>/center_add Markaz nomi</code>"
+        "Yangi markaz: <code>/center_add Markaz nomi</code>\n"
+        "Reklama posti: <code>/reklama</code>"
     )
 
 
@@ -80,6 +82,26 @@ async def cb_centers(callback: CallbackQuery):
     for row in rows:
         lines.append(f"<b>{html.escape(row['name'])}</b>: {row['students']} o'quvchi\n{teacher_link(row)}\n")
     await callback.message.answer("\n".join(lines), parse_mode="HTML", disable_web_page_preview=True)
+
+
+@router.message(F.chat.type == "private", Command("reklama"))
+async def cmd_promo(message: Message):
+    """An admin sends a video captioned /reklama and gets back the advert post, ready to forward."""
+    if not centers.is_admin(message.from_user.id):
+        return
+    if message.video:
+        await message.answer_video(
+            message.video.file_id, caption=promo.CAPTION, reply_markup=promo.keyboard(), parse_mode="HTML",
+            supports_streaming=True,
+        )
+        return
+    if message.animation:
+        await message.answer_animation(
+            message.animation.file_id, caption=promo.CAPTION, reply_markup=promo.keyboard(), parse_mode="HTML",
+        )
+        return
+    await message.answer(promo.HELP, parse_mode="HTML")
+    await message.answer(promo.CAPTION, reply_markup=promo.keyboard(), parse_mode="HTML", disable_web_page_preview=True)
 
 
 @router.message(F.chat.type == "private", Command("center_add"))

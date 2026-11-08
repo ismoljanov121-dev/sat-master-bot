@@ -21,6 +21,16 @@ Bot: [@ieltssat_dailybot](https://t.me/ieltssat_dailybot) · Kanal: [@ieltssat_d
 - 6 belgili kod bilan guruh imtihoni, natijalar jadvali, guruhning zaif mavzulari, CSV eksport
 - O'qituvchilarni taklif havolasi orqali qo'shish
 
+**Kanalga obuna**
+- Bot va Mini App'dan foydalanish uchun o'quvchi `CHANNEL_ID` kanaliga obuna bo'lishi kerak. Administrator va o'qituvchilar tekshirilmaydi
+- Obuna bo'lmagan o'quvchi kanal havolasi va «A'zo bo'ldim» tugmasini ko'radi. `/mock KOD` bilan kelgan bo'lsa, imtihon kodi tugmada saqlanadi va obunadan keyin ochiladi
+- Telegram javob bermasa, o'quvchi kiritiladi va administratorlarga xabar boradi, shunda tekshiruvdagi nosozlik hammani to'sib qo'ymaydi
+- Bot kanalda administrator bo'lishi shart, aks holda Telegram a'zolikni ko'rsatmaydi
+
+**Reklama**
+- Administrator botga videoni `/reklama` izohi bilan yuborsa, bot uni matn va ikki tugma (botni ochish, kanalga obuna) bilan tayyor post qilib qaytaradi. Postni kanal va guruhlarga uzatish kifoya
+- Tugma orqali kelgan yangi foydalanuvchilar `/admin` panelida sanaladi
+
 **Kanal uchun**
 - Kuniga 10 ta avtomatik post, 4 mahal (08:00, 13:00, 18:00, 21:00): SAT va IELTS so'zlari, so'z testlari, SAT grammatika va Math savollari, IELTS quizlari, iboralar, Speaking savollari, maslahatlar va faktlar
 - Bazada 3 000 dan ortiq post bor (`data/channel/`). Har tur o'z hovuzi tugamaguncha takrorlanmaydi, eng kichik hovuz ham 4 oydan ko'proqqa yetadi
@@ -49,6 +59,7 @@ Python 3.10 yoki yangiroq kerak. Render va CI 3.14 da ishlaydi (`.python-version
 | `AI_GLOBAL_DAILY_LIMIT` | Hamma uchun kunlik chegara, standart 200 |
 | `WEBAPP_URL` | Mini App manzili |
 | `CHANNEL_ID`, `CHANNEL_URL` | Kunlik postlar kanali |
+| `REQUIRE_SUBSCRIPTION` | Bot va Mini App uchun kanalga obuna majburiyligi. Standart yoqilgan, o'chirish uchun `0` |
 | `DESMOS_API_KEY` | Bo'lsa, grafik Desmos kalkulyatori ochiladi. Ishlab chiqarish kaliti Desmos'dan so'raladi |
 | `SENTRY_DSN` | Ixtiyoriy xatolar monitoringi |
 

@@ -13,7 +13,7 @@ from aiogram.types import BufferedInputFile
 from aiohttp import web
 
 import config
-from services import attempts, cards, centers, plan, review, users, writing_ai
+from services import attempts, cards, centers, plan, review, subscription, users, writing_ai
 from services.auth_service import validate_telegram_init_data
 from services.content import SAT_DOMAINS, content
 
@@ -54,6 +54,8 @@ async def api_middleware(request: web.Request, handler):
     user_id = tg_user["id"]
     if not _allowed(user_id):
         return fail("rate_limited", 429)
+    if not await subscription.may_use(request.app.get("bot"), user_id):
+        return web.json_response({"error": "not_subscribed", "channel": config.CHANNEL_URL}, status=403)
     user = await users.get_user(user_id)
     if user is None:
         user, _ = await users.touch_user(tg_user)

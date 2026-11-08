@@ -1,7 +1,10 @@
 import html
 import re
 import logging
-from aiogram import Router, F, Bot
+from typing import Any, Awaitable, Callable
+
+from aiogram import BaseMiddleware, Router, F, Bot
+from aiogram.enums import ChatType
 from aiogram.types import (
     Message,
     CallbackQuery,
@@ -9,16 +12,39 @@ from aiogram.types import (
     InlineKeyboardButton,
     ReplyKeyboardMarkup,
     KeyboardButton,
+    TelegramObject,
     WebAppInfo
 )
 from aiogram.filters import CommandObject, CommandStart, Command
-from aiogram.enums import ChatMemberStatus
 
-from config import ADMIN_IDS, CHANNEL_ID, CHANNEL_URL, WEBAPP_URL
-from services import centers, users
+from config import ADMIN_IDS, CHANNEL_URL, WEBAPP_URL
+from services import centers, subscription, users
+from services.promo import channel_handle
 
 logger = logging.getLogger(__name__)
 router = Router()
+
+CHECK_PREFIX = "check_sub"
+CHANNEL = channel_handle()
+NOT_JOINED_ALERT = f"❌ Siz hali {CHANNEL} kanaliga a'zo bo'lmadingiz! Iltimos, avval kanalga obuna bo'ling."
+GATE_TEXT = (
+    f"🔒 <b>Avval {CHANNEL} kanaliga obuna bo'ling.</b>\n\n"
+    "Bot va Mini App kanal a'zolari uchun bepul. Obuna bo'lgach, <b>«✅ A'zo bo'ldim»</b> tugmasini bosing."
+)
+WELCOME_LOCKED = (
+    "🎓 <b>IELTS va SAT O'quv Bazasiga Xush Kelibsiz!</b>\n\n"
+    "Bu bot orqali SAT va IELTS imtihonlariga <b>bepul</b> tayyorlanasiz.\n\n"
+    "📖 <b>Nimalar bor:</b>\n"
+    "• <b>Digital SAT Mock:</b> adaptiv, 98 savollik testlar va batafsil hisobot\n"
+    "• <b>Qisqa mashqlar:</b> mavzu bo'yicha 10 savol va xatolar daftari\n"
+    "• <b>IELTS Listening va Reading:</b> 40 savollik testlar\n"
+    "• <b>AI Writing:</b> inshongizni yozing va taxminiy band oling\n\n"
+    "━━━━━━━━━━━━━━━━━━━━\n"
+    f"🔒 Botdan foydalanish uchun <b>{CHANNEL}</b> kanaliga obuna bo'ling. "
+    "Kanalda har kuni so'zlar, savollar va strategiyalar chiqadi.\n\n"
+    "Obuna bo'lgach, <b>«✅ A'zo bo'ldim»</b> tugmasini bosing 👇"
+)
+
 
 def get_main_reply_keyboard() -> ReplyKeyboardMarkup:
     """Doimiy pastki klaviatura menyusi (klaviatura ustida/yonida doim ko'rinib turadi)."""
@@ -37,22 +63,12 @@ def get_main_reply_keyboard() -> ReplyKeyboardMarkup:
         is_persistent=True
     )
 
-async def is_user_subscribed(bot: Bot, user_id: int) -> bool:
-    """Foydalanuvchi kanalga a'zo ekanligini tekshirish."""
-    try:
-        member = await bot.get_chat_member(chat_id=CHANNEL_ID, user_id=user_id)
-        return member.status in [
-            ChatMemberStatus.MEMBER,
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.CREATOR
-        ]
-    except Exception:
-        return False
-
-def get_join_inline_keyboard() -> InlineKeyboardMarkup:
+def get_join_inline_keyboard(payload: str = "") -> InlineKeyboardMarkup:
+    """The check button carries what the student asked for, such as an exam code, so it opens after joining."""
+    check = f"{CHECK_PREFIX}:{payload}" if payload else CHECK_PREFIX
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📢 Kanalga a'zo bo'lish (@ieltssat_daily)", url=CHANNEL_URL)],
-        [InlineKeyboardButton(text="✅ A'zo bo'ldim — Barcha materiallarni ochish", callback_data="check_sub")]
+        [InlineKeyboardButton(text=f"📢 Kanalga a'zo bo'lish ({CHANNEL})", url=CHANNEL_URL)],
+        [InlineKeyboardButton(text="✅ A'zo bo'ldim — Barcha materiallarni ochish", callback_data=check[:64])]
     ])
 
 def get_materials_inline_keyboard() -> InlineKeyboardMarkup:
@@ -66,7 +82,7 @@ def get_materials_inline_keyboard() -> InlineKeyboardMarkup:
 def get_channel_action_button(label: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=f"📥 {label}", url=CHANNEL_URL)],
-        [InlineKeyboardButton(text="🔙 Bosh menyuga qaytish", callback_data="check_sub")]
+        [InlineKeyboardButton(text="🔙 Bosh menyuga qaytish", callback_data=CHECK_PREFIX)]
     ])
 
 def session_button(code: str, title: str) -> InlineKeyboardMarkup:
@@ -76,8 +92,44 @@ def session_button(code: str, title: str) -> InlineKeyboardMarkup:
     ])
 
 
-async def answer_session(message: Message, code: str) -> None:
-    session = await centers.join_session(message.from_user.id, code)
+def pending_payload(message: Message) -> str:
+    """An exam code typed before joining the channel, as /mock CODE."""
+    match = re.match(r"/mock(?:@\w+)?\s+(\S+)", message.text or "")
+    return f"s_{match.group(1)[:16]}" if match else ""
+
+
+class ChannelGate(BaseMiddleware):
+    """Students must join the channel before using the menu. /start and the check button handle it themselves."""
+
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
+        data: dict[str, Any],
+    ) -> Any:
+        user = data.get("event_from_user")
+        chat = data.get("event_chat")
+        if user is None or chat is None or chat.type != ChatType.PRIVATE:
+            return await handler(event, data)
+        if isinstance(event, Message) and (event.text or "").startswith("/start"):
+            return await handler(event, data)
+        if isinstance(event, CallbackQuery) and (event.data or "").startswith(CHECK_PREFIX):
+            return await handler(event, data)
+        if await subscription.may_use(data["bot"], user.id):
+            return await handler(event, data)
+        if isinstance(event, CallbackQuery):
+            await event.answer(NOT_JOINED_ALERT, show_alert=True)
+        elif isinstance(event, Message):
+            await event.answer(GATE_TEXT, reply_markup=get_join_inline_keyboard(pending_payload(event)), parse_mode="HTML")
+        return None
+
+
+router.message.middleware(ChannelGate())
+router.callback_query.middleware(ChannelGate())
+
+
+async def answer_session(message: Message, code: str, user_id: int | None = None) -> None:
+    session = await centers.join_session(user_id or message.from_user.id, code)
     if session is None:
         await message.answer("❌ Bu kod topilmadi yoki imtihon yopilgan. Kodni o'qituvchingizdan tekshiring.")
         return
@@ -112,28 +164,15 @@ async def cmd_start(message: Message, bot: Bot, command: CommandObject):
                 reply_markup=get_main_reply_keyboard(), parse_mode="HTML",
             )
         return
-    if args.startswith("s_"):
-        await answer_session(message, args[2:])
-        return
 
     user_id = message.from_user.id
-    subscribed = await is_user_subscribed(bot, user_id)
+    if not await subscription.may_use(bot, user_id):
+        payload = args if args.startswith("s_") else ""
+        await message.answer(WELCOME_LOCKED, reply_markup=get_join_inline_keyboard(payload), parse_mode="HTML")
+        return
 
-    if not subscribed:
-        text = (
-            "🎓 <b>IELTS va SAT O'quv Bazasiga Xush Kelibsiz!</b>\n\n"
-            "Bu bot orqali SAT va IELTS imtihonlariga <b>bepul</b> tayyorlanasiz.\n\n"
-            "📖 <b>Nimalar bor:</b>\n"
-            "• <b>Digital SAT Mock:</b> adaptiv, 98 savollik testlar va batafsil hisobot\n"
-            "• <b>Qisqa mashqlar:</b> mavzu bo'yicha 10 savol va xatolar daftari\n"
-            "• <b>IELTS Listening va Reading:</b> 40 savollik testlar\n"
-            "• <b>AI Writing:</b> inshongizni yozing va taxminiy band oling\n\n"
-            "━━━━━━━━━━━━━━━━━━━━\n"
-            "📢 Kunlik so'zlar, savollar va strategiyalar <b>@ieltssat_daily</b> kanalida chiqadi. "
-            "A'zo bo'lib, <b>'A'zo bo'ldim'</b> tugmasini bosing:"
-        )
-        await message.answer(text, reply_markup=get_join_inline_keyboard(), parse_mode="HTML")
-        await message.answer("👇 Pastki doimiy menyudan ham foydalanishingiz mumkin:", reply_markup=get_main_reply_keyboard())
+    if args.startswith("s_"):
+        await answer_session(message, args[2:])
         return
 
     text = (
@@ -185,33 +224,34 @@ async def msg_materials(message: Message):
 async def msg_channel(message: Message):
     text = (
         "📢 <b>IELTS va SAT O'quv Kanali:</b>\n\n"
-        "👉 @ieltssat_daily\n\n"
-        "Kanalda har kuni:\n"
-        "• 09:00 — Akademik Lug'at\n"
-        "• 14:00 — Interaktiv Quiz-Viktorina\n"
-        "• 20:00 — Imtihon Strategiyalari"
+        f"👉 {CHANNEL}\n\n"
+        "Kanalda har kuni 10 ta post:\n"
+        "• 08:00 — SAT va IELTS so'zlari, maslahat\n"
+        "• 13:00 — SAT savoli va so'z testi\n"
+        "• 18:00 — SAT Math, ibora va IELTS testi\n"
+        "• 21:00 — IELTS Speaking savoli va qo'shimcha post"
     )
     await message.answer(text, reply_markup=get_main_reply_keyboard(), parse_mode="HTML")
 
-@router.callback_query(F.data == "check_sub")
+@router.callback_query(F.data.startswith(CHECK_PREFIX))
 async def callback_check_sub(callback: CallbackQuery, bot: Bot):
     user_id = callback.from_user.id
-    subscribed = await is_user_subscribed(bot, user_id)
+    payload = (callback.data or "")[len(CHECK_PREFIX):].lstrip(":")
+    if not await subscription.may_use(bot, user_id, fresh=True):
+        await callback.answer(NOT_JOINED_ALERT, show_alert=True)
+        return
 
-    if subscribed:
-        await callback.answer()
-        await callback.message.edit_text(
-            "✅ <b>Obuna tasdiqlandi!</b> Barcha IELTS va SAT materiallari hamda Mock tizimi ochiq.\n\n"
-            "O'zingizga kerakli manbani tanlang:",
-            reply_markup=get_materials_inline_keyboard(),
-            parse_mode="HTML"
-        )
-        await callback.message.answer("📱 Pastki menyu faollashtirildi:", reply_markup=get_main_reply_keyboard())
-    else:
-        await callback.answer(
-            "❌ Siz hali @ieltssat_daily kanaliga a'zo bo'lmadingiz! Iltimos, avval kanalga obuna bo'ling.",
-            show_alert=True
-        )
+    await callback.answer()
+    if payload.startswith("s_") and callback.message is not None:
+        await answer_session(callback.message, payload[2:], user_id=user_id)
+        return
+    await callback.message.edit_text(
+        "✅ <b>Obuna tasdiqlandi!</b> Barcha IELTS va SAT materiallari hamda Mock tizimi ochiq.\n\n"
+        "O'zingizga kerakli manbani tanlang:",
+        reply_markup=get_materials_inline_keyboard(),
+        parse_mode="HTML"
+    )
+    await callback.message.answer("📱 Pastki menyu faollashtirildi:", reply_markup=get_main_reply_keyboard())
 
 @router.callback_query(F.data == "dl_ielts")
 async def callback_dl_ielts(callback: CallbackQuery):
@@ -252,9 +292,10 @@ async def callback_dl_vocab(callback: CallbackQuery):
     await callback.answer()
     text = (
         "💎 <b>Akademik Lug'at va Kollokatsiyalar</b>\n\n"
-        "Kanalda har kuni 09:00 da:\n"
-        "• Mavzu bo'yicha 10 ta akademik so'z\n"
-        "• O'zbekcha izoh va kollokatsiya\n\n"
+        "Kanalda har kuni:\n"
+        "• 08:00 da SAT va IELTS so'zlari: o'zbekcha ma'nosi, misol va sinonimlari bilan\n"
+        "• 13:00 da so'z testi\n"
+        "• 18:00 da ibora yoki kollokatsiya\n\n"
         "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
@@ -268,9 +309,10 @@ async def callback_dl_desmos(callback: CallbackQuery):
     await callback.answer()
     text = (
         "⚡ <b>SAT Math Maslahatlari</b>\n\n"
-        "Kanalda:\n"
-        "• Har kuni 14:00 da SAT savoli va yechimi\n"
-        "• Har kuni 20:00 da imtihon strategiyasi\n\n"
+        "Kanalda har kuni:\n"
+        "• 13:00 da SAT savoli test shaklida\n"
+        "• 18:00 da SAT Math savoli, javobi va izohi bilan\n"
+        "• 08:00 da imtihon maslahati\n\n"
         "📂 Kanal postlarini quyidagi tugma orqali ko'ring:"
     )
     await callback.message.edit_text(
@@ -298,7 +340,7 @@ async def group_content_listener(message: Message, bot: Bot):
 
     text_lower = text.lower()
     matches = [k for k in KEYWORDS if re.search(r'\b' + re.escape(k) + r'\b', text_lower)]
-    
+
     if len(matches) >= 2:
         logger.info(f"Guruhdan savol/fayl topildi: {message.chat.title}")
         recreated_post = (

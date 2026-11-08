@@ -19,7 +19,7 @@ def fake_message(user_id: int = 5, first_name: str = "Ali") -> SimpleNamespace:
 class StartTest(DatabaseTestCase):
     async def start(self, args=None, user_id=5):
         message = fake_message(user_id)
-        bot = SimpleNamespace(get_chat_member=AsyncMock(side_effect=Exception("no channel")))
+        bot = SimpleNamespace(get_chat_member=AsyncMock(return_value=SimpleNamespace(status="member")))
         await menu.cmd_start(message, bot, SimpleNamespace(args=args))
         return message
 

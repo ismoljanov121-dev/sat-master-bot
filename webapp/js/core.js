@@ -140,8 +140,12 @@ function recall(key) {
 }
 
 class ApiError extends Error {
-  constructor(code, status) { super(code); this.code = code; this.status = status; }
+  constructor(code, status, data = {}) { super(code); this.code = code; this.status = status; this.data = data; }
 }
+
+// The server refuses students who have not joined the channel yet. Their results wait in the queue.
+const CHANNEL_FALLBACK = 'https://t.me/ieltssat_daily';
+const isQueueable = (e) => e.code === 'network' || e.status === 401 || e.code === 'not_subscribed';
 
 async function api(path, options = {}) {
   if (!hasTelegramUser) throw new ApiError('no_user', 0);
@@ -156,7 +160,7 @@ async function api(path, options = {}) {
     throw new ApiError('network', 0);
   }
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new ApiError(data.error || 'server_error', response.status);
+  if (!response.ok) throw new ApiError(data.error || 'server_error', response.status, data);
   return data;
 }
 
@@ -185,11 +189,13 @@ async function submitAttempt(body) {
   try {
     return await api('attempts', { method: 'POST', body });
   } catch (e) {
-    if (e.code === 'network' || e.status === 401) {
+    if (isQueueable(e)) {
       store(QUEUE_KEY, [...(recall(QUEUE_KEY) || []), body]);
-      toast(e.code === 'network'
-        ? "Internet yo'q. Natija saqlab qo'yildi va keyinroq yuboriladi."
-        : "Sessiya eskirdi. Natija saqlandi, Mini App'ni qayta oching.");
+      const messages = {
+        network: "Internet yo'q. Natija saqlab qo'yildi va keyinroq yuboriladi.",
+        not_subscribed: "Natija saqlandi. Kanalga obuna bo'lgach, Mini App'ni qayta oching.",
+      };
+      toast(messages[e.code] || "Sessiya eskirdi. Natija saqlandi, Mini App'ni qayta oching.");
     }
     return null;
   }
@@ -201,14 +207,20 @@ async function flushQueue() {
   const remaining = [];
   for (const body of pending) {
     try { await api('attempts', { method: 'POST', body }); }
-    catch (e) { if (e.code === 'network' || e.status === 401) remaining.push(body); }
+    catch (e) { if (isQueueable(e)) remaining.push(body); }
   }
   store(QUEUE_KEY, remaining.length ? remaining : undefined);
 }
 
 async function refreshBoot() {
   if (!hasTelegramUser) return null;
-  try { App.boot = await api('bootstrap'); } catch (e) { console.warn('bootstrap', e); }
+  try {
+    App.boot = await api('bootstrap');
+    App.gate = null;
+  } catch (e) {
+    if (e.code === 'not_subscribed') App.gate = { channel: (e.data && e.data.channel) || CHANNEL_FALLBACK };
+    else console.warn('bootstrap', e);
+  }
   return App.boot;
 }
 

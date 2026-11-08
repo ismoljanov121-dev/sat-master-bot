@@ -3,6 +3,7 @@ import hmac
 import json
 import time
 import unittest
+from types import SimpleNamespace
 from urllib.parse import urlencode
 
 from aiohttp.test_utils import TestClient, TestServer
@@ -10,6 +11,7 @@ from aiohttp.test_utils import TestClient, TestServer
 from bot import create_web_app
 from config import BOT_TOKEN
 from database import SCHEMA, db
+from services import subscription
 
 TABLES = [statement.split()[5] for statement in SCHEMA if statement.startswith("CREATE TABLE")]
 
@@ -28,6 +30,7 @@ def init_data(user_id: int, first_name: str = "Ali", age_seconds: int = 0, token
 
 class DatabaseTestCase(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
+        subscription.forget()
         await db.connect()
         for table in TABLES:
             await db.execute(f"DELETE FROM {table}")
@@ -42,6 +45,11 @@ class FakeBot:
     def __init__(self):
         self.messages = []
         self.documents = []
+        # Users who have not joined the channel. Everyone else is a member.
+        self.outsiders = set()
+
+    async def get_chat_member(self, chat_id, user_id):
+        return SimpleNamespace(status="left" if user_id in self.outsiders else "member")
 
     async def send_message(self, chat_id, text, **kwargs):
         self.messages.append((chat_id, text))

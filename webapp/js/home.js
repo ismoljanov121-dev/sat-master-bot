@@ -81,10 +81,44 @@ views.onboarding = {
   mount: bindGoalInputs,
 };
 
+function channelHandle(url) {
+  return `@${String(url).replace(/\/+$/, '').split('/').pop()}`;
+}
+
+// Shown instead of the app until the student joins the channel. The server enforces the same rule.
+views.channelGate = {
+  full: true,
+  render() {
+    const handle = esc(channelHandle(App.gate ? App.gate.channel : CHANNEL_FALLBACK));
+    return `<div class="page stack lg"><div class="stack sm"><div class="h1">Kanalga obuna bo'ling</div>
+      <p class="muted">Bot va Mini App ${handle} kanali a'zolari uchun bepul. Kanalda har kuni SAT va IELTS so'zlari, savollar va maslahatlar chiqadi.</p>
+      <p class="small muted">Obuna bo'lgach, pastdagi tekshirish tugmasini bosing.</p></div>
+      <button class="btn primary block lg" data-act="openChannel">Kanalga o'tish</button>
+      <button class="btn block lg" data-act="recheckChannel">Obuna bo'ldim, tekshirish</button></div>`;
+  },
+};
+
 Object.assign(actions, {
   runPlanTask(el) { runTask(App.planTasks[Number(el.dataset.index)].action); },
   goNotebook() { App.satTab = 'notebook'; open('sat', {}, { reset: true }); },
   async retryBoot() { await refreshBoot(); draw(); },
+  openChannel() {
+    const url = (App.gate && App.gate.channel) || CHANNEL_FALLBACK;
+    haptic('tap');
+    if (tgAtLeast('6.1')) tgSafe(() => tg.openTelegramLink(url));
+    else window.open(url, '_blank');
+  },
+  async recheckChannel(el) {
+    el.disabled = true;
+    await refreshBoot();
+    el.disabled = false;
+    if (App.gate) {
+      toast("Obuna hali ko'rinmayapti. Bir necha soniyadan keyin qayta urinib ko'ring.");
+      return;
+    }
+    flushQueue();
+    routeStart();
+  },
 });
 
 async function startApp() {
@@ -92,7 +126,14 @@ async function startApp() {
   document.getElementById('app').innerHTML = loadingCards(3);
   await refreshBoot();
   flushQueue();
+  await routeStart();
+}
 
+async function routeStart() {
+  if (App.gate) {
+    open('channelGate', {}, { reset: true });
+    return;
+  }
   const tab = App.params.get('tab');
   const session = App.params.get('session');
   if (session) {
