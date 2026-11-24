@@ -14,7 +14,7 @@ from aiohttp import ClientSession
 
 import bot as bot_module
 from config import BOT_TOKEN, CHANNEL_URL
-from database import asyncpg_url, db
+from database import Database, asyncpg_url, db
 from handlers import router
 from scheduler import setup_scheduler
 from services import alerts, centers, promo, users
@@ -329,3 +329,39 @@ class AlertTest(unittest.IsolatedAsyncioTestCase):
             logger.removeHandler(handler)
         self.assertEqual(fake_bot.send_message.await_count, 1)
         self.assertIn("database is down", fake_bot.send_message.await_args.args[1])
+
+
+class DatabaseFallbackTest(unittest.IsolatedAsyncioTestCase):
+    async def test_connect_falls_back_to_sqlite_when_postgres_quota_exceeded(self):
+        import asyncpg
+
+        temp_db = Database(url="postgresql://user:pass@ep-test.neon.tech/neondb", sqlite_path=":memory:")
+        err = asyncpg.exceptions.InsufficientResourcesError("Your account or project has exceeded the quota.")
+        with patch("asyncpg.create_pool", AsyncMock(side_effect=err)):
+            await temp_db.connect()
+
+        self.assertEqual(temp_db.kind, "sqlite")
+        self.assertTrue(await temp_db.ping())
+
+        await temp_db.close()
+        self.assertFalse(await temp_db.ping())
+
+    async def test_runtime_query_falls_back_to_sqlite_when_postgres_quota_exceeded(self):
+        import asyncpg
+
+        temp_db = Database(url="postgresql://user:pass@ep-test.neon.tech/neondb", sqlite_path=":memory:")
+        err = asyncpg.exceptions.InsufficientResourcesError("Your account or project has exceeded the quota.")
+        fake_pool = AsyncMock()
+        fake_pool.execute = AsyncMock(side_effect=err)
+        fake_pool.fetch = AsyncMock(side_effect=err)
+        fake_pool.close = AsyncMock()
+        temp_db._pool = fake_pool
+
+        rows = await temp_db.fetch("SELECT 1 AS ok")
+        self.assertEqual(rows, [{"ok": 1}])
+        self.assertEqual(temp_db.kind, "sqlite")
+        self.assertTrue(await temp_db.ping())
+
+        await temp_db.close()
+        self.assertFalse(await temp_db.ping())
+

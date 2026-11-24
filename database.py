@@ -9,7 +9,7 @@ import contextvars
 import logging
 import re
 import time
-from contextlib import asynccontextmanager
+from contextlib import AsyncExitStack, asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -194,6 +194,24 @@ def _to_postgres(sql: str) -> str:
     return _PLACEHOLDER.sub(lambda _: f"${next(counter)}", sql)
 
 
+def _is_pg_unavailable(exc: BaseException) -> bool:
+    import asyncpg
+
+    return isinstance(
+        exc,
+        (
+            OSError,
+            asyncio.TimeoutError,
+            asyncpg.exceptions.InsufficientResourcesError,
+            asyncpg.exceptions.PostgresConnectionError,
+            asyncpg.exceptions.OperatorInterventionError,
+            asyncpg.exceptions.FatalPostgresError,
+            asyncpg.exceptions.InterfaceError,
+            asyncpg.exceptions.InternalClientError,
+        ),
+    )
+
+
 class Database:
     def __init__(self, url: str = DATABASE_URL, sqlite_path: str = SQLITE_PATH):
         self.url = url
@@ -201,34 +219,67 @@ class Database:
         self._pool = None
         self._sqlite = None
         self._sqlite_lock = asyncio.Lock()
+        self._last_ping_ok: float = 0.0
 
     @property
     def kind(self) -> str:
-        return "postgres" if self.url else "sqlite"
+        return "postgres" if self._pool is not None else ("postgres" if (self.url and self._sqlite is None) else "sqlite")
+
+    async def _open_sqlite(self) -> None:
+        import aiosqlite
+
+        if self.sqlite_path != ":memory:":
+            Path(self.sqlite_path).parent.mkdir(parents=True, exist_ok=True)
+        self._sqlite = await aiosqlite.connect(self.sqlite_path)
+        self._sqlite.row_factory = aiosqlite.Row
+        await self._sqlite.execute("PRAGMA journal_mode=WAL")
+        await self._sqlite.execute("PRAGMA synchronous=NORMAL")
+
+    async def _fallback_to_sqlite(self, exc: BaseException) -> None:
+        async with self._sqlite_lock:
+            if self._sqlite is not None and self._pool is None:
+                return
+            logger.warning("Postgres unavailable (%s); falling back to local SQLite at %s", exc, self.sqlite_path)
+            pool, self._pool = self._pool, None
+            self._last_ping_ok = 0.0
+            if pool is not None:
+                try:
+                    await asyncio.wait_for(pool.close(), timeout=5)
+                except Exception:
+                    pool.terminate()
+            if self._sqlite is None:
+                await self._open_sqlite()
+                for statement in SCHEMA:
+                    await self._sqlite.execute(statement)
+                await self._sqlite.commit()
 
     async def connect(self) -> None:
+        self._last_ping_ok = 0.0
         if self.url:
-            import asyncpg
+            try:
+                import asyncpg
 
-            # statement_cache_size=0 keeps the pool usable behind pgbouncer-style poolers (Neon, Supabase).
-            self._pool = await asyncpg.create_pool(
-                asyncpg_url(self.url), min_size=1, max_size=5, command_timeout=30,
-                statement_cache_size=0, max_inactive_connection_lifetime=240,
-            )
-        else:
-            import aiosqlite
-
-            if self.sqlite_path != ":memory:":
-                Path(self.sqlite_path).parent.mkdir(parents=True, exist_ok=True)
-            self._sqlite = await aiosqlite.connect(self.sqlite_path)
-            self._sqlite.row_factory = aiosqlite.Row
-            await self._sqlite.execute("PRAGMA journal_mode=WAL")
-            await self._sqlite.execute("PRAGMA synchronous=NORMAL")
+                # min_size=0 and 60s idle lifetime let serverless Postgres (Neon) auto-suspend when idle.
+                self._pool = await asyncpg.create_pool(
+                    asyncpg_url(self.url), min_size=0, max_size=5, command_timeout=30,
+                    statement_cache_size=0, max_inactive_connection_lifetime=60,
+                )
+                for statement in SCHEMA:
+                    await self.execute(statement)
+                self._last_ping_ok = time.monotonic()
+                logger.info("Database ready: %s", self.kind)
+                return
+            except Exception as e:
+                await self._fallback_to_sqlite(e)
+                logger.info("Database ready: %s", self.kind)
+                return
+        await self._open_sqlite()
         for statement in SCHEMA:
             await self.execute(statement)
         logger.info("Database ready: %s", self.kind)
 
     async def close(self) -> None:
+        self._last_ping_ok = 0.0
         if self._pool is not None:
             await self._pool.close()
             self._pool = None
@@ -237,9 +288,23 @@ class Database:
             self._sqlite = None
 
     async def ping(self) -> bool:
+        if self._pool is None and self._sqlite is None:
+            return False
+        if self._pool is not None and (time.monotonic() - self._last_ping_ok) < 3600:
+            return True
         try:
-            return await self.fetchval("SELECT 1") == 1
+            ok = await self.fetchval("SELECT 1") == 1
+            if ok and self._pool is not None:
+                self._last_ping_ok = time.monotonic()
+            return ok
         except Exception as e:
+            if self._pool is not None and _is_pg_unavailable(e):
+                try:
+                    await self._fallback_to_sqlite(e)
+                    return await self.fetchval("SELECT 1") == 1
+                except Exception as inner:
+                    logger.warning("Database fallback ping failed: %s", inner)
+                    return False
             logger.warning("Database ping failed: %s", e)
             return False
 
@@ -247,14 +312,28 @@ class Database:
     async def transaction(self):
         """Statements awaited inside this block run in one transaction on one connection."""
         if self._pool is not None:
-            async with self._pool.acquire() as conn:
-                async with conn.transaction():
-                    token = _current_conn.set(conn)
-                    try:
-                        yield
-                    finally:
-                        _current_conn.reset(token)
-            return
+            stack = AsyncExitStack()
+            try:
+                conn = await stack.enter_async_context(self._pool.acquire())
+                await stack.enter_async_context(conn.transaction())
+            except Exception as e:
+                await stack.aclose()
+                if not _is_pg_unavailable(e):
+                    raise
+                await self._fallback_to_sqlite(e)
+            else:
+                try:
+                    async with stack:
+                        token = _current_conn.set(conn)
+                        try:
+                            yield
+                        finally:
+                            _current_conn.reset(token)
+                except Exception as e:
+                    if _is_pg_unavailable(e):
+                        await self._fallback_to_sqlite(e)
+                    raise
+                return
         async with self._sqlite_lock:
             await self._sqlite.execute("BEGIN")
             token = _current_conn.set(self._sqlite)
@@ -271,8 +350,13 @@ class Database:
     async def execute(self, sql: str, *args: Any) -> None:
         if self._pool is not None:
             conn = _current_conn.get()
-            await (conn or self._pool).execute(_to_postgres(sql), *args)
-            return
+            try:
+                await (conn or self._pool).execute(_to_postgres(sql), *args)
+                return
+            except Exception as e:
+                if conn is not None or not _is_pg_unavailable(e):
+                    raise
+                await self._fallback_to_sqlite(e)
         if _current_conn.get() is not None:
             await self._sqlite.execute(sql, args)
             return
@@ -285,8 +369,13 @@ class Database:
             return
         if self._pool is not None:
             conn = _current_conn.get()
-            await (conn or self._pool).executemany(_to_postgres(sql), rows)
-            return
+            try:
+                await (conn or self._pool).executemany(_to_postgres(sql), rows)
+                return
+            except Exception as e:
+                if conn is not None or not _is_pg_unavailable(e):
+                    raise
+                await self._fallback_to_sqlite(e)
         if _current_conn.get() is not None:
             await self._sqlite.executemany(sql, rows)
             return
@@ -297,8 +386,13 @@ class Database:
     async def fetch(self, sql: str, *args: Any) -> list[dict[str, Any]]:
         if self._pool is not None:
             conn = _current_conn.get()
-            rows = await (conn or self._pool).fetch(_to_postgres(sql), *args)
-            return [dict(row) for row in rows]
+            try:
+                rows = await (conn or self._pool).fetch(_to_postgres(sql), *args)
+                return [dict(row) for row in rows]
+            except Exception as e:
+                if conn is not None or not _is_pg_unavailable(e):
+                    raise
+                await self._fallback_to_sqlite(e)
         if _current_conn.get() is not None:
             async with self._sqlite.execute(sql, args) as cursor:
                 return [dict(row) for row in await cursor.fetchall()]
