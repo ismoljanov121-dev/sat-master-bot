@@ -1,0 +1,8 @@
+FROM ekzhang/bore:latest AS bore
+FROM python:3.12-alpine
+
+COPY --from=bore /bore /usr/local/bin/bore
+WORKDIR /app
+COPY docker/bridge.py /app/bridge.py
+
+CMD ["python", "-u", "/app/bridge.py"]

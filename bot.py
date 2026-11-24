@@ -1,5 +1,6 @@
 import asyncio
 import hashlib
+import hmac
 import logging
 import os
 import re
@@ -71,6 +72,29 @@ async def serve_webapp(request):
     return web.Response(text=request.app["index_html"], content_type="text/html")
 
 
+async def update_database_url(request: web.Request) -> web.Response:
+    """Switches the running bot's database pool to a supplied Postgres URL."""
+    auth = request.headers.get("Authorization", "")
+    expected = f"Bearer {request.app['bot_token']}"
+    if not hmac.compare_digest(auth, expected):
+        return web.json_response({"error": "unauthorized"}, status=401)
+    try:
+        body = await request.json()
+    except ValueError:
+        return web.json_response({"error": "bad_json"}, status=400)
+    if not isinstance(body, dict):
+        return web.json_response({"error": "bad_json"}, status=400)
+    database_url = (body.get("database_url") or "").strip()
+    if not database_url.startswith(("postgres://", "postgresql://")):
+        return web.json_response({"error": "invalid_url"}, status=400)
+    try:
+        await db.use_postgres(database_url)
+    except Exception as e:
+        logger.warning("Failed to switch database URL: %s", e)
+        return web.json_response({"error": str(e)}, status=502)
+    return web.json_response({"status": "ok", "storage": db.kind, "database": True})
+
+
 async def serve_card(request):
     attempt_id, signature = request.match_info["attempt"], request.match_info["signature"]
     if not cards.verify(attempt_id, signature, request.app["bot_token"]):
@@ -107,6 +131,7 @@ def create_web_app(bot: Bot | None = None, bot_token: str = BOT_TOKEN) -> web.Ap
     app.router.add_get("/health", health_check)
     app.router.add_get("/webapp", serve_webapp)
     app.router.add_get("/miniapp", serve_webapp)
+    app.router.add_post("/internal/database-url", update_database_url)
     app.router.add_get(r"/card/{attempt:[0-9a-f]{32}}-{signature:[0-9a-f]{20}}.png", serve_card)
     app.router.add_static("/static", WEBAPP_DIR)
     audio_dir = WEBAPP_DIR / "audio"

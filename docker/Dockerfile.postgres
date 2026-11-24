@@ -1,0 +1,7 @@
+FROM postgres:16-alpine
+
+RUN apk add --no-cache openssl
+
+COPY docker/db-init/00-ssl.sh /docker-entrypoint-initdb.d/00-ssl.sh
+RUN sed -i 's/\r$//' /docker-entrypoint-initdb.d/00-ssl.sh && \
+    chmod +x /docker-entrypoint-initdb.d/00-ssl.sh

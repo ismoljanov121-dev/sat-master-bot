@@ -11,6 +11,7 @@ from aiogram.client.session.base import BaseSession
 from aiogram.methods import AnswerCallbackQuery, EditMessageText, GetChatMember, SendMessage, SendVideo
 from aiogram.types import CallbackQuery, Chat, ChatMemberLeft, ChatMemberMember, Message, Update, User, Video
 from aiohttp import ClientSession
+from aiohttp.test_utils import TestClient, TestServer
 
 import bot as bot_module
 from config import BOT_TOKEN, CHANNEL_URL
@@ -364,4 +365,31 @@ class DatabaseFallbackTest(unittest.IsolatedAsyncioTestCase):
 
         await temp_db.close()
         self.assertFalse(await temp_db.ping())
+
+    async def test_internal_database_url_endpoint_auth_validation_and_switch(self):
+        client = TestClient(TestServer(bot_module.create_web_app(bot_token=BOT_TOKEN)))
+        await client.start_server()
+        try:
+            resp = await client.post("/internal/database-url", json={"database_url": "postgresql://u:p@h:5432/d"})
+            self.assertEqual(resp.status, 401)
+
+            bad_headers = {"Authorization": "Bearer wrong-token"}
+            resp = await client.post("/internal/database-url", headers=bad_headers, json={"database_url": "postgresql://u:p@h:5432/d"})
+            self.assertEqual(resp.status, 401)
+
+            ok_headers = {"Authorization": f"Bearer {BOT_TOKEN}"}
+            resp = await client.post("/internal/database-url", headers=ok_headers, json={"database_url": "mysql://u:p@h:3306/d"})
+            self.assertEqual(resp.status, 400)
+
+            with patch.object(db, "use_postgres", AsyncMock(return_value=True)) as mock_switch:
+                url = "postgresql://u:p@bore.pub:12345/db?sslmode=require"
+                resp = await client.post("/internal/database-url", headers=ok_headers, json={"database_url": url})
+                self.assertEqual(resp.status, 200)
+                body = await resp.json()
+                self.assertEqual(body["status"], "ok")
+                self.assertTrue(body["database"])
+                mock_switch.assert_awaited_once_with(url)
+        finally:
+            await client.close()
+
 

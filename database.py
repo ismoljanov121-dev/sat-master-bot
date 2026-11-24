@@ -174,6 +174,18 @@ SCHEMA = [
     "CREATE INDEX IF NOT EXISTS idx_sessions_center ON exam_sessions (center_id, created_at)",
 ]
 
+SYNC_TABLES = (
+    "users",
+    "attempts",
+    "answers",
+    "review_items",
+    "writing_submissions",
+    "channel_log",
+    "centers",
+    "center_members",
+    "exam_sessions",
+)
+
 _current_conn: contextvars.ContextVar[Any] = contextvars.ContextVar("db_conn", default=None)
 _PLACEHOLDER = re.compile(r"\?")
 
@@ -277,6 +289,59 @@ class Database:
         for statement in SCHEMA:
             await self.execute(statement)
         logger.info("Database ready: %s", self.kind)
+
+    async def use_postgres(self, url: str) -> bool:
+        """Connects to Postgres at runtime and migrates any pending SQLite rows."""
+        url = url.strip()
+        if not url:
+            return False
+        if self._pool is not None and self.url == url:
+            if await self._pool.fetchval("SELECT 1") == 1:
+                self._last_ping_ok = time.monotonic()
+                return True
+
+        import asyncpg
+
+        new_pool = await asyncpg.create_pool(
+            asyncpg_url(url), min_size=0, max_size=5, command_timeout=30,
+            statement_cache_size=0, max_inactive_connection_lifetime=60,
+        )
+        try:
+            for statement in SCHEMA:
+                await new_pool.execute(_to_postgres(statement))
+
+            async with self._sqlite_lock:
+                if self._sqlite is not None:
+                    for table in SYNC_TABLES:
+                        async with self._sqlite.execute(f"SELECT * FROM {table}") as cur:
+                            rows = [dict(r) for r in await cur.fetchall()]
+                        if rows:
+                            cols = list(rows[0].keys())
+                            col_list = ", ".join(cols)
+                            placeholders = ", ".join(f"${i + 1}" for i in range(len(cols)))
+                            sql = f"INSERT INTO {table} ({col_list}) VALUES ({placeholders}) ON CONFLICT DO NOTHING"
+                            await new_pool.executemany(sql, [tuple(r[c] for c in cols) for r in rows])
+                old_pool, self._pool = self._pool, new_pool
+                old_sqlite, self._sqlite = self._sqlite, None
+                self.url = url
+                self._last_ping_ok = time.monotonic()
+        except Exception:
+            try:
+                await asyncio.wait_for(new_pool.close(), timeout=5)
+            except Exception:
+                new_pool.terminate()
+            raise
+
+        if old_pool is not None:
+            try:
+                await asyncio.wait_for(old_pool.close(), timeout=5)
+            except Exception:
+                old_pool.terminate()
+        if old_sqlite is not None:
+            await old_sqlite.close()
+
+        logger.info("Database switched to postgres")
+        return True
 
     async def close(self) -> None:
         self._last_ping_ok = 0.0

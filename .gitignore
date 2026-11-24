@@ -9,3 +9,4 @@ backup_audit_*/
 data/app.db*
 node_modules/
 .claude/
+.env.docker
